@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="40dp">
+
+    <TextView
+        android:id="@+id/tv_initialization_room_list"
+        android:layout_marginLeft="5dp"
+        android:gravity="center_vertical|right"
+        android:text="1楼:"
+        android:layout_width="wrap_content"
+        android:textColor="#444"
+        android:layout_height="match_parent" />
+
+    <EditText
+        android:id="@+id/et_initialization_room_list"
+        android:background="@drawable/bg_edittext_selector"
+        android:layout_width="100dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="12sp"
+        android:hint="输入房间数"
+        android:gravity="center"
+        android:maxLength="2"
+        android:inputType="number"
+        android:layout_height="25dp" />
+</LinearLayout>

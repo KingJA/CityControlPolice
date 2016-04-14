@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white_kj">
+
+    <RelativeLayout
+        android:id="@+id/rl_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sel_tr2gray_kj"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_room" />
+
+            <TextView
+                android:id="@+id/tv_device_room"
+                style="@style/font_black_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="101" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_device_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_arrow_down" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_device"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View style="@style/divider_special_horizontal" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:id="@+id/lv_device"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

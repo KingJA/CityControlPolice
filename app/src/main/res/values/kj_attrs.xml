@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="KingJA_SwtichButton">
+        <attr name="leftSelBg" format="reference" />
+        <attr name="leftNorBg" format="reference" />
+        <attr name="rightSelBg" format="reference" />
+        <attr name="rightNorBg" format="reference" />
+        <attr name="textSel" format="color" />
+        <attr name="textNor" format="color" />
+        <attr name="leftText" format="string" />
+        <attr name="rightText" format="string" />
+    </declare-styleable>
+</resources>

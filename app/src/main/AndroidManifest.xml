@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tdr.citycontrolpolice">
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+    <!--蓝牙-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!---->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.NFC" />
+
+    <permission android:name="com.tdr.tendencyNfc.ReadCard" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <!--         获取mac地址权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--     获取手机信息权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--nfc-->
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+    <!--扫一扫-->
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="cybertech.permission.READ_PSTORE_USERINFO" />
+    <uses-permission android:name="cybertech.permission.READ_PSTORE_LINKINFO" />
+    <uses-permission android:name="cybertech.pstore.permission.APP" />
+    <uses-permission android:name="cybertech.lightsproj.permission.QUERY" />
+
+    <!--app-->
+    <application
+        android:name=".base.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity
+
+            android:name="com.tdr.citycontrolpolice.activity.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <!--<category android:name="android.intent.category.INFO" />-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.KjLoginActivity"
+            android:screenOrientation="portrait" />
+        <!--主页-->
+        <!--出租房登记-->
+        <activity
+            android:name=".activity.CZF_RegisterActivity"
+            android:screenOrientation="portrait" />
+        <!--房间信息-->
+        <activity
+            android:name=".activity.RoomInfoActivity"
+            android:screenOrientation="portrait" />
+        <!--房间信息-->
+        <activity
+            android:name=".activity.RoomInsideActivity"
+            android:screenOrientation="portrait" />
+        <!--修改房间-->
+        <activity
+            android:name=".activity.RoomModifyActivity"
+            android:screenOrientation="portrait" />
+        <!--房子信息-->
+        <activity
+            android:name=".activity.HouseInfoActivity"
+            android:screenOrientation="portrait" />
+        <!--初始化房屋-->
+        <activity
+            android:name=".activity.InitializationRoomActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.PrePersonActivity"
+            android:screenOrientation="portrait">
+
+
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/filter_nfc" />
+
+        </activity>
+
+
+        <!--wangxiong-->
+        <activity
+            android:name=".activity.KjCzfInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CzfModifyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CzfApplyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CzfFloatActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.DetailCzfInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.KjRoomModifyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HomeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.AboutActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.ModifyPwdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CzfInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DeviceManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DeviceBindingListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PersonCheckActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BindingDeviceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yunmai.android.idcard.ARecognize"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.yunmai.android.idcard.ACamera"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.CzfQueryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DetailPersonActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CzfInfoDetailActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!-- 扫描二维码 -->
+        <activity
+            android:name=".activity.CaptureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.zbar.lib.CaptureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+    </application>
+
+</manifest>

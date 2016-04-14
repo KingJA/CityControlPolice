@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/title_register"
+        layout="@layout/layout_title"></include>
+
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+
+            android:layout_height="30dp">
+
+            <TextView
+                style="@style/tv_register"
+                android:text="旧密码 :" />
+
+            <EditText
+                android:id="@+id/et_modify_old"
+                android:inputType="number"
+                style="@style/et_register" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+
+            android:layout_height="30dp">
+
+            <TextView
+                style="@style/tv_register"
+                android:text="新密码 :" />
+
+            <EditText
+                android:id="@+id/et_modify_password"
+                android:inputType="textPassword"
+                style="@style/et_register" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+
+            android:layout_height="30dp">
+
+            <TextView
+                style="@style/tv_register"
+                android:text="确认密码 :" />
+
+            <EditText
+                android:id="@+id/et_modify_password2"
+                android:inputType="textPassword"
+                style="@style/et_register" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_gravity="center"
+        android:layout_margin="25dp"
+        android:id="@+id/bt_modify_submit"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/btnsubmit_change"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+</LinearLayout>

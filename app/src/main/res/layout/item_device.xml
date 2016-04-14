@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/bg_gray_kj">
+
+    <RelativeLayout
+        android:id="@+id/rl_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sel_tr2gray_kj"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingRight="36dp"
+        android:paddingLeft="36dp">
+
+        <LinearLayout
+
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_device_state"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:background="@drawable/circle_on" />
+
+            <TextView
+                android:id="@+id/tv_device_name"
+                style="@style/font_black_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="电子门戒" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_device_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_delete" />
+
+    </RelativeLayout>
+
+</LinearLayout>

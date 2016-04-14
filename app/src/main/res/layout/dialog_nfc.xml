@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:paddingRight="32dp"
+    android:paddingLeft="32dp">
+
+    <TextView
+
+        android:id="@+id/tv_nfc"
+        android:gravity="center"
+        android:padding="10dp"
+        style="@style/font_white_16"
+        android:background="@drawable/shape_lblue_bblue_r4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NFC核查" />
+
+    <TextView
+        android:id="@+id/tv_card"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:gravity="center"
+        style="@style/font_white_16"
+        android:background="@drawable/shape_lblue_bblue_r4"
+        android:text="身份证ID卡刷卡核查"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

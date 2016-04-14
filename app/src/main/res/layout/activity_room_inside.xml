@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_register"
+        layout="@layout/layout_title"></include>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_fg"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="入住人员"
+        android:textSize="12dp" />
+
+    <ExpandableListView
+        android:id="@+id/elv_room_inside"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#f2f2f2"
+        android:dividerHeight="1dip">
+
+    </ExpandableListView>
+</LinearLayout>
