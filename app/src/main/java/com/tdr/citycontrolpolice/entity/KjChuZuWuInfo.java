@@ -143,6 +143,7 @@ public class KjChuZuWuInfo implements Serializable {
             private int ROOMNO;
             private int DEPLOYSTATUS;
             private int HEADCOUT;
+            private boolean isExpland;
 
             public String getROOMID() {
                 return ROOMID;
@@ -182,6 +183,14 @@ public class KjChuZuWuInfo implements Serializable {
 
             public void setSTATIONNO(String STATIONNO) {
                 this.STATIONNO = STATIONNO;
+            }
+
+            public boolean isExpland() {
+                return isExpland;
+            }
+
+            public void setExpland(boolean expland) {
+                isExpland = expland;
             }
         }
     }

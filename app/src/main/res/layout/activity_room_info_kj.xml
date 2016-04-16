@@ -287,11 +287,11 @@
                 android:verticalSpacing="1dp" />
 
             <Button
+                style="@style/button_18"
                 android:id="@+id/bt_room_submit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_margin="30dp"
-                android:background="@drawable/btnsubmit_change"
                 android:text="提交"
                 android:textColor="@color/btn_login"
                 android:textSize="20sp" />

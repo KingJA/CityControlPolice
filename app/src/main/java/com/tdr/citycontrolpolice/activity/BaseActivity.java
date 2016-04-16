@@ -3,6 +3,8 @@ package com.tdr.citycontrolpolice.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
+
 /**
  * 项目名称：物联网城市防控(警用版)
  * 类描述：TODO
@@ -13,15 +15,33 @@ import android.support.v4.app.FragmentActivity;
 public abstract class BaseActivity extends FragmentActivity {
 
 
+    protected DialogProgress mDialogProgress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initConmonView();
         initVariables();
         initView();
         initNet();
         initData();
         setData();
     }
+
+    private void initConmonView() {
+        mDialogProgress = new DialogProgress(this);
+    }
+
+    public void setProgressDialog(boolean show) {
+        if (show) {
+            mDialogProgress.show();
+        } else {
+            mDialogProgress.dismiss();
+        }
+    }
+
+
+
 
     public abstract void initVariables();
 
@@ -32,4 +52,12 @@ public abstract class BaseActivity extends FragmentActivity {
     public abstract void initData();
 
     public abstract void setData();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+        }
+    }
 }

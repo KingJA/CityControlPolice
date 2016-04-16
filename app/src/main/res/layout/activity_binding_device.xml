@@ -54,7 +54,7 @@
         android:layout_height="32dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/shape_lgray1_bwhite_r0"
+        android:background="@drawable/shape_lblue_bnull_r0"
         android:gravity="center_vertical"
         android:paddingLeft="12dp"
         android:hint="请输入设备名称" />
@@ -70,6 +70,7 @@
             android:layout_height="wrap_content" />
 
         <ImageView
+            android:id="@+id/iv_device_camera"
             android:layout_marginLeft="24dp"
             android:background="@drawable/bg_camera"
             android:layout_width="24dp"
@@ -85,10 +86,10 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:scaleType="centerCrop"
             android:id="@+id/iv_device_icon"
-            android:background="#cfcfcf"
             android:layout_width="match_parent"
-            android:layout_height="160dp" />
+            android:layout_height="300dp" />
 
     </FrameLayout>
 

@@ -36,7 +36,7 @@ public class CzfManagerAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.ContentBe
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvinforoom.setText(list.get(position).getROOMNO() + "");
-        viewHolder.tvinfoperson.setText(list.get(position).getHEADCOUT() + "");
+        viewHolder.tvinfoperson.setText(list.get(position).getHEADCOUT() == -1 ? "未知" : list.get(position).getHEADCOUT() + "");
 
         return convertView;
     }

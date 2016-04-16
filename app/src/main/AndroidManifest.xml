@@ -53,7 +53,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
 
-            android:name="com.tdr.citycontrolpolice.activity.SplashActivity"
+            android:name="com.tdr.citycontrolpolice.activity.BindingDeviceActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -155,9 +155,9 @@
         <activity
             android:name=".activity.PersonCheckActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.BindingDeviceActivity"
-            android:screenOrientation="portrait" />
+        <!--     <activity
+                 android:name=".activity.BindingDeviceActivity"
+                 android:screenOrientation="portrait" />-->
         <activity
             android:name="com.yunmai.android.idcard.ARecognize"
             android:screenOrientation="landscape" />

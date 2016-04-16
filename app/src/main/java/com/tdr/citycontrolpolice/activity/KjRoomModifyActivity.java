@@ -1,5 +1,7 @@
 package com.tdr.citycontrolpolice.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +20,6 @@ import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.dialog.DialogConfirm;
-import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 import com.tdr.citycontrolpolice.view.popupwindow.BottomListPop;
 
 import java.util.HashMap;
@@ -63,7 +64,6 @@ public class KjRoomModifyActivity extends BackTitleActivity implements BottomLis
     private int selectType;
     private String renovation;
     private String payment;
-    private DialogProgress mProgressDialog;
     private List<Basic_Dictionary_Kj> paymentList;
     private List<Basic_Dictionary_Kj> renovationList;
     private BottomListPop renovationPop;
@@ -99,14 +99,13 @@ public class KjRoomModifyActivity extends BackTitleActivity implements BottomLis
         et_room_person = (EditText) view.findViewById(R.id.et_room_person);
         bt_room_submit = (Button) view.findViewById(R.id.bt_room_submit);
         mDialogConfirm = new DialogConfirm(this, "成功修改房间信息!", "确定");
-        mProgressDialog = new DialogProgress(this);
         paymentList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().sleectAll(Basic_Dictionary_Kj.class, "COLUMNCODE", "DEPOSIT");
         renovationList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().sleectAll(Basic_Dictionary_Kj.class, "COLUMNCODE", "FIXTURE");
     }
 
     @Override
     public void initNet() {
-        mProgressDialog.show();
+        setProgressDialog(true);
         ThreadPoolTask.Builder<ChuZuWu_RoomInfo> builder = new ThreadPoolTask.Builder<ChuZuWu_RoomInfo>();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_RoomInfo", mParam)
                 .setBeanType(ChuZuWu_RoomInfo.class)
@@ -152,7 +151,7 @@ public class KjRoomModifyActivity extends BackTitleActivity implements BottomLis
         et_room_yangtai.setText(content.getYANGTAI() + "");
         et_room_area.setText(content.getSQUARE() + "");
         et_room_person.setText(content.getGALLERYFUL() + "");
-        mProgressDialog.dismiss();
+        setProgressDialog(false);
     }
 
     /**
@@ -175,7 +174,7 @@ public class KjRoomModifyActivity extends BackTitleActivity implements BottomLis
      * 上传修改数据到服务器
      */
     private void load() {
-        mProgressDialog.show();
+        setProgressDialog(true);
         mParam_chuZuWu_modifyRoom = new Param_ChuZuWu_ModifyRoom();
         mParam_chuZuWu_modifyRoom.setDEPOSIT(Integer.valueOf(payment));
         mParam_chuZuWu_modifyRoom.setFIXTURE(Integer.valueOf(renovation));
@@ -196,13 +195,13 @@ public class KjRoomModifyActivity extends BackTitleActivity implements BottomLis
                     @Override
                     public void onSuccess(ChuZuWu_Modify bean) {
                         mDialogConfirm.show();
-                        mProgressDialog.dismiss();
+                        setProgressDialog(false);
 
                     }
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-                        mProgressDialog.dismiss();
+                        setProgressDialog(false);
                     }
                 }).build();
         PoolManager.getInstance().execute(task);
@@ -256,5 +255,13 @@ public class KjRoomModifyActivity extends BackTitleActivity implements BottomLis
     @Override
     public void onErrorResult(ErrorResult errorResult) {
 
+    }
+
+    public static void goActivity(Context context, String houseId, String roomId, String roomNo) {
+        Intent intent = new Intent(context, KjRoomModifyActivity.class);
+        intent.putExtra("HOUSEID", houseId);
+        intent.putExtra("ROOMID", roomId);
+        intent.putExtra("ROOMNO", roomNo);
+        context.startActivity(intent);
     }
 }

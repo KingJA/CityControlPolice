@@ -12,9 +12,10 @@ import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
-import com.tdr.citycontrolpolice.entity.ZhuFang_DeviceLists;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -25,11 +26,8 @@ import java.util.List;
  */
 public class DeviceManagerAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.ContentBean.RoomListBean> {
 
-    private static final String TAG = "DeviceManagerAdapter";
     private OnExplandListener onExplandListener;
-    private int selectPosition;
-    private List<ZhuFang_DeviceLists.ContentEntity> deviceList;
-    private boolean hasDevice;
+    private Map<Integer, DeviceListAdapter> adapterMap = new HashMap<>();
 
     public DeviceManagerAdapter(Context context, List<KjChuZuWuInfo.ContentBean.RoomListBean> list) {
         super(context, list);
@@ -46,37 +44,61 @@ public class DeviceManagerAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.Conten
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
         viewHolder.tvdeviceroom.setText(list.get(position).getROOMNO() + "");
-        viewHolder.lvdevice.setVisibility(View.GONE);
-        viewHolder.ivdevicearrow.setBackgroundResource(R.drawable.bg_arrow_down);
+
+        final boolean expland = list.get(position).isExpland();
+        if (expland) {
+            viewHolder.ivdevicearrow.setBackgroundResource(R.drawable.bg_arrow_up);
+            if (getAdapter(position) != null) {
+                viewHolder.lvdevice.setAdapter(getAdapter(position));
+            }
+            viewHolder.lvdevice.setVisibility(View.VISIBLE);
+
+        } else {
+            viewHolder.ivdevicearrow.setBackgroundResource(R.drawable.bg_arrow_down);
+            viewHolder.lvdevice.setVisibility(View.GONE);
+
+        }
         final ViewHolder finalViewHolder = viewHolder;
+
         viewHolder.rlroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (finalViewHolder.lvdevice.getVisibility() == View.GONE) {
-                    finalViewHolder.lvdevice.setVisibility(View.VISIBLE);
-                    if (onExplandListener != null) {
-                        onExplandListener.onExpland(finalViewHolder.lvdevice, finalViewHolder.ivdevicearrow, list.get(position).getROOMID(), list.get(position).getROOMNO());
+                if (onExplandListener != null) {
+                    if (expland) {//开=》关
+                        finalViewHolder.ivdevicearrow.setBackgroundResource(R.drawable.bg_arrow_down);
+                        finalViewHolder.lvdevice.setVisibility(View.GONE);
+                        setVisibility(!expland, position);
+                    } else {//关=》开
+                        if (getAdapter(position) != null) {
+                            setVisibility(!expland, position);
+                            return;
+                        }
+                        onExplandListener.onExpland(list.get(position).getROOMID() + "", list.get(position).getROOMNO() + "", finalViewHolder.lvdevice, finalViewHolder.ivdevicearrow, position, expland);
                     }
-
-                } else {
-                    finalViewHolder.lvdevice.setVisibility(View.GONE);
-                    finalViewHolder.ivdevicearrow.setBackgroundResource(R.drawable.bg_arrow_down);
                 }
             }
         });
+
         return convertView;
     }
 
-    public void selectItem(int selectPosition, List<ZhuFang_DeviceLists.ContentEntity> deviceList) {
-        this.selectPosition = selectPosition;
-        this.deviceList = deviceList;
+    public void saveAdapter(int position, DeviceListAdapter adapter) {
+        this.adapterMap.put(position, adapter);
+    }
+
+    public DeviceListAdapter getAdapter(int position) {
+        return this.adapterMap.get(position);
+    }
+
+    public void setVisibility(boolean expand, int position) {
+        list.get(position).setExpland(expand);
         this.notifyDataSetChanged();
     }
 
-
     public interface OnExplandListener {
-        void onExpland(ListView lv, ImageView iv, String roomid, int roomno);
+        void onExpland(String roomid, String roomno, ListView lv, ImageView iv, int position, boolean expland);
     }
 
     public void setOnExplandListener(OnExplandListener onExplandListener) {

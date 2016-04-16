@@ -40,7 +40,7 @@ public class CzfApplyAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingLi
         viewHolder.tvinfoname.setText(list.get(position).getNAME());
         viewHolder.tvinfophone.setText(list.get(position).getPHONENUM());
         viewHolder.tvinfocard.setText(list.get(position).getIDENTITYCARD());
-//        viewHolder.tvinforoomNo.setText(list.get(position).get);
+        viewHolder.tvinfotime.setText(list.get(position).getINTIME().substring(0, 10));
         final ViewHolder finalViewHolder = viewHolder;
         viewHolder.rltop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,31 +57,26 @@ public class CzfApplyAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingLi
         return convertView;
     }
 
+
     public class ViewHolder {
         public final TextView tvinfoname;
+        public final TextView tvinfotime;
         public final ImageView ivapplyarrow;
         public final RelativeLayout rltop;
         public final TextView tvinfophone;
         public final TextView tvinfocard;
-        //        public final TextView tvinforoomNo;
         public final LinearLayout llexpand;
         public final View root;
 
         public ViewHolder(View root) {
             tvinfoname = (TextView) root.findViewById(R.id.tv_info_name);
+            tvinfotime = (TextView) root.findViewById(R.id.tv_info_time);
             ivapplyarrow = (ImageView) root.findViewById(R.id.iv_apply_arrow);
             rltop = (RelativeLayout) root.findViewById(R.id.rl_top);
             tvinfophone = (TextView) root.findViewById(R.id.tv_info_phone);
             tvinfocard = (TextView) root.findViewById(R.id.tv_info_card);
-//            tvinforoomNo = (TextView) root.findViewById(R.id.tv_info_roomNo);
             llexpand = (LinearLayout) root.findViewById(R.id.ll_expand);
             this.root = root;
         }
     }
-
-//    public int getVisibility(int visibility) {
-//        return visibility==0?View.GONE:View.VISIBLE;
-//    }
-
-
 }

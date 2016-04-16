@@ -1,5 +1,6 @@
 package com.tdr.citycontrolpolice.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,7 @@ import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 import com.tdr.citycontrolpolice.view.popupwindow.CzfInfoPopKj;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -58,7 +60,6 @@ public class KjCzfInfoActivity extends BackTitleActivity implements BackTitleAct
     private List<String> mTitleList = Arrays.asList("出租房管理", "自助申报", "流动人口");
     private List<Fragment> mFragmentList = new ArrayList<>();
     private CzfInfoPopKj mCzfInfoPop;
-    private DialogProgress mProgressDialog;
     private KjChuZuWuInfo mCzfInfo = new KjChuZuWuInfo();
     private int mIsregister;
     private DialogConfirm mConfirmDialog;
@@ -79,6 +80,12 @@ public class KjCzfInfoActivity extends BackTitleActivity implements BackTitleAct
         mParam.put("HouseID", mHouseId);
     }
 
+    public static void goActivity(Context context, String houseId) {
+        Intent intent = new Intent(context, KjCzfInfoActivity.class);
+        intent.putExtra("HouseID", houseId);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void initView() {
         iv_czf_info_detail = (ImageView) view.findViewById(R.id.iv_czf_info_detail);
@@ -89,9 +96,7 @@ public class KjCzfInfoActivity extends BackTitleActivity implements BackTitleAct
         vp_czf_info = (ViewPager) view.findViewById(R.id.vp_czf_info);
         mDoubleDialog = new DialogDouble(KjCzfInfoActivity.this, "确定进行设备申报？", "确定", "取消");
         mConfirmDialog = new DialogConfirm(KjCzfInfoActivity.this, "设备已申报成功！", "确定");
-        mProgressDialog = new DialogProgress(KjCzfInfoActivity.this);
         mCzfInfoPop = new CzfInfoPopKj(rlParent, KjCzfInfoActivity.this);
-
     }
 
 
@@ -152,7 +157,6 @@ public class KjCzfInfoActivity extends BackTitleActivity implements BackTitleAct
             @Override
             public void onClick(View v) {
                 CzfInfoDetailActivity.goActivity(KjCzfInfoActivity.this, mCzfInfo);
-                ToastUtil.showMyToast("房东详情");
             }
         });
     }
@@ -198,7 +202,6 @@ public class KjCzfInfoActivity extends BackTitleActivity implements BackTitleAct
                 Intent deviceIntent = new Intent(this, DeviceManagerActivity.class);
                 deviceIntent.putExtra("HOUSE_ID", mHouseId);
                 startActivity(deviceIntent);
-//                ActivityUtil.goActivity(this,DeviceManagerActivity.class);
                 break;
             default:
                 break;
@@ -210,7 +213,7 @@ public class KjCzfInfoActivity extends BackTitleActivity implements BackTitleAct
      * 设备申报
      */
     private void applyDevice() {
-        mProgressDialog.show();
+        setProgressDialog(true);
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
         param.put("HOUSEID", mHouseId);
@@ -225,7 +228,7 @@ public class KjCzfInfoActivity extends BackTitleActivity implements BackTitleAct
                     public void onSuccess(ChuZuWu_InstallStatus bean) {
                         if (bean.getContent().getInstallStatus() == 1) {
                             mIsregister = 1;
-                            mProgressDialog.dismiss();
+                            setProgressDialog(false);
                             mConfirmDialog.show();
                         }
                     }

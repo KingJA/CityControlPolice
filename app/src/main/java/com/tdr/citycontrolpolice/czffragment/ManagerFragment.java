@@ -41,7 +41,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Administrator on 2016/3/19.
+ * 项目名称：物联网城市防控(警用版)
+ * 类描述：出租房管理Fragment
+ * 创建人：KingJA
+ * 创建时间：2016/4/13 9:58
+ * 修改备注：
  */
 public class ManagerFragment extends KjBaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "ManagerFragment";
@@ -79,7 +83,6 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
         Bundle bundle = new Bundle();
         bundle.putString("mHouseId", houseId);
         managerFragment.setArguments(bundle);
-
         return managerFragment;
 
     }
@@ -91,8 +94,6 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
         mHouseId = getArguments().getString("mHouseId");
         mParam.put("TaskID", "1");
         mParam.put("HouseID", mHouseId);
-        Log.i("mToken", mToken);
-        Log.i("houseId", mHouseId);
     }
 
     @Override
@@ -231,6 +232,3 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
 
     }
 }
-//"TaskID":"1",
-//        "HOUSEID":"XXX",
-//        "ROOMCOUNT":2,

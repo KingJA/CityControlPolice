@@ -77,6 +77,7 @@ public class DetailCzfInfoActivity extends BackTitleActivity implements BackTitl
 
     @Override
     public void initNet() {
+        setProgressDialog(true);
         ThreadPoolTask.Builder<ChuZuWu_MenPaiAuthorizationList> builder = new ThreadPoolTask.Builder<ChuZuWu_MenPaiAuthorizationList>();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_MenPaiAuthorizationList", mParam)
                 .setBeanType(ChuZuWu_MenPaiAuthorizationList.class)
@@ -84,6 +85,7 @@ public class DetailCzfInfoActivity extends BackTitleActivity implements BackTitl
                 .setCallBack(new WebServiceCallBack<ChuZuWu_MenPaiAuthorizationList>() {
                     @Override
                     public void onSuccess(ChuZuWu_MenPaiAuthorizationList bean) {
+                        setProgressDialog(false);
                         personnelinfolist = bean.getContent().getPERSONNELINFOLIST();
                         Log.i(TAG, "personnelinfolist: " + personnelinfolist.size());
                         detailInfoAdapter.setData(personnelinfolist);
@@ -92,7 +94,7 @@ public class DetailCzfInfoActivity extends BackTitleActivity implements BackTitl
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-
+                        setProgressDialog(false);
                     }
                 }).build();
         PoolManager.getInstance().execute(task);
@@ -118,11 +120,12 @@ public class DetailCzfInfoActivity extends BackTitleActivity implements BackTitl
     public void onCzfInfoPop(int position) {
         switch (position) {
             case 0:
-                Intent intent = new Intent(this, KjRoomModifyActivity.class);
-                intent.putExtra("HOUSEID", mHouseId);
-                intent.putExtra("ROOMID", mRoomId);
-                intent.putExtra("ROOMNO", mRoomNo);
-                startActivity(intent);
+//                Intent intent = new Intent(this, KjRoomModifyActivity.class);
+//                intent.putExtra("HOUSEID", mHouseId);
+//                intent.putExtra("ROOMID", mRoomId);
+//                intent.putExtra("ROOMNO", mRoomNo);
+//                startActivity(intent);
+                KjRoomModifyActivity.goActivity(this, mHouseId, mRoomId, mRoomNo);
                 break;
             default:
                 break;

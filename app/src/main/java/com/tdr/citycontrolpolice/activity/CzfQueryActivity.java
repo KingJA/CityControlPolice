@@ -166,6 +166,7 @@ public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, 
      * @param geocode
      */
     private void submit(String geocode) {
+        setProgressDialog(true);
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
         param.put("STANDARDADDRCODE", geocode);
@@ -199,11 +200,15 @@ public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, 
     private WebServiceCallBack<ChuZuWu_SearchInfoByStandardAddr> getHouseIdCallBack = new WebServiceCallBack<ChuZuWu_SearchInfoByStandardAddr>() {
         @Override
         public void onSuccess(ChuZuWu_SearchInfoByStandardAddr bean) {
-            ToastUtil.showMyToast(bean.getContent().getHOUSEID());
+            setProgressDialog(false);
+            finish();
+            KjCzfInfoActivity.goActivity(CzfQueryActivity.this, bean.getContent().getHOUSEID());
         }
 
         @Override
         public void onErrorResult(ErrorResult errorResult) {
+            setProgressDialog(false);
+
         }
     };
 

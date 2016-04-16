@@ -18,7 +18,7 @@
             android:padding="10dp">
 
             <TextView
-                style="@style/font_black_16"
+                style="@style/font_tip_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -30,8 +30,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_weight="5"
-                android:background="@drawable/shape_l1_bwhite_r4"
-                android:padding="8dp">
+                android:background="@drawable/shape_lblue_bnull_r0"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+
+                >
 
                 <ImageView
                     android:id="@+id/iv_edit_delete"
@@ -42,6 +47,7 @@
                     android:background="@drawable/bg_clear" />
 
                 <EditText
+                    android:layout_centerVertical="true"
                     android:id="@+id/et_czf_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,7 +55,7 @@
                     android:background="@null"
                     android:lines="2"
                     android:maxLines="1"
-                    android:textSize="15dp" />
+                    style="@style/font_gray_16" />
 
             </RelativeLayout>
 
@@ -63,7 +69,7 @@
             android:padding="10dp">
 
             <TextView
-                style="@style/font_black_16"
+                style="@style/font_tip_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -88,7 +94,7 @@
             android:padding="10dp">
 
             <TextView
-                style="@style/font_black_16"
+                style="@style/font_tip_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -113,7 +119,7 @@
             android:padding="10dp">
 
             <TextView
-                style="@style/font_black_16"
+                style="@style/font_tip_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
