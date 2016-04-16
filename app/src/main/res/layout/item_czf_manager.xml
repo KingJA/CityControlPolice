@@ -19,26 +19,33 @@
         <TextView
             android:layout_marginLeft="16dp"
             android:id="@+id/tv_info_room"
-            style="@style/font_black_16"
+            style="@style/font_gray_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
         <TextView
+            android:id="@+id/tv_info_person"
+            style="@style/font_gray_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
             style="@style/font_gray_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="屋内人数：" />
+            android:text="/" />
 
         <TextView
-            android:id="@+id/tv_info_person"
-            style="@style/font_black_16"
+            android:id="@+id/tv_info_totel"
+            style="@style/font_gray_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

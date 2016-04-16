@@ -11,15 +11,24 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.entity.BluetoothBean;
+import com.tdr.citycontrolpolice.entity.Common_IdentityCardAuthentication;
+import com.tdr.citycontrolpolice.entity.ErrorResult;
+import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
 import com.tdr.citycontrolpolice.net.ConnectThread;
+import com.tdr.citycontrolpolice.net.PoolManager;
+import com.tdr.citycontrolpolice.net.ThreadPoolTask;
+import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
+import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.dialog.DialogBluetooth;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 import com.yunmai.android.engine.OcrEngine;
@@ -28,7 +37,9 @@ import com.yunmai.android.vo.IDCard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -38,7 +49,7 @@ import java.util.Set;
  * 创建时间：2016/4/6 17:03
  * 修改备注：
  */
-public class PersonCheckActivity extends BackTitleActivity {
+public class PersonCheckActivity extends BackTitleActivity implements View.OnClickListener {
 
     private static final String TAG = "PersonCheckActivity";
     private ImageView iv_bluetooth;
@@ -56,6 +67,7 @@ public class PersonCheckActivity extends BackTitleActivity {
     private DialogProgress dialogProgress;
     private List<BluetoothBean> searchDevices;
     private List<BluetoothBean> boundDevices = new ArrayList<>();
+    private Button btn_submit;
 
     @Override
     public View setContentView() {
@@ -78,6 +90,7 @@ public class PersonCheckActivity extends BackTitleActivity {
         tv_address = (TextView) view.findViewById(R.id.tv_address);
         tv_gender = (TextView) view.findViewById(R.id.tv_gender);
         iv_camera = (ImageView) view.findViewById(R.id.iv_camera);
+        btn_submit = (Button) view.findViewById(R.id.btn_submit);
         iv_bluetooth = (ImageView) view.findViewById(R.id.iv_bluetooth);
         dialogBluetooth = new DialogBluetooth(this, boundDevices);
         dialogProgress = new DialogProgress(this);
@@ -138,18 +151,9 @@ public class PersonCheckActivity extends BackTitleActivity {
 
     @Override
     public void initData() {
-        iv_camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityUtil.goActivityForResult(PersonCheckActivity.this, ACamera.class, 100);
-            }
-        });
-        iv_bluetooth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogBluetooth.show();
-            }
-        });
+        btn_submit.setOnClickListener(this);
+        iv_camera.setOnClickListener(this);
+        iv_bluetooth.setOnClickListener(this);
         dialogBluetooth.setOnBuletoothListener(new DialogBluetooth.OnBuletoothListener() {
 
             @Override
@@ -218,17 +222,9 @@ public class PersonCheckActivity extends BackTitleActivity {
         }
     }
 
-    public static final int REQUEST_CODE_RECOG = 113;            //	识别
-
-    /**
-     * 识别成功
-     */
-    public static final int RESULT_RECOG_SUCCESS = 103;
-
-    /**
-     * 识别失败
-     */
-    public static final int RESULT_RECOG_FAILED = 104;
+    public static final int REQUEST_CODE_RECOG = 113;  //	识别
+    public static final int RESULT_RECOG_SUCCESS = 103;//识别成功
+    public static final int RESULT_RECOG_FAILED = 104;//识别失败
     private Handler mOcrHandler = new Handler() {
 
         @Override
@@ -371,5 +367,64 @@ public class PersonCheckActivity extends BackTitleActivity {
         connectThread.start();
     }
 
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_submit:
+                submit();
+                break;
+            case R.id.iv_camera:
+                ActivityUtil.goActivityForResult(PersonCheckActivity.this, ACamera.class, 100);
+                break;
+            case R.id.iv_bluetooth:
+                dialogBluetooth.show();
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    /**
+     * 上传身份证信息
+     */
+    private void submit() {
+        String name = tv_name.getText().toString().trim();
+        String gender = tv_gender.getText().toString().trim();
+        String nation = tv_nation.getText().toString().trim();
+        String birthday = tv_birthday.getText().toString().trim();
+        String address = tv_address.getText().toString().trim();
+        String cardNO = tv_card.getText().toString().trim();
+        String cardID = tv_card_no.getText().toString().trim();
+        if (CheckUtil.checkEmpty(cardID, "请通过蓝牙获取身份证卡号") && CheckUtil.checkEmpty(cardNO, "请通过相机获取身份证信息")) {
+            Map<String, Object> param = new HashMap<>();
+            param.put("TaskID", "1");
+            param.put("NAME", name);
+            param.put("SEX", gender);
+            param.put("NATION", nation);
+            param.put("BIRTHDAY", birthday);
+            param.put("ADDRESS", address);
+            param.put("IDENTITYCARD", cardNO);
+            param.put("IDENTITYCARDID", cardID);
+            ThreadPoolTask.Builder<Common_IdentityCardAuthentication> builder = new ThreadPoolTask.Builder<Common_IdentityCardAuthentication>();
+            ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(PersonCheckActivity.this).getToken(), 0, "Common_IdentityCardAuthentication", param)
+                    .setBeanType(Common_IdentityCardAuthentication.class)
+                    .setActivity(PersonCheckActivity.this)
+                    .setCallBack(new WebServiceCallBack<Common_IdentityCardAuthentication>() {
+                        @Override
+                        public void onSuccess(Common_IdentityCardAuthentication bean) {
+                            ToastUtil.showMyToast("完成审核");
+                            finish();
+                        }
+
+                        @Override
+                        public void onErrorResult(ErrorResult errorResult) {
+
+                        }
+                    }).build();
+            PoolManager.getInstance().execute(task);
+        }
+    }
 
 }

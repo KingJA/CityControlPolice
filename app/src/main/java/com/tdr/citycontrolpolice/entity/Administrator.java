@@ -8,6 +8,16 @@ public class Administrator {
     private String NAME;
     private String PHONE;
 
+    public String getNEWUSERID() {
+        return NEWUSERID;
+    }
+
+    public void setNEWUSERID(String NEWUSERID) {
+        this.NEWUSERID = NEWUSERID;
+    }
+
+    private String NEWUSERID;
+
     public String getIDENTITYCARD() {
         return IDENTITYCARD;
     }

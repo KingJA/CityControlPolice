@@ -92,6 +92,12 @@ public class ThreadPoolTask<T> implements Runnable {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ToastUtil.showMyToast("连接超时");
+                }
+            });
         }
     }
 

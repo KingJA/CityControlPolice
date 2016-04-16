@@ -96,4 +96,9 @@ public class KingJA_SwtichButton extends LinearLayout {
         leftButton.setBackgroundResource(isLeft ? R.drawable.switch_left_sel : R.drawable.switch_left_nor);
         rightButton.setBackgroundResource(isLeft ? R.drawable.switch_right_nor : R.drawable.switch_right_sel);
     }
+
+    public void setSwitch(boolean isLeft) {
+        this.isLeft = isLeft;
+        setBackground(isLeft);
+    }
 }

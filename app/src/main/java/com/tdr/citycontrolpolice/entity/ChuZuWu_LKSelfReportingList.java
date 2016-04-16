@@ -85,6 +85,16 @@ public class ChuZuWu_LKSelfReportingList {
             private String ROOMID;
             private String INTIME;
 
+            public String getOUTTIME() {
+                return OUTTIME;
+            }
+
+            public void setOUTTIME(String OUTTIME) {
+                this.OUTTIME = OUTTIME;
+            }
+
+            private String OUTTIME;
+
             public String getLISTID() {
                 return LISTID;
             }
@@ -132,6 +142,7 @@ public class ChuZuWu_LKSelfReportingList {
             public void setINTIME(String INTIME) {
                 this.INTIME = INTIME;
             }
+
         }
     }
 }

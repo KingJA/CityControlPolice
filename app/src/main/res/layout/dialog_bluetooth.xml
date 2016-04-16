@@ -27,13 +27,13 @@
         android:dividerHeight="0dp"
         android:listSelector="#00000000"></ListView>
 
-    <TextView
-        android:id="@+id/tv_scan"
-        style="@style/text_18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp"
-        android:text="重新扫描" />
+    <!--    <TextView
+            android:id="@+id/tv_scan"
+            style="@style/text_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:text="重新扫描" />-->
 </LinearLayout>

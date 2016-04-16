@@ -17,13 +17,13 @@ import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.KingJA_SwtichButton_Kj;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,9 +43,10 @@ public class KjApplyFragment extends KjBaseFragment implements AdapterView.OnIte
     @Bind(R.id.kj_switchbutton)
     KingJA_SwtichButton_Kj kjSwitchbutton;
     private HashMap<String, Object> mParam = new HashMap<>();
-    private String mToken;
-    private CzfApplyAdapter czfApplyAdapter;
-    private List<ChuZuWu_LKSelfReportingList.ContentBean.PERSONNELINFOLISTBean> personnelinfolist = new ArrayList<>();
+    private boolean isInList = true;
+    private CzfApplyAdapter applyAdapter;
+    private List<ChuZuWu_LKSelfReportingList.ContentBean.PERSONNELINFOLISTBean> applyList = new ArrayList<>();
+    private Map<Boolean, CzfApplyAdapter> adapterMap = new HashMap<>();
 
     public static KjApplyFragment newInstance(String houseId) {
         KjApplyFragment applyFragment = new KjApplyFragment();
@@ -58,7 +59,6 @@ public class KjApplyFragment extends KjBaseFragment implements AdapterView.OnIte
 
     @Override
     protected void initFragmentVariables() {
-        mToken = UserService.getInstance(mActivity).getToken();
         mHouseId = getArguments().getString("mHouseId");
         mParam.put("TaskID", "1");
         mParam.put("HOUSEID", mHouseId);
@@ -76,24 +76,32 @@ public class KjApplyFragment extends KjBaseFragment implements AdapterView.OnIte
 
     @Override
     protected void initFragmentView() {
-        czfApplyAdapter = new CzfApplyAdapter(mActivity, personnelinfolist);
-        lv_exist.setAdapter(czfApplyAdapter);
+        applyAdapter = new CzfApplyAdapter(mActivity, applyList);
+        lv_exist.setAdapter(applyAdapter);
         lv_exist.setOnItemClickListener(this);
     }
 
     @Override
     protected void initFragmentNet() {
+        getAppleList(isInList);
+    }
+
+
+    private void getAppleList(final boolean isInList) {
+        String methodName = isInList ? "ChuZuWu_LKSelfReportingList" : "ChuZuWu_LKSelfReportingOutList";
         ThreadPoolTask.Builder<ChuZuWu_LKSelfReportingList> builder = new ThreadPoolTask.Builder<ChuZuWu_LKSelfReportingList>();
-        ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_LKSelfReportingList", mParam)
+        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0, methodName, mParam)
                 .setBeanType(ChuZuWu_LKSelfReportingList.class)
                 .setActivity(getActivity())
                 .setCallBack(new WebServiceCallBack<ChuZuWu_LKSelfReportingList>() {
                     @Override
                     public void onSuccess(ChuZuWu_LKSelfReportingList bean) {
-                        personnelinfolist = bean.getContent().getPERSONNELINFOLIST();
-                        Log.i("ApplyFragment", "personnelinfolist: " + personnelinfolist.size());
-                        llEmpty.setVisibility(personnelinfolist.size() == 0 ? View.VISIBLE : View.GONE);
-                        czfApplyAdapter.setData(personnelinfolist);
+                        applyList = bean.getContent().getPERSONNELINFOLIST();
+                        Log.i("ApplyFragment", "applyList: " + applyList.size());
+                        llEmpty.setVisibility(applyList.size() == 0 ? View.VISIBLE : View.GONE);
+                        applyAdapter = new CzfApplyAdapter(mActivity, applyList);
+                        lv_exist.setAdapter(applyAdapter);
+                        adapterMap.put(Boolean.valueOf(isInList), applyAdapter);
                     }
 
                     @Override
@@ -134,10 +142,13 @@ public class KjApplyFragment extends KjBaseFragment implements AdapterView.OnIte
 
     @Override
     public void onSwitch(boolean isLeft) {
-        if (isLeft) {
-            ToastUtil.showMyToast("入住");
+        this.isInList = isLeft;
+        if (adapterMap.get(isInList) != null) {
+            lv_exist.setAdapter(adapterMap.get(isInList));
         } else {
-            ToastUtil.showMyToast("离开");
+            getAppleList(isInList);
         }
+
+
     }
 }

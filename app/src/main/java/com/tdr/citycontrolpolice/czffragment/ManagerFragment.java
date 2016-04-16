@@ -65,7 +65,6 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
     LinearLayout llEmpty;
     private ChuZuWuInfo chuZuWuInfo;
     private View rootView;
-    private String mToken;
     private HashMap<String, Object> mParam = new HashMap<>();
     private List<KjChuZuWuInfo.ContentBean.RoomListBean> roomList = new ArrayList<>();
     private CzfManagerAdapter czfManagerAdapter;
@@ -90,7 +89,6 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
 
     @Override
     protected void initFragmentVariables() {
-        mToken = UserService.getInstance(mActivity).getToken();
         mHouseId = getArguments().getString("mHouseId");
         mParam.put("TaskID", "1");
         mParam.put("HouseID", mHouseId);
@@ -118,7 +116,7 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
     protected void initFragmentNet() {
         srlCzfManager.setRefreshing(true);
         ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<KjChuZuWuInfo>();
-        ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_Info", mParam)
+        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0, "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
                 .setActivity(getActivity())
                 .setCallBack(new WebServiceCallBack<KjChuZuWuInfo>() {
@@ -209,7 +207,7 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
 
 
         ThreadPoolTask.Builder<ChuZuWu_AddRoomList> builder = new ThreadPoolTask.Builder<ChuZuWu_AddRoomList>();
-        ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_AddRoomList", param)
+        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0, "ChuZuWu_AddRoomList", param)
                 .setBeanType(ChuZuWu_AddRoomList.class)
                 .setActivity(getActivity())
                 .setCallBack(new WebServiceCallBack<ChuZuWu_AddRoomList>() {

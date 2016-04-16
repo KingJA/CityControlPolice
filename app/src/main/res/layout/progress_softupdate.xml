@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/black">
+    android:background="@color/white_kj">
 
     <ProgressBar
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:id="@+id/progress_update"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="400dp"
+        style="@style/progressBarHorizontal_color"
+        android:layout_width="match_parent"
         android:layout_height="15dp"
         android:layout_gravity="center" />
 

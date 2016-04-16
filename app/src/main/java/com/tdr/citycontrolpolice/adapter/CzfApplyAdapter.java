@@ -37,10 +37,12 @@ public class CzfApplyAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingLi
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        viewHolder.ivstatic.setBackgroundResource(list.get(position).getOUTTIME().equals("0001-01-01 00:00:00") ? R.drawable.bg_exsits : R.drawable.bg_leave);
         viewHolder.tvinfoname.setText(list.get(position).getNAME());
         viewHolder.tvinfophone.setText(list.get(position).getPHONENUM());
         viewHolder.tvinfocard.setText(list.get(position).getIDENTITYCARD());
-        viewHolder.tvinfotime.setText(list.get(position).getINTIME().substring(0, 10));
+        viewHolder.tvinfotime.setText(list.get(position).getOUTTIME().equals("0001-01-01 00:00:00") ? list.get(position).getINTIME().substring(0, 10) : list.get(position).getOUTTIME().substring(0, 10));
         final ViewHolder finalViewHolder = viewHolder;
         viewHolder.rltop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +61,7 @@ public class CzfApplyAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingLi
 
 
     public class ViewHolder {
+        public final ImageView ivstatic;
         public final TextView tvinfoname;
         public final TextView tvinfotime;
         public final ImageView ivapplyarrow;
@@ -69,6 +72,7 @@ public class CzfApplyAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingLi
         public final View root;
 
         public ViewHolder(View root) {
+            ivstatic = (ImageView) root.findViewById(R.id.iv_static);
             tvinfoname = (TextView) root.findViewById(R.id.tv_info_name);
             tvinfotime = (TextView) root.findViewById(R.id.tv_info_time);
             ivapplyarrow = (ImageView) root.findViewById(R.id.iv_apply_arrow);

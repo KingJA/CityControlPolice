@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="确定"
-            style="@style/font_black_16" />
+            style="@style/font_blue_16" />
 
     </LinearLayout>
 

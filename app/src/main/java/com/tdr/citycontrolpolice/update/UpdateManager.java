@@ -16,7 +16,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
@@ -27,18 +26,21 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.view.dialog.DialogConfirm;
 
 /**
  * Created by Linus_Xie on 2016/3/12.
  */
 public class UpdateManager {
 
-    public static final String UPDATE_SERVER = "http://127.0.0.1:8890/newestapk/";// 温州更新下载地址
-    public static final String WEBSERVER_URL = "http://127.0.0.1:8890/WebServiceAPKRead.asmx";// 温州
-    //            public static final String UPDATE_SERVER = "http://172.18.18.21:8892/newestapk/";// 省厅更新下载地址
+    //    public static final String UPDATE_SERVER = "http://127.0.0.1:8890/newestapk/";// 温州更新下载地址
+//    public static final String WEBSERVER_URL = "http://127.0.0.1:8890/WebServiceAPKRead.asmx";// 温州
+//    public static final String UPDATE_SERVER = "http://172.18.18.21:8892/newestapk/";// 省厅更新下载地址
 //    public static final String WEBSERVER_URL = "http://172.18.18.21:8892/WebServiceAPKRead.asmx";// 省厅
     public static final String PACKAGE_NAME = "com.tdr.citycontrolpolice";// 包名
     public static String UPDATE_APKNAME = "CityControlPolice.apk";// APK名称
+    public static final String UPDATE_SERVER = "http://dmi.tdr-cn.com/newestapk/";// APK下载地址
+    public static final String WEBSERVER_URL = "http://dmi.tdr-cn.com/WebServiceAPKRead.asmx";// 获取版本号Webservice方法
 
     /* 新版本号 */
     private double newVersion;
@@ -132,28 +134,38 @@ public class UpdateManager {
      * 显示软件更新对话框
      */
     private void showNoticeDialog() {
-        // 构造对话框
-        AlertDialog.Builder builder = new Builder(mContext);
-        builder.setTitle("软件版本更新");
-        builder.setMessage("检测到新版本，立即更新吗？");
-        // 更新
-        builder.setPositiveButton("更新", new OnClickListener() {
+//        // 构造对话框
+//        AlertDialog.Builder builder = new Builder(mContext);
+//        builder.setTitle("软件版本更新");
+//        builder.setMessage("检测到新版本，立即更新吗？");
+//        // 更新
+//        builder.setPositiveButton("更新", new OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//                // 显示下载对话框
+//                showDownloadDialog();
+//            }
+//        });
+//        // 稍后更新
+////        builder.setNegativeButton("以后再说", new OnClickListener() {
+////            @Override
+////            public void onClick(DialogInterface dialog, int which) {
+////                dialog.dismiss();
+////                System.exit(0);
+////            }
+////        });
+//        Dialog noticeDialog = builder.create();
+//        noticeDialog.show();
+
+        DialogConfirm dialogConfirm = new DialogConfirm(mContext, "检查到新版本，即将进行更新", "确定");
+        dialogConfirm.show();
+        dialogConfirm.setOnConfirmClickListener(new DialogConfirm.OnConfirmClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                // 显示下载对话框
+            public void onConfirm() {
                 showDownloadDialog();
             }
         });
-        // 稍后更新
-        builder.setNegativeButton("以后再说", new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        Dialog noticeDialog = builder.create();
-        noticeDialog.show();
     }
 
     /**
@@ -168,16 +180,17 @@ public class UpdateManager {
         View v = inflater.inflate(R.layout.progress_softupdate, null);
         mProgress = (ProgressBar) v.findViewById(R.id.progress_update);
         builder.setView(v);
-        // 取消更新
-        builder.setNegativeButton("取消", new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                // 设置取消状态
-                cancelUpdate = true;
-
-            }
-        });
+        builder.setCancelable(false);
+//        // 取消更新
+//        builder.setNegativeButton("取消", new OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//                // 设置取消状态
+//                cancelUpdate = true;
+//
+//            }
+//        });
         mDownloadDialog = builder.create();
         mDownloadDialog.show();
         // 现在文件

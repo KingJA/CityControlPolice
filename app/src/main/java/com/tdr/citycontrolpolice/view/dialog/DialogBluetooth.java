@@ -29,8 +29,8 @@ import butterknife.OnItemClick;
 public class DialogBluetooth extends DialogBaseAlert {
     @Bind(R.id.lv_bluetooth)
     ListView lvBluetooth;
-    @Bind(R.id.tv_scan)
-    TextView tvScan;
+    /*    @Bind(R.id.tv_scan)
+        TextView tvScan;*/
     private List<BluetoothBean> list = new ArrayList<>();
     private OnBuletoothListener onBuletoothListener;
     private BluetoothAdapter bluetoothAdapter;
@@ -48,12 +48,12 @@ public class DialogBluetooth extends DialogBaseAlert {
         }
     }
 
-    @OnClick(R.id.tv_scan)
+/*    @OnClick(R.id.tv_scan)
     void onScan() {
         if (onBuletoothListener != null) {
             onBuletoothListener.onScan();
         }
-    }
+    }*/
 
     @Override
     public void initView() {

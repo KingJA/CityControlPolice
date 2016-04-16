@@ -14,6 +14,16 @@ public class ChuZuWu_Add {
     private String HOUSINGESTATE;
     private String IDENTITYCARD;
     private String OWNERNAME;
+
+    public String getOWNERNEWUSERID() {
+        return OWNERNEWUSERID;
+    }
+
+    public void setOWNERNEWUSERID(String OWNERNEWUSERID) {
+        this.OWNERNEWUSERID = OWNERNEWUSERID;
+    }
+
+    private String OWNERNEWUSERID;
     private String HOUSETYPE;
     private String PHONE;
     private String XQCODE;

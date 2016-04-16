@@ -2,6 +2,8 @@ package com.tdr.citycontrolpolice.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Button;
@@ -16,14 +18,17 @@ import com.tdr.citycontrolpolice.materialedittext.MaterialEditText;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
+import com.tdr.citycontrolpolice.update.GetVersionCodeAsynckTask;
+import com.tdr.citycontrolpolice.update.UpdateManager;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.AppInfoUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
+import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.util.PhoneUtil;
 import com.tdr.citycontrolpolice.util.SharedPreferencesUtils;
+import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.view.KingJA_SwtichButton;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
-import com.tdr.citycontrolpolice.view.dialog.DialogProgressAll;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -55,7 +60,27 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
     private String password;
     boolean isLoginByPolice = true;
     private DialogProgress dialogProgress;
-    private DialogProgressAll dialogProgressAll;
+    private Handler mInitHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case Constants.HANDLER_KEY_GETVERSION_FAIL:
+                    Log.i(TAG, "版本升级错误");
+                    break;
+                case Constants.HANDLER_KEY_GETVERSION_SUCCESS:
+                    double newVersion = Double.parseDouble(msg.obj.toString());
+                    int versionCode = AppInfoUtil.getVersionCode();
+                    if (newVersion > versionCode) {
+                        Log.i(TAG, "有新版本，进行更新");
+                        new UpdateManager(KjLoginActivity.this, newVersion).checkUpdate();
+                    }
+                    Log.i(TAG, "已经是最新版本");
+                    break;
+            }
+
+        }
+    };
 
 
     @Override
@@ -63,6 +88,7 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_kj);
         ButterKnife.bind(this);
+        checkVersionUpdate();
         initView();
         initData();
     }
@@ -76,9 +102,11 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         if (checked) {
             String login_name = (String) SharedPreferencesUtils.get("login_name", "");
             String login_password = (String) SharedPreferencesUtils.get("login_password", "");
+            isLoginByPolice = (Boolean) SharedPreferencesUtils.get("login_police", true);
             etLoginName.setText(login_name);
             etLoginPassword.setText(login_password);
             cbRemmber.setChecked(true);
+            kjSwitchbutton.setSwitch(isLoginByPolice);
         }
 
     }
@@ -86,7 +114,6 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
     private void initView() {
         kjSwitchbutton.setOnSwitchListener(this);
         dialogProgress = new DialogProgress(this);
-        dialogProgressAll = new DialogProgressAll(this);
     }
 
     @OnClick(R.id.btn_login)
@@ -105,6 +132,8 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
             SharedPreferencesUtils.put("login_name", userName);
             SharedPreferencesUtils.put("login_password", password);
             SharedPreferencesUtils.put("login_remember", true);
+            SharedPreferencesUtils.put("login_police", isLoginByPolice);
+
         } else {
             SharedPreferencesUtils.put("login_remember", false);
         }
@@ -165,6 +194,15 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         paramLogin.setSOFTTYPE(2);
         paramLogin.setSOFTVERSION(1.1);
         return paramLogin;
+    }
+
+    /**
+     * 检查版本更新
+     */
+    private void checkVersionUpdate() {
+        GetVersionCodeAsynckTask asynckTask = new GetVersionCodeAsynckTask(
+                KjLoginActivity.this, mInitHandler);
+        asynckTask.execute("CityControlPolice.apk");
     }
 
 

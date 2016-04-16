@@ -49,9 +49,9 @@ import java.util.Map;
  */
 public class HomeFragment extends BaseFragment implements DialogNFC.OnClickListener {
     private static final String TAG = "HomeFragment";
-    private String[] topName = {"出租房登记", "出租房信息", "人员核查", "房东变更", "工作统计", "更新字典", "出租房查询"};
-    private int[] topImg = {R.mipmap.czf_register, R.mipmap.czf_info, R.drawable.bg_ryhc,
-            R.drawable.bg_fdbg, R.drawable.bg_gztj, R.mipmap.dic, R.drawable.bg_czfcx};
+    private String[] topName = {"出租房登记", "出租房信息", "出租房查询", "人员核查", "房东变更", "工作统计", "更新字典"};
+    private int[] topImg = {R.mipmap.czf_register, R.mipmap.czf_info, R.drawable.bg_czfcx, R.drawable.bg_ryhc,
+            R.drawable.bg_fdbg, R.drawable.bg_gztj, R.mipmap.dic};
     private final static int SCANNIN_GREQUEST_CODE = 2002;
     private final static int SCANNIN_CZF_CODE = 2003;
     private final static int UPDATA = 1001;
@@ -297,21 +297,20 @@ public class HomeFragment extends BaseFragment implements DialogNFC.OnClickListe
                     startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
                     break;
                 case 2:
-                    dialogNFC.show();
-//                    ToastUtil.showMyToast("开发中...");
+                    ActivityUtil.goActivity(mActivity, CzfQueryActivity.class);
                     break;
 
                 case 3:
-                    ToastUtil.showMyToast("开发中...");
+                    dialogNFC.show();
                     break;
                 case 4:
                     ToastUtil.showMyToast("开发中...");
                     break;
                 case 5:
-                    dialogDouble.show();
+                    ToastUtil.showMyToast("开发中...");
                     break;
                 case 6:
-                    ActivityUtil.goActivity(mActivity, CzfQueryActivity.class);
+                    dialogDouble.show();
                     break;
             }
         }

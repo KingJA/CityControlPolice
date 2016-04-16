@@ -49,7 +49,7 @@ public class WebServiceManager {
     }
 
     public static String load(Map<String, Object> paramMap) throws IOException, XmlPullParserException {
-        HttpTransportSE mHttpTransportSE = new HttpTransportSE(SERVER_URL);
+        HttpTransportSE mHttpTransportSE = new HttpTransportSE(SERVER_URL, 20000);
         SoapObject mSoapObject = new SoapObject(SERVER_NAMESPACE, SERVER_METHOD);
         for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
             mSoapObject.addProperty(entry.getKey(), entry.getValue());

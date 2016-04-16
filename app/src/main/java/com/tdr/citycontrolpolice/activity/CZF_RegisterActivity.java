@@ -73,6 +73,7 @@ import java.util.Map;
  * Created by Administrator on 2016/2/22.
  */
 public class CZF_RegisterActivity extends Activity {
+    private static final String TAG = "CZF_RegisterActivity";
     private NfcAdapter nfcAdapter;
     private ImageView img_dz, img_fw, img_address, img_fdnfc, img_glynfc, img_pop;
     private String fdphone, glyname, glycard, glyphone, fdname, fdcard, czfname, czftype, xqname;
@@ -924,6 +925,7 @@ public class CZF_RegisterActivity extends Activity {
                 chuZuWuAdd.setHOUSINGESTATE(xqname);
                 chuZuWuAdd.setIDENTITYCARD(fdcard);
                 chuZuWuAdd.setOWNERNAME(fdname);
+                chuZuWuAdd.setOWNERNEWUSERID(MyUtil.getUUID());
                 chuZuWuAdd.setHOUSETYPE(czftype);
                 chuZuWuAdd.setPHONE(fdphone);
                 chuZuWuAdd.setPCSCO(basicJuWeiHui.getFDMZM());
@@ -935,6 +937,7 @@ public class CZF_RegisterActivity extends Activity {
                 xqname = et_xqname.getText().toString().trim();
                 chuZuWuAdd.setHOUSINGESTATE(xqname);
                 Administrator administrator = new Administrator();
+                administrator.setNEWUSERID(MyUtil.getUUID());
                 if (cb.isChecked()) {
                     administrator.setPHONE(et_fdphone.getText().toString().trim());
                     administrator.setNAME(tv_fdname.getText().toString().trim());
@@ -967,6 +970,9 @@ public class CZF_RegisterActivity extends Activity {
                 param.put("encryption", 0);
                 param.put("dataTypeCode", "ChuZuWu_Add");
                 param.put("content", chuZuWuAddjson);
+
+                String json = gson.toJson(param);
+                Log.i(TAG, "json: " + json);
                 String result = null;
                 try {
                     result = WebService.info(Constants.WEBSERVER_PUBLICSECURITYCONTROLAPP, param);
@@ -1070,7 +1076,7 @@ public class CZF_RegisterActivity extends Activity {
                         public void onClick(View v) {
                             dialogBuilder.dismiss();
                             Intent intent = new Intent(CZF_RegisterActivity.this,
-                                    HouseInfoActivity.class);
+                                    KjCzfInfoActivity.class);
                             intent.putExtra("HouseID", houseId);
                             startActivity(intent);
                             finish();

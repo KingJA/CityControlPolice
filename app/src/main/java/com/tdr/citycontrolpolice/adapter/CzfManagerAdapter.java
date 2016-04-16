@@ -36,6 +36,7 @@ public class CzfManagerAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.ContentBe
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvinforoom.setText(list.get(position).getROOMNO() + "");
+        viewHolder.tvinfototel.setText(list.size() + "");
         viewHolder.tvinfoperson.setText(list.get(position).getHEADCOUT() == -1 ? "未知" : list.get(position).getHEADCOUT() + "");
 
         return convertView;
@@ -44,11 +45,13 @@ public class CzfManagerAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.ContentBe
     public class ViewHolder {
         public final TextView tvinforoom;
         public final TextView tvinfoperson;
+        public final TextView tvinfototel;
         public final View root;
 
         public ViewHolder(View root) {
             tvinforoom = (TextView) root.findViewById(R.id.tv_info_room);
             tvinfoperson = (TextView) root.findViewById(R.id.tv_info_person);
+            tvinfototel = (TextView) root.findViewById(R.id.tv_info_totel);
             this.root = root;
         }
     }

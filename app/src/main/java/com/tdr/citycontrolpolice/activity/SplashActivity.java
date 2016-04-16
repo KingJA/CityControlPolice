@@ -131,7 +131,6 @@ public class SplashActivity extends Activity {
 //        GetVersionCodeAsynckTask asynckTask = new GetVersionCodeAsynckTask(
 //                SplashActivity.this, mInitHandler);
 //        asynckTask.execute("CityControlPolice.apk");
-
         mInitHandler.sendEmptyMessage(CALL_INIT_DB);
     }
 

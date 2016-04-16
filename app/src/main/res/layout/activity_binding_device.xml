@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <TextView
         android:layout_width="wrap_content"
@@ -78,20 +80,16 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:background="@drawable/shape_lgray1_bwhite_r0"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <ImageView
+            android:layout_marginTop="12dp"
+            android:src="@drawable/bg_icon"
+            android:layout_gravity="center_horizontal"
             android:scaleType="centerCrop"
             android:id="@+id/iv_device_icon"
-            android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
 
-    </FrameLayout>
 
     <TextView
         android:id="@+id/tv_device_submit"
