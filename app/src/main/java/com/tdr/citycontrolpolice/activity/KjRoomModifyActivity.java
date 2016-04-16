@@ -128,7 +128,7 @@ public class KjRoomModifyActivity extends BackTitleActivity implements BottomLis
 
     @Override
     public void setData() {
-        setTitle("房间信息修改");
+        setTitle("修改房屋信息");
         tv_room_number.setText(mRoomNo);
     }
 

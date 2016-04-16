@@ -16,20 +16,22 @@ import java.util.UUID;
  * 创建时间：2016/4/2 15:23
  * 修改备注：
  */
-public class ConnectDeviceThread extends Thread {
+public class ConnectBindThread extends Thread {
     private static final String TAG = "ConnectThread";
     private BluetoothDevice device;
     private BluetoothAdapter adapterr;
     private final String uuid;
     private final Handler handler;
+    private boolean isStation;
     private BluetoothSocket stock;
-    private ReceiveDeviceThread receiveThread;
+    private ReceiveBaseThread receiveThread;
 
-    public ConnectDeviceThread(BluetoothDevice device, BluetoothAdapter adapterr, String uuid, Handler handler) {
+    public ConnectBindThread(BluetoothDevice device, BluetoothAdapter adapterr, String uuid, Handler handler, boolean isStation) {
         this.device = device;
         this.adapterr = adapterr;
         this.uuid = uuid;
         this.handler = handler;
+        this.isStation = isStation;
         try {
             stock = device.createRfcommSocketToServiceRecord(UUID.fromString(uuid));
 
@@ -46,9 +48,13 @@ public class ConnectDeviceThread extends Thread {
         }
         try {
             stock.connect();
-            receiveThread = new ReceiveDeviceThread(stock, handler);
+            if (isStation) {
+                receiveThread = new ReceiveStationThread(stock, handler);
+            } else {
+                receiveThread = new ReceiveDeviceThread(stock, handler);
+            }
+
             receiveThread.start();
-//            stock.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

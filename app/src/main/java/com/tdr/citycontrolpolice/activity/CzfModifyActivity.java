@@ -147,7 +147,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
 
     private void modifyHouseName(String houseName) {
 
-        if (CheckUtil.checkEmpty(houseName, "请输入房间名称")) {
+        if (CheckUtil.checkEmpty(houseName, "请输入房间名称") && CheckUtil.checkLength(houseName, 30, "房间名过长")) {
             mProgressDialog.show();
             param_chuZuWu_modify.setHOUSENAME(houseName);
             ThreadPoolTask.Builder<ChuZuWu_Modify> builder = new ThreadPoolTask.Builder<ChuZuWu_Modify>();

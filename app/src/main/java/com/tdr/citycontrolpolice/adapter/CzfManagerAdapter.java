@@ -1,6 +1,7 @@
 package com.tdr.citycontrolpolice.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -36,22 +37,24 @@ public class CzfManagerAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.ContentBe
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvinforoom.setText(list.get(position).getROOMNO() + "");
-        viewHolder.tvinfototel.setText(list.size() + "");
-        viewHolder.tvinfoperson.setText(list.get(position).getHEADCOUT() == -1 ? "未知" : list.get(position).getHEADCOUT() + "");
+        viewHolder.tvinfoshouquan.setText(list.get(position).getSHOUQUANCOUNT() + "");
+        Log.i(TAG, "person: " + list.get(position).getHEADCOUNT());
+        viewHolder.tvinfoperson.setText(list.get(position).getHEADCOUNT() == -1 ? "未知" : list.get(position).getHEADCOUNT() + "");
 
         return convertView;
     }
 
+
     public class ViewHolder {
         public final TextView tvinforoom;
+        public final TextView tvinfoshouquan;
         public final TextView tvinfoperson;
-        public final TextView tvinfototel;
         public final View root;
 
         public ViewHolder(View root) {
             tvinforoom = (TextView) root.findViewById(R.id.tv_info_room);
+            tvinfoshouquan = (TextView) root.findViewById(R.id.tv_info_shouquan);
             tvinfoperson = (TextView) root.findViewById(R.id.tv_info_person);
-            tvinfototel = (TextView) root.findViewById(R.id.tv_info_totel);
             this.root = root;
         }
     }

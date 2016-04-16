@@ -1,7 +1,6 @@
 package com.tdr.citycontrolpolice.net;
 
 import android.bluetooth.BluetoothSocket;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -17,10 +16,10 @@ import java.util.Arrays;
  * 创建时间：2016/4/2 15:26
  * 修改备注：
  */
-public class ReceiveDeviceThread extends ReceiveBaseThread {
-    private static final String TAG = "ReceiveDeviceThread";
+public class ReceiveStationThread extends ReceiveBaseThread {
+    private static final String TAG = "ReceiveStationThread";
 
-    public ReceiveDeviceThread(BluetoothSocket stock, Handler handler) {
+    public ReceiveStationThread(BluetoothSocket stock, Handler handler) {
         super(stock, handler);
     }
 
@@ -37,32 +36,22 @@ public class ReceiveDeviceThread extends ReceiveBaseThread {
                     byte[] totleByte = new byte[count];
                     inputStream.read(totleByte);
 
-                    if (totleByte.length == 25) {
+                    if (totleByte.length == 22) {
                         byte[] order = Arrays.copyOfRange(totleByte, 5, 6);
-                        if (order[0] != (byte) (0xb7)) {
+                        if (order[0] != (byte) (0xb6)) {
                             Log.i(TAG, "不是基站信息HexString: " + BluetoothUtil.bytesToHexString(totleByte));
                             continue;
                         }
                         String HexString = BluetoothUtil.bytesToHexString(totleByte);
                         Log.i(TAG, "HexString: " + HexString);
-                        byte[] type = Arrays.copyOfRange(totleByte, 15, 17);
-                        byte[] number = Arrays.copyOfRange(totleByte, 17, 21);
-                        String typeHexString = BluetoothUtil.bytesToHexString(type);
-                        Log.i(TAG, "设备类型HexString: " + typeHexString);
+                        byte[] number = Arrays.copyOfRange(totleByte, 11, 15);
                         String NoHexString = BluetoothUtil.bytesToHexString(number);
-                        Log.i(TAG, "设备编号HexString: " + NoHexString);
-
-                        String deviceType = String.valueOf(Integer.parseInt(typeHexString, 16));
-                        String deviceNO = String.valueOf(Integer.parseInt(NoHexString, 16));
-                        Log.i(TAG, "设备类型: " + deviceNO);
-                        Log.i(TAG, "设备编号: " + deviceNO);
-
+                        Log.i(TAG, "基站HexString: " + NoHexString);
+                        String deviceNO = String.valueOf(Long.valueOf(NoHexString, 16));
+                        Log.i(TAG, "基站编号: " + deviceNO);
                         Message msg = handler.obtainMessage();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("TYPE", deviceType);
-                        bundle.putString("NO", deviceNO);
-                        msg.obj = bundle;
-                        msg.what = 200;
+                        msg.obj = deviceNO;
+                        msg.what = 100;
                         handler.sendMessage(msg);
                         break;
                     }

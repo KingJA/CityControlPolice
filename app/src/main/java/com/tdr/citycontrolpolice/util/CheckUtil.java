@@ -57,4 +57,13 @@ public class CheckUtil {
             return true;
         }
     }
+
+    public static boolean checkLength(String input, int lenght, String tip) {
+
+        if (input.length() > lenght) {
+            ToastUtil.showMyToast(tip);
+            return false;
+        }
+        return true;
+    }
 }

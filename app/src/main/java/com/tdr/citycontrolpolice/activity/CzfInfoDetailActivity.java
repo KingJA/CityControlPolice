@@ -65,8 +65,8 @@ public class CzfInfoDetailActivity extends BackTitleActivity {
         mRoomList = mCzfInfo.getContent().getRoomList();
         mRoomCount = mCzfInfo.getContent().getRoomList().size();
         for (KjChuZuWuInfo.ContentBean.RoomListBean bean : this.mRoomList) {
-            if (bean.getHEADCOUT() > 0) {
-                mPersonCount += bean.getHEADCOUT();
+            if (bean.getHEADCOUNT() > 0) {
+                mPersonCount += bean.getHEADCOUNT();
             }
         }
     }

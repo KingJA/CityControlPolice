@@ -186,7 +186,7 @@ public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, 
             addressList = bean.getContent();
             Log.i(TAG, "addressList: " + addressList.size());
             if (addressList.size() == 0) {
-                ToastUtil.showMyToast("该地址未在三实有系统中登记为出租房");
+                ToastUtil.showMyToast("无搜索结果，请核对地址");
             }
             czfQueryAdapter.setData(addressList);
         }

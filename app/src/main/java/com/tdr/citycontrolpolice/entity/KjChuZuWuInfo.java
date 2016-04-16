@@ -71,6 +71,10 @@ public class KjChuZuWuInfo implements Serializable {
         private String OWNERNAME;
         private String PHONE;
         private String ADDRESS;
+        private String STANDARDADDRCODE;
+        private String XQCODE;
+        private String PCSCODE;
+        private String JWHCODE;
         private List<RoomListBean> RoomList;
 
         public String getHOUSEID() {
@@ -129,6 +133,38 @@ public class KjChuZuWuInfo implements Serializable {
             this.ADDRESS = ADDRESS;
         }
 
+        public String getSTANDARDADDRCODE() {
+            return STANDARDADDRCODE;
+        }
+
+        public void setSTANDARDADDRCODE(String STANDARDADDRCODE) {
+            this.STANDARDADDRCODE = STANDARDADDRCODE;
+        }
+
+        public String getXQCODE() {
+            return XQCODE;
+        }
+
+        public void setXQCODE(String XQCODE) {
+            this.XQCODE = XQCODE;
+        }
+
+        public String getPCSCODE() {
+            return PCSCODE;
+        }
+
+        public void setPCSCODE(String PCSCODE) {
+            this.PCSCODE = PCSCODE;
+        }
+
+        public String getJWHCODE() {
+            return JWHCODE;
+        }
+
+        public void setJWHCODE(String JWHCODE) {
+            this.JWHCODE = JWHCODE;
+        }
+
         public List<RoomListBean> getRoomList() {
             return RoomList;
         }
@@ -139,10 +175,11 @@ public class KjChuZuWuInfo implements Serializable {
 
         public static class RoomListBean implements Serializable {
             private String ROOMID;
-            private String STATIONNO;
             private int ROOMNO;
             private int DEPLOYSTATUS;
-            private int HEADCOUT;
+            private int HEADCOUNT;
+            private String STATIONNO;
+            private int SHOUQUANCOUNT;
             private boolean isExpland;
 
             public String getROOMID() {
@@ -169,12 +206,12 @@ public class KjChuZuWuInfo implements Serializable {
                 this.DEPLOYSTATUS = DEPLOYSTATUS;
             }
 
-            public int getHEADCOUT() {
-                return HEADCOUT;
+            public int getHEADCOUNT() {
+                return HEADCOUNT;
             }
 
-            public void setHEADCOUT(int HEADCOUT) {
-                this.HEADCOUT = HEADCOUT;
+            public void setHEADCOUNT(int HEADCOUNT) {
+                this.HEADCOUNT = HEADCOUNT;
             }
 
             public String getSTATIONNO() {
@@ -183,6 +220,14 @@ public class KjChuZuWuInfo implements Serializable {
 
             public void setSTATIONNO(String STATIONNO) {
                 this.STATIONNO = STATIONNO;
+            }
+
+            public int getSHOUQUANCOUNT() {
+                return SHOUQUANCOUNT;
+            }
+
+            public void setSHOUQUANCOUNT(int SHOUQUANCOUNT) {
+                this.SHOUQUANCOUNT = SHOUQUANCOUNT;
             }
 
             public boolean isExpland() {

@@ -37,6 +37,9 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ZhuFang_DeviceLists.Con
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        viewHolder.tvdevicename.setText(list.get(position).getDEVICENAME() + "(" + list.get(position).getDEVICETYPE() + ":" + list.get(position).getDEVICECODE() + ")");
+
         viewHolder.ivdevicedelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

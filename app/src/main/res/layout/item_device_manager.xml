@@ -48,7 +48,7 @@
 
         <View style="@style/divider_special_horizontal" />
 
-        <ListView
+        <com.tdr.citycontrolpolice.view.FixedListView
             android:layout_width="match_parent"
             android:id="@+id/lv_device"
             android:layout_height="wrap_content" />
