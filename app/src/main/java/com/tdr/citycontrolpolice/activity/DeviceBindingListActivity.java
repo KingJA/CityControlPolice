@@ -227,7 +227,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
      * @param roomId
      * @param roomNo
      */
-    private void goBindDevice(int deviceType, int deviceNO, String houseId, String roomId, int roomNo) {
+    private void goBindDevice(long deviceNO, int deviceType, String houseId, String roomId, int roomNo) {
         Intent intent = new Intent(this, BindingDeviceActivity.class);
         intent.putExtra("DEVICE_TYPE", deviceType);
         intent.putExtra("DEVICE_NO", deviceNO);
@@ -275,7 +275,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
                 if (isStation) {
                     BindingStation(mHouseId, currentRoomId, stationNO);
                 } else {
-                    goBindDevice(Integer.valueOf(stationNO), Integer.valueOf(type), mHouseId, currentRoomId, currentRoomNo);
+                    goBindDevice(Long.valueOf(stationNO), Integer.valueOf(type), mHouseId, currentRoomId, currentRoomNo);
                 }
 
             }

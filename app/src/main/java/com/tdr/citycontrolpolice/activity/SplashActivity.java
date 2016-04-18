@@ -83,10 +83,12 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
+
         tvVersion.setText("当前版本:" + AppInfoUtil.getVersionName());
         rlRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                mInitHandler.removeCallbacks(skipRunnable);
 //                goLoginActivity();
             }
         });

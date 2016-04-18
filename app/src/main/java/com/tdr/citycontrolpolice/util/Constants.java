@@ -9,7 +9,7 @@ public class Constants {
     public static final int HANDLER_KEY_GETVERSION_FAIL = HANDLER_KEY_GETVERSION_SUCCESS + 1;
 
     public static final String WEBSERVER_URL = "http://zafkapp.test.iotone.cn/rentalestate.asmx"; //正式接口
-    //            public static final String WEBSERVER_URL = "http://127.0.0.1:8002/rentalestate.asmx";//温州版
+    //                public static final String WEBSERVER_URL = "http://127.0.0.1:8002/rentalestate.asmx";//温州版
 //        public static final String WEBSERVER_URL = "http://127.0.0.1:8890/rentalestate.asmx";//温州内测版
 //    public static final String WEBSERVER_URL = "http://172.18.18.21:8002/RentalEstate.asmx";//省厅地址
     public static final String WEBSERVER_NAMESPACE = "http://tempuri.org/";

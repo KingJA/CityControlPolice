@@ -152,6 +152,8 @@ public class KjRoomModifyActivity extends BackTitleActivity implements BottomLis
         et_room_area.setText(content.getSQUARE() + "");
         et_room_person.setText(content.getGALLERYFUL() + "");
         setProgressDialog(false);
+        bt_room_submit.setEnabled(true);
+        bt_room_submit.setClickable(true);
     }
 
     /**

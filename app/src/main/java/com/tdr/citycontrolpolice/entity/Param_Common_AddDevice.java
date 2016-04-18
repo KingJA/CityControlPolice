@@ -14,7 +14,7 @@ public class Param_Common_AddDevice {
     private String TaskID;
     private String DEVICEID;
     private int DEVICETYPE;
-    private int DEVICECODE;
+    private long DEVICECODE;
     private String DEVICENAME;
     private int OTHERTYPE;
     private String OTHERID;
@@ -46,11 +46,11 @@ public class Param_Common_AddDevice {
         this.DEVICETYPE = DEVICETYPE;
     }
 
-    public int getDEVICECODE() {
+    public long getDEVICECODE() {
         return DEVICECODE;
     }
 
-    public void setDEVICECODE(int DEVICECODE) {
+    public void setDEVICECODE(long DEVICECODE) {
         this.DEVICECODE = DEVICECODE;
     }
 

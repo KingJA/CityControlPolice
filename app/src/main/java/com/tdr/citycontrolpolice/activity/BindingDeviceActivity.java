@@ -44,7 +44,7 @@ public class BindingDeviceActivity extends BackTitleActivity {
     private static final int Camara = 100;
     private static final int SCALE = 200;
     private int deviceType;
-    private int deviceNO;
+    private long deviceNO;
     private String houseId;
     private String roomId;
     private int roomNo;
@@ -66,7 +66,8 @@ public class BindingDeviceActivity extends BackTitleActivity {
     @Override
     public void initVariables() {
         deviceType = getIntent().getIntExtra("DEVICE_TYPE", 888);
-        deviceNO = getIntent().getIntExtra("DEVICE_NO", 888);
+        Log.i(TAG, "initVariables: " + deviceType);
+        deviceNO = getIntent().getLongExtra("DEVICE_NO", 888);
         houseId = getIntent().getStringExtra("HOUSE_ID");
         roomId = getIntent().getStringExtra("ROOM_ID");
         roomNo = getIntent().getIntExtra("ROOM_NO", 888);

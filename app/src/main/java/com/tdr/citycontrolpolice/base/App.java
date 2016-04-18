@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.util.CustomConstants;
 import com.tdr.citycontrolpolice.view.loadpager.LoadingAndRetryManager;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import org.xutils.BuildConfig;
 import org.xutils.x;
@@ -30,6 +31,7 @@ public class App extends Application {
         mAppContext = getApplicationContext();
         mSharedPreferences = getSharedPreferences(CustomConstants.APPLICATION_NAME,
                 MODE_PRIVATE);
+        CrashReport.initCrashReport(mAppContext, "900026215", true);
         initLoadPager();
         initXutils3();
     }
