@@ -156,7 +156,7 @@ public class KjCzfInfoActivity extends BackTitleActivity implements BackTitleAct
         iv_czf_info_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CzfInfoDetailActivity.goActivity(KjCzfInfoActivity.this, mCzfInfo);
+                CzfInfoDetailActivity.goActivity(KjCzfInfoActivity.this, mHouseId);
             }
         });
     }

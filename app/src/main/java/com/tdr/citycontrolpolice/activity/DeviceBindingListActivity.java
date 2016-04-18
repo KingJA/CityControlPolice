@@ -164,7 +164,8 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
             public void onLeft() {
-                dialogBluetooth.show();
+                ToastUtil.showMyToast("亲爱的用户，该功能正在努力开发中...");
+//                dialogBluetooth.show();
             }
 
             @Override
@@ -212,6 +213,8 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
             Log.i(TAG, "设备编号: " + deviceNO);
             showBindDialog(String.valueOf(deviceNO), String.valueOf(deviceType), false);
 //            goBindDevice((int)deviceType, (int)deviceNO, mHouseId, currentRoomId, currentRoomNo);
+        } else {
+            ToastUtil.showMyToast("不是要求的二维码对象");
         }
     }
 
@@ -257,6 +260,8 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
             Log.i(TAG, "解码: " + result);
             Log.i(TAG, "基站编号: " + stationNO);
             showBindDialog(stationNO + "", null, true);
+        } else {
+            ToastUtil.showMyToast("不是要求的二维码对象");
         }
     }
 

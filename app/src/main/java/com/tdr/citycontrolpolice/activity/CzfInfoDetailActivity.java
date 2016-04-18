@@ -2,13 +2,20 @@ package com.tdr.citycontrolpolice.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
+import com.tdr.citycontrolpolice.net.PoolManager;
+import com.tdr.citycontrolpolice.net.ThreadPoolTask;
+import com.tdr.citycontrolpolice.net.WebServiceCallBack;
+import com.tdr.citycontrolpolice.util.UserService;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,18 +26,19 @@ import java.util.List;
  * 修改备注：
  */
 public class CzfInfoDetailActivity extends BackTitleActivity {
-    private static final String CZF_INFO_DETAIL = "CZF_INFO_DETAIL";
+    public static final String CZF_INFO_DETAIL = "HOUSE_ID";
     private TextView mTvOwnerName;
     private TextView mTvOwnerPhone;
     private TextView mTvCzfName;
     private TextView mTvCzfAddress;
     private TextView mTvRoomCount;
     private TextView mTvPersonCount;
-    private KjChuZuWuInfo mCzfInfo;
     private List<KjChuZuWuInfo.ContentBean.RoomListBean> mRoomList;
     private KjChuZuWuInfo.ContentBean mContent;
     private int mRoomCount;
     private int mPersonCount;
+    private String houseId;
+    private HashMap<String, Object> mParam = new HashMap<>();
 
 
     @Override
@@ -41,8 +49,10 @@ public class CzfInfoDetailActivity extends BackTitleActivity {
 
     @Override
     public void initVariables() {
-        mCzfInfo = (KjChuZuWuInfo) getIntent().getSerializableExtra(CZF_INFO_DETAIL);
-        mContent = mCzfInfo.getContent();
+        houseId = getIntent().getStringExtra(CZF_INFO_DETAIL);
+        mParam.put("TaskID", "1");
+        mParam.put("HouseID", houseId);
+
     }
 
     @Override
@@ -57,36 +67,57 @@ public class CzfInfoDetailActivity extends BackTitleActivity {
 
     @Override
     public void initNet() {
+        setProgressDialog(true);
+        ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<KjChuZuWuInfo>();
+        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "ChuZuWu_Info", mParam)
+                .setBeanType(KjChuZuWuInfo.class)
+                .setActivity(CzfInfoDetailActivity.this)
+                .setCallBack(new WebServiceCallBack<KjChuZuWuInfo>() {
+                    @Override
+                    public void onSuccess(KjChuZuWuInfo bean) {
+                        setProgressDialog(false);
+                        mContent = bean.getContent();
+                        setData(mContent);
+                    }
+
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+                        setProgressDialog(false);
+                    }
+                }).build();
+        PoolManager.getInstance().execute(task);
+    }
+
+
+    @Override
+    public void initData() {
 
     }
 
     @Override
-    public void initData() {
-        mRoomList = mCzfInfo.getContent().getRoomList();
-        mRoomCount = mCzfInfo.getContent().getRoomList().size();
+    public void setData() {
+        setTitle("出租屋信息统计");
+    }
+
+    private void setData(KjChuZuWuInfo.ContentBean mContent) {
+        mRoomList = mContent.getRoomList();
+        mRoomCount = mContent.getRoomList().size();
         for (KjChuZuWuInfo.ContentBean.RoomListBean bean : this.mRoomList) {
             if (bean.getHEADCOUNT() > 0) {
                 mPersonCount += bean.getHEADCOUNT();
             }
         }
-    }
-
-    @Override
-    public void setData() {
-
-        setTitle("出租屋信息统计");
         mTvOwnerName.setText(mContent.getOWNERNAME());
         mTvOwnerPhone.setText(mContent.getPHONE());
         mTvCzfName.setText(mContent.getHOUSENAME());
         mTvCzfAddress.setText(mContent.getADDRESS());
         mTvRoomCount.setText(mRoomCount + "");
         mTvPersonCount.setText(mPersonCount + "");
-
     }
 
-    public static void goActivity(Context context, Serializable serializable) {
+    public static void goActivity(Context context, String houseId) {
         Intent intent = new Intent(context, CzfInfoDetailActivity.class);
-        intent.putExtra(CZF_INFO_DETAIL, serializable);
+        intent.putExtra(CZF_INFO_DETAIL, houseId);
         context.startActivity(intent);
     }
 }

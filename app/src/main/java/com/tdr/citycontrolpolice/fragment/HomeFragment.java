@@ -210,7 +210,7 @@ public class HomeFragment extends BaseFragment implements DialogNFC.OnClickListe
     public void onClick(int position) {
         switch (position) {
             case 0:
-                ToastUtil.showMyToast("NFC");
+                ToastUtil.showMyToast("亲爱的用户，该功能正在努力开发中...");
                 break;
             case 1:
 //                ToastUtil.showMyToast("ID卡");
