@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.net.PoolManager;
-import com.tdr.citycontrolpolice.update.GetVersionCodeAsynckTask;
 import com.tdr.citycontrolpolice.update.UpdateManager;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.AppInfoUtil;
@@ -102,13 +101,7 @@ public class SplashActivity extends Activity {
     private void timeToActivity() {
         endTime = System.currentTimeMillis();
         if ((endTime - startTime) < DELAYED_MILLS) {
-            mInitHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Log.i(TAG, "if: " + String.valueOf(endTime - startTime));
-                    goLoginActivity();
-                }
-            }, DELAYED_MILLS - (endTime - startTime));
+            mInitHandler.postDelayed(skipRunnable, DELAYED_MILLS - (endTime - startTime));
         } else {
             Log.i(TAG, "else: " + String.valueOf(endTime - startTime));
             goLoginActivity();
@@ -128,9 +121,6 @@ public class SplashActivity extends Activity {
     private void checkVersionUpdate() {
         startTime = System.currentTimeMillis();
         Log.i(TAG, "第1步：检查版本更新");
-//        GetVersionCodeAsynckTask asynckTask = new GetVersionCodeAsynckTask(
-//                SplashActivity.this, mInitHandler);
-//        asynckTask.execute("CityControlPolice.apk");
         mInitHandler.sendEmptyMessage(CALL_INIT_DB);
     }
 
@@ -155,5 +145,18 @@ public class SplashActivity extends Activity {
     private void checkDatebaseUpdate() {
         Log.i(TAG, "第3步：检查数据库版本更新");
         mInitHandler.sendEmptyMessage(CALL_LOGIN);
+    }
+
+    private Runnable skipRunnable = new Runnable() {
+        @Override
+        public void run() {
+            goLoginActivity();
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mInitHandler.removeCallbacks(skipRunnable);
     }
 }
