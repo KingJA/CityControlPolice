@@ -37,7 +37,7 @@ public class ReceiveDeviceThread extends ReceiveBaseThread {
                     byte[] totleByte = new byte[count];
                     inputStream.read(totleByte);
 
-                    if (totleByte.length == 25) {
+                    if (totleByte.length == 19) {
                         byte[] order = Arrays.copyOfRange(totleByte, 5, 6);
                         if (order[0] != (byte) (0xb7)) {
                             Log.i(TAG, "不是基站信息HexString: " + BluetoothUtil.bytesToHexString(totleByte));
@@ -45,16 +45,16 @@ public class ReceiveDeviceThread extends ReceiveBaseThread {
                         }
                         String HexString = BluetoothUtil.bytesToHexString(totleByte);
                         Log.i(TAG, "HexString: " + HexString);
-                        byte[] type = Arrays.copyOfRange(totleByte, 15, 17);
-                        byte[] number = Arrays.copyOfRange(totleByte, 17, 21);
+                        byte[] type = Arrays.copyOfRange(totleByte, 9, 11);
+                        byte[] number = Arrays.copyOfRange(totleByte, 11, 15);
                         String typeHexString = BluetoothUtil.bytesToHexString(type);
                         Log.i(TAG, "设备类型HexString: " + typeHexString);
                         String NoHexString = BluetoothUtil.bytesToHexString(number);
                         Log.i(TAG, "设备编号HexString: " + NoHexString);
 
-                        String deviceType = String.valueOf(Integer.parseInt(typeHexString, 16));
-                        String deviceNO = String.valueOf(Integer.parseInt(NoHexString, 16));
-                        Log.i(TAG, "设备类型: " + deviceNO);
+                        String deviceType = String.valueOf(Long.valueOf(typeHexString, 16));
+                        String deviceNO = String.valueOf(Long.valueOf(NoHexString, 16));
+                        Log.i(TAG, "设备类型: " + deviceType);
                         Log.i(TAG, "设备编号: " + deviceNO);
 
                         Message msg = handler.obtainMessage();

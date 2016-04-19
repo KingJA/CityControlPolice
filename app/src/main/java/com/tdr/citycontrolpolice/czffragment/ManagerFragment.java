@@ -194,7 +194,7 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
 
             for (int i = 1; i <= Integer.valueOf(floor); i++) {
                 for (int j = 1; j <= Integer.valueOf(room); j++) {
-                    int roomNO = Integer.valueOf(i + "0" + j);
+                    int roomNO = Integer.valueOf(i + String.format("%02d", j));
                     Log.i(TAG, i + "0" + j);
                     Param_ChuZuWu_AddRoomList.ROOMLISTBean roomlistBean = new Param_ChuZuWu_AddRoomList.ROOMLISTBean();
                     roomlistBean.setROOMID(MyUtil.getUUID());

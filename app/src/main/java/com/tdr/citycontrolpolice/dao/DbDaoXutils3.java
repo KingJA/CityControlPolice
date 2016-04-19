@@ -16,8 +16,9 @@ import java.util.List;
  */
 public class DbDaoXutils3<T> implements DbDao<T> {
 
-    private final DbManager dbManager;
+    private DbManager dbManager;
     private static DbDaoXutils3 mDbDaoXutils3;
+
 
     public static DbDaoXutils3 getInstance() {
         if (mDbDaoXutils3 == null) {
@@ -30,6 +31,7 @@ public class DbDaoXutils3<T> implements DbDao<T> {
         }
         return mDbDaoXutils3;
     }
+
 
     private DbDaoXutils3() {
         DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
@@ -77,9 +79,22 @@ public class DbDaoXutils3<T> implements DbDao<T> {
         List<T> list = null;
         try {
             list = dbManager.selector(clazz).where(key, "=", value).findAll();
+
+
         } catch (DbException e) {
             e.printStackTrace();
         }
         return list;
     }
+
+    @Override
+    public void saveOrUpdate(T t) {
+        try {
+            dbManager.saveOrUpdate(t);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

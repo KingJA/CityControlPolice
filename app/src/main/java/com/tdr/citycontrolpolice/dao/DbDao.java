@@ -15,4 +15,6 @@ public interface DbDao<T> {
     public T sleectFirst(Class<T> clazz, String key1, String value1, String key2, String value2);
 
     public List<T> sleectAll(Class<T> clazz, String key, String value);
+
+    public void saveOrUpdate(T t);
 }

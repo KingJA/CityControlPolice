@@ -52,13 +52,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.15"
                     android:gravity="center"
-
                     android:text="房间数："
                     android:textSize="16sp" />
 
                 <EditText
                     android:numeric="integer"
-                    android:maxLength="1"
+                    android:maxLength="2"
                     android:id="@+id/et_init_room"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
@@ -66,8 +65,6 @@
                     android:inputType="number" />
 
             </LinearLayout>
-
-
         </LinearLayout>
 
         <Button

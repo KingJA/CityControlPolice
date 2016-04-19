@@ -164,8 +164,8 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
             public void onLeft() {
-                ToastUtil.showMyToast("亲爱的用户，该功能正在努力开发中...");
-//                dialogBluetooth.show();
+//                ToastUtil.showMyToast("亲爱的用户，该功能正在努力开发中...");
+                dialogBluetooth.show();
             }
 
             @Override
@@ -421,9 +421,9 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
 
                 case 200:
                     Bundle bundle = (Bundle) msg.obj;
-                    deviceType = Integer.valueOf(bundle.getString("TYPE"));
-                    deviceNO = Integer.valueOf(bundle.getString("NO"));
-                    showBindDialog(deviceType + "", deviceNO + "", false);
+                    deviceType = Long.valueOf(bundle.getString("TYPE"));
+                    deviceNO = Long.valueOf(bundle.getString("NO"));
+                    showBindDialog(deviceNO + "", deviceType + "", false);
                     startConnect(currentIsStation);
                     break;
 

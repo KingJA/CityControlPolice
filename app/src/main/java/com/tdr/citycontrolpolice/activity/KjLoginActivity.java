@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -26,7 +28,6 @@ import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.util.PhoneUtil;
 import com.tdr.citycontrolpolice.util.SharedPreferencesUtils;
-import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.view.KingJA_SwtichButton;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 
@@ -55,6 +56,8 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
     KingJA_SwtichButton kjSwitchbutton;
     @Bind(R.id.tv_version)
     TextView tvVersion;
+    @Bind(R.id.v_something)
+    View vSomething;
 
     private String userName;
     private String password;
@@ -211,4 +214,20 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         this.isLoginByPolice = isLeft;
     }
 
+    private long[] mHits = new long[5];
+    private boolean key = true;
+
+
+    @OnClick(R.id.v_something)
+    void doThing() {
+        System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+        mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+        if (mHits[0] >= (SystemClock.uptimeMillis() - 1000)) {
+            if (key) {
+                ActivityUtil.goActivity(KjLoginActivity.this, DownloadDbActivity.class);
+                key = false;
+                vSomething.setClickable(false);
+            }
+        }
+    }
 }

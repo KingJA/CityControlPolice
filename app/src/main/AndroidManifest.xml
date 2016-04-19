@@ -30,7 +30,6 @@
         android:name="android.hardware.nfc"
         android:required="true" />
     <!--扫一扫-->
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -43,7 +42,6 @@
     <uses-permission android:name="cybertech.permission.READ_PSTORE_LINKINFO" />
     <uses-permission android:name="cybertech.pstore.permission.APP" />
     <uses-permission android:name="cybertech.lightsproj.permission.QUERY" />
-
     <!--app-->
     <application
         android:name=".base.App"
@@ -170,6 +168,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CzfInfoDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.DownloadDbActivity"
             android:screenOrientation="portrait" />
 
 
