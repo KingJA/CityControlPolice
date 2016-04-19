@@ -172,15 +172,19 @@ public class BindingDeviceActivity extends BackTitleActivity {
         switch (requestCode) {
             case Camara:
                 if (resultCode == RESULT_OK) {
-                    Intent intent = new Intent("com.android.camera.action.CROP");
-                    intent.setDataAndType(Uri.fromFile(imageFile), "image/*");
-                    intent.putExtra("crop", true);
-                    intent.putExtra("aspectX", 1);
-                    intent.putExtra("aspectY", 1);
-                    intent.putExtra("outputX", 150);
-                    intent.putExtra("outputY", 150);
-                    intent.putExtra("return-data", true);
-                    startActivityForResult(intent, SCALE);
+//                    Intent intent = new Intent("com.android.camera.action.CROP");
+//                    intent.setDataAndType(Uri.fromFile(imageFile), "image/*");
+//                    intent.putExtra("crop", true);
+//                    intent.putExtra("aspectX", 1);
+//                    intent.putExtra("aspectY", 1);
+//                    intent.putExtra("outputX", 150);
+//                    intent.putExtra("outputY", 150);
+//                    intent.putExtra("return-data", true);
+//                    startActivityForResult(intent, SCALE);
+                    Bitmap bitmap = ImageUtil.compressScaleFromF2B(imageFile.getAbsolutePath());
+                    base64String = new String(ImageUtil.bitmapToBase64(bitmap));
+                    iv_device_icon.setImageBitmap(ImageUtil.base64ToBitmap(base64String));
+                    Log.i(TAG, "base64String: " + base64String.length());
                 }
                 break;
             case SCALE:

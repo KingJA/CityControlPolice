@@ -1,8 +1,10 @@
 package com.tdr.citycontrolpolice.util;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -70,5 +72,53 @@ public class ImageUtil {
             }
         }
         return result;
+    }
+    /**
+     * base64转为bitmap
+     *
+     * @param base64Data
+     * @return
+     */
+    public static Bitmap base64ToBitmap(String base64Data) {
+        byte[] bytes = Base64.decode(base64Data, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+    /**
+     * 比例压缩
+     *
+     * @param srcPath
+     * @return
+     */
+    public static Bitmap compressScaleFromF2B(String srcPath) {
+        Log.i("比例压缩", "比例压缩");
+        BitmapFactory.Options newOpts = new BitmapFactory.Options();
+        // 开始读入图片，此时把options.inJustDecodeBounds 设回true了
+        newOpts.inJustDecodeBounds = true;
+        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);// 此时返回bm为空
+        newOpts.inJustDecodeBounds = false;
+        int imgWidth = newOpts.outWidth;
+        int imgHeight = newOpts.outHeight;
+        Log.i("outWidth", imgWidth + "");
+        Log.i("outHeight", imgHeight + "");
+        // 现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
+        float scaleWidth = 720 / 4;
+        float scaleHeight = 1280 / 4;
+        Log.i("scaleWidth", scaleWidth + "");
+        Log.i("scaleHeight", scaleHeight + "");
+        // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
+        int be = 1;// be=1表示不缩放
+        if (imgWidth > imgHeight && imgWidth > scaleWidth) {// 如果宽度大的话根据宽度固定大小缩放
+            be = (int) (newOpts.outWidth / scaleWidth);
+            Log.i("if be", be + "");
+        } else if (imgWidth < imgHeight && imgHeight > scaleHeight) {// 如果高度高的话根据宽度固定大小缩放
+            be = (int) (newOpts.outHeight / scaleHeight);
+            Log.i("else be", be + "");
+        }
+        if (be <= 0)
+            be = 1;
+        newOpts.inSampleSize = be;// 设置缩放比例
+        // 重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
+        bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+        return bitmap;
     }
 }

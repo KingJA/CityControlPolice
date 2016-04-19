@@ -98,7 +98,7 @@ public class KjApplyFragment extends KjBaseFragment implements AdapterView.OnIte
                     public void onSuccess(ChuZuWu_LKSelfReportingList bean) {
                         applyList = bean.getContent().getPERSONNELINFOLIST();
                         Log.i("ApplyFragment", "applyList: " + applyList.size());
-                        llEmpty.setVisibility(applyList.size() == 0 ? View.VISIBLE : View.GONE);
+//                        llEmpty.setVisibility(applyList.size() == 0 ? View.VISIBLE : View.GONE);
                         applyAdapter = new CzfApplyAdapter(mActivity, applyList);
                         lv_exist.setAdapter(applyAdapter);
                         adapterMap.put(Boolean.valueOf(isInList), applyAdapter);
