@@ -28,7 +28,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:background="@mipmap/wtfk" />
+                    android:background="@drawable/bg_fwxx" />
 
                 <TextView
                     style="@style/font_white_16"
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <View style="@style/divider_nomal_horizontal" />
+                <View style="@style/divider_pop_horizontal" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:background="@mipmap/sbsb" />
+                        android:background="@drawable/bg_sbsb" />
 
                     <TextView
                         style="@style/font_white_16"
@@ -70,7 +70,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <View style="@style/divider_nomal_horizontal" />
+            <View style="@style/divider_pop_horizontal" />
 
             <LinearLayout
                 android:id="@+id/ll_register"
@@ -84,7 +84,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:background="@mipmap/crjl" />
+                    android:background="@drawable/bg_crjl" />
 
                 <TextView
                     style="@style/font_white_16"
@@ -94,7 +94,7 @@
                     android:text="出入历史列表" />
             </LinearLayout>
 
-            <View style="@style/divider_nomal_horizontal" />
+            <View style="@style/divider_pop_horizontal" />
 
             <LinearLayout
                 android:id="@+id/ll_binding"
@@ -118,7 +118,7 @@
                     android:text="防控设备绑定" />
             </LinearLayout>
 
-            <View style="@style/divider_nomal_horizontal" />
+            <View style="@style/divider_pop_horizontal" />
 
             <LinearLayout
                 android:id="@+id/ll_manager"

@@ -69,7 +69,7 @@
 
         <Button
             android:id="@+id/btn_init_house"
-            style="@style/button_18"
+            style="@style/button_16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"

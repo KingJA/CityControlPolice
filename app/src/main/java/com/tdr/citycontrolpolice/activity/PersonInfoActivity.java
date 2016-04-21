@@ -1,6 +1,5 @@
 package com.tdr.citycontrolpolice.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,7 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.adapter.DetailInfoAdapter;
+import com.tdr.citycontrolpolice.adapter.PersonInfoAdapter;
+import com.tdr.citycontrolpolice.entity.ChuZuWu_ComprehensiveInfo;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_MenPaiAuthorizationList;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.net.PoolManager;
@@ -28,16 +28,16 @@ import java.util.List;
  * 创建时间：2016/3/25 16:52
  * 修改备注：
  */
-public class DetailCzfInfoActivity extends BackTitleActivity implements BackTitleActivity.OnRightClickListener, CzfListDetailPop.OnPopClickListener {
+public class PersonInfoActivity extends BackTitleActivity implements BackTitleActivity.OnRightClickListener, CzfListDetailPop.OnPopClickListener {
 
-    private static final String TAG = "DetailCzfInfoActivity";
+    private static final String TAG = "PersonInfoActivity";
     private String mHouseId;
     private String mRoomId;
     private ListView lv;
     private String mToken;
     private HashMap<String, Object> mParam = new HashMap<>();
-    private List<ChuZuWu_MenPaiAuthorizationList.ContentBean.PERSONNELINFOLISTBean> personnelinfolist = new ArrayList<>();
-    private DetailInfoAdapter detailInfoAdapter;
+    private List<ChuZuWu_ComprehensiveInfo.ContentBean.PERSONNELINFOLISTBean> personnelinfolist = new ArrayList<>();
+    private PersonInfoAdapter personInfoAdapter;
     private LinearLayout ll_empty;
     private CzfListDetailPop czfListDetailPop;
     private String mRoomNo;
@@ -52,9 +52,9 @@ public class DetailCzfInfoActivity extends BackTitleActivity implements BackTitl
         mToken = UserService.getInstance(this).getToken();
 
         mParam.put("TaskID", "1");
-        mParam.put("HouseID", mHouseId);
+        mParam.put("HOUSEID", mHouseId);
         mParam.put("ROOMID", mRoomId);
-        mParam.put("PageSize", 50);
+        mParam.put("PageSize", 100);
         mParam.put("PageIndex", 0);
     }
 
@@ -66,30 +66,30 @@ public class DetailCzfInfoActivity extends BackTitleActivity implements BackTitl
 
     @Override
     protected void initView() {
-        setTitle("人员信息");
+
         setRightVisibility(View.VISIBLE);
         lv = (ListView) findViewById(R.id.lv_exist);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
-        detailInfoAdapter = new DetailInfoAdapter(this, personnelinfolist);
-        lv.setAdapter(detailInfoAdapter);
-        czfListDetailPop = new CzfListDetailPop(rlParent, DetailCzfInfoActivity.this);
+        personInfoAdapter = new PersonInfoAdapter(this, personnelinfolist);
+        lv.setAdapter(personInfoAdapter);
+        czfListDetailPop = new CzfListDetailPop(rlParent, PersonInfoActivity.this);
     }
 
     @Override
     public void initNet() {
         setProgressDialog(true);
-        ThreadPoolTask.Builder<ChuZuWu_MenPaiAuthorizationList> builder = new ThreadPoolTask.Builder<ChuZuWu_MenPaiAuthorizationList>();
-        ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_MenPaiAuthorizationList", mParam)
-                .setBeanType(ChuZuWu_MenPaiAuthorizationList.class)
-                .setActivity(DetailCzfInfoActivity.this)
-                .setCallBack(new WebServiceCallBack<ChuZuWu_MenPaiAuthorizationList>() {
+        ThreadPoolTask.Builder<ChuZuWu_ComprehensiveInfo> builder = new ThreadPoolTask.Builder<ChuZuWu_ComprehensiveInfo>();
+        ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_ComprehensiveInfo", mParam)
+                .setBeanType(ChuZuWu_ComprehensiveInfo.class)
+                .setActivity(PersonInfoActivity.this)
+                .setCallBack(new WebServiceCallBack<ChuZuWu_ComprehensiveInfo>() {
                     @Override
-                    public void onSuccess(ChuZuWu_MenPaiAuthorizationList bean) {
+                    public void onSuccess(ChuZuWu_ComprehensiveInfo bean) {
                         setProgressDialog(false);
-                        personnelinfolist = bean.getContent().getPERSONNELINFOLIST();
-                        Log.i(TAG, "personnelinfolist: " + personnelinfolist.size());
-                        detailInfoAdapter.setData(personnelinfolist);
-                        ll_empty.setVisibility(personnelinfolist.size() == 0 ? View.VISIBLE : View.GONE);
+                       personnelinfolist = bean.getContent().getPERSONNELINFOLIST();
+                        Log.i(TAG, "personnelinfolist: " + PersonInfoActivity.this.personnelinfolist.size());
+                        personInfoAdapter.setData(PersonInfoActivity.this.personnelinfolist);
+                        ll_empty.setVisibility(PersonInfoActivity.this.personnelinfolist.size() == 0 ? View.VISIBLE : View.GONE);
                     }
 
                     @Override
@@ -108,7 +108,7 @@ public class DetailCzfInfoActivity extends BackTitleActivity implements BackTitl
 
     @Override
     public void setData() {
-
+        setTitle("人员信息");
     }
 
     @Override
@@ -120,11 +120,6 @@ public class DetailCzfInfoActivity extends BackTitleActivity implements BackTitl
     public void onCzfInfoPop(int position) {
         switch (position) {
             case 0:
-//                Intent intent = new Intent(this, KjRoomModifyActivity.class);
-//                intent.putExtra("HOUSEID", mHouseId);
-//                intent.putExtra("ROOMID", mRoomId);
-//                intent.putExtra("ROOMNO", mRoomNo);
-//                startActivity(intent);
                 KjRoomModifyActivity.goActivity(this, mHouseId, mRoomId, mRoomNo);
                 break;
             default:

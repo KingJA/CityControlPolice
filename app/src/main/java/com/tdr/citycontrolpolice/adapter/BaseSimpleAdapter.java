@@ -27,6 +27,7 @@ public abstract class BaseSimpleAdapter<T> extends BaseAdapter {
 
     public void setData(List<T> list) {
         this.list = list;
+        selectPosition = -1;
         this.notifyDataSetChanged();
     }
 

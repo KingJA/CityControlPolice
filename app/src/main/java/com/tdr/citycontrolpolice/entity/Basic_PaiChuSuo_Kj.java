@@ -1,8 +1,9 @@
 package com.tdr.citycontrolpolice.entity;
 
-import com.lidroid.xutils.db.annotation.Table;
+
 
 import org.xutils.db.annotation.Column;
+import org.xutils.db.annotation.Table;
 
 /**
  * 项目名称：物联网城市防控(警用版)

@@ -142,7 +142,7 @@
 
     <Button
         android:id="@+id/btn_submit"
-        style="@style/button_18"
+        style="@style/button_16"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="20dp"

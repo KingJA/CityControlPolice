@@ -163,7 +163,13 @@ public class BindingDeviceActivity extends BackTitleActivity {
         setTitle("设备绑定");
         tv_device_room.setText(roomNo + "");
         Basic_Dictionary_Kj bean = (Basic_Dictionary_Kj) DbDaoXutils3.getInstance().sleectFirst(Basic_Dictionary_Kj.class, "COLUMNCODE", "DEVICETYPE", "COLUMNVALUE", deviceType + "");
-        tv_device_type.setText(bean.getCOLUMNCOMMENT());
+        if (bean == null) {
+            ToastUtil.showMyToast("未识别设备类型");
+            finish();
+        }else{
+            tv_device_type.setText(bean.getCOLUMNCOMMENT());
+        }
+
     }
 
     @Override

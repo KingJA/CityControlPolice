@@ -17,6 +17,17 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
         <item name="android:background">@color/gray_divider</item>
+    </style> <!--普通淡水平分割线-->
+    <style name="divider_light_horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/gray_divider_light</item>
+    </style>
+    <!--pop水平分割线-->
+    <style name="divider_pop_horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/gray_pop_divider</item>
     </style>
     <!--普通垂直分割线-->
     <style name="divider_nomal_vertical">
@@ -31,8 +42,13 @@
         <item name="android:background">@drawable/list_devider</item>
     </style>
     <!--对话框样式-->
+    <style name="CustomAlertDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/shape_lnull_bwhite_r8</item>
+    </style>
     <style name="CustomDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/shape_lnull_bwhite_r8</item>
+        <item name="android:windowNoTitle">true</item>
+
     </style>
     <!-- 进度条对话框样式 -->
     <style name="dialog_progress" parent="@android:style/Theme.Dialog">

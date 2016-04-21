@@ -13,37 +13,39 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:background="@drawable/bg_fg"
+            android:background="@color/bg_gray_kj"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:text="出租房信息"
             android:textSize="12dp" />
 
+        <View style="@style/divider_nomal_horizontal" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
-            <TextView
+            <com.tdr.citycontrolpolice.view.RequiredTextView
+                style="@style/font_tip_14"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
-                android:text="*地        址:"
-                android:textColor="@color/mytext" />
+                android:text="*地        址:" />
 
             <TextView
                 android:id="@+id/tv_address"
+                style="@style/font_content_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#fff"
-                android:focusable="false"
                 android:hint="请选择地址"
-                android:paddingLeft="5dp"
-                android:textSize="15sp" />
+                android:paddingLeft="5dp" />
 
             <ImageView
                 android:id="@+id/iv_search"
@@ -51,9 +53,9 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="10dp"
-                android:src="@mipmap/search_off" />
+                android:src="@drawable/bg_search" />
         </LinearLayout>
-
+        <View style="@style/divider_light_horizontal" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -61,22 +63,24 @@
             android:background="#fff"
             android:orientation="horizontal">
 
-            <TextView
+            <com.tdr.citycontrolpolice.view.RequiredTextView
+                style="@style/font_tip_14"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
-                android:text="*出租房名:"
-                android:textColor="@color/mytext" />
+                android:text="*出租房名:" />
 
             <EditText
                 android:id="@+id/et_czfName"
+                style="@style/font_content_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#fff"
-                android:paddingLeft="5dp"
-                android:textSize="15sp" />
+                android:paddingLeft="5dp" />
         </LinearLayout>
+
+        <View style="@style/divider_light_horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,27 +89,26 @@
             android:background="#fff"
             android:orientation="horizontal">
 
-            <TextView
+            <com.tdr.citycontrolpolice.view.RequiredTextView
+                style="@style/font_tip_14"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
-                android:text="*房屋类型:"
-                android:textColor="@color/mytext" />
+                android:text="*房屋类型:" />
 
             <TextView
                 android:id="@+id/tv_czfType"
+                style="@style/font_content_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#fff"
                 android:gravity="center_vertical"
-                android:paddingLeft="5dp"
-                android:textColor="#333"
-                android:textSize="15sp" />
+                android:paddingLeft="5dp" />
 
 
         </LinearLayout>
-
+        <View style="@style/divider_light_horizontal" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -114,21 +117,23 @@
             android:orientation="horizontal">
 
             <TextView
+                style="@style/font_tip_14"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
-                android:text="小区名称:"
-                android:textColor="@color/mytext" />
+                android:text="小区名称:" />
 
             <EditText
                 android:id="@+id/et_areaName"
+                style="@style/font_content_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#fff"
-                android:paddingLeft="5dp"
-                android:textSize="15sp" />
+                android:paddingLeft="5dp" />
         </LinearLayout>
+
+        <View style="@style/divider_light_horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -138,57 +143,61 @@
             android:orientation="horizontal">
 
             <TextView
+                style="@style/font_tip_14"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
-                android:text="辖区派出所:"
-                android:textColor="@color/mytext" />
+                android:text="辖区派出所:" />
 
             <TextView
                 android:id="@+id/tv_police"
+                style="@style/font_content_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#fff"
                 android:gravity="center_vertical"
-                android:paddingLeft="5dp"
-                android:textColor="@color/mytext"
-                android:textSize="15sp" />
+                android:paddingLeft="5dp" />
         </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:background="@drawable/bg_fg"
+            android:background="@color/bg_gray_kj"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:text="房东信息"
             android:textSize="12dp" />
 
+        <View style="@style/divider_nomal_horizontal" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="#fff"
             android:orientation="horizontal">
 
-            <TextView
+            <com.tdr.citycontrolpolice.view.RequiredTextView
+                style="@style/font_tip_14"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
-                android:text="*姓名:"
-                android:textColor="@color/mytext" />
+                android:text="*姓名:" />
 
             <TextView
-                android:id="@+id/et_ownerName"
+                android:id="@+id/tv_ownerName"
+                style="@style/font_content_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#fff"
                 android:gravity="center_vertical"
-                android:paddingLeft="5dp"
-                android:textColor="@color/mytext"
-                android:textSize="15sp" />
+                android:paddingLeft="5dp" />
         </LinearLayout>
+
+        <View style="@style/divider_light_horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -197,23 +206,22 @@
             android:background="#fff"
             android:orientation="horizontal">
 
-            <TextView
+            <com.tdr.citycontrolpolice.view.RequiredTextView
+                style="@style/font_tip_14"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
-                android:text="*身份证:"
-                android:textColor="@color/mytext" />
+                android:text="*身份证:" />
 
             <TextView
-                android:id="@+id/et_ownerCard"
+                android:id="@+id/tv_ownerCard"
+                style="@style/font_content_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#fff"
                 android:gravity="center_vertical"
-                android:paddingLeft="5dp"
-                android:textColor="@color/mytext"
-                android:textSize="15sp" />
+                android:paddingLeft="5dp" />
 
             <ImageView
                 android:id="@+id/iv_ownerNfc"
@@ -226,6 +234,8 @@
 
         </LinearLayout>
 
+        <View style="@style/divider_light_horizontal" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -233,27 +243,29 @@
             android:background="#fff"
             android:orientation="horizontal">
 
-            <TextView
+            <com.tdr.citycontrolpolice.view.RequiredTextView
+                style="@style/font_tip_14"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
-                android:text="*手机号:"
-                android:textColor="@color/mytext" />
+                android:text="*手机号:" />
 
             <EditText
                 android:id="@+id/et_ownerPhone"
+                style="@style/font_content_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#fff"
-                android:paddingLeft="5dp"
-                android:textSize="15sp" />
+                android:paddingLeft="5dp" />
         </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_fg"
+            android:background="@color/bg_gray_kj"
             android:orientation="horizontal">
 
             <TextView
@@ -275,16 +287,17 @@
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
                 android:text="与房东同人"
-                android:textColor="#00aaee"
-                android:textSize="13dp" />
+                android:textColor="@color/blue_light_kj"
+                android:textSize="12dp" />
         </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal" />
 
         <LinearLayout
             android:id="@+id/ll_admin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -292,22 +305,24 @@
                 android:background="#fff"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.tdr.citycontrolpolice.view.RequiredTextView
+                    style="@style/font_tip_14"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
-                    android:text="*姓名:"
-                    android:textColor="@color/mytext" />
+                    android:text="*姓名:" />
 
                 <EditText
                     android:id="@+id/et_adminName"
+                    style="@style/font_content_14"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="#fff"
-                    android:paddingLeft="5dp"
-                    android:textSize="15sp" />
+                    android:paddingLeft="5dp" />
             </LinearLayout>
+
+            <View style="@style/divider_light_horizontal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -316,21 +331,21 @@
                 android:background="#fff"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.tdr.citycontrolpolice.view.RequiredTextView
+                    style="@style/font_tip_14"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
-                    android:text="*身份证:"
-                    android:textColor="@color/mytext" />
+                    android:text="*身份证:" />
 
                 <EditText
                     android:id="@+id/et_adminCard"
+                    style="@style/font_content_14"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="#fff"
-                    android:paddingLeft="5dp"
-                    android:textSize="15sp" />
+                    android:paddingLeft="5dp" />
 
                 <ImageView
                     android:id="@+id/iv_adminNfc"
@@ -343,6 +358,8 @@
 
             </LinearLayout>
 
+            <View style="@style/divider_light_horizontal" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -350,69 +367,74 @@
                 android:background="#fff"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.tdr.citycontrolpolice.view.RequiredTextView
+                    style="@style/font_tip_14"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
-                    android:text="*手机号:"
-                    android:textColor="@color/mytext" />
+                    android:text="*手机号:" />
 
                 <EditText
                     android:id="@+id/et_adminPhone"
+                    style="@style/font_content_14"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="#fff"
                     android:hint="用户登录密码获取手机"
-                    android:paddingLeft="5dp"
-                    android:textSize="15sp" />
+                    android:paddingLeft="5dp" />
             </LinearLayout>
 
 
         </LinearLayout>
 
+        <View style="@style/divider_nomal_horizontal" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:background="@drawable/bg_fg"
+            android:background="@color/bg_gray_kj"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:text="照片"
             android:textSize="12dp" />
 
+        <View style="@style/divider_nomal_horizontal" />
+
         <LinearLayout
+          android:gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="#fff"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="10dp">
 
             <ImageView
                 android:id="@+id/iv_number"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/dz_doorplate" />
 
             <ImageView
+                android:layout_marginLeft="20dp"
                 android:id="@+id/iv_room"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/fw_location" />
 
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_submit"
+            style="@style/button_16"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="30dp"
-            android:background="@drawable/btnsubmit_change"
-            android:text="提交"
-            android:textColor="@color/btn_login"
-            android:textSize="18sp" />
+            android:layout_height="match_parent"
+           android:layout_marginLeft="32dp"
+           android:layout_marginRight="32dp"
+           android:layout_marginBottom="32dp"
+
+            android:text="提交" />
 
     </LinearLayout>
 

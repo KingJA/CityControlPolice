@@ -1,7 +1,6 @@
 package com.tdr.citycontrolpolice.czffragment;
 
 import android.os.Bundle;
-import android.support.annotation.FloatRange;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.activity.DetailCzfInfoActivity;
+import com.tdr.citycontrolpolice.activity.PersonInfoActivity;
 import com.tdr.citycontrolpolice.adapter.CzfManagerAdapter;
 import com.tdr.citycontrolpolice.base.KjBaseFragment;
 import com.tdr.citycontrolpolice.entity.ChuZuWuInfo;
@@ -164,7 +163,7 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
         bundle.putString("HOUSE_ID", mHouseId);
         bundle.putString("ROOM_ID", roomid);
         bundle.putString("ROOM_NO", roomno + "");
-        ActivityUtil.goActivityWithBundle(mActivity, DetailCzfInfoActivity.class, bundle);
+        ActivityUtil.goActivityWithBundle(mActivity, PersonInfoActivity.class, bundle);
 
     }
 

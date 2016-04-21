@@ -13,7 +13,7 @@ public abstract class DialogBaseAlert extends AlertDialog implements View.OnClic
     protected Context context;
 
     protected DialogBaseAlert(Context context) {
-        super(context, R.style.CustomDialog);
+        super(context, R.style.CustomAlertDialog);
         this.context = context;
     }
 
@@ -21,6 +21,7 @@ public abstract class DialogBaseAlert extends AlertDialog implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+
         initView();
         initNet();
         initEvent();

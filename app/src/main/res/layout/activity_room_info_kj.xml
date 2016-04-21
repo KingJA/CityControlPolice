@@ -288,7 +288,7 @@
 
             <Button
                 android:enabled="false"
-                style="@style/button_18"
+                style="@style/button_16"
                 android:id="@+id/bt_room_submit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

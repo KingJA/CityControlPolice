@@ -145,16 +145,18 @@
     <color name="yellow_kj">#F39826</color>
     <color name="switch_sel">#6F9BE6</color>
     <color name="blue_kj">#1175C1</color>
-    <color name="blue_light_kj">#01AAEF</color>
+    <color name="blue_light_kj">#00abee</color>
     <color name="blue_deep_kj">#1869a6</color>
     <color name="gray_kj">#707070</color>
-    <color name="tip_kj">#A4A4A4</color>
+    <color name="tip_kj">#717171</color>
     <color name="black_kj">#000000</color>
     <color name="trnas_kj">#00000000</color>
     <color name="trans_half_kj">#22ffffff</color>
     <color name="bg_gray_kj">#F5F5F5</color>
     <color name="gray_divider">#d2d2d2</color>
-    <color name="gray_content">#666666</color>
+    <color name="gray_divider_light">#e1e1e1</color>
+    <color name="gray_pop_divider">#5d5d5d</color>
+    <color name="gray_content">#434343</color>
     <color name="gray_stroke">#B9B9B9</color>
     <color name="green_kj">#36AA47</color>
 

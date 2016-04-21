@@ -23,6 +23,7 @@ import com.tdr.citycontrolpolice.activity.KjCzfInfoActivity;
 import com.tdr.citycontrolpolice.activity.KjLoginActivity;
 import com.tdr.citycontrolpolice.activity.PersonCheckActivity;
 import com.tdr.citycontrolpolice.base.BaseFragment;
+import com.tdr.citycontrolpolice.czfinit.CzfInitActivity;
 import com.tdr.citycontrolpolice.entity.Basic_JuWeiHui;
 import com.tdr.citycontrolpolice.entity.Basic_PaiChuSuo;
 import com.tdr.citycontrolpolice.entity.Basic_XingZhengQuHua;
@@ -72,7 +73,8 @@ public class HomeFragment extends BaseFragment implements DialogNFC.OnClickListe
                 case SCANNIN_CZF_CODE:
                     if (msg.getData().getInt("error") == 0) {
                         progressHUD.dismiss();
-                        intent.setClass(mActivity, CZF_RegisterActivity.class);
+                        //TODO
+                        intent.setClass(mActivity, CzfInitActivity.class);
                         intent.putExtra("DEVICECODE", newcode);
                         intent.putExtra("DEVICETYPE", "0002");
                         startActivity(intent);
@@ -304,6 +306,7 @@ public class HomeFragment extends BaseFragment implements DialogNFC.OnClickListe
                     dialogNFC.show();
                     break;
                 case 4:
+//                    ActivityUtil.goActivity(getActivity(), CzfInitActivity.class);
                     ToastUtil.showMyToast("开发中...");
                     break;
                 case 5:

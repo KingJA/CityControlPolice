@@ -52,7 +52,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
 
-            android:name="com.tdr.citycontrolpolice.activity.SplashActivity"
+            android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -122,7 +122,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.DetailCzfInfoActivity"
+            android:name=".activity.PersonInfoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.KjRoomModifyActivity"
@@ -172,6 +172,9 @@
 
         <activity
             android:name=".activity.DownloadDbActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".czfinit.CzfInitActivity"
             android:screenOrientation="portrait" />
 
 

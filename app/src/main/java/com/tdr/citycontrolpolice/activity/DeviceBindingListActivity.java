@@ -209,10 +209,15 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
             }
             deviceType = Long.valueOf(result.substring(0, 4), 16);
             deviceNO = Long.valueOf(result.substring(4), 16);
+            if (deviceType==1040) {
+                ToastUtil.showMyToast("未识别设备类型");
+                Log.i(TAG, "类型1040，不是设备类型:,");
+                return;
+            }
+            Log.i(TAG, deviceType+"是设备类型:,");
             Log.i(TAG, "设备类型: " + deviceType);
             Log.i(TAG, "设备编号: " + deviceNO);
             showBindDialog(String.valueOf(deviceNO), String.valueOf(deviceType), false);
-//            goBindDevice((int)deviceType, (int)deviceNO, mHouseId, currentRoomId, currentRoomNo);
         } else {
             ToastUtil.showMyToast("不是要求的二维码对象");
         }
@@ -256,8 +261,13 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
                 return;
             }
             stationNO = Long.valueOf(result.substring(4), 16);
-
+            deviceType = Long.valueOf(result.substring(0, 4), 16);
+            if (deviceType!=1040) {
+                ToastUtil.showMyToast("未识别基站类型");
+                return;
+            }
             Log.i(TAG, "解码: " + result);
+            Log.i(TAG, "基站类型: " + deviceType);
             Log.i(TAG, "基站编号: " + stationNO);
             showBindDialog(stationNO + "", null, true);
         } else {
