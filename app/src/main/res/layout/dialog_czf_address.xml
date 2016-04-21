@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_pop_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:hint="请输入关键字"
+                android:paddingRight="15dp"
+                android:singleLine="true"
+                android:textColor="#444"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:id="@+id/iv_pop_address"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="20dp"
+                android:src="@drawable/bg_search" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_pop_address_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="搜索中...."
+            android:visibility="gone" />
+
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srl"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            >
+
+            <ListView
+
+                android:id="@+id/lv_pop_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#00000000"
+                android:divider="#00000000"
+                android:dividerHeight="1dp"
+                android:listSelector="#00000000">
+
+            </ListView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_pop_address_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_bt_popchange_"
+                android:text="取消"
+                android:textColor="#444"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/btn_pop_address_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_bt_popchange_"
+                android:text="确定"
+                android:textColor="#444"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </LinearLayout>
