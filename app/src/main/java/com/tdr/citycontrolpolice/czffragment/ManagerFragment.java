@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.activity.PersonInfoActivity;
@@ -30,6 +32,8 @@ import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.MyUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
+import com.tdr.citycontrolpolice.view.KingJA_AddNextLine;
+import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,18 +54,18 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
     private static final String TAG = "ManagerFragment";
     @Bind(R.id.lv_init)
     ListView lvInit;
-    @Bind(R.id.et_init_floor)
-    EditText etInitFloor;
-    @Bind(R.id.et_init_room)
-    EditText etInitRoom;
-    @Bind(R.id.btn_init_house)
-    Button btnInitHouse;
     @Bind(R.id.ll_initRoom)
     LinearLayout llInitRoom;
     @Bind(R.id.srl_czf_manager)
     SwipeRefreshLayout srlCzfManager;
-    @Bind(R.id.ll_empty)
-    LinearLayout llEmpty;
+    @Bind(R.id.ll_init_root)
+    LinearLayout llInitRoot;
+    @Bind(R.id.iv_init_add)
+    ImageView ivInitAdd;
+    @Bind(R.id.iv_init_delete)
+    ImageView ivInitDelete;
+    @Bind(R.id.btn_init_submit)
+    Button btnInitSubmit;
     private ChuZuWuInfo chuZuWuInfo;
     private View rootView;
     private HashMap<String, Object> mParam = new HashMap<>();
@@ -72,9 +76,9 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
     private KjChuZuWuInfo.ContentBean.RoomListBean roomBean;
     private Bundle bundle;
     private int roomno;
-    private String floor;
-    private String room;
     private Param_ChuZuWu_AddRoomList param;
+    private LinearLayout.LayoutParams layoutParams;
+    private DialogProgress dialogProgress;
 
     public static ManagerFragment newInstance(String houseId) {
         ManagerFragment managerFragment = new ManagerFragment();
@@ -108,7 +112,8 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
         srlCzfManager.setOnRefreshListener(this);
         srlCzfManager.setColorSchemeResources(R.color.blue_light_kj);
         srlCzfManager.setProgressViewOffset(false, 0, AppUtil.dip2px(24));
-
+        layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialogProgress = new DialogProgress(mActivity);
     }
 
     @Override
@@ -180,29 +185,69 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
         srlCzfManager.setRefreshing(false);
     }
 
-    @OnClick(R.id.btn_init_house)
-    void init() {
-        floor = etInitFloor.getText().toString().trim();
-        room = etInitRoom.getText().toString().trim();
-        if (CheckUtil.checkEmpty(floor, "请输入楼层数") && CheckUtil.checkEmpty(room, "请输入房间数数")) {
-            param = new Param_ChuZuWu_AddRoomList();
-            param.setTaskID("1");
-            param.setHOUSEID(mHouseId);
-            param.setROOMCOUNT(Integer.valueOf(floor) * Integer.valueOf(room));
-            List<Param_ChuZuWu_AddRoomList.ROOMLISTBean> roomlist = new ArrayList<>();
 
-            for (int i = 1; i <= Integer.valueOf(floor); i++) {
-                for (int j = 1; j <= Integer.valueOf(room); j++) {
-                    int roomNO = Integer.valueOf(i + String.format("%02d", j));
-                    Log.i(TAG, i + "0" + j);
-                    Param_ChuZuWu_AddRoomList.ROOMLISTBean roomlistBean = new Param_ChuZuWu_AddRoomList.ROOMLISTBean();
-                    roomlistBean.setROOMID(MyUtil.getUUID());
-                    roomlistBean.setROOMNO(roomNO);
-                    roomlist.add(roomlistBean);
-                }
-            }
-            param.setROOMLIST(roomlist);
+    private List<KingJA_AddNextLine> roomStringList = new ArrayList<>();
+    private List<String>rooms=new ArrayList<>();
+    private List<String>floors=new ArrayList<>();
+
+    @OnClick(R.id.iv_init_add)
+    void add() {
+        KingJA_AddNextLine kingJA_addNextLine = new KingJA_AddNextLine(mActivity);
+        llInitRoot.addView(kingJA_addNextLine, layoutParams);
+        roomStringList.add(kingJA_addNextLine);
+    }
+    @OnClick(R.id.iv_init_delete)
+    void delete() {
+        if (roomStringList.size() > 0) {
+            llInitRoot.removeView(roomStringList.remove(roomStringList.size()-1));
         }
+    }
+
+
+    @OnClick(R.id.btn_init_submit)
+    void init() {
+        rooms.clear();
+        floors.clear();
+        Log.i(TAG, "KingJA_AddNextLine: "+ roomStringList.size());
+        for (KingJA_AddNextLine line : roomStringList) {
+            List<String> room = line.getRoom();
+            if (room != null) {
+                String floor = line.getFloor();
+                if (floors.contains(floor)) {
+                    ToastUtil.showMyToast("楼层重复");
+                    rooms.clear();
+                    return;
+                }else{
+                    floors.add(floor);
+                }
+                rooms.addAll(room);
+            }else{
+                return;
+            }
+        }
+        if (!rooms.isEmpty()) {
+           initRoom();
+            Log.i(TAG, "rooms: "+rooms.toString());
+        }else{
+            ToastUtil.showMyToast("请添加房间");
+        }
+
+    }
+
+    private void initRoom() {
+        dialogProgress.show();
+        param = new Param_ChuZuWu_AddRoomList();
+        param.setTaskID("1");
+        param.setHOUSEID(mHouseId);
+        param.setROOMCOUNT(rooms.size());
+        List<Param_ChuZuWu_AddRoomList.ROOMLISTBean> roomlist = new ArrayList<>();
+        for (int i = 0; i < rooms.size(); i++) {
+            Param_ChuZuWu_AddRoomList.ROOMLISTBean roomlistBean = new Param_ChuZuWu_AddRoomList.ROOMLISTBean();
+            roomlistBean.setROOMID(MyUtil.getUUID());
+            roomlistBean.setROOMNO(Integer.valueOf(rooms.get(i)));
+            roomlist.add(roomlistBean);
+        }
+        param.setROOMLIST(roomlist);
         ThreadPoolTask.Builder<ChuZuWu_AddRoomList> builder = new ThreadPoolTask.Builder<ChuZuWu_AddRoomList>();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0, "ChuZuWu_AddRoomList", param)
                 .setBeanType(ChuZuWu_AddRoomList.class)
@@ -210,6 +255,7 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
                 .setCallBack(new WebServiceCallBack<ChuZuWu_AddRoomList>() {
                     @Override
                     public void onSuccess(ChuZuWu_AddRoomList bean) {
+                        dialogProgress.dismiss();
                         if (bean.getResultCode() == 0) {
                             ToastUtil.showMyToast("初始化房间成功！");
                             initFragmentNet();
@@ -220,10 +266,11 @@ public class ManagerFragment extends KjBaseFragment implements AdapterView.OnIte
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-
+                        dialogProgress.dismiss();
                     }
                 }).build();
         PoolManager.getInstance().execute(task);
-
     }
+
+
 }

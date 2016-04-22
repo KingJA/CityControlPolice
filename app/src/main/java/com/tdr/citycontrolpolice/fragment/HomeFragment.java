@@ -21,6 +21,7 @@ import com.tdr.citycontrolpolice.activity.CZF_RegisterActivity;
 import com.tdr.citycontrolpolice.activity.CzfQueryActivity;
 import com.tdr.citycontrolpolice.activity.KjCzfInfoActivity;
 import com.tdr.citycontrolpolice.activity.KjLoginActivity;
+import com.tdr.citycontrolpolice.activity.NfcActivity;
 import com.tdr.citycontrolpolice.activity.PersonCheckActivity;
 import com.tdr.citycontrolpolice.base.BaseFragment;
 import com.tdr.citycontrolpolice.czfinit.CzfInitActivity;
@@ -212,7 +213,8 @@ public class HomeFragment extends BaseFragment implements DialogNFC.OnClickListe
     public void onClick(int position) {
         switch (position) {
             case 0:
-                ToastUtil.showMyToast("亲爱的用户，该功能正在努力开发中...");
+//                ToastUtil.showMyToast("亲爱的用户，该功能正在努力开发中...");
+                ActivityUtil.goActivity(getActivity(), NfcActivity.class);
                 break;
             case 1:
 //                ToastUtil.showMyToast("ID卡");

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+   >
+
+    <EditText
+        android:id="@+id/et_station_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_lblue_bnull_r0"
+        android:hint="请输入基站编号"
+        android:inputType="number"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/btn_station_input"
+        style="@style/font_blue_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/sel_tr2gray_kj"
+        android:text="提交" />
+</LinearLayout>

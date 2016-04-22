@@ -64,6 +64,7 @@ public class CzfInfoActivity extends FragmentActivity {
     private NiftyDialogBuilder dialogBuilder;
     private NiftyDialogBuilder.Effectstype effectstype;
     private List<Fragment> fragmentList = new ArrayList<>();
+    private boolean isFinished;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

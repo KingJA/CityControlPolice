@@ -26,6 +26,7 @@
                 android:text="出租房名称:" />
 
             <RelativeLayout
+
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
@@ -33,8 +34,8 @@
                 android:background="@drawable/shape_lblue_bnull_r0"
                 android:paddingRight="8dp"
                 android:paddingLeft="8dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
 
                 >
 
@@ -53,8 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@id/iv_edit_delete"
                     android:background="@null"
-                    android:lines="2"
-                    android:maxLines="1"
+                    android:lines="1"
                     style="@style/font_gray_16" />
 
             </RelativeLayout>

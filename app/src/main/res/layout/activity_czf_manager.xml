@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/include_empty" />
 
     <LinearLayout
         android:visibility="gone"
@@ -13,67 +12,72 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="50dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp">
-
-                <TextView
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:gravity="center"
-                    android:text="楼层："
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:numeric="integer"
-                    android:id="@+id/et_init_floor"
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.15"
-                    android:inputType="number"
-                    android:maxLength="2" />
-
-                <TextView
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.15"
-                    android:gravity="center"
-                    android:text="房间数："
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:numeric="integer"
-                    android:maxLength="2"
-                    android:id="@+id/et_init_room"
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.15"
-                    android:inputType="number" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_init_house"
-            style="@style/button_16"
+        <TextView
+            style="@style/font_tip_18"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:text="初始化房间" />
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="请添加楼层及房间进行初始化" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/ll_init_root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </ScrollView>
+
+        <View style="@style/divider_nomal_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_init_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_delete" />
+            </RelativeLayout>
+
+
+            <Button
+                android:id="@+id/btn_init_submit"
+                style="@style/button_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp"
+                android:text="提交" />
+            <RelativeLayout
+
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_init_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_add" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -94,11 +98,11 @@
             android:text="房间" />
 
         <TextView
-            android:gravity="center"
             style="@style/font_gray_16"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="授权/实际人数" />
 
 
@@ -106,20 +110,20 @@
 
     <View style="@style/divider_nomal_horizontal" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_czf_manager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+      <android.support.v4.widget.SwipeRefreshLayout
+          android:id="@+id/srl_czf_manager"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/lv_init"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:cacheColorHint="#00000000"
-            android:divider="@color/gray_divider"
-            android:dividerHeight="1px"
-            android:listSelector="#00000000">
+          <ListView
+              android:id="@+id/lv_init"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:cacheColorHint="#00000000"
+              android:divider="@color/gray_divider"
+              android:dividerHeight="1px"
+              android:listSelector="#00000000">
 
-        </ListView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+          </ListView>
+      </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

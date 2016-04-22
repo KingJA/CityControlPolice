@@ -151,6 +151,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         roomTypeList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().sleectAll(Basic_Dictionary_Kj.class, "COLUMNCODE", "HOUSETYPE");
         houseTypePop = new BottomListPop(mTvAddress, CzfInitActivity.this, roomTypeList);
         dialogDouble = new DialogDouble(this, "确定要退出出租房登记页面？", "确定", "取消");
+        dialogAddress = new DialogAddress(this);
         numberFile = ImageUtil.createImageFile();
         roomFile = ImageUtil.createImageFile();
     }
@@ -195,7 +196,8 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                 checkData();
                 break;
             case R.id.iv_search:
-                dialogAddress.show();
+
+                dialogAddress.showAndReset();
                 break;
             case R.id.tv_czfType:
                 houseTypePop.showPopupWindow();
@@ -285,12 +287,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                     @Override
                     public void onSuccess(ChuZuWu_Add_Kj bean) {
                         setProgressDialog(false);
-                        Intent intent = new Intent(CzfInitActivity.this,
-                                KjCzfInfoActivity.class);
-                        intent.putExtra("HouseID", bean.getContent().getHouseID());
-                        Log.i(TAG, "onSuccess: "+bean.getContent().getHouseID());
-                        startActivity(intent);
-                        finish();
+                        goActivity(bean);
                     }
 
                     @Override
@@ -299,6 +296,28 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                     }
                 }).build();
         PoolManager.getInstance().execute(task);
+    }
+
+    private void goActivity(final ChuZuWu_Add_Kj bean) {
+        DialogDouble dialogDouble = new DialogDouble(this, "是否开始初始化房间？", "确定", "取消");
+        dialogDouble.show();
+        dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
+            @Override
+            public void onLeft() {
+                Intent intent = new Intent(CzfInitActivity.this,
+                        KjCzfInfoActivity.class);
+                intent.putExtra("HouseID", bean.getContent().getHouseID());
+                Log.i(TAG, "onSuccess: "+bean.getContent().getHouseID());
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onRight() {
+                finish();
+            }
+        });
+
     }
 
     private void takePhoto() {
@@ -338,12 +357,16 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     }
 
     @Override
-    public void onConfirm(Basic_StandardAddressCodeByKey_Kj.ContentBean StandardAddressCodeByKey) {
-        standardAddressCodeByKey = StandardAddressCodeByKey;
-        this.addressCode = StandardAddressCodeByKey.getId();
+    public void onConfirm(Basic_StandardAddressCodeByKey_Kj.ContentBean standardAddressCodeByKey) {
+        this.standardAddressCodeByKey = standardAddressCodeByKey;
+        this.addressCode = standardAddressCodeByKey.getId();
 
         setProgressDialog(true);
-        mTvAddress.setText(StandardAddressCodeByKey.getAddress());
+        mTvAddress.setText(standardAddressCodeByKey.getAddress());
+        String czfName = MyUtil.getCzfName(standardAddressCodeByKey.getAddressPath());
+        mEtCzfName.setText(czfName);
+
+
         mCbIsOwern.setChecked(false);
         mParam = new HashMap<>();
         mParam.put("TaskID", "1");

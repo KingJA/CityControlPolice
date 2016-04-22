@@ -12,6 +12,8 @@ public class Constants {
     //                public static final String WEBSERVER_URL = "http://127.0.0.1:8002/rentalestate.asmx";//温州版
 //        public static final String WEBSERVER_URL = "http://127.0.0.1:8890/rentalestate.asmx";//温州内测版
 //    public static final String WEBSERVER_URL = "http://172.18.18.21:8002/RentalEstate.asmx";//省厅地址
+    public static final String NFC_URL = "http://172.18.18.38:8891/AppHandler.ashx";//省厅NFC地址
+//    public static final String NFC_URL = "http://127.0.0.1:8891/AppHandler.ashx";//温州NFC地址
     public static final String WEBSERVER_NAMESPACE = "http://tempuri.org/";
     public static final String WEBSERVER_LOGIN = "Login";// 用户名密码登录
     public static final String WEBSERVER_REGISTERUSER = "RegisterUser ";// 注册

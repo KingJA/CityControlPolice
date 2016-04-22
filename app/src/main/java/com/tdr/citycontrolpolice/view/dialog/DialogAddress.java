@@ -92,9 +92,6 @@ public class DialogAddress extends Dialog implements View.OnClickListener,Adapte
 
     }
 
-    public void initNet() {
-
-    }
 
     public void initEvent() {
         mIvPopAddress.setOnClickListener(this);
@@ -102,10 +99,11 @@ public class DialogAddress extends Dialog implements View.OnClickListener,Adapte
         mBtnPopAddressConfirm.setOnClickListener(this);
     }
 
-    public void initData() {
-
+    public void showAndReset() {
+        show();
+        czfQueryAdapter.reset();
+        mEtPopAddress.setText("");
     }
-
     /**
      * 根据字符串检索
      *
@@ -188,6 +186,8 @@ public class DialogAddress extends Dialog implements View.OnClickListener,Adapte
         bean = (Basic_StandardAddressCodeByKey_Kj.ContentBean) parent.getItemAtPosition(position);
         address = bean.getAddress();
         addressCode = bean.getId();
+        Log.i(TAG, "address: "+address);
+        Log.i(TAG, "addressCode: "+addressCode);
 
     }
 

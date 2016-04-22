@@ -30,6 +30,7 @@ import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.dialog.DialogBluetooth;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
+import com.tdr.citycontrolpolice.view.dialog.DialogInput;
 import com.zbar.lib.CaptureActivity;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ import java.util.Set;
  * 创建时间：2016/4/6 10:27
  * 修改备注：
  */
-public class DeviceBindingListActivity extends BackTitleActivity implements DeviceBindingAdapter.OnBindingStationListener, SwipeRefreshLayout.OnRefreshListener {
+public class DeviceBindingListActivity extends BackTitleActivity implements DeviceBindingAdapter.OnBindingStationListener, SwipeRefreshLayout.OnRefreshListener,DialogInput.OnInputListener {
 
     private static final String TAG = "BindingListActivity";
     private ListView lv;
@@ -64,6 +65,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
     private long deviceType;
     private DialogBluetooth dialogBluetooth;
     private boolean currentIsStation;
+    private DialogInput dialogInput;
 
     @Override
     public View setContentView() {
@@ -93,6 +95,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         srl.setProgressViewOffset(false, 0, AppUtil.dip2px(24));
         srl.setOnRefreshListener(this);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
+        dialogInput = new DialogInput(this);
     }
 
     @Override
@@ -123,7 +126,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
 
     @Override
     public void initData() {
-
+        dialogInput.setOnInputListener(this);
     }
 
     @Override
@@ -136,18 +139,20 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         currentIsStation = true;
         currentRoomId = roomId;
         currentRoomNo = roomNo;
-        DialogDouble dialogDouble = new DialogDouble(this, "选择哪种方式绑定基站", "蓝牙", "二维码");
+        DialogDouble dialogDouble = new DialogDouble(this, "选择哪种方式绑定基站", "蓝牙", "输入编号");
         dialogDouble.show();
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
             public void onLeft() {
                 dialogBluetooth.show();
+
             }
 
             @Override
             public void onRight() {
-                Intent intent = new Intent(DeviceBindingListActivity.this, CaptureActivity.class);
-                startActivityForResult(intent, 0);
+//                Intent intent = new Intent(DeviceBindingListActivity.this, CaptureActivity.class);
+//                startActivityForResult(intent, 0);
+                dialogInput.show();
             }
         });
     }
@@ -277,7 +282,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
 
     private void showBindDialog(final String stationNO, final String type, final boolean isStation) {
         String target = isStation ? "基站" : "设备";
-        dialogDouble = new DialogDouble(this, "是否将" + currentRoomNo + "房间绑定到" + stationNO + target, "确定", "取消");
+        dialogDouble = new DialogDouble(this, "是否将" + stationNO + target+ "绑定到" +currentRoomNo +"房间" , "确定", "取消");
         dialogDouble.show();
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
@@ -371,11 +376,21 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
                 }
                 if (bluetoothDevice == null) {
                     bluetoothDevice = defaultAdapter.getRemoteDevice(bean.getAddress());
-                    startConnect(currentIsStation);
-                    setProgressDialog(true);
-                    String target = currentIsStation ? "基站" : "设备";
-                    ToastUtil.showMyToast("请搜索附近" + target);
                 }
+                startConnect(currentIsStation);
+                setProgressDialog(true);
+                String target = currentIsStation ? "基站" : "设备";
+                ToastUtil.showMyToast("请搜索附近" + target);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setProgressDialog(false);
+                        if (connectThread != null) {
+                            connectThread.cancel();
+                            connectThread = null;
+                        }
+                    }
+                },12*1000);
             }
 
             @Override
@@ -457,6 +472,11 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
             connectThread = null;
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onInput(String statioNo) {
+        BindingStation( mHouseId,  currentRoomId,  statioNo);
     }
 }
 

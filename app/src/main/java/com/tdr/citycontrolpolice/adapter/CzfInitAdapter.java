@@ -39,7 +39,10 @@ public class CzfInitAdapter extends BaseSimpleAdapter<Basic_StandardAddressCodeB
         return convertView;
     }
 
-
+    public void reset() {
+        this.list.clear();
+        notifyDataSetChanged();
+    }
 
 
     public class ViewHolder {

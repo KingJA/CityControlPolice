@@ -19,6 +19,13 @@ public class CheckUtil {
         }
         return true;
     }
+    public static boolean checkZero(String s) {
+        if ("0".equals(s)) {
+            ToastUtil.showMyToast("请输入非零数字");
+            return false;
+        }
+        return true;
+    }
 
     public static boolean checkUserName(String userName) {
         if (TextUtils.isEmpty(userName)) {

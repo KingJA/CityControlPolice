@@ -69,6 +69,7 @@ public class KjRoomModifyActivity extends BackTitleActivity implements BottomLis
     private BottomListPop renovationPop;
     private BottomListPop paymentPop;
 
+
     @Override
     public View setContentView() {
         view = View.inflate(this, R.layout.activity_room_info_kj, null);
@@ -176,6 +177,9 @@ public class KjRoomModifyActivity extends BackTitleActivity implements BottomLis
      * 上传修改数据到服务器
      */
     private void load() {
+        if (!isFinished){
+            return;
+        }
         setProgressDialog(true);
         mParam_chuZuWu_modifyRoom = new Param_ChuZuWu_ModifyRoom();
         mParam_chuZuWu_modifyRoom.setDEPOSIT(Integer.valueOf(payment));
@@ -196,6 +200,7 @@ public class KjRoomModifyActivity extends BackTitleActivity implements BottomLis
                 .setCallBack(new WebServiceCallBack<ChuZuWu_Modify>() {
                     @Override
                     public void onSuccess(ChuZuWu_Modify bean) {
+                        isFinished=true;
                         mDialogConfirm.show();
                         setProgressDialog(false);
 

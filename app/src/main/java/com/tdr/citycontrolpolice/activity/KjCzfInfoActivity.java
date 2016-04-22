@@ -63,6 +63,7 @@ public class KjCzfInfoActivity extends BackTitleActivity implements BackTitleAct
     private KjChuZuWuInfo mCzfInfo = new KjChuZuWuInfo();
     private int mIsregister;
     private DialogConfirm mConfirmDialog;
+    private DialogProgress mDialogProgress;
 
 
     @Override
@@ -97,11 +98,13 @@ public class KjCzfInfoActivity extends BackTitleActivity implements BackTitleAct
         mDoubleDialog = new DialogDouble(KjCzfInfoActivity.this, "确定进行设备申报？", "确定", "取消");
         mConfirmDialog = new DialogConfirm(KjCzfInfoActivity.this, "设备已申报成功！", "确定");
         mCzfInfoPop = new CzfInfoPopKj(rlParent, KjCzfInfoActivity.this);
+        mDialogProgress = new DialogProgress(this);
     }
 
 
     @Override
     public void initNet() {
+        mDialogProgress.dismiss();
         ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<KjChuZuWuInfo>();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
@@ -109,6 +112,8 @@ public class KjCzfInfoActivity extends BackTitleActivity implements BackTitleAct
                 .setCallBack(new WebServiceCallBack<KjChuZuWuInfo>() {
                     @Override
                     public void onSuccess(KjChuZuWuInfo bean) {
+                        isFinished=true;
+                        mDialogProgress.dismiss();
                         mCzfInfo = bean;
                         mIsregister = bean.getContent().getISREGISTER();
                         Log.i(TAG, "mIsregister: " + mIsregister);
@@ -120,7 +125,7 @@ public class KjCzfInfoActivity extends BackTitleActivity implements BackTitleAct
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-
+                        mDialogProgress.dismiss();
                     }
                 }).build();
         PoolManager.getInstance().execute(task);
@@ -170,8 +175,10 @@ public class KjCzfInfoActivity extends BackTitleActivity implements BackTitleAct
 
     @Override
     public void onRightClick() {
+        if (isFinished) {
+            mCzfInfoPop.showPopupWindowDown();
+        }
 
-        mCzfInfoPop.showPopupWindowDown();
     }
 
     @Override

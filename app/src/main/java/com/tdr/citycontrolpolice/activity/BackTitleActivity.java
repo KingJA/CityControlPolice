@@ -23,7 +23,7 @@ import butterknife.OnClick;
  */
 public abstract class BackTitleActivity extends BaseActivity {
     protected View view;
-
+    protected boolean isFinished;
     @Bind(R.id.rl_top_back_left)
     RelativeLayout rlTopBackLeft;
     @Bind(R.id.rl_top_back_right)

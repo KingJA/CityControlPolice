@@ -43,8 +43,7 @@ public class MyUtil {
     }
 
     /**
-     * @param urlpath
-     * @return Bitmap
+     * @param url
      * 根据图片url获取图片对象
      */
     public static Bitmap returnBitmap(String url) {
@@ -77,7 +76,6 @@ public class MyUtil {
      * 基于质量的压缩算法， 此方法未 解决压缩后图像失真问题
      * <br> 可先调用比例压缩适当压缩图片后，再调用此方法可解决上述问题
      *
-     * @param bts
      * @param maxBytes 压缩后的图像最大大小 单位为byte
      * @return
      */
@@ -352,5 +350,14 @@ public class MyUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getCzfName(String addressPath) {
+        String[] Add = addressPath.split("/");
+        String temp_add = "";
+        for (int i = 5; i < Add.length; i++) {
+            temp_add += Add[i];
+        }
+        return temp_add;
     }
 }

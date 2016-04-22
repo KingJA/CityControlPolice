@@ -26,6 +26,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--nfc-->
     <uses-permission android:name="android.permission.NFC" />
+
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
@@ -42,6 +43,8 @@
     <uses-permission android:name="cybertech.permission.READ_PSTORE_LINKINFO" />
     <uses-permission android:name="cybertech.pstore.permission.APP" />
     <uses-permission android:name="cybertech.lightsproj.permission.QUERY" />
+
+
     <!--app-->
     <application
         android:name=".base.App"
@@ -59,6 +62,7 @@
 
                 <!--<category android:name="android.intent.category.INFO" />-->
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
 
         </activity>
@@ -110,7 +114,8 @@
         <!--wangxiong-->
         <activity
             android:name=".activity.KjCzfInfoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activity.CzfModifyActivity"
             android:screenOrientation="portrait" />
@@ -189,6 +194,33 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
+
+
+
+        <activity
+            android:name=".activity.NfcActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/filter_nfc" />
+
+        </activity>
+
+        <receiver android:name=".receiver.MessageReceiver" >
+            <intent-filter>
+                <action android:name="com.tdr.identity.readcard" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.tdr.ecard.readcard" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

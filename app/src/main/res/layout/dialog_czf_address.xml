@@ -13,6 +13,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:background="@drawable/shape_lblue_bnull_r0"
                 android:id="@+id/et_pop_address"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -21,8 +22,7 @@
                 android:hint="请输入关键字"
                 android:paddingRight="15dp"
                 android:singleLine="true"
-                android:textColor="#444"
-                android:textSize="12dp" />
+          />
 
             <ImageView
                 android:id="@+id/iv_pop_address"

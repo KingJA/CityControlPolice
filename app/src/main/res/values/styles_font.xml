@@ -44,9 +44,15 @@
     <style name="font_tip_14">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/tip_kj</item>
+    </style> <style name="font_tip_18">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/tip_kj</item>
     </style>
     <style name="font_content_14">
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/gray_content</item>
+    </style>  <style name="font_content_18">
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/gray_content</item>
     </style>
 
