@@ -200,7 +200,7 @@ public class KjRoomModifyActivity extends BackTitleActivity implements BottomLis
                 .setCallBack(new WebServiceCallBack<ChuZuWu_Modify>() {
                     @Override
                     public void onSuccess(ChuZuWu_Modify bean) {
-                        isFinished=true;
+
                         mDialogConfirm.show();
                         setProgressDialog(false);
 
@@ -256,6 +256,7 @@ public class KjRoomModifyActivity extends BackTitleActivity implements BottomLis
 
     @Override
     public void onSuccess(ChuZuWu_RoomInfo bean) {
+        isFinished = true;
         setInfoFromNet(bean);
     }
 

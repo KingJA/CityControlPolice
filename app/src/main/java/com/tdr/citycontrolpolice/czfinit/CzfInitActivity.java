@@ -362,7 +362,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         this.addressCode = standardAddressCodeByKey.getId();
 
         setProgressDialog(true);
-        mTvAddress.setText(standardAddressCodeByKey.getAddress());
+        mTvAddress.setText(standardAddressCodeByKey.getAddress().substring(6));
         String czfName = MyUtil.getCzfName(standardAddressCodeByKey.getAddressPath());
         mEtCzfName.setText(czfName);
 

@@ -6,7 +6,13 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-
+    <TextView
+        style="@style/font_tip_14"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:text="请把证件放置设备上并保持不动，等待获取信息"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:paddingLeft="12dp"

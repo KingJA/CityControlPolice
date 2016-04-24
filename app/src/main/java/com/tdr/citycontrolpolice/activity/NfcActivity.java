@@ -31,7 +31,6 @@ import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.tendencynfc.TendencyReadAPI;
 import com.tdr.tendencynfc.util.Constants;
 import com.tdr.tendencynfc.util.Converter;
-import com.yunmai.android.vo.IDCard;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -52,7 +51,7 @@ import java.util.Map;
  * 创建时间：2016/4/6 17:03
  * 修改备注：
  */
-public class NfcActivity extends BackTitleActivity implements View.OnClickListener ,Handler.Callback{
+public class NfcActivity extends BackTitleActivity implements Handler.Callback {
 
     private static final String TAG = "NfcActivity";
     private TextView tv_gender;
@@ -140,7 +139,6 @@ public class NfcActivity extends BackTitleActivity implements View.OnClickListen
     }
 
 
-
     @Override
     public void initNet() {
 
@@ -168,6 +166,13 @@ public class NfcActivity extends BackTitleActivity implements View.OnClickListen
         } else {
             initNfc();
         }
+
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
     }
 
     @Override
@@ -178,16 +183,15 @@ public class NfcActivity extends BackTitleActivity implements View.OnClickListen
 
     /**
      * 在布局显示身份证信息
-     *
-     * @param idCard
      */
-    private void setCardInfo(IDCard idCard) {
-        tv_name.setText(idCard.getName());
-        tv_card.setText(idCard.getCardNo());
-        tv_nation.setText(idCard.getEthnicity());
-        tv_birthday.setText(idCard.getBirth());
-        tv_address.setText(idCard.getAddress());
-        tv_gender.setText(idCard.getSex());
+    private void setCardInfo(String name, String sex, String nation, String birthday, String address, String identity) {
+        tv_name.setText(name);
+        tv_card.setText(identity);
+        tv_nation.setText(nation);
+        tv_birthday.setText(birthday);
+        tv_address.setText(address);
+        tv_gender.setText(sex);
+        tv_card_no.setText(tagId);
     }
 
     /**
@@ -201,7 +205,7 @@ public class NfcActivity extends BackTitleActivity implements View.OnClickListen
         String address = tv_address.getText().toString().trim();
         String cardNO = tv_card.getText().toString().trim();
         String cardID = tv_card_no.getText().toString().trim();
-        if (CheckUtil.checkEmpty(cardID, "请通过蓝牙获取身份证卡号") && CheckUtil.checkEmpty(cardNO, "请通过相机获取身份证信息")) {
+        if (CheckUtil.checkEmpty(name, "请把身份证放在设备上获取信息")) {
             Map<String, Object> param = new HashMap<>();
             param.put("TaskID", "1");
             param.put("NAME", name);
@@ -231,19 +235,17 @@ public class NfcActivity extends BackTitleActivity implements View.OnClickListen
         }
     }
 
-    @Override
-    public void onClick(View v) {
 
-    }
 
     private void initNfc() {
         pi = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
                 0);
         tagDetected = new IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED);
         tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
-        mTechLists = new String[][] { new String[] { NfcB.class.getName() }, new String[] { NfcA.class.getName() },
-                new String[] { MifareClassic.class.getName() } };
+        mTechLists = new String[][]{new String[]{NfcB.class.getName()}, new String[]{NfcA.class.getName()},
+                new String[]{MifareClassic.class.getName()}};
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -260,7 +262,7 @@ public class NfcActivity extends BackTitleActivity implements View.OnClickListen
     }
 
     private void startNfcListener() {
-        mAdapter.enableForegroundDispatch(this, pi, new IntentFilter[] { tagDetected }, mTechLists);
+        mAdapter.enableForegroundDispatch(this, pi, new IntentFilter[]{tagDetected}, mTechLists);
     }
 
     private void stopNfcListener() {
@@ -329,6 +331,8 @@ public class NfcActivity extends BackTitleActivity implements View.OnClickListen
                     System.out.println("有效期1：" + validity);
                     DNcode = ReadCardAPI.DNcode();
                     System.out.println("DN码1：" + DNcode);
+                    setCardInfo(name, sex, nation, birthday, address, identity);
+
 
                     AjaxParams params = new AjaxParams();
                     params.put("commid", "121");
@@ -396,7 +400,7 @@ public class NfcActivity extends BackTitleActivity implements View.OnClickListen
                         System.out.println("有效期：" + validity);
                         DNcode = jsonObject.getString("dncode");
                         System.out.println("DN码：" + DNcode);
-
+                        setCardInfo(name, sex, nation, birthday, address, identity);
                     } else if (Constants.STATE_NOT_ALLOW.equalsIgnoreCase(state)) {
                         Log.e(TAG, "获取数据失败！");
                     }
@@ -420,7 +424,7 @@ public class NfcActivity extends BackTitleActivity implements View.OnClickListen
         super.onNewIntent(intent);
 
         tagId = Converter.bytesToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)).toUpperCase();
-        Log.e(TAG, ""+tagId.length());
+        Log.e(TAG, "" + tagId.length());
 
         if (tagId.length() == 8) { // E居卡
             mRead.NfcReadCard(intent);
