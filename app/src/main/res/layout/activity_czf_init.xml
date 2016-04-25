@@ -71,6 +71,7 @@
                 android:text="*出租房名:" />
 
             <EditText
+                android:singleLine="true"
                 android:id="@+id/et_czfName"
                 style="@style/font_content_14"
                 android:layout_width="0dp"
@@ -187,6 +188,7 @@
                 android:text="*姓名:" />
 
             <TextView
+                android:singleLine="true"
                 android:id="@+id/tv_ownerName"
                 style="@style/font_content_14"
                 android:layout_width="0dp"
@@ -214,6 +216,7 @@
                 android:text="*身份证:" />
 
             <TextView
+                android:singleLine="true"
                 android:id="@+id/tv_ownerCard"
                 style="@style/font_content_14"
                 android:layout_width="0dp"
@@ -251,6 +254,7 @@
                 android:text="*手机号:" />
 
             <EditText
+                android:singleLine="true"
                 android:id="@+id/et_ownerPhone"
                 style="@style/font_content_14"
                 android:layout_width="0dp"
@@ -313,6 +317,7 @@
                     android:text="*姓名:" />
 
                 <EditText
+                    android:singleLine="true"
                     android:id="@+id/et_adminName"
                     style="@style/font_content_14"
                     android:layout_width="0dp"
@@ -339,6 +344,7 @@
                     android:text="*身份证:" />
 
                 <EditText
+                    android:singleLine="true"
                     android:id="@+id/et_adminCard"
                     style="@style/font_content_14"
                     android:layout_width="0dp"
@@ -375,6 +381,7 @@
                     android:text="*手机号:" />
 
                 <EditText
+                    android:singleLine="true"
                     android:id="@+id/et_adminPhone"
                     style="@style/font_content_14"
                     android:layout_width="0dp"

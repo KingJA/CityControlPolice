@@ -108,9 +108,9 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:orientation="horizontal"
-        app:kjTabBgColor="#f2963d"
-        app:kjTabTextColor="@color/black_kj"
-        app:kjTabTextSelColor="@color/blue_light_kj"
+        app:kjTabBgColor="@color/yellow_kj"
+        app:kjTabTextColor="@color/gray_kj"
+        app:kjTabTextSelColor="@color/yellow_kj"
         app:kjVisibleCount="3" />
 
     <View style="@style/divider_nomal_horizontal" />

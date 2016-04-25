@@ -365,6 +365,10 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mTvAddress.setText(standardAddressCodeByKey.getAddress().substring(6));
         String czfName = MyUtil.getCzfName(standardAddressCodeByKey.getAddressPath());
         mEtCzfName.setText(czfName);
+        mTvOwnerName.setText("");
+        mTvOwnerCard.setText("");
+        mEtOwnerPhone.setText("");
+        mTvPolice.setText("");
 
 
         mCbIsOwern.setChecked(false);

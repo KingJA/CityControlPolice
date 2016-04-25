@@ -25,20 +25,13 @@
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
-        <TextView
+        <ImageView
             android:layout_gravity="center"
             android:id="@+id/station"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@drawable/shape_lgray_bgray_r4"
-            android:paddingBottom="4dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="4dp"
-            android:text="已绑定"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:background="@drawable/binding_off" />
+
     </FrameLayout>
 
     <FrameLayout
@@ -47,19 +40,11 @@
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
-        <TextView
+        <ImageView
             android:layout_gravity="center"
             android:id="@+id/device"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/shape_lgreen_bgreen_r4"
-            android:paddingBottom="4dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="4dp"
-            android:text="绑定"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:background="@drawable/bing_on" />
     </FrameLayout>
 </LinearLayout>

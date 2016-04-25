@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -187,7 +186,7 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
      *
      * @return
      */
-    @NonNull
+
     private Param_User_LoginByPolice buildParam() {
         Param_User_LoginByPolice paramLogin = new Param_User_LoginByPolice();
         Param_User_LoginByPolice.PHONEINFOBean phoneInfo = new PhoneUtil(this).getPhoneInfo();

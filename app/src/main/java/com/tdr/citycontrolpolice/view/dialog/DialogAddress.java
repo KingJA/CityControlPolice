@@ -103,6 +103,8 @@ public class DialogAddress extends Dialog implements View.OnClickListener,Adapte
         show();
         czfQueryAdapter.reset();
         mEtPopAddress.setText("");
+        address = "";
+        addressCode = "";
     }
     /**
      * 根据字符串检索
@@ -168,11 +170,12 @@ public class DialogAddress extends Dialog implements View.OnClickListener,Adapte
                 break;
             case R.id.btn_pop_address_confirm:
                 if (onSearchListener != null) {
-                    if (CheckUtil.checkEmpty(addressCode,"请选择地址")) {
+                    if (CheckUtil.checkEmpty(address, "请选择地址")) {
                         onSearchListener.onConfirm(bean);
+                        dismiss();
                     }
                 }
-                dismiss();
+
                 break;
             default:
                 break;

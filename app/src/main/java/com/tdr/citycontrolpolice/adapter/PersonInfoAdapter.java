@@ -42,6 +42,8 @@ public class PersonInfoAdapter extends BaseSimpleAdapter<ChuZuWu_ComprehensiveIn
         viewHolder.ivtf.setVisibility(list.get(position).getTF()==0?View.GONE:View.VISIBLE);
         viewHolder.ivxj.setVisibility(list.get(position).getISXJ()==0?View.GONE:View.VISIBLE);
         viewHolder.ivliu.setVisibility(list.get(position).getLK()==0?View.GONE:View.VISIBLE);
+        viewHolder.ivyao.setVisibility(list.get(position).getDEV() == 0 ? View.GONE : View.VISIBLE);
+        viewHolder.iv_zi.setVisibility(list.get(position).getZZSB() == 0 ? View.GONE : View.VISIBLE);
 
         return convertView;
     }
@@ -60,12 +62,14 @@ public class PersonInfoAdapter extends BaseSimpleAdapter<ChuZuWu_ComprehensiveIn
         public final ImageView ivxj;
         public final ImageView ivtz;
         public final ImageView ivwgl;
+        public final ImageView iv_zi;
         public final LinearLayout lltag;
         public final View root;
 
         public ViewHolder(View root) {
             tvinfoname = (TextView) root.findViewById(R.id.tv_info_name);
             ivchang = (ImageView) root.findViewById(R.id.iv_chang);
+            iv_zi = (ImageView) root.findViewById(R.id.iv_zi);
             ivyao = (ImageView) root.findViewById(R.id.iv_yao);
             ivliu = (ImageView) root.findViewById(R.id.iv_liu);
             tvdetail = (TextView) root.findViewById(R.id.tv_detail);

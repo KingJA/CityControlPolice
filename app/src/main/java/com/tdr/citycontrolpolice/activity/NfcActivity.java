@@ -205,7 +205,7 @@ public class NfcActivity extends BackTitleActivity implements Handler.Callback {
         String address = tv_address.getText().toString().trim();
         String cardNO = tv_card.getText().toString().trim();
         String cardID = tv_card_no.getText().toString().trim();
-        if (CheckUtil.checkEmpty(name, "请把身份证放在设备上获取信息")) {
+        if (CheckUtil.checkEmpty(cardNO, "未获取信息")) {
             Map<String, Object> param = new HashMap<>();
             param.put("TaskID", "1");
             param.put("NAME", name);
@@ -284,7 +284,7 @@ public class NfcActivity extends BackTitleActivity implements Handler.Callback {
                         readflag = 1;
                         ReadCardAPI.setPort(9018);
                         // ReadCardAPI.setIP("103.21.119.78");
-                        ReadCardAPI.setIP("127.0.0.1");// 公安内网
+                        ReadCardAPI.setIP(com.tdr.citycontrolpolice.util.Constants.NFC_IP);
                         // ReadCardAPI.setIP("172.18.18.38");//公安省厅
                         readresult = ReadCardAPI.NfcReadCard(inintent);
                         mHandler.sendEmptyMessageDelayed(Constants.MESSAGE_VALID_NFCBUTTON, 0);

@@ -35,46 +35,8 @@
                 android:layout_centerVertical="true"
                 android:text="周磊" />
 
-            <ImageView
-
-                android:id="@+id/iv_chang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@id/tv_info_name"
-                android:background="@drawable/bg_chang"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/iv_yao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@id/iv_chang"
-                android:background="@drawable/bg_yao"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/iv_liu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@id/iv_yao"
-                android:background="@drawable/bg_liu"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/iv_zi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@id/iv_yao"
-                android:background="@drawable/bg_zi"
-                android:visibility="gone" />
-
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -144,59 +106,4 @@
     </LinearLayout>
 
 
-    <LinearLayout
-
-        android:id="@+id/ll_tag"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="26dp"
-
-        >
-
-        <ImageView
-            android:id="@+id/iv_wdj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/bg_wdj"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/iv_tf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/bg_tf"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/iv_xj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/bg_xj"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/iv_tz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/bg_tz"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/iv_wgl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/bg_wgl"
-            android:visibility="gone" />
-
-    </LinearLayout>
 </LinearLayout>

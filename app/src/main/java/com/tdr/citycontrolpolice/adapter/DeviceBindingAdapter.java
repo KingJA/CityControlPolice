@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
@@ -41,7 +42,7 @@ public class DeviceBindingAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.Conten
         final boolean isStation = !TextUtils.isEmpty(list.get(position).getSTATIONNO());
         viewHolder.station.setBackgroundResource(isStation ? R.drawable.shape_lgray_bgray_r4 : R.drawable.shape_lgreen_bgreen_r4);
         viewHolder.station.setEnabled(isStation ? false : true);
-        viewHolder.station.setText(isStation ? "已绑定" : "绑定");
+        viewHolder.station.setBackgroundResource(isStation ? R.drawable.binding_off : R.drawable.bing_on);
         viewHolder.station.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,14 +70,14 @@ public class DeviceBindingAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.Conten
 
     public class ViewHolder {
         public final TextView tvroom;
-        public final TextView station;
-        public final TextView device;
+        public final ImageView station;
+        public final ImageView device;
         public final View root;
 
         public ViewHolder(View root) {
             tvroom = (TextView) root.findViewById(R.id.tv_room);
-            station = (TextView) root.findViewById(R.id.station);
-            device = (TextView) root.findViewById(R.id.device);
+            station = (ImageView) root.findViewById(R.id.station);
+            device = (ImageView) root.findViewById(R.id.device);
             this.root = root;
         }
     }

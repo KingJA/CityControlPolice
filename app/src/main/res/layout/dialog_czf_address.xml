@@ -22,8 +22,8 @@
 
 
             <EditText
-                style="@style/font_gray_14"
                 android:id="@+id/et_pop_address"
+                style="@style/font_gray_14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -59,13 +59,12 @@
         android:layout_height="240dp">
 
         <ListView
-
             android:id="@+id/lv_pop_address"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:cacheColorHint="#00000000"
             android:divider="@color/gray_divider_light"
-            android:dividerHeight="1dp"
+            android:dividerHeight="1px"
             android:listSelector="#00000000">
 
         </ListView>
@@ -87,6 +86,7 @@
             android:background="@drawable/sel_tr2gray_kj"
             android:text="取消" />
 
+        <View style="@style/divider_light_vertical" />
 
         <Button
             android:id="@+id/btn_pop_address_confirm"

@@ -30,7 +30,7 @@ public class CzfPersonAdapter extends BaseSimpleAdapter<ChuZuWu_LKJBInfoList.Con
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = View
-                    .inflate(context, R.layout.item_czf_person, null);
+                    .inflate(context, R.layout.item_czf_lk, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {

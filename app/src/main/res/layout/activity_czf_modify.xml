@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@id/iv_edit_delete"
                     android:background="@null"
-                    android:lines="1"
+                    android:singleLine="true"
                     style="@style/font_gray_16" />
 
             </RelativeLayout>

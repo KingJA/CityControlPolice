@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp"
-    android:background="@drawable/shape_lgray_bnull_r0"
-    android:id="@+id/ll_root">
+    android:id="@+id/ll_root"
+    android:gravity="center_vertical">
 
+    <CheckBox
+        android:focusable="false"
+        android:id="@+id/cb_address"
+        style="@style/AddressCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <TextView
+        android:layout_marginLeft="8dp"
         android:id="@+id/tv_address"
         android:text="中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国"
         android:layout_width="match_parent"

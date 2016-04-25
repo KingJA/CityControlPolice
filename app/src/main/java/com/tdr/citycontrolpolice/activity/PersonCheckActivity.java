@@ -20,7 +20,6 @@ import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.entity.BluetoothBean;
 import com.tdr.citycontrolpolice.entity.Common_IdentityCardAuthentication;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
-import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
 import com.tdr.citycontrolpolice.net.ConnectThread;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
@@ -36,7 +35,6 @@ import com.yunmai.android.idcard.ACamera;
 import com.yunmai.android.vo.IDCard;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -209,11 +207,14 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
                             String headPath = "";
                             idCard = ocrEngine.recognize(PersonCheckActivity.this, bytes, null, headPath);
                             if (idCard.getRecogStatus() == OcrEngine.RECOG_OK) {
+                                dialogProgress.dismiss();
                                 mOcrHandler.sendMessage(mOcrHandler.obtainMessage(OcrEngine.RECOG_OK, headPath));
                             } else {
+                                dialogProgress.dismiss();
                                 mOcrHandler.sendEmptyMessage(idCard.getRecogStatus());
                             }
                         } catch (Exception e) {
+                            dialogProgress.dismiss();
                             mOcrHandler.sendEmptyMessage(OcrEngine.RECOG_FAIL);
                         }
                     }
@@ -237,28 +238,28 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
                     break;
                 case OcrEngine.RECOG_FAIL:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_blur, Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_RECOG_FAILED);
-                    finish();
+//                    setResult(RESULT_RECOG_FAILED);
+//                    finish();
                     break;
                 case OcrEngine.RECOG_BLUR:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_blur, Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_RECOG_FAILED);
-                    finish();
+//                    setResult(RESULT_RECOG_FAILED);
+//                    finish();
                     break;
                 case OcrEngine.RECOG_OK:
                     Log.i(TAG, "handleMessage: " + idCard.toString());
-                    dialogProgress.dismiss();
+
                     setCardInfo(idCard);
                     break;
                 case OcrEngine.RECOG_IMEI_ERROR:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_imei, Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_RECOG_FAILED);
-                    finish();
+//                    setResult(RESULT_RECOG_FAILED);
+//                    finish();
                     break;
                 case OcrEngine.RECOG_FAIL_CDMA:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_cdma, Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_RECOG_FAILED);
-                    finish();
+//                    setResult(RESULT_RECOG_FAILED);
+//                    finish();
                     break;
                 case OcrEngine.RECOG_LICENSE_ERROR:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_licens, Toast.LENGTH_SHORT).show();
@@ -267,23 +268,23 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
                     break;
                 case OcrEngine.RECOG_TIME_OUT:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_time_out, Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_RECOG_FAILED);
-                    finish();
+//                    setResult(RESULT_RECOG_FAILED);
+//                    finish();
                     break;
                 case OcrEngine.RECOG_ENGINE_INIT_ERROR:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_engine_init, Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_RECOG_FAILED);
-                    finish();
+//                    setResult(RESULT_RECOG_FAILED);
+//                    finish();
                     break;
                 case OcrEngine.RECOG_COPY:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_fail_copy, Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_RECOG_FAILED);
-                    finish();
+//                    setResult(RESULT_RECOG_FAILED);
+//                    finish();
                     break;
                 default:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_blur, Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_RECOG_FAILED);
-                    finish();
+//                    setResult(RESULT_RECOG_FAILED);
+//                    finish();
                     break;
             }
         }

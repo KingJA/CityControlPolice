@@ -3,6 +3,7 @@ package com.tdr.citycontrolpolice.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,7 +20,6 @@ import java.util.List;
  * 修改备注：
  */
 public class CzfQueryAdapter extends BaseSimpleAdapter<Basic_StandardAddressCodeByKey_Kj.ContentBean> {
-    private int selectPosition = -1;
 
     public CzfQueryAdapter(Context context, List<Basic_StandardAddressCodeByKey_Kj.ContentBean> list) {
         super(context, list);
@@ -37,7 +37,7 @@ public class CzfQueryAdapter extends BaseSimpleAdapter<Basic_StandardAddressCode
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvaddress.setText(list.get(position).getAddress());
-        viewHolder.llroot.setBackgroundResource(position == selectPosition ? R.drawable.shape_lblue_bnull_r0 : R.drawable.shape_lgray_bnull_r0);
+        viewHolder.cbaddress.setChecked(position == selectPosition ? true : false);
         return convertView;
     }
 
@@ -50,11 +50,13 @@ public class CzfQueryAdapter extends BaseSimpleAdapter<Basic_StandardAddressCode
     public class ViewHolder {
         public final TextView tvaddress;
         public final LinearLayout llroot;
+        public final CheckBox cbaddress;
         public final View root;
 
         public ViewHolder(View root) {
             tvaddress = (TextView) root.findViewById(R.id.tv_address);
             llroot = (LinearLayout) root.findViewById(R.id.ll_root);
+            cbaddress = (CheckBox) root.findViewById(R.id.cb_address);
             this.root = root;
         }
     }

@@ -15,7 +15,7 @@
         android:id="@+id/cb_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:button="@drawable/sel_cb_address" />
+        style="@style/AddressCheckbox" />
     <TextView
         android:layout_marginLeft="8dp"
         android:text="ddddd"

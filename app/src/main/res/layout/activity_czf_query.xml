@@ -63,8 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:cacheColorHint="#00000000"
-            android:divider="#00000000"
-            android:dividerHeight="4dp"
+            android:divider="@color/gray_divider_light"
+            android:dividerHeight="1px"
             android:listSelector="#00000000">
 
         </ListView>

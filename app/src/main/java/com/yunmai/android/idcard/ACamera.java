@@ -19,9 +19,12 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.util.ToastUtil;
+import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 import com.yunmai.android.base.BaseActivity;
 import com.yunmai.android.other.CameraManager;
 
@@ -38,9 +41,9 @@ public class ACamera extends BaseActivity implements SurfaceHolder.Callback {
 
     private SurfaceView mSurfaceView;
     private SurfaceHolder mSurfaceHolder;
-    private Button camera_shutter_a;
+    private ImageView camera_shutter_a;
     private Button camera_recog;
-    private Button camera_flash;
+    private ImageView camera_flash;
     private CameraManager mCameraManager;
     private List<String> flashList;
     private int flashPostion = 0;
@@ -60,6 +63,7 @@ public class ACamera extends BaseActivity implements SurfaceHolder.Callback {
         }
 
     };
+    private DialogProgress dialogProgress;
 
     /**
      * Called when the activity is first created.
@@ -92,9 +96,9 @@ public class ACamera extends BaseActivity implements SurfaceHolder.Callback {
 
     private void initViews() {
         // find view
-        camera_shutter_a = (Button) findViewById(R.id.camera_shutter_a);
+        camera_shutter_a = (ImageView) findViewById(R.id.camera_shutter_a);
         camera_recog = (Button) findViewById(R.id.camera_recog);
-        camera_flash = (Button) findViewById(R.id.camera_flash);
+        camera_flash = (ImageView) findViewById(R.id.camera_flash);
         camera_shutter_a.setOnClickListener(mLsnClick);
         camera_recog.setOnClickListener(mLsnClick);
         camera_flash.setOnClickListener(mLsnClick);
@@ -103,6 +107,7 @@ public class ACamera extends BaseActivity implements SurfaceHolder.Callback {
         mSurfaceHolder = mSurfaceView.getHolder();
         mSurfaceHolder.addCallback(ACamera.this);
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        dialogProgress = new DialogProgress(this);
     }
 
     private OnClickListener mLsnClick = new OnClickListener() {
@@ -114,17 +119,27 @@ public class ACamera extends BaseActivity implements SurfaceHolder.Callback {
                     camera_shutter_a.setEnabled(false);
                     mCameraManager.setTakeIdcardA();
                     mCameraManager.requestFocuse();
-                    break;
-                case R.id.camera_recog:
-                    if (idcardA == null) {
-                        Toast.makeText(ACamera.this, "请拍摄证件正面", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    Intent aRecognize2 = new Intent(ACamera.this, ARecognize.class);
-                    aRecognize2.putExtra("idcardA", idcardA);
+                    dialogProgress.show();
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialogProgress.dismiss();
+                            if (idcardA == null) {
+                                Toast.makeText(ACamera.this, "请拍摄证件正面", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+
+                            Intent aRecognize2 = new Intent(ACamera.this, ARecognize.class);
+                            aRecognize2.putExtra("idcardA", idcardA);
 //				startActivityForResult(aRecognize2, REQUEST_CODE_RECOG);
-                    setResult(RESULT_OK, aRecognize2);
-                    finish();
+                            setResult(RESULT_OK, aRecognize2);
+                            finish();
+                        }
+                    }, 2000);
+//                    break;
+//                case R.id.camera_recog:
+
+
                     break;
                 case R.id.camera_flash:
                     flashPostion++;
@@ -143,11 +158,11 @@ public class ACamera extends BaseActivity implements SurfaceHolder.Callback {
     private void setFlash(String flashModel) {
         mCameraManager.setCameraFlashMode(flashModel);
         if (flashModel.equals(Parameters.FLASH_MODE_ON)) {
-            camera_flash.setText("闪光灯开");
+            camera_flash.setImageResource(R.drawable.bg_flash_on);
         } else if (flashModel.equals(Parameters.FLASH_MODE_OFF)) {
-            camera_flash.setText("闪光灯关");
+            camera_flash.setImageResource(R.drawable.bg_flash_off);
         } else {
-            camera_flash.setText("闪光灯自动");
+            camera_flash.setImageResource(R.drawable.bg_flash_auto);
         }
     }
 
@@ -171,7 +186,8 @@ public class ACamera extends BaseActivity implements SurfaceHolder.Callback {
             mCameraManager.openCamera(holder);
             flashList = getSupportFlashModel();
             if (flashList == null || flashList.size() == 0) {
-                camera_flash.setText("闪光灯无法设置");
+//                camera_flash.setText("闪光灯无法设置");
+                ToastUtil.showMyToast("闪光灯无法设置");
                 camera_flash.setEnabled(false);
             } else {
                 setFlash(flashList.get(0));
