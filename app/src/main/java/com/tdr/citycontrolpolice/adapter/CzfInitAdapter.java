@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
@@ -37,9 +38,9 @@ public class CzfInitAdapter extends BaseSimpleAdapter<Basic_StandardAddressCodeB
         }
 
         if (selectPosition == position) {
-            viewHolder.cbaddress.setChecked(true);
+            viewHolder.ivaddress.setBackgroundResource(R.drawable.cb_address_sel);
         } else {
-            viewHolder.cbaddress.setChecked(false);
+            viewHolder.ivaddress.setBackgroundResource(R.drawable.cb_address_nor);
         }
         viewHolder.tvsingle.setText(list.get(position).getAddress().substring(6));
 //        viewHolder.tvsingle.setTextColor(context.getResources().getColor(selectPosition==position?R.color.blue_light_kj:R.color.gray_content));
@@ -54,12 +55,12 @@ public class CzfInitAdapter extends BaseSimpleAdapter<Basic_StandardAddressCodeB
 
     public class ViewHolder {
         public final TextView tvsingle;
-        public final CheckBox cbaddress;
+        public final ImageView ivaddress;
         public final View root;
 
         public ViewHolder(View root) {
             tvsingle = (TextView) root.findViewById(R.id.tv_single);
-            cbaddress = (CheckBox) root.findViewById(R.id.cb_address);
+            ivaddress = (ImageView) root.findViewById(R.id.iv_address);
             this.root = root;
         }
     }

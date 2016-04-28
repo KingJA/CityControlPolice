@@ -2,19 +2,15 @@ package com.tdr.citycontrolpolice.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.entity.Basic_StandardAddressCodeByKey_Kj;
-import com.tdr.citycontrolpolice.entity.ChuZuWu_SearchInfoByStandardAddr;
 import com.tdr.citycontrolpolice.entity.Common_LKRenYuanXinxi;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 
@@ -23,7 +19,7 @@ import java.util.Map;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：TODO
+ * 类描述：流动人口详情
  * 创建人：KingJA
  * 创建时间：2016/4/13 15:37
  * 修改备注：

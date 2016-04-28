@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:background="@drawable/shape_lnull_bgray_r88"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -18,7 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/shape_lgray1px_bwhite_r2"
-            android:paddingLeft="12dp">
+            android:paddingLeft="12dp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
 
 
             <EditText
@@ -63,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:cacheColorHint="#00000000"
-            android:divider="@color/gray_divider_light"
+            android:divider="@color/divider_light"
             android:dividerHeight="1px"
             android:listSelector="#00000000">
 
@@ -83,7 +86,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:background="@drawable/sel_tr2gray_kj"
+            android:background="@drawable/sel_left_tr2gray"
             android:text="取消" />
 
         <View style="@style/divider_light_vertical" />
@@ -94,7 +97,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:background="@drawable/sel_tr2gray_kj"
+            android:background="@drawable/sel_right_tr2gray"
             android:text="确定" />
     </LinearLayout>
 </LinearLayout>

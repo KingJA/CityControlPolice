@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="提示信息"
-            style="@style/font_black_16" />
+            style="@style/font_content_16" />
     </RelativeLayout>
 
     <View style="@style/divider_nomal_horizontal" />
@@ -29,7 +29,7 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:background="@drawable/sel_tr2gray_kj"
+            android:background="@drawable/sel_left_tr2gray"
             android:id="@+id/rl_doubledialog_left"
             android:padding="12dp"
             android:layout_width="0dp"
@@ -48,7 +48,7 @@
         <View style="@style/divider_nomal_vertical" />
 
         <RelativeLayout
-            android:background="@drawable/sel_tr2gray_kj"
+            android:background="@drawable/sel_right_tr2gray"
             android:id="@+id/rl_doubledialog_right"
             android:padding="12dp"
             android:layout_width="0dp"

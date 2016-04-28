@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.util.CustomConstants;
-import com.tdr.citycontrolpolice.view.loadpager.LoadingAndRetryManager;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import org.xutils.BuildConfig;
@@ -31,8 +30,7 @@ public class App extends Application {
         mAppContext = getApplicationContext();
         mSharedPreferences = getSharedPreferences(CustomConstants.APPLICATION_NAME,
                 MODE_PRIVATE);
-        CrashReport.initCrashReport(mAppContext, "900026215", true);
-        initLoadPager();
+        CrashReport.initCrashReport(mAppContext, "900026215", false);
         initXutils3();
     }
 
@@ -42,15 +40,6 @@ public class App extends Application {
     private void initXutils3() {
         x.Ext.init(this);
         x.Ext.setDebug(BuildConfig.DEBUG);
-    }
-
-    /**
-     * 初始化加载布局
-     */
-    private void initLoadPager() {
-        LoadingAndRetryManager.BASE_RETRY_LAYOUT_ID = R.layout.base_retry;
-        LoadingAndRetryManager.BASE_LOADING_LAYOUT_ID = R.layout.base_loading;
-        LoadingAndRetryManager.BASE_EMPTY_LAYOUT_ID = R.layout.base_empty;
     }
 
     public static Context getContext() {

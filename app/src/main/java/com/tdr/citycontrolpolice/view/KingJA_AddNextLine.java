@@ -89,5 +89,4 @@ public class KingJA_AddNextLine extends LinearLayout {
         return floor;
     }
 
-
 }

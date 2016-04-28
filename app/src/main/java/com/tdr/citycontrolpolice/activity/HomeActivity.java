@@ -9,9 +9,9 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.fragment.HomeFragment;
-import com.tdr.citycontrolpolice.fragment.MyInfoFragment;
-import com.tdr.citycontrolpolice.fragment.WorkFragment;
+import com.tdr.citycontrolpolice.fragment.TabHomeFragment;
+import com.tdr.citycontrolpolice.fragment.TabMineFragment;
+import com.tdr.citycontrolpolice.fragment.TabWorkFragment;
 import com.tdr.citycontrolpolice.view.CustomRadioGroup;
 
 
@@ -30,9 +30,9 @@ public class HomeActivity extends Activity {
             R.mipmap.personal_on};
 
     private Fragment fragment;
-    private HomeFragment homeFragment;
-    private MyInfoFragment myinfoFragment;
-    private WorkFragment workFragment;
+    private TabHomeFragment homeFragment;
+    private TabMineFragment myinfoFragment;
+    private TabWorkFragment workFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class HomeActivity extends Activity {
     private void setDefaultFragment() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        homeFragment = new HomeFragment();
+        homeFragment = new TabHomeFragment();
         fragment = homeFragment;
         transaction.add(R.id.fl_home, homeFragment);
         transaction.commit();
@@ -75,7 +75,7 @@ public class HomeActivity extends Activity {
             switch (footer.getCheckedIndex()) {
                 case 0:
                     if (homeFragment == null) {
-                        homeFragment = new HomeFragment();
+                        homeFragment = new TabHomeFragment();
                     }
                     switchContent(homeFragment);
 
@@ -83,14 +83,14 @@ public class HomeActivity extends Activity {
 
                 case 1:
                     if (workFragment == null) {
-                        workFragment = new WorkFragment();
+                        workFragment = new TabWorkFragment();
                     }
                     switchContent(workFragment);
                     break;
 
                 case 2:
                     if (myinfoFragment == null) {
-                        myinfoFragment = new MyInfoFragment();
+                        myinfoFragment = new TabMineFragment();
                     }
                     switchContent(myinfoFragment);
                     break;
@@ -126,8 +126,6 @@ public class HomeActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
-
-
                 System.exit(0);
             }
             return true;

@@ -9,7 +9,6 @@ import android.widget.ListView;
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.PersonInfoAdapter;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_ComprehensiveInfo;
-import com.tdr.citycontrolpolice.entity.ChuZuWu_MenPaiAuthorizationList;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
@@ -120,7 +119,7 @@ public class PersonInfoActivity extends BackTitleActivity implements BackTitleAc
     public void onCzfInfoPop(int position) {
         switch (position) {
             case 0:
-                KjRoomModifyActivity.goActivity(this, mHouseId, mRoomId, mRoomNo);
+                ModifyRoomActivity.goActivity(this, mHouseId, mRoomId, mRoomNo);
                 break;
             default:
                 break;

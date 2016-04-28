@@ -7,6 +7,6 @@
 
     <stroke
         android:width="1dip"
-        android:color="@color/blue_light_kj" />
+        android:color="@color/bg_blue_light" />
 
 </shape>

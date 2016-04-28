@@ -42,7 +42,7 @@ public class ModifyPwdActivity extends Activity {
                 case SUBMIT:
                     Toast.makeText(mContext, msg.getData().getString("resultText"), Toast.LENGTH_SHORT).show();
                     if (msg.getData().getInt("error") == 0) {
-                        Intent intent = new Intent(ModifyPwdActivity.this, LoginActivity.class);
+                        Intent intent = new Intent(ModifyPwdActivity.this, KjLoginActivity.class);
                         startActivity(intent);
                         finish();
                     }

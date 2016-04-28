@@ -3,32 +3,32 @@
 
     <style name="font_white_20">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/white_kj</item>
+        <item name="android:textColor">@color/bg_white</item>
     </style>
 
     <style name="font_white_18">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/white_kj</item>
+        <item name="android:textColor">@color/bg_white</item>
     </style>
 
     <style name="font_white_16">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/white_kj</item>
+        <item name="android:textColor">@color/bg_white</item>
     </style>
 
     <style name="font_white_14">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/white_kj</item>
+        <item name="android:textColor">@color/bg_white</item>
     </style>
 
     <style name="font_black_16">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/black_kj</item>
+        <item name="android:textColor">@color/bg_black</item>
     </style>
 
-    <style name="font_yellow_16">
+    <style name="font_orange_16">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/yellow_kj</item>
+        <item name="android:textColor">@color/bg_orange</item>
     </style>
 
     <style name="font_gray_16">
@@ -43,26 +43,63 @@
 
     <style name="font_tip_14">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/tip_kj</item>
-    </style> <style name="font_tip_18">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/tip_kj</item>
+        <item name="android:textColor">@color/font_tip</item>
     </style>
+
+    <style name="font_tip_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/font_tip</item>
+    </style>
+
+    <style name="font_tip_18">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/font_tip</item>
+    </style>
+
+    <style name="font_title_12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/font_title</item>
+    </style>
+
     <style name="font_content_14">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/gray_content</item>
-    </style>  <style name="font_content_18">
+        <item name="android:textColor">@color/font_content</item>
+    </style>
+
+    <style name="font_content_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/font_content</item>
+    </style>
+
+    <style name="font_content_18">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/gray_content</item>
+        <item name="android:textColor">@color/font_content</item>
     </style>
 
     <style name="font_blue_16">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/blue_light_kj</item>
+        <item name="android:textColor">@color/bg_blue_light</item>
     </style>
+
     <style name="font_blue_12">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/blue_light_kj</item>
+        <item name="android:textColor">@color/bg_blue_light</item>
+    </style>
+
+    <style name="font_yellow_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/font_yellow</item>
+    </style>
+
+    <style name="font_green_sel">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@drawable/sel_text_green</item>
+        <item name="android:background">@drawable/sel_btn_green</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:clickable">true</item>
     </style>
 
 

@@ -86,7 +86,7 @@
                 android:paddingRight="16dp"
                 android:paddingTop="4dp"
                 android:text="详情"
-                android:textColor="@color/green_kj"
+                android:textColor="@color/bg_green"
                 android:textSize="12dp" />
         </RelativeLayout>
     </LinearLayout>

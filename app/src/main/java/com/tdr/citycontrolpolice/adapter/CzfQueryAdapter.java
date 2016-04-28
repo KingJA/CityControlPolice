@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,7 +38,7 @@ public class CzfQueryAdapter extends BaseSimpleAdapter<Basic_StandardAddressCode
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvaddress.setText(list.get(position).getAddress());
-        viewHolder.cbaddress.setChecked(position == selectPosition ? true : false);
+        viewHolder.ivaddress.setBackgroundResource(position == selectPosition ? R.drawable.cb_address_sel : R.drawable.cb_address_nor);
         return convertView;
     }
 
@@ -50,13 +51,13 @@ public class CzfQueryAdapter extends BaseSimpleAdapter<Basic_StandardAddressCode
     public class ViewHolder {
         public final TextView tvaddress;
         public final LinearLayout llroot;
-        public final CheckBox cbaddress;
+        public final ImageView ivaddress;
         public final View root;
 
         public ViewHolder(View root) {
             tvaddress = (TextView) root.findViewById(R.id.tv_address);
             llroot = (LinearLayout) root.findViewById(R.id.ll_root);
-            cbaddress = (CheckBox) root.findViewById(R.id.cb_address);
+            ivaddress = (ImageView) root.findViewById(R.id.iv_address);
             this.root = root;
         }
     }

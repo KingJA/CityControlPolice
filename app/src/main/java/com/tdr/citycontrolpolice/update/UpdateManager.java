@@ -33,8 +33,11 @@ import com.tdr.citycontrolpolice.view.dialog.DialogConfirm;
  */
 public class UpdateManager {
 
-    //            public static final String UPDATE_SERVER = "http://127.0.0.1:8890/newestapk/";// 温州更新下载地址
+    /*温州版接口*/
+//    public static final String UPDATE_SERVER = "http://127.0.0.1:8890/newestapk/";// 温州更新下载地址
 //    public static final String WEBSERVER_URL = "http://127.0.0.1:8890/WebServiceAPKRead.asmx";// 温州
+
+    /*省厅版接口*/
 //    public static final String UPDATE_SERVER = "http://172.18.18.21:8892/newestapk/";// 省厅更新下载地址
 //    public static final String WEBSERVER_URL = "http://172.18.18.21:8892/WebServiceAPKRead.asmx";// 省厅
     public static final String PACKAGE_NAME = "com.tdr.citycontrolpolice";// 包名

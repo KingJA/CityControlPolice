@@ -28,7 +28,7 @@ import java.util.Map;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：TODO
+ * 类描述：设备管理页面
  * 创建人：KingJA
  * 创建时间：2016/4/6 8:40
  * 修改备注：
@@ -68,7 +68,7 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
         deviceManagerAdapter.setOnExplandListener(this);
         lv.setAdapter(deviceManagerAdapter);
         srl.setOnRefreshListener(this);
-        srl.setColorSchemeResources(R.color.blue_light_kj);
+        srl.setColorSchemeResources(R.color.bg_blue_light);
         srl.setProgressViewOffset(false, 0, AppUtil.dip2px(24));
     }
 

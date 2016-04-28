@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.activity.BackTitleActivity;
-import com.tdr.citycontrolpolice.activity.KjCzfInfoActivity;
+import com.tdr.citycontrolpolice.activity.CzfInfoActivity;
 import com.tdr.citycontrolpolice.dao.DbDaoXutils3;
 import com.tdr.citycontrolpolice.entity.Administrator;
 import com.tdr.citycontrolpolice.entity.Basic_Dictionary_Kj;
@@ -106,6 +106,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     private String addressCode;
     private Basic_StandardAddressCodeByKey_Kj.ContentBean standardAddressCodeByKey;
     private ChuZuWu_GetSSYByStandAddressCode.ContentBean content;
+    private LinearLayout mLlSearch;
 
 
     @Override
@@ -130,6 +131,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
 
     @Override
     protected void initView() {
+        mLlSearch = (LinearLayout) view.findViewById(R.id.ll_search);
         mTvAddress = (TextView) view.findViewById(R.id.tv_address);
         mIvSearch = (ImageView) view.findViewById(R.id.iv_search);
         mEtCzfName = (EditText) view.findViewById(R.id.et_czfName);
@@ -158,11 +160,12 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
 
     @Override
     public void initNet() {
-        mIvSearch.setOnClickListener(this);
+
     }
 
     @Override
     public void initData() {
+        mLlSearch.setOnClickListener(this);
         dialogAddress.setOnSearchListener(this);
         mCbIsOwern.setOnCheckedChangeListener(this);
         mTvCzfType.setOnClickListener(this);
@@ -195,7 +198,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
             case R.id.btn_submit:
                 checkData();
                 break;
-            case R.id.iv_search:
+            case R.id.ll_search:
 
                 dialogAddress.showAndReset();
                 break;
@@ -305,7 +308,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
             @Override
             public void onLeft() {
                 Intent intent = new Intent(CzfInitActivity.this,
-                        KjCzfInfoActivity.class);
+                        CzfInfoActivity.class);
                 intent.putExtra("HouseID", bean.getContent().getHouseID());
                 Log.i(TAG, "onSuccess: "+bean.getContent().getHouseID());
                 startActivity(intent);

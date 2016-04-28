@@ -4,7 +4,7 @@ import android.view.View;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：TODO
+ * 类描述：出入历史记录
  * 创建人：KingJA
  * 创建时间：2016/3/25 13:30
  * 修改备注：
@@ -22,7 +22,7 @@ public class CzfFloatActivity extends BackTitleActivity {
 
     @Override
     protected void initView() {
-        setTitle("流动人口登记");
+        setTitle("出入历史记录");
     }
 
     @Override

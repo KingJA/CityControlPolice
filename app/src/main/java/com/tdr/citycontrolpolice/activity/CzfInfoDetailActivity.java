@@ -2,7 +2,6 @@ package com.tdr.citycontrolpolice.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,7 +13,6 @@ import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.UserService;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 

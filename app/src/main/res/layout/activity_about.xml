@@ -1,98 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#f2f2f2"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <include
-        android:id="@+id/title_register"
-        layout="@layout/layout_title"></include>
-
-    <ImageView
-        android:id="@+id/img_login_logo"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:src="@mipmap/logo1"
-        android:layout_width="80dp"
-        android:layout_height="80dp" />
-
-    <TextView
-        android:id="@+id/tv_login_logo"
-        android:layout_width="wrap_content"
-        android:text="城市防控"
-        android:textColor="#36B2AA"
-        android:textSize="25dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:layout_height="wrap_content" />
-
-    <View
-        android:background="@drawable/bg_fg"
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
+    android:background="@color/bg_blue_light">
 
     <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-        style="@style/LinearLayout_style"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:weightSum="1">
 
+        <ImageView
+            android:layout_width="95dp"
+            android:layout_height="85dp"
+            android:layout_marginTop="20dp"
+            android:src="@mipmap/logo" />
 
         <TextView
-            android:id="@+id/tv_versionCode"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="当前软件版本："
-            android:textColor="#666"
-            android:textSize="15sp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="物联网治安管控"
+            android:textColor="#fff"
+            android:textSize="20sp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="出租房管理"
+            android:textColor="#fff"
+            android:textSize="22sp" />
 
+        <TextView
+            android:id="@+id/tv_version"
+            style="@style/font_white_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Version:1.0.3" />
     </LinearLayout>
 
-    <View
-        android:background="@drawable/bg_fg"
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
 
     <LinearLayout
-
-        style="@style/LinearLayout_style"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="软件开发公司：温州天地人科技有限公司"
-            android:textColor="#666"
-            android:layout_marginTop="10dp"
-            android:textSize="15sp" />
+            style="@style/font_white_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="温州天地人科技有限公司" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="公司地址：温州市龙湾区机场大道永安江路88号"
-            android:textColor="#666"
-            android:layout_marginTop="10dp"
-            android:textSize="15sp" />
+            style="@style/font_white_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="温州市龙湾区机场大道永安江路88号" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="联系电话：057755562222"
-            android:textColor="#666"
-            android:layout_marginTop="10dp"
-            android:textSize="15sp" />
+            style="@style/font_white_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="0577-55562222" />
 
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

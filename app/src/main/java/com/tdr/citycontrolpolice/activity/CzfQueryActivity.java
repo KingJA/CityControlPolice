@@ -76,7 +76,7 @@ public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, 
         btnQuery = (Button) view.findViewById(R.id.btn_query);
         czfQueryAdapter = new CzfQueryAdapter(this, addressList);
         dialogProgress = new DialogProgress(this);
-        srl.setColorSchemeResources(R.color.blue_light_kj);
+        srl.setColorSchemeResources(R.color.bg_blue_light);
         srl.setProgressViewOffset(false, 0, AppUtil.dip2px(24));
     }
 
@@ -202,7 +202,7 @@ public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, 
         public void onSuccess(ChuZuWu_SearchInfoByStandardAddr bean) {
             setProgressDialog(false);
             finish();
-            KjCzfInfoActivity.goActivity(CzfQueryActivity.this, bean.getContent().getHOUSEID());
+            CzfInfoActivity.goActivity(CzfQueryActivity.this, bean.getContent().getHOUSEID());
         }
 
         @Override

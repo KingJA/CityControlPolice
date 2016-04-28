@@ -116,7 +116,5 @@ public class KingJA_SwtichButton_Kj extends LinearLayout {
         leftButton.setTextColor(isLeft ? textSel : textNor);
         rightButton.setBackgroundDrawable(isLeft ? rightNorBg : rightSelBg);
         rightButton.setTextColor(isLeft ? textNor : textSel);
-//        leftButton.setBackgroundResource(isLeft?R.drawable.switch_left_sel:R.drawable.switch_left_nor);
-//        rightButton.setBackgroundResource(isLeft?R.drawable.switch_right_nor:R.drawable.switch_right_sel);
     }
 }

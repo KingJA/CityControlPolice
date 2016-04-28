@@ -12,7 +12,7 @@
             android:id="@+id/tv_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/bg_black"
             android:textSize="18sp"
             android:text="301"
             android:layout_centerVertical="true"

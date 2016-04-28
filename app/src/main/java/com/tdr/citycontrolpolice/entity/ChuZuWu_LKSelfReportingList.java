@@ -84,6 +84,7 @@ public class ChuZuWu_LKSelfReportingList {
             private String PHONENUM;
             private String ROOMID;
             private String INTIME;
+            private boolean explend;
 
             public String getOUTTIME() {
                 return OUTTIME;
@@ -143,6 +144,13 @@ public class ChuZuWu_LKSelfReportingList {
                 this.INTIME = INTIME;
             }
 
+            public boolean isExplend() {
+                return explend;
+            }
+
+            public void setExplend(boolean explend) {
+                this.explend = explend;
+            }
         }
     }
 }

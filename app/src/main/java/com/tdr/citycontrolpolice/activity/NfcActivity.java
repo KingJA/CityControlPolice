@@ -46,7 +46,7 @@ import java.util.Map;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：TODO
+ * 类描述：NFC 页面
  * 创建人：KingJA
  * 创建时间：2016/4/6 17:03
  * 修改备注：
@@ -284,18 +284,23 @@ public class NfcActivity extends BackTitleActivity implements Handler.Callback {
                         readflag = 1;
                         ReadCardAPI.setPort(9018);
                         // ReadCardAPI.setIP("103.21.119.78");
-                        ReadCardAPI.setIP(com.tdr.citycontrolpolice.util.Constants.NFC_IP);
-                        // ReadCardAPI.setIP("172.18.18.38");//公安省厅
+                        Log.e("setPort", " setPort");
+//                        ReadCardAPI.setIP(com.tdr.citycontrolpolice.util.Constants.NFC_IP);
+                        Log.e("setIP", " setIP");
+                        ReadCardAPI.setIP("172.18.18.38");//公安省厅
                         readresult = ReadCardAPI.NfcReadCard(inintent);
-                        mHandler.sendEmptyMessageDelayed(Constants.MESSAGE_VALID_NFCBUTTON, 0);
+                        Log.e("readresult", " readresult");
+                        mHandler.sendEmptyMessageDelayed(Constants.MESSAGE_VALID_NFCBUTTON, 5000);
+                        Log.e("sendEmptyMessageDelayed", " sendEmptyMessageDelayed");
                         readflag = 0;
                     }
                 });
                 thread.start();
-
+                Log.e("thread readresult", readresult + "");
                 break;
 
             case Constants.MESSAGE_VALID_NFCBUTTON:
+                Log.e("MESSAGE_VALID_NFCBUTTON", " MESSAGE_VALID_NFCBUTTON");
                 ReadCardAPI.writeFile("come into MESSAGE_CLEAR_ITEMS 1");
                 tt = readresult;
                 ReadCardAPI.writeFile("come into MESSAGE_CLEAR_ITEMS 2");
@@ -403,6 +408,8 @@ public class NfcActivity extends BackTitleActivity implements Handler.Callback {
                         setCardInfo(name, sex, nation, birthday, address, identity);
                     } else if (Constants.STATE_NOT_ALLOW.equalsIgnoreCase(state)) {
                         Log.e(TAG, "获取数据失败！");
+
+                        mHandler.sendEmptyMessage(NfcConstants.HANDLER_KEY_GETIDENTITY_LOCAL_FAIL);
                     }
 
                 } catch (JSONException e) {
@@ -417,14 +424,16 @@ public class NfcActivity extends BackTitleActivity implements Handler.Callback {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.e(TAG, "onDestroy: ");
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
+        Log.e(TAG, "onNewIntent: ");
         tagId = Converter.bytesToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)).toUpperCase();
         Log.e(TAG, "" + tagId.length());
+        Log.e("tagId", tagId);
 
         if (tagId.length() == 8) { // E居卡
             mRead.NfcReadCard(intent);
@@ -482,4 +491,6 @@ public class NfcActivity extends BackTitleActivity implements Handler.Callback {
         }
 
     }
+
+
 }

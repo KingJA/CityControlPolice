@@ -41,7 +41,7 @@ import java.util.Set;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：TODO
+ * 类描述：防控设备管理
  * 创建人：KingJA
  * 创建时间：2016/4/6 10:27
  * 修改备注：
@@ -91,7 +91,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         lv = (ListView) view.findViewById(R.id.lv_exist);
         lv.setAdapter(deviceBindingAdapter);
         srl = (SwipeRefreshLayout) view.findViewById(R.id.srl);
-        srl.setColorSchemeResources(R.color.blue_light_kj);
+        srl.setColorSchemeResources(R.color.bg_blue_light);
         srl.setProgressViewOffset(false, 0, AppUtil.dip2px(24));
         srl.setOnRefreshListener(this);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);

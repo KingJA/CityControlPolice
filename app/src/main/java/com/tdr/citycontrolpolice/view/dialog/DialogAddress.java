@@ -5,10 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -17,9 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.activity.CzfQueryActivity;
 import com.tdr.citycontrolpolice.adapter.CzfInitAdapter;
-import com.tdr.citycontrolpolice.adapter.CzfQueryAdapter;
 import com.tdr.citycontrolpolice.entity.Basic_StandardAddressCodeByKey_Kj;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.net.PoolManager;
@@ -85,7 +81,7 @@ public class DialogAddress extends Dialog implements View.OnClickListener,Adapte
         mBtnPopAddressConfirm = (Button) findViewById(R.id.btn_pop_address_confirm);
         czfQueryAdapter = new CzfInitAdapter(context, addressList);
         mSrl = (SwipeRefreshLayout) findViewById(R.id.srl);
-        mSrl.setColorSchemeResources(R.color.blue_light_kj);
+        mSrl.setColorSchemeResources(R.color.bg_blue_light);
         mSrl.setProgressViewOffset(false, 0, AppUtil.dip2px(24));
         mLvPopAddress.setAdapter(czfQueryAdapter);
         mLvPopAddress.setOnItemClickListener(this);
@@ -170,7 +166,7 @@ public class DialogAddress extends Dialog implements View.OnClickListener,Adapte
                 break;
             case R.id.btn_pop_address_confirm:
                 if (onSearchListener != null) {
-                    if (CheckUtil.checkEmpty(address, "请选择地址")) {
+                    if (CheckUtil.checkEmpty(address, "请查询并选择地址")) {
                         onSearchListener.onConfirm(bean);
                         dismiss();
                     }

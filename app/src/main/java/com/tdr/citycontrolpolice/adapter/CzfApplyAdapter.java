@@ -27,7 +27,7 @@ public class CzfApplyAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingLi
     }
 
     @Override
-    public View simpleGetView(int position, View convertView, ViewGroup parent) {
+    public View simpleGetView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = View
@@ -38,22 +38,25 @@ public class CzfApplyAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingLi
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        if (list.get(position).isExplend()) {
+            viewHolder.llexpand.setVisibility(View.VISIBLE);
+            viewHolder.ivapplyarrow.setBackgroundResource(R.drawable.bg_arrow_up);
+        } else {
+            viewHolder.llexpand.setVisibility(View.GONE);
+            viewHolder.ivapplyarrow.setBackgroundResource(R.drawable.bg_arrow_down);
+        }
+
         viewHolder.ivstatic.setBackgroundResource(list.get(position).getOUTTIME().equals("0001-01-01 00:00:00") ? R.drawable.bg_exsits : R.drawable.bg_leave);
         viewHolder.tvinfoname.setText(list.get(position).getNAME());
         viewHolder.tvinfophone.setText(list.get(position).getPHONENUM());
         viewHolder.tvinfocard.setText(list.get(position).getIDENTITYCARD());
         viewHolder.tvinfotime.setText(list.get(position).getOUTTIME().equals("0001-01-01 00:00:00") ? list.get(position).getINTIME().substring(0, 10) : list.get(position).getOUTTIME().substring(0, 10));
-        final ViewHolder finalViewHolder = viewHolder;
+
         viewHolder.rltop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (finalViewHolder.llexpand.getVisibility() == View.GONE) {
-                    finalViewHolder.llexpand.setVisibility(View.VISIBLE);
-                    finalViewHolder.ivapplyarrow.setBackgroundResource(R.drawable.bg_arrow_up);
-                } else {
-                    finalViewHolder.llexpand.setVisibility(View.GONE);
-                    finalViewHolder.ivapplyarrow.setBackgroundResource(R.drawable.bg_arrow_down);
-                }
+                list.get(position).setExplend(!list.get(position).isExplend());
+                notifyDataSetChanged();
             }
         });
         return convertView;

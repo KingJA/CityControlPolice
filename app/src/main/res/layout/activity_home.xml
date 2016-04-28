@@ -8,15 +8,12 @@
         android:id="@+id/fl_home"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"></FrameLayout>
+        android:layout_weight="1" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.3dp"
-        android:background="#888" />
+    <View style="@style/divider_title_horizontal" />
 
     <com.tdr.citycontrolpolice.view.CustomRadioGroup
         android:id="@+id/crg_home"
         android:layout_width="match_parent"
-        android:layout_height="45dp"></com.tdr.citycontrolpolice.view.CustomRadioGroup>
+        android:layout_height="48dp" />
 </LinearLayout>

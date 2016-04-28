@@ -20,7 +20,7 @@ public class CheckUtil {
         return true;
     }
     public static boolean checkZero(String s) {
-        if ("0".equals(s)) {
+        if ("0".equals(s) || s.startsWith("0")) {
             ToastUtil.showMyToast("请输入非零数字");
             return false;
         }

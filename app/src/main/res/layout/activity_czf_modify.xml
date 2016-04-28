@@ -2,20 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_gray_kj"
     android:orientation="vertical">
+
+
+    <View
+        style="@style/divider_title_horizontal"
+        android:layout_marginTop="12dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:orientation="vertical">
 
         <LinearLayout
+            android:background="@color/bg_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="16dp">
 
             <TextView
                 style="@style/font_tip_14"
@@ -31,42 +37,47 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_weight="5"
-                android:background="@drawable/shape_lblue_bnull_r0"
-                android:paddingRight="8dp"
-                android:paddingLeft="8dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
 
                 >
 
                 <ImageView
+
                     android:id="@+id/iv_edit_delete"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
                     android:background="@drawable/bg_clear" />
 
                 <EditText
-                    android:layout_centerVertical="true"
                     android:id="@+id/et_czf_name"
+                    style="@style/font_content_14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/iv_edit_delete"
                     android:background="@null"
                     android:singleLine="true"
-                    style="@style/font_gray_16" />
+                    android:textCursorDrawable="@drawable/et_cursor" />
 
             </RelativeLayout>
 
         </LinearLayout>
 
+        <View style="@style/divider_title_horizontal" />
+
+        <View
+            style="@style/divider_title_horizontal"
+            android:layout_marginTop="12dp" />
+
         <LinearLayout
+            android:background="@color/bg_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="16dp">
 
             <TextView
                 style="@style/font_tip_14"
@@ -78,7 +89,7 @@
 
             <TextView
                 android:id="@+id/tv_owner_name"
-                style="@style/font_gray_16"
+                style="@style/font_content_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="12dp"
@@ -86,12 +97,15 @@
 
         </LinearLayout>
 
+        <View style="@style/divider_light_horizontal" />
+
         <LinearLayout
+            android:background="@color/bg_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="16dp">
 
             <TextView
                 style="@style/font_tip_14"
@@ -103,7 +117,7 @@
 
             <TextView
                 android:id="@+id/tv_owner_phone"
-                style="@style/font_gray_16"
+                style="@style/font_content_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="12dp"
@@ -112,33 +126,37 @@
 
         </LinearLayout>
 
+        <View style="@style/divider_light_horizontal" />
+
         <LinearLayout
+            android:background="@color/bg_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="16dp">
 
             <TextView
                 style="@style/font_tip_14"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="end"
-                android:minHeight="50dp"
                 android:text="出租房地址:" />
 
             <TextView
                 android:id="@+id/tv_owner_address"
-                style="@style/font_gray_16"
+                style="@style/font_content_14"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
-                android:layout_weight="5"
-                android:lines="3" />
+                android:layout_weight="5" />
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <View style="@style/divider_title_horizontal" />
 
     <Button
         android:id="@+id/btn_submit"

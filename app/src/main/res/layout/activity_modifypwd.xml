@@ -76,6 +76,6 @@
         android:layout_height="45dp"
         android:background="@drawable/btnsubmit_change"
         android:text="提交"
-        android:textColor="@color/white"
+        android:textColor="@color/bg_white"
         android:textSize="14sp" />
 </LinearLayout>

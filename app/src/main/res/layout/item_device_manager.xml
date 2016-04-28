@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white_kj">
+    android:background="@color/bg_white">
 
     <RelativeLayout
         android:id="@+id/rl_room"
@@ -23,7 +23,7 @@
 
             <TextView
                 android:id="@+id/tv_device_room"
-                style="@style/font_black_16"
+                style="@style/font_tip_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"

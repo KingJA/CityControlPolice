@@ -43,8 +43,8 @@
         app:rightNorBg="@drawable/switch_right_yellow_nor"
         app:leftText="入住"
         app:rightText="离开"
-        app:textSel="@color/white_kj"
-        app:textNor="@color/tip_kj"
+        app:textSel="@color/bg_white"
+        app:textNor="@color/font_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

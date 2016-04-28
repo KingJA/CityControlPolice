@@ -2,9 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray_kj">
 
+    <View
+        style="@style/divider_title_horizontal"
+        android:layout_marginTop="12dp" />
     <LinearLayout
+        android:background="@color/bg_white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -20,7 +25,7 @@
 
         <TextView
             android:id="@+id/tv_ownerName"
-            style="@style/font_gray_16"
+            style="@style/font_content_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -29,9 +34,10 @@
 
     </LinearLayout>
 
-    <View style="@style/divider_nomal_horizontal" />
+    <View style="@style/divider_light_horizontal" />
 
     <LinearLayout
+        android:background="@color/bg_white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -47,7 +53,7 @@
 
         <TextView
             android:id="@+id/tv_ownerPhone"
-            style="@style/font_gray_16"
+            style="@style/font_content_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -56,9 +62,10 @@
 
     </LinearLayout>
 
-    <View style="@style/divider_nomal_horizontal" />
+    <View style="@style/divider_light_horizontal" />
 
     <LinearLayout
+        android:background="@color/bg_white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -74,7 +81,7 @@
 
         <TextView
             android:id="@+id/tv_czfName"
-            style="@style/font_gray_16"
+            style="@style/font_content_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -83,9 +90,10 @@
 
     </LinearLayout>
 
-    <View style="@style/divider_nomal_horizontal" />
+    <View style="@style/divider_light_horizontal" />
 
     <LinearLayout
+        android:background="@color/bg_white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -101,7 +109,7 @@
 
         <TextView
             android:id="@+id/tv_roomCount"
-            style="@style/font_gray_16"
+            style="@style/font_content_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -110,9 +118,10 @@
 
     </LinearLayout>
 
-    <View style="@style/divider_nomal_horizontal" />
+    <View style="@style/divider_light_horizontal" />
 
     <LinearLayout
+        android:background="@color/bg_white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -128,7 +137,7 @@
 
         <TextView
             android:id="@+id/tv_personCount"
-            style="@style/font_gray_16"
+            style="@style/font_content_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -137,9 +146,10 @@
 
     </LinearLayout>
 
-    <View style="@style/divider_nomal_horizontal" />
+    <View style="@style/divider_light_horizontal" />
 
     <LinearLayout
+        android:background="@color/bg_white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -155,12 +165,12 @@
 
         <TextView
             android:id="@+id/tv_czfAddress"
-            style="@style/font_gray_16"
+            style="@style/font_content_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="7" />
     </LinearLayout>
 
-    <View style="@style/divider_nomal_horizontal" />
+    <View style="@style/divider_light_horizontal" />
 </LinearLayout>

@@ -74,10 +74,7 @@ https://github.com/android/platform_frameworks_base/blob/master/core/res/res/lay
 
             <View
                 android:id="@+id/titleDivider"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/divider_color"
-                android:visibility="visible" />
+                style="@style/divider_light_horizontal" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,7 +95,7 @@ https://github.com/android/platform_frameworks_base/blob/master/core/res/res/lay
                 android:paddingLeft="20.0dip"
                 android:paddingRight="20.0dip"
                 android:paddingTop="15.0dip"
-                android:textColor="@color/black"
+                android:textColor="@color/bg_black"
                 android:textSize="15sp" />
         </LinearLayout>
 

@@ -4,13 +4,13 @@
     <style name="button_16">
         <item name="android:background">@drawable/sel_blue2deep_kj</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/white_kj</item>
+        <item name="android:textColor">@color/bg_white</item>
     </style>
 
     <style name="text_18">
         <item name="android:background">@drawable/sel_blue2deep_kj</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/white_kj</item>
+        <item name="android:textColor">@color/bg_white</item>
         <item name="android:paddingLeft">12dp</item>
         <item name="android:paddingRight">12dp</item>
         <item name="android:paddingTop">4dp</item>

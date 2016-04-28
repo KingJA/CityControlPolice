@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：TODO
+ * 类描述：房屋信息修改
  * 创建人：KingJA
  * 创建时间：2016/3/25 13:19
  * 修改备注：
@@ -82,13 +82,13 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
         et_czf_name = (EditText) findViewById(R.id.et_czf_name);
         btn_submit = (Button) findViewById(R.id.btn_submit);
         iv_edit_delete = (ImageView) findViewById(R.id.iv_edit_delete);
-        setTitle("修改信息");
+
     }
 
     @Override
     public void initNet() {
         mProgressDialog.show();
-        ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<KjChuZuWuInfo>();
+        ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<>();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
                 .setActivity(CzfModifyActivity.this)
@@ -127,7 +127,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
                 finish();
             }
         });
-
+        setTitle("房屋信息修改");
     }
 
     @Override
@@ -150,7 +150,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
         if (CheckUtil.checkEmpty(houseName, "请输入房间名称") && CheckUtil.checkLength(houseName, 30, "房间名过长")) {
             mProgressDialog.show();
             param_chuZuWu_modify.setHOUSENAME(houseName);
-            ThreadPoolTask.Builder<ChuZuWu_Modify> builder = new ThreadPoolTask.Builder<ChuZuWu_Modify>();
+            ThreadPoolTask.Builder<ChuZuWu_Modify> builder = new ThreadPoolTask.Builder<>();
             ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_Modify", param_chuZuWu_modify)
                     .setBeanType(ChuZuWu_Modify.class)
                     .setActivity(CzfModifyActivity.this)

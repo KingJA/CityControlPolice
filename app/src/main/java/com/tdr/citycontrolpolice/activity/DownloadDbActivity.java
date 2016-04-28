@@ -125,6 +125,7 @@ public class DownloadDbActivity extends BackTitleActivity {
                         final List<Basic_Dictionary_Kj> content = bean.getContent();
                         Log.i(TAG, "onSuccess: " + content.size());
                         if (content.size() > 0) {
+                            handler.sendEmptyMessage(1);
                             saveDate(content);
                         } else {
                             Log.i(TAG, "完成数据库下载: ");

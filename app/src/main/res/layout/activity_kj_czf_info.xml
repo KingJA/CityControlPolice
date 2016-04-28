@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue_light_kj"
+        android:background="@color/bg_blue_light"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="12dp"
@@ -55,7 +55,7 @@
                     android:id="@+id/iv_czf_info_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="8dp"
                     android:background="@drawable/sel_btn_info" />
             </LinearLayout>
 
@@ -108,9 +108,9 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:orientation="horizontal"
-        app:kjTabBgColor="@color/yellow_kj"
+        app:kjTabBgColor="@color/bg_orange"
         app:kjTabTextColor="@color/gray_kj"
-        app:kjTabTextSelColor="@color/yellow_kj"
+        app:kjTabTextSelColor="@color/bg_orange"
         app:kjVisibleCount="3" />
 
     <View style="@style/divider_nomal_horizontal" />
