@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -12,6 +16,7 @@ import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.fragment.TabHomeFragment;
 import com.tdr.citycontrolpolice.fragment.TabMineFragment;
 import com.tdr.citycontrolpolice.fragment.TabWorkFragment;
+import com.tdr.citycontrolpolice.util.NetUtil;
 import com.tdr.citycontrolpolice.view.CustomRadioGroup;
 
 
@@ -33,12 +38,14 @@ public class HomeActivity extends Activity {
     private TabHomeFragment homeFragment;
     private TabMineFragment myinfoFragment;
     private TabWorkFragment workFragment;
+    private NetChangedReceiver netChangedReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         init_view();
+//        registerDateTransReceiver();
     }
 
     /**
@@ -131,5 +138,47 @@ public class HomeActivity extends Activity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void registerDateTransReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        filter.setPriority(1000);
+        netChangedReceiver = new NetChangedReceiver();
+        registerReceiver(netChangedReceiver, filter);
+    }
+
+    class NetChangedReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (NetUtil.getNetworkType()) {
+                case 0:
+                    Toast.makeText(context, "没有网络:", Toast.LENGTH_SHORT).show();
+                    /**
+                     * 弹出网络设置对话框
+                     */
+//                    setNetwork(MainActivity.this);
+                    break;
+                case 1:
+                    Toast.makeText(context, "当前网络:WIFI", Toast.LENGTH_SHORT).show();
+                    break;
+                case 2:
+                    Toast.makeText(context, "当前网络:WAP网络", Toast.LENGTH_SHORT).show();
+                    break;
+                case 3:
+                    Toast.makeText(context, "当前网络:NET网络", Toast.LENGTH_SHORT).show();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(netChangedReceiver);
     }
 }

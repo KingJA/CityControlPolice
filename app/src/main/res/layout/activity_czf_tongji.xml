@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="end"
-            android:text="居住人数:" />
+            android:text="授权人数:" />
 
         <TextView
             android:id="@+id/tv_personCount"

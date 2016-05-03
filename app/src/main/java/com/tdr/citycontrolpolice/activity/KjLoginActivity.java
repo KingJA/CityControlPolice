@@ -80,7 +80,6 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
                     Log.i(TAG, "已经是最新版本");
                     break;
             }
-
         }
     };
 

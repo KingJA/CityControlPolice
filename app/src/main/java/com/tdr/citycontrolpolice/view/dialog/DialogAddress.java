@@ -90,6 +90,7 @@ public class DialogAddress extends Dialog implements View.OnClickListener,Adapte
 
 
     public void initEvent() {
+        mSrl.setOnRefreshListener(this);
         mIvPopAddress.setOnClickListener(this);
         mBtnPopAddressCancel.setOnClickListener(this);
         mBtnPopAddressConfirm.setOnClickListener(this);

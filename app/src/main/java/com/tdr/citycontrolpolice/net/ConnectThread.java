@@ -33,7 +33,6 @@ public class ConnectThread extends Thread {
         try {
             stock = device.createRfcommSocketToServiceRecord(UUID.fromString(uuid));
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -15,9 +15,7 @@ import org.xutils.db.annotation.Table;
 @Table(name = "Basic_JuWeiHui")
 
 public class Basic_JuWeiHui_Kj {
-    @Column(name = "id", isId = true)
-    private int id;
-    @Column(name = "DMZM")
+    @Column(name = "DMZM", isId = true)
     private String DMZM;
     @Column(name = "DMMC")
     private String DMMC;
@@ -48,11 +46,4 @@ public class Basic_JuWeiHui_Kj {
         this.FDMZM = FDMZM;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

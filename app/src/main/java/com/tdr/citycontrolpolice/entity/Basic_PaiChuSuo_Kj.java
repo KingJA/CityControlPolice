@@ -14,9 +14,7 @@ import org.xutils.db.annotation.Table;
  */
 @Table(name = "Basic_PaiChuSuo")
 public class Basic_PaiChuSuo_Kj {
-    @Column(name = "id", isId = true)
-    private int id;
-    @Column(name = "DMZM")
+    @Column(name = "DMZM", isId = true)
     private String DMZM;
     @Column(name = "DMMC")
     private String DMMC;
@@ -26,13 +24,6 @@ public class Basic_PaiChuSuo_Kj {
     private String SANSHIYOUDMZM;
 
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getDMZM() {
         return DMZM;

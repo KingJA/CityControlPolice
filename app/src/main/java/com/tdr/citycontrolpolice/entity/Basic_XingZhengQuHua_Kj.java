@@ -1,8 +1,8 @@
 package com.tdr.citycontrolpolice.entity;
 
-import com.lidroid.xutils.db.annotation.Table;
 
 import org.xutils.db.annotation.Column;
+import org.xutils.db.annotation.Table;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -13,22 +13,12 @@ import org.xutils.db.annotation.Column;
  */
 @Table(name = "Basic_XingZhengQuHua")
 public class Basic_XingZhengQuHua_Kj {
-    @Column(name = "id", isId = true)
-    private int id;
-    @Column(name = "DMZM")
+    @Column(name = "DMZM", isId = true)
     private String DMZM;
     @Column(name = "DMMC")
     private String DMMC;
     @Column(name = "SORT")
     private String SORT;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getDMZM() {
         return DMZM;

@@ -12,4 +12,92 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <RelativeLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="Dictionary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/bg_green"
+            android:id="@+id/tv_Dictionary"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="未开始"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="PaiChuSuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/bg_green"
+            android:id="@+id/tv_PaiChuSuo"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="未开始"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="XingZhengQuHua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/bg_green"
+            android:id="@+id/tv_XingZhengQuHua"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="未开始"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="JuWeiHui"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/bg_green"
+            android:id="@+id/tv_JuWeiHui"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="未开始"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
 </LinearLayout>

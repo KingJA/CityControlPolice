@@ -14,19 +14,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.lidroid.xutils.DbUtils;
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.activity.CzfQueryActivity;
 import com.tdr.citycontrolpolice.activity.CzfInfoActivity;
+import com.tdr.citycontrolpolice.activity.CzfQueryActivity;
 import com.tdr.citycontrolpolice.activity.KjLoginActivity;
 import com.tdr.citycontrolpolice.activity.NfcActivity;
 import com.tdr.citycontrolpolice.activity.PersonCheckActivity;
 import com.tdr.citycontrolpolice.base.BaseFragment;
 import com.tdr.citycontrolpolice.czfinit.CzfInitActivity;
-import com.tdr.citycontrolpolice.entity.Basic_JuWeiHui;
-import com.tdr.citycontrolpolice.entity.Basic_PaiChuSuo;
-import com.tdr.citycontrolpolice.entity.Basic_XingZhengQuHua;
+import com.tdr.citycontrolpolice.net.DownloadDbManager;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.util.TendencyEncrypt;
@@ -41,7 +37,6 @@ import com.tdr.citycontrolpolice.view.dialog.DialogNFC;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -115,32 +110,17 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
                     } else {
                         progressHUD.dismiss();
                         Toast.makeText(mActivity, msg.getData().getString("resultText"), Toast.LENGTH_LONG).show();
-
                     }
-                    break;
-                //其他数据更新
-                case UPDATA:
-                    ArrayList<String> dataTypeCode = msg.getData().getStringArrayList("datalist");
-                    if (msg.getData().getInt("error") == 0) {
-                        newdata = dataTypeCode;
-                        Bundle bundle = msg.getData();
-                        dbData(bundle, dataTypeCode);
-                    } else {
-                        upData(dataTypeCode);
-                    }
-                    break;
-                case DBDATA:
-                    dataspage = dataspage + 1;
-                    upData(newdata);
                     break;
                 case ERROR:
                     Toast.makeText(mActivity, "网络异常", Toast.LENGTH_LONG).show();
                     break;
+                case DownloadDbManager.Done_Basic_JuWeiHui:
+                    Toast.makeText(mActivity, "数据库更新成功！", Toast.LENGTH_LONG).show();
+                    break;
             }
         }
     };
-    private DbUtils db;
-    private ArrayList<String> newdata;
     private DialogNFC dialogNFC;
     private DialogDouble dialogDouble;
 
@@ -185,20 +165,13 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         dialogNFC = new DialogNFC(getActivity());
         dialogNFC.setOnClickListener(this);
         progressHUD = new ZProgressHUD(mActivity);
-        db = DbUtils.create(mActivity);
         NoScrollGridView gv_top = (NoScrollGridView) v.findViewById(R.id.gv_home_top);
         gv_top.setAdapter(new TopAdapet());
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
             public void onLeft() {
-                String[] names = {"Basic_PaiChuSuo", "Basic_XingZhengQuHua", "Basic_JuWeiHui"};
-                ArrayList<String> dataTypeCode = new ArrayList<String>();
-                for (String s : names) {
-                    dataTypeCode.add(s);
-                }
-                upData(dataTypeCode);
-
-
+                DownloadDbManager.getInstance(getActivity(), mHandler).startDownloadDb();
+                Toast.makeText(mActivity, "数据库进入后台更新", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -371,117 +344,6 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         } else {
             Toast.makeText(mActivity, "非指定设备", Toast.LENGTH_LONG).show();
         }
-    }
-
-    /**
-     * 更新其他数据
-     *
-     * @param dataTypeCode
-     */
-    private void upData(final ArrayList<String> dataTypeCode) {
-        progressHUD.setMessage("更新中");
-        progressHUD.setSpinnerType(ZProgressHUD.FADED_ROUND_SPINNER);
-        progressHUD.show();
-        if (dataTypeCode.size() == 0) {
-            progressHUD.dismiss();
-            return;
-        }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Message msg = new Message();
-                Bundle bundle = new Bundle();
-                for (String s : dataTypeCode) {
-                    final JSONObject object = new JSONObject();
-                    try {
-                        object.put("TaskID", "1");
-                        object.put("PageSize", 500);
-                        object.put("PageIndex", dataspage);
-                        Map<String, Object> param = new HashMap<String, Object>();
-                        param.put("token", "");
-                        param.put("encryption", 0);
-                        param.put("dataTypeCode", s);
-                        param.put("content", object.toString());
-                        String result = WebService.info(Constants.WEBSERVER_PUBLICSECURITYCONTROLAPP, param);
-                        Log.e("QT", result);
-                        JSONObject rootObject = new JSONObject(result);
-                        int error = rootObject.getInt("ResultCode");
-                        bundle.putInt("error", error);
-                        bundle.putString(s, rootObject.getString("Content"));
-                        Log.e("s", s);
-                        msg.what = UPDATA;
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.e("es", s);
-                        msg.what = ERROR;
-                        mHandler.sendMessage(msg);
-                    }
-                }
-                bundle.putStringArrayList("datalist", dataTypeCode);
-                msg.setData(bundle);
-                mHandler.sendMessage(msg);
-            }
-        }).start();
-    }
-
-    /**
-     * 存储基础数据
-     */
-    private final static int DBDATA = 3002;
-
-    private void dbData(final Bundle bundle, final ArrayList<String> dataTypeCode) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Message msg = new Message();
-                for (int i = 0; i < dataTypeCode.size(); i++) {
-                    String s = dataTypeCode.get(i);
-                    String data = bundle.getString(s);
-                    Log.e("result", data);
-                    if (data.equals("[]")) {
-
-                        newdata.remove(i);
-                    } else {
-                        Log.e("sss", s);
-
-                        try {
-                            if (s.equals("Basic_PaiChuSuo")) {
-                                if (dataspage == 0) {
-                                    db.dropTable(Basic_PaiChuSuo.class);
-                                }
-                                ArrayList<Basic_PaiChuSuo> result = gson.fromJson(data,
-                                        new TypeToken<ArrayList<Basic_PaiChuSuo>>() {
-                                        }.getType());
-                                db.saveAll(result);
-                            }
-                            if (s.equals("Basic_XingZhengQuHua")) {
-                                if (dataspage == 0) {
-                                    db.dropTable(Basic_XingZhengQuHua.class);
-                                }
-                                ArrayList<Basic_XingZhengQuHua> result = gson.fromJson(data,
-                                        new TypeToken<ArrayList<Basic_XingZhengQuHua>>() {
-                                        }.getType());
-                                db.saveAll(result);
-                            }
-                            if (s.equals("Basic_JuWeiHui")) {
-                                if (dataspage == 0) {
-                                    db.dropTable(Basic_JuWeiHui.class);
-                                }
-                                ArrayList<Basic_JuWeiHui> result = gson.fromJson(data,
-                                        new TypeToken<ArrayList<Basic_JuWeiHui>>() {
-                                        }.getType());
-                                db.saveAll(result);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Log.e("e", e.toString());
-                        }
-                    }
-                }
-                msg.what = DBDATA;
-                mHandler.sendMessage(msg);
-            }
-        }).start();
     }
 
 }

@@ -112,6 +112,7 @@
     <View style="@style/divider_nomal_horizontal" />
 
     <android.support.v4.widget.SwipeRefreshLayout
+        android:background="@color/bg_white"
         android:id="@+id/srl_czf_manager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

@@ -233,7 +233,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                 CheckUtil.checkEmpty(mCzfType, "请选择房屋类型") && CheckUtil.checkEmpty(mOwnerName, "房东姓名空缺") &&
                 CheckUtil.checkEmpty(mOwnerCard, "房东身份证空缺") && CheckUtil.checkPhoneFormat(mOwnerPhone) &&
                 CheckUtil.checkEmpty(mAdminName, "请输管理员姓名") && CheckUtil.checkEmpty(mAdminCard, "请输入管理员身份证号码") &&
-                CheckUtil.checkPhoneFormat(mAdminPhone)
+                CheckUtil.checkPhoneFormat(mAdminPhone) && CheckUtil.checkEmpty(base64Number, "请拍摄号牌")
                 ) {
             upload();
         }

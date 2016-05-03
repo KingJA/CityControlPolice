@@ -24,13 +24,15 @@ import java.util.Map;
  * 修改备注：
  */
 public class DeviceListAdapter extends BaseSimpleAdapter<ZhuFang_DeviceLists.ContentEntity> {
-    private OnDeviceDeleteListener onDeviceDeleteListener;
+    private OnDeviceChangeListener onDeviceChangeListener;
     private Map<String, String> typeMap = new HashMap<>();
     private List<Basic_Dictionary_Kj> typeList;
+    private String roomId;
 
 
-    public DeviceListAdapter(Context context, List<ZhuFang_DeviceLists.ContentEntity> list) {
+    public DeviceListAdapter(String roomId, Context context, List<ZhuFang_DeviceLists.ContentEntity> list) {
         super(context, list);
+        this.roomId = roomId;
         initDeviceType();
     }
 
@@ -56,11 +58,11 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ZhuFang_DeviceLists.Con
 
         viewHolder.tvdevicename.setText(list.get(position).getDEVICENAME() + "(" + typeMap.get(list.get(position).getDEVICETYPE()) + ":" + list.get(position).getDEVICECODE() + ")");
 
-        viewHolder.ivdevicedelete.setOnClickListener(new View.OnClickListener() {
+        viewHolder.ivdevicechange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onDeviceDeleteListener != null) {
-                    onDeviceDeleteListener.onDelete(list.get(position));
+                if (onDeviceChangeListener != null) {
+                    onDeviceChangeListener.onChange(list.get(position), roomId);
                 }
             }
         });
@@ -71,24 +73,24 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ZhuFang_DeviceLists.Con
     public class ViewHolder {
         public final ImageView ivdevicestate;
         public final TextView tvdevicename;
-        public final ImageView ivdevicedelete;
+        public final ImageView ivdevicechange;
         public final RelativeLayout rlroom;
         public final View root;
 
         public ViewHolder(View root) {
             ivdevicestate = (ImageView) root.findViewById(R.id.iv_device_state);
             tvdevicename = (TextView) root.findViewById(R.id.tv_device_name);
-            ivdevicedelete = (ImageView) root.findViewById(R.id.iv_device_delete);
+            ivdevicechange = (ImageView) root.findViewById(R.id.iv_device_change);
             rlroom = (RelativeLayout) root.findViewById(R.id.rl_room);
             this.root = root;
         }
     }
 
-    public interface OnDeviceDeleteListener {
-        void onDelete(ZhuFang_DeviceLists.ContentEntity bean);
+    public interface OnDeviceChangeListener {
+        void onChange(ZhuFang_DeviceLists.ContentEntity bean, String roomId);
     }
 
-    public void setOnDeviceDeleteListener(OnDeviceDeleteListener onDeviceDeleteListener) {
-        this.onDeviceDeleteListener = onDeviceDeleteListener;
+    public void setOnDeviceChangeListener(OnDeviceChangeListener onDeviceChangeListener) {
+        this.onDeviceChangeListener = onDeviceChangeListener;
     }
 }

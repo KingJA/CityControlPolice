@@ -3,6 +3,9 @@ package com.tdr.citycontrolpolice.base;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.text.TextUtils;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.util.CustomConstants;
@@ -49,4 +52,6 @@ public class App extends Application {
     public static SharedPreferences getSP() {
         return mSharedPreferences;
     }
+
+
 }

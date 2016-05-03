@@ -56,8 +56,8 @@
     <color name="gray_pop_divider">#5d5d5d</color>
 
 
-    <color name="on">#A0C5FE</color>
-    <color name="off">#5483B8</color>
+    <color name="on">#FFFFFF</color>
+    <color name="off">#6F9BE6</color>
 
 
 </resources>

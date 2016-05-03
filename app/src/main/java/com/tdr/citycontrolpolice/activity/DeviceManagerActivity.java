@@ -17,6 +17,7 @@ import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.AppUtil;
+import com.tdr.citycontrolpolice.util.MyUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
@@ -33,7 +34,7 @@ import java.util.Map;
  * 创建时间：2016/4/6 8:40
  * 修改备注：
  */
-public class DeviceManagerActivity extends BackTitleActivity implements SwipeRefreshLayout.OnRefreshListener, DeviceListAdapter.OnDeviceDeleteListener, DeviceManagerAdapter.OnExplandListener {
+public class DeviceManagerActivity extends BackTitleActivity implements SwipeRefreshLayout.OnRefreshListener, DeviceListAdapter.OnDeviceChangeListener, DeviceManagerAdapter.OnExplandListener {
 
     private static final String TAG = "DeviceManagerActivity";
     private SwipeRefreshLayout srl;
@@ -112,13 +113,16 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
     }
 
     @Override
-    public void onDelete(final ZhuFang_DeviceLists.ContentEntity bean) {
-        DialogDouble dialogDouble = new DialogDouble(this, "您确定要解绑该设备？", "确定", "取消");
+    public void onChange(final ZhuFang_DeviceLists.ContentEntity bean, final String roomId) {
+
+
+        DialogDouble dialogDouble = new DialogDouble(this, "您确定要更换该设备？", "确定", "取消");
         dialogDouble.show();
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
             public void onLeft() {
-                ToastUtil.showMyToast("解绑设备" + bean.getDEVICENAME());
+                ToastUtil.showMyToast("更换设备" + bean.getDEVICENAME());
+//                changeDevice(bean,roomId);
             }
 
             @Override
@@ -126,8 +130,41 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
 
             }
         });
-        ToastUtil.showMyToast("解绑" + bean.getDEVICENAME());
 
+    }
+
+    /**
+     * 更换设备
+     * @param bean
+     * @param roomId
+     */
+    private void changeDevice(ZhuFang_DeviceLists.ContentEntity bean, String roomId) {
+        setProgressDialog(true);
+        Map<String, Object> param = new HashMap<>();
+        param.put("TaskID", "1");
+        param.put("DEVICEID", MyUtil.getUUID());
+        param.put("DEVICETYPE", 20);
+        param.put("NEWDEVICECODE", 0);
+        param.put("OLDDEVICECODE", bean.getDEVICECODE());
+        param.put("OTHERTYPE", "2");
+        param.put("OTHERID", roomId);
+        ThreadPoolTask.Builder<ZhuFang_DeviceLists> builder = new ThreadPoolTask.Builder<ZhuFang_DeviceLists>();
+        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "ZhuFang_DeviceLists", param)
+                .setBeanType(ZhuFang_DeviceLists.class)
+                .setActivity(DeviceManagerActivity.this)
+                .setCallBack(new WebServiceCallBack<ZhuFang_DeviceLists>() {
+                    @Override
+                    public void onSuccess(ZhuFang_DeviceLists bean) {
+                        setProgressDialog(false);
+                    }
+
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+                        setProgressDialog(false);
+
+                    }
+                }).build();
+        PoolManager.getInstance().execute(task);
     }
 
     /**
@@ -141,7 +178,7 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
      * @param expland
      */
     @Override
-    public void onExpland(String roomid, final String roomno, final ListView lv, final ImageView iv, final int position, final boolean expland) {
+    public void onExpland(final String roomid, final String roomno, final ListView lv, final ImageView iv, final int position, final boolean expland) {
         setProgressDialog(true);
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
@@ -162,8 +199,8 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
                             ToastUtil.showMyToast(roomno + "房间没有设备");
                             return;
                         }
-                        deviceListAdapter = new DeviceListAdapter(DeviceManagerActivity.this, deviceList);
-                        deviceListAdapter.setOnDeviceDeleteListener(DeviceManagerActivity.this);
+                        deviceListAdapter = new DeviceListAdapter(roomid, DeviceManagerActivity.this, deviceList);
+                        deviceListAdapter.setOnDeviceChangeListener(DeviceManagerActivity.this);
                         deviceManagerAdapter.saveAdapter(position, deviceListAdapter);
                         lv.setAdapter(deviceListAdapter);
                         deviceManagerAdapter.setVisibility(!expland, position);

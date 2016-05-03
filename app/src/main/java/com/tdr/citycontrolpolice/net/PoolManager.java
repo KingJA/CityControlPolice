@@ -23,6 +23,7 @@ public class PoolManager {
             synchronized (PoolManager.class) {
                 if (mPoolManager == null) {
                     mPoolManager = new PoolManager();
+
                     return mPoolManager;
                 }
             }
@@ -32,5 +33,9 @@ public class PoolManager {
 
     public void execute(Runnable r) {
         cachedThreadPool.execute(r);
+    }
+
+    public boolean isOver() {
+        return cachedThreadPool.isTerminated();
     }
 }

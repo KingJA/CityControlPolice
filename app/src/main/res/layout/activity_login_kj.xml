@@ -103,7 +103,7 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/btnlogin_change"
             android:text="登录"
-            android:textColor="@color/on"
+            android:textColor="@drawable/sel_text_press"
             android:textSize="20sp" />
 
         <View

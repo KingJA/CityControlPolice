@@ -40,8 +40,10 @@ public class UpdateManager {
     /*省厅版接口*/
 //    public static final String UPDATE_SERVER = "http://172.18.18.21:8892/newestapk/";// 省厅更新下载地址
 //    public static final String WEBSERVER_URL = "http://172.18.18.21:8892/WebServiceAPKRead.asmx";// 省厅
+
     public static final String PACKAGE_NAME = "com.tdr.citycontrolpolice";// 包名
     public static String UPDATE_APKNAME = "CityControlPolice.apk";// APK名称
+
     public static final String UPDATE_SERVER = "http://dmi.tdr-cn.com/newestapk/";// APK下载地址
     public static final String WEBSERVER_URL = "http://dmi.tdr-cn.com/WebServiceAPKRead.asmx";// 获取版本号Webservice方法
 
