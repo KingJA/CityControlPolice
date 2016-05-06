@@ -25,6 +25,7 @@ import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.AppUtil;
+import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.Equipment;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
@@ -92,7 +93,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         lv.setAdapter(deviceBindingAdapter);
         srl = (SwipeRefreshLayout) view.findViewById(R.id.srl);
         srl.setColorSchemeResources(R.color.bg_blue_light);
-        srl.setProgressViewOffset(false, 0, AppUtil.dip2px(24));
+        srl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
         srl.setOnRefreshListener(this);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
         dialogInput = new DialogInput(this);
@@ -162,23 +163,24 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         currentIsStation = false;
         currentRoomId = roomId;
         currentRoomNo = roomNo;
+        Intent intent = new Intent(DeviceBindingListActivity.this, CaptureActivity.class);
+        startActivityForResult(intent, 1);
 
-
-        DialogDouble dialogDouble = new DialogDouble(this, "选择哪种方式绑定设备", "蓝牙", "二维码");
-        dialogDouble.show();
-        dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
-            @Override
-            public void onLeft() {
-//                ToastUtil.showMyToast("亲爱的用户，该功能正在努力开发中...");
-                dialogBluetooth.show();
-            }
-
-            @Override
-            public void onRight() {
-                Intent intent = new Intent(DeviceBindingListActivity.this, CaptureActivity.class);
-                startActivityForResult(intent, 1);
-            }
-        });
+//        DialogDouble dialogDouble = new DialogDouble(this, "选择哪种方式绑定设备", "蓝牙", "二维码");
+//        dialogDouble.show();
+//        dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
+//            @Override
+//            public void onLeft() {
+////                ToastUtil.showMyToast("亲爱的用户，该功能正在努力开发中...");
+//                dialogBluetooth.show();
+//            }
+//
+//            @Override
+//            public void onRight() {
+//                Intent intent = new Intent(DeviceBindingListActivity.this, CaptureActivity.class);
+//                startActivityForResult(intent, 1);
+//            }
+//        });
 
     }
 
@@ -476,7 +478,9 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
 
     @Override
     public void onInput(String statioNo) {
-        BindingStation( mHouseId,  currentRoomId,  statioNo);
+        if (CheckUtil.checkLength(statioNo, 9, "您好，基站编号过长")) {
+            BindingStation(mHouseId, currentRoomId, statioNo);
+        }
     }
 }
 

@@ -82,7 +82,7 @@ public class DialogAddress extends Dialog implements View.OnClickListener,Adapte
         czfQueryAdapter = new CzfInitAdapter(context, addressList);
         mSrl = (SwipeRefreshLayout) findViewById(R.id.srl);
         mSrl.setColorSchemeResources(R.color.bg_blue_light);
-        mSrl.setProgressViewOffset(false, 0, AppUtil.dip2px(24));
+        mSrl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
         mLvPopAddress.setAdapter(czfQueryAdapter);
         mLvPopAddress.setOnItemClickListener(this);
 

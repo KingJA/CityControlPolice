@@ -19,6 +19,7 @@ import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.KingJA_SwtichButton_Kj;
+import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +48,7 @@ public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnI
     private CzfApplyAdapter applyAdapter;
     private List<ChuZuWu_LKSelfReportingList.ContentBean.PERSONNELINFOLISTBean> applyList = new ArrayList<>();
     private Map<Boolean, CzfApplyAdapter> adapterMap = new HashMap<>();
+    private DialogProgress dialogProgress;
 
     public static InfoApplyFragment newInstance(String houseId) {
         InfoApplyFragment applyFragment = new InfoApplyFragment();
@@ -63,7 +65,7 @@ public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnI
         mParam.put("TaskID", "1");
         mParam.put("HOUSEID", mHouseId);
         mParam.put("ROOMID", "");
-        mParam.put("PageSize", 100);
+        mParam.put("PageSize", 200);
         mParam.put("PageIndex", 0);
     }
 
@@ -79,6 +81,7 @@ public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnI
         applyAdapter = new CzfApplyAdapter(mActivity, applyList);
         lv_exist.setAdapter(applyAdapter);
         lv_exist.setOnItemClickListener(this);
+        dialogProgress = new DialogProgress(getActivity());
     }
 
     @Override
@@ -88,6 +91,7 @@ public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnI
 
 
     private void getAppleList(final boolean isInList) {
+        dialogProgress.show();
         String methodName = isInList ? "ChuZuWu_LKSelfReportingList" : "ChuZuWu_LKSelfReportingOutList";
         ThreadPoolTask.Builder<ChuZuWu_LKSelfReportingList> builder = new ThreadPoolTask.Builder<ChuZuWu_LKSelfReportingList>();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0, methodName, mParam)
@@ -96,6 +100,7 @@ public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnI
                 .setCallBack(new WebServiceCallBack<ChuZuWu_LKSelfReportingList>() {
                     @Override
                     public void onSuccess(ChuZuWu_LKSelfReportingList bean) {
+                        dialogProgress.dismiss();
                         applyList = bean.getContent().getPERSONNELINFOLIST();
                         Log.i("ApplyFragment", "applyList: " + applyList.size());
 //                        llEmpty.setVisibility(applyList.size() == 0 ? View.VISIBLE : View.GONE);
@@ -106,7 +111,7 @@ public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnI
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-
+                        dialogProgress.dismiss();
                     }
                 }).build();
         PoolManager.getInstance().execute(task);

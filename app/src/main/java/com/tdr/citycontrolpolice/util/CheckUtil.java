@@ -12,6 +12,13 @@ import java.util.regex.Pattern;
  * 修改备注：
  */
 public class CheckUtil {
+    /**
+     * 非空验证
+     *
+     * @param s
+     * @param tip
+     * @return
+     */
     public static boolean checkEmpty(String s, String tip) {
         if (TextUtils.isEmpty(s)) {
             ToastUtil.showMyToast(tip);
@@ -19,6 +26,12 @@ public class CheckUtil {
         }
         return true;
     }
+
+    /**
+     * 验证是否以0开始
+     * @param s
+     * @return
+     */
     public static boolean checkZero(String s) {
         if ("0".equals(s) || s.startsWith("0")) {
             ToastUtil.showMyToast("请输入非零数字");
@@ -27,14 +40,12 @@ public class CheckUtil {
         return true;
     }
 
-    public static boolean checkUserName(String userName) {
-        if (TextUtils.isEmpty(userName)) {
-            ToastUtil.showMyToast("用户名不能为空");
-            return false;
-        }
-        return true;
-    }
 
+    /**
+     * 手机号码验证
+     * @param phone
+     * @return
+     */
     public static boolean checkPhoneFormat(String phone) {
         // 判断非空
         if (TextUtils.isEmpty(phone)) {
@@ -51,6 +62,11 @@ public class CheckUtil {
         return true;
     }
 
+    /**
+     * 密码格式验证
+     * @param password
+     * @return
+     */
     public static boolean checkPasswordFormat(String password) {
         // 判断非空
         if (TextUtils.isEmpty(password)) {

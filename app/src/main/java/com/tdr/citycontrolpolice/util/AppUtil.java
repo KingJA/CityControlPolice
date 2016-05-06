@@ -19,34 +19,43 @@ public class AppUtil {
         return App.getContext();
     }
 
-    public static int dip2px(int dip) {
+    /**
+     * dp转换为px
+     *
+     * @param dp
+     * @return
+     */
+    public static int dp2px(int dp) {
         float density = getContext().getResources().getDisplayMetrics().density;
-        return (int) (dip * density + 0.5);
+        return (int) (dp * density + 0.5);
     }
 
-    public static int px2dip(int px) {
+    /**
+     * px转换为dp
+     *
+     * @param px
+     * @return
+     */
+    public static int px2dp(int px) {
         float density = getContext().getResources().getDisplayMetrics().density;
         return (int) (px / density + 0.5);
     }
 
-    //    public static int getScreenWidth() {
-//        WindowManager manager = (WindowManager) getContext()
-//                .getSystemService(Context.WINDOW_SERVICE);
-//        Display display = manager.getDefaultDisplay();
-//        return display.getWidth();
-//    }
-//
-//    public static int getScreenHeight() {
-//        WindowManager manager = (WindowManager) getContext()
-//                .getSystemService(Context.WINDOW_SERVICE);
-//        Display display = manager.getDefaultDisplay();
-//        return display.getHeight();
-//    }
+    /**
+     * 获取屏幕宽度
+     *
+     * @return
+     */
     public static int getScreenWidth() {
         DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
         return dm.widthPixels;
     }
 
+    /**
+     * 获取屏幕高度
+     *
+     * @return
+     */
     public static int getScreenHeight() {
         DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
         return dm.heightPixels;

@@ -40,11 +40,12 @@
                 android:gravity="center_vertical|right"
                 android:text="*地        址:" />
 
-            <TextView
+            <EditText
+                android:enabled="false"
                 android:id="@+id/tv_address"
                 style="@style/font_content_14"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#fff"
                 android:hint="请选择地址"
@@ -101,7 +102,8 @@
                 android:gravity="center_vertical|right"
                 android:text="辖区派出所:" />
 
-            <TextView
+            <EditText
+                android:enabled="false"
                 android:id="@+id/tv_police"
                 style="@style/font_content_14"
                 android:layout_width="0dp"
@@ -114,6 +116,7 @@
 
         <View style="@style/divider_nomal_horizontal" />
         <LinearLayout
+            android:id="@+id/ll_type"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="1dp"
@@ -127,7 +130,8 @@
                 android:gravity="center_vertical|right"
                 android:text="*房屋类型:" />
 
-            <TextView
+            <EditText
+                android:editable="false"
                 android:id="@+id/tv_czfType"
                 style="@style/font_content_14"
                 android:layout_width="0dp"
@@ -192,7 +196,8 @@
                 android:gravity="center_vertical|right"
                 android:text="*姓名:" />
 
-            <TextView
+            <EditText
+                android:enabled="false"
                 android:singleLine="true"
                 android:id="@+id/tv_ownerName"
                 style="@style/font_content_14"
@@ -220,7 +225,8 @@
                 android:gravity="center_vertical|right"
                 android:text="*身份证:" />
 
-            <TextView
+            <EditText
+                android:enabled="false"
                 android:singleLine="true"
                 android:id="@+id/tv_ownerCard"
                 style="@style/font_content_14"

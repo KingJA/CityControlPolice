@@ -33,6 +33,7 @@ import com.tdr.citycontrolpolice.view.NoScrollGridView;
 import com.tdr.citycontrolpolice.view.ZProgressHUD;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogNFC;
+import com.zbar.lib.CaptureActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -185,9 +186,11 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
     public void onClick(int position) {
         switch (position) {
             case 0:
-                ActivityUtil.goActivity(getActivity(), NfcActivity.class);
+                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
+//                ActivityUtil.goActivity(getActivity(), NfcActivity.class);
                 break;
             case 1:
+
                 ActivityUtil.goActivity(getActivity(), PersonCheckActivity.class);
 
                 break;
@@ -263,11 +266,12 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
             Intent intent = new Intent();
             switch (position) {
                 case 0:
-                    intent.setClass(mActivity, com.zbar.lib.CaptureActivity.class);
+                    intent.setClass(mActivity, zbar.CaptureActivity.class);
                     startActivityForResult(intent, SCANNIN_CZF_CODE);
                     break;
                 case 1:
-                    intent.setClass(mActivity, com.zbar.lib.CaptureActivity.class);
+                    intent.setClass(mActivity, zbar.CaptureActivity.class);
+//                    intent.setClass(mActivity, com.zbar.lib.CaptureActivity.class);
                     startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
                     break;
                 case 2:
@@ -278,10 +282,10 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
                     dialogNFC.show();
                     break;
                 case 4:
-                    ToastUtil.showMyToast("开发中...");
+                    ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
                     break;
                 case 5:
-                    ToastUtil.showMyToast("开发中...");
+                    ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
                     break;
                 case 6:
                     dialogDouble.show();

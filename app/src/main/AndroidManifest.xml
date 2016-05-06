@@ -5,8 +5,6 @@
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
-
-
     <!--Bugly-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -72,12 +70,12 @@
         <activity
             android:name=".activity.CzfInfoActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.CzfModifyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CzfFloatActivity"
+            android:name=".activity.CzfOutInActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PersonInfoActivity"
@@ -131,6 +129,9 @@
         <activity
             android:name=".czfinit.CzfInitActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="zbar.CaptureActivity"
+            android:screenOrientation="portrait" />
 
 
         <!-- 扫描二维码 -->
@@ -147,7 +148,7 @@
 
         <activity
             android:name=".activity.NfcActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
             </intent-filter>
@@ -161,7 +162,7 @@
 
         </activity>
 
-        <receiver android:name=".receiver.MessageReceiver" >
+        <receiver android:name=".receiver.MessageReceiver">
             <intent-filter>
                 <action android:name="com.tdr.identity.readcard" />
             </intent-filter>

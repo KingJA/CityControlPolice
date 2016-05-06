@@ -5,6 +5,8 @@ package com.tdr.citycontrolpolice.entity;
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
+import java.io.Serializable;
+
 /**
  * 项目名称：物联网城市防控(警用版)
  * 类描述：登录
@@ -14,7 +16,7 @@ import org.xutils.db.annotation.Table;
  */
 @Table(name = "Basic_JuWeiHui")
 
-public class Basic_JuWeiHui_Kj {
+public class Basic_JuWeiHui_Kj implements Serializable {
     @Column(name = "DMZM", isId = true)
     private String DMZM;
     @Column(name = "DMMC")

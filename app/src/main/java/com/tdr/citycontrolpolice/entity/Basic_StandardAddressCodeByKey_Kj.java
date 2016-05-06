@@ -1,5 +1,6 @@
 package com.tdr.citycontrolpolice.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -57,7 +58,7 @@ public class Basic_StandardAddressCodeByKey_Kj {
         this.Content = Content;
     }
 
-    public static class ContentBean {
+    public static class ContentBean implements Serializable {
         private String id;
         private String address;
         private String addressPath;

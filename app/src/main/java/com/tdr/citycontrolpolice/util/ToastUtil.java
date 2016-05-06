@@ -51,7 +51,7 @@ public class ToastUtil {
             mToast = new Toast(mContext);
         }
         tv_message.setText(message);
-        mToast.setGravity(Gravity.BOTTOM, 0, AppUtil.dip2px(96));
+        mToast.setGravity(Gravity.BOTTOM, 0, AppUtil.dp2px(96));
         mToast.setDuration(duration);
         mToast.setView(toastRoot);
         mToast.show();

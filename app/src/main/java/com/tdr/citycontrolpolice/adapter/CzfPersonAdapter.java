@@ -60,7 +60,7 @@ public class CzfPersonAdapter extends BaseSimpleAdapter<ChuZuWu_LKJBInfoList.Con
         public final View root;
 
         public ViewHolder(View root) {
-            tvinfoname = (TextView) root.findViewById(R.id.tv_info_name);
+            tvinfoname = (TextView) root.findViewById(R.id.tv_outin_name);
             tvdetail = (TextView) root.findViewById(R.id.tv_detail);
             tvinfophone = (TextView) root.findViewById(R.id.tv_info_phone);
             tvinfocard = (TextView) root.findViewById(R.id.tv_info_card);

@@ -1,9 +1,11 @@
 package com.tdr.citycontrolpolice.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/2/29.
  */
-public class Deivce {
+public class Deivce implements Serializable {
     private String DEVICEID;
     private String DEVICETYPE;
     private String DEVICECODE;

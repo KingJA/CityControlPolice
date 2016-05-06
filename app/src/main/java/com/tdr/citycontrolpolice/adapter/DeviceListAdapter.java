@@ -10,7 +10,8 @@ import android.widget.TextView;
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.dao.DbDaoXutils3;
 import com.tdr.citycontrolpolice.entity.Basic_Dictionary_Kj;
-import com.tdr.citycontrolpolice.entity.ZhuFang_DeviceLists;
+import com.tdr.citycontrolpolice.entity.ChuZuWu_DeviceLists;
+import com.tdr.citycontrolpolice.util.TimeUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,14 +24,14 @@ import java.util.Map;
  * 创建时间：2016/4/723:36
  * 修改备注：
  */
-public class DeviceListAdapter extends BaseSimpleAdapter<ZhuFang_DeviceLists.ContentEntity> {
+public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.ContentBean> {
     private OnDeviceChangeListener onDeviceChangeListener;
     private Map<String, String> typeMap = new HashMap<>();
     private List<Basic_Dictionary_Kj> typeList;
     private String roomId;
 
 
-    public DeviceListAdapter(String roomId, Context context, List<ZhuFang_DeviceLists.ContentEntity> list) {
+    public DeviceListAdapter(String roomId, Context context, List<ChuZuWu_DeviceLists.ContentBean> list) {
         super(context, list);
         this.roomId = roomId;
         initDeviceType();
@@ -57,6 +58,9 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ZhuFang_DeviceLists.Con
         }
 
         viewHolder.tvdevicename.setText(list.get(position).getDEVICENAME() + "(" + typeMap.get(list.get(position).getDEVICETYPE()) + ":" + list.get(position).getDEVICECODE() + ")");
+        viewHolder.ivdevicestate.setBackgroundResource(TimeUtil.isOneDay(list.get(position).getDEVICETIME()) ? R.drawable.circle_on : R.drawable.circle_off);
+        viewHolder.tv_isbund.setText(list.get(position).getISBUNG() == 0 ? "未下" : "下发");
+        viewHolder.tv_isbund.setTextColor(list.get(position).getISBUNG() == 0 ? context.getResources().getColor(R.color.font_title) : context.getResources().getColor(R.color.bg_orange));
 
         viewHolder.ivdevicechange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +76,7 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ZhuFang_DeviceLists.Con
 
     public class ViewHolder {
         public final ImageView ivdevicestate;
+        public final TextView tv_isbund;
         public final TextView tvdevicename;
         public final ImageView ivdevicechange;
         public final RelativeLayout rlroom;
@@ -79,6 +84,7 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ZhuFang_DeviceLists.Con
 
         public ViewHolder(View root) {
             ivdevicestate = (ImageView) root.findViewById(R.id.iv_device_state);
+            tv_isbund = (TextView) root.findViewById(R.id.tv_isbund);
             tvdevicename = (TextView) root.findViewById(R.id.tv_device_name);
             ivdevicechange = (ImageView) root.findViewById(R.id.iv_device_change);
             rlroom = (RelativeLayout) root.findViewById(R.id.rl_room);
@@ -87,7 +93,7 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ZhuFang_DeviceLists.Con
     }
 
     public interface OnDeviceChangeListener {
-        void onChange(ZhuFang_DeviceLists.ContentEntity bean, String roomId);
+        void onChange(ChuZuWu_DeviceLists.ContentBean bean, String roomId);
     }
 
     public void setOnDeviceChangeListener(OnDeviceChangeListener onDeviceChangeListener) {

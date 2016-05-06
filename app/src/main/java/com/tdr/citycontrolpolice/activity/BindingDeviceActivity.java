@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,7 +52,7 @@ public class BindingDeviceActivity extends BackTitleActivity {
     private EditText et_device_name;
     private TextView tv_device_room;
     private TextView tv_device_type;
-    private TextView tv_device_submit;
+    private Button btn_device_submit;
     private ImageView iv_device_icon;
     private ImageView iv_device_camera;
     private File imageFile;
@@ -78,7 +79,7 @@ public class BindingDeviceActivity extends BackTitleActivity {
         et_device_name = (EditText) view.findViewById(R.id.et_device_name);
         tv_device_room = (TextView) view.findViewById(R.id.tv_device_room);
         tv_device_type = (TextView) view.findViewById(R.id.tv_device_type);
-        tv_device_submit = (TextView) view.findViewById(R.id.tv_device_submit);
+        btn_device_submit = (Button) view.findViewById(R.id.btn_device_submit);
         iv_device_icon = (ImageView) view.findViewById(R.id.iv_device_icon);
         iv_device_camera = (ImageView) view.findViewById(R.id.iv_device_camera);
     }
@@ -143,7 +144,7 @@ public class BindingDeviceActivity extends BackTitleActivity {
 
             }
         });
-        tv_device_submit.setOnClickListener(new View.OnClickListener() {
+        btn_device_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bindDevice();
@@ -212,4 +213,11 @@ public class BindingDeviceActivity extends BackTitleActivity {
         }
     }
 
+    /**
+     * 删除拍摄图片
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

@@ -196,7 +196,8 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
                 break;
             case 2:
-                ActivityUtil.goActivityWithBundle(this, CzfFloatActivity.class, new Bundle());
+//                ActivityUtil.goActivityWithBundle(this, CzfOutInActivity.class, new Bundle());
+                CzfOutInActivity.goActivity(this, mHouseId);
                 break;
             case 3:
                 Bundle bundle = new Bundle();

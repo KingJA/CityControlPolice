@@ -2,7 +2,6 @@ package com.tdr.citycontrolpolice.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -65,7 +64,7 @@ public class KingJA_SwtichButton_Kj extends LinearLayout {
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1.0f);
         leftButton = new TextView(context);
         leftButton.setGravity(Gravity.CENTER);
-        leftButton.setPadding(AppUtil.dip2px(8), AppUtil.dip2px(8), AppUtil.dip2px(8), AppUtil.dip2px(8));
+        leftButton.setPadding(AppUtil.dp2px(8), AppUtil.dp2px(8), AppUtil.dp2px(8), AppUtil.dp2px(8));
         leftButton.setText(leftText);
         leftButton.setTextColor(isLeft ? textSel : textNor);
         leftButton.setBackgroundDrawable(isLeft ? leftSelBg : leftNorBg);
@@ -84,7 +83,7 @@ public class KingJA_SwtichButton_Kj extends LinearLayout {
         rightButton = new TextView(context);
         rightButton.setText(rightText);
         rightButton.setGravity(Gravity.CENTER);
-        rightButton.setPadding(AppUtil.dip2px(8), AppUtil.dip2px(8), AppUtil.dip2px(8), AppUtil.dip2px(8));
+        rightButton.setPadding(AppUtil.dp2px(8), AppUtil.dp2px(8), AppUtil.dp2px(8), AppUtil.dp2px(8));
         rightButton.setTextColor(isLeft ? textNor : textSel);
         rightButton.setBackgroundDrawable(isLeft ? rightNorBg : rightSelBg);
         rightButton.setOnClickListener(new OnClickListener() {

@@ -77,7 +77,7 @@ public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, 
         czfQueryAdapter = new CzfQueryAdapter(this, addressList);
         dialogProgress = new DialogProgress(this);
         srl.setColorSchemeResources(R.color.bg_blue_light);
-        srl.setProgressViewOffset(false, 0, AppUtil.dip2px(24));
+        srl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
     }
 
     @Override

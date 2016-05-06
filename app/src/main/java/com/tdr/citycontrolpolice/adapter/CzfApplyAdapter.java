@@ -76,7 +76,7 @@ public class CzfApplyAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingLi
 
         public ViewHolder(View root) {
             ivstatic = (ImageView) root.findViewById(R.id.iv_static);
-            tvinfoname = (TextView) root.findViewById(R.id.tv_info_name);
+            tvinfoname = (TextView) root.findViewById(R.id.tv_outin_name);
             tvinfotime = (TextView) root.findViewById(R.id.tv_info_time);
             ivapplyarrow = (ImageView) root.findViewById(R.id.iv_apply_arrow);
             rltop = (RelativeLayout) root.findViewById(R.id.rl_top);

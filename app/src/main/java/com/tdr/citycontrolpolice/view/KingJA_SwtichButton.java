@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,7 +45,7 @@ public class KingJA_SwtichButton extends LinearLayout {
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1.0f);
         leftButton = new TextView(context);
         leftButton.setGravity(Gravity.CENTER);
-        leftButton.setPadding(AppUtil.dip2px(8), AppUtil.dip2px(8), AppUtil.dip2px(8), AppUtil.dip2px(8));
+        leftButton.setPadding(AppUtil.dp2px(8), AppUtil.dp2px(8), AppUtil.dp2px(8), AppUtil.dp2px(8));
         leftButton.setText("警号");
         leftButton.setTextColor(Color.parseColor("#ffffff"));
         leftButton.setBackgroundResource(isLeft ? R.drawable.switch_left_sel : R.drawable.switch_left_nor);
@@ -65,7 +64,7 @@ public class KingJA_SwtichButton extends LinearLayout {
         rightButton = new TextView(context);
         rightButton.setText("用户名");
         rightButton.setGravity(Gravity.CENTER);
-        rightButton.setPadding(AppUtil.dip2px(8), AppUtil.dip2px(8), AppUtil.dip2px(8), AppUtil.dip2px(8));
+        rightButton.setPadding(AppUtil.dp2px(8), AppUtil.dp2px(8), AppUtil.dp2px(8), AppUtil.dp2px(8));
         rightButton.setTextColor(Color.parseColor("#ffffff"));
         rightButton.setBackgroundResource(isLeft ? R.drawable.switch_right_nor : R.drawable.switch_right_sel);
         rightButton.setOnClickListener(new OnClickListener() {

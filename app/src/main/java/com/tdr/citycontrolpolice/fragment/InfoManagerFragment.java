@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.activity.PersonInfoActivity;
@@ -109,7 +108,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
         lvInit.setOnItemClickListener(this);
         srlCzfManager.setOnRefreshListener(this);
         srlCzfManager.setColorSchemeResources(R.color.bg_blue_light);
-        srlCzfManager.setProgressViewOffset(false, 0, AppUtil.dip2px(24));
+        srlCzfManager.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
         layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         dialogProgress = new DialogProgress(mActivity);
     }

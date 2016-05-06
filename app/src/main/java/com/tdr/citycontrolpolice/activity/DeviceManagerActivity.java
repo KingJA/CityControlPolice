@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.DeviceListAdapter;
 import com.tdr.citycontrolpolice.adapter.DeviceManagerAdapter;
+import com.tdr.citycontrolpolice.entity.ChuZuWu_DeviceLists;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
 import com.tdr.citycontrolpolice.entity.ZhuFang_DeviceLists;
@@ -44,7 +45,7 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
     private HashMap<String, Object> mParam = new HashMap<>();
     private List<KjChuZuWuInfo.ContentBean.RoomListBean> roomList = new ArrayList<>();
     private DeviceManagerAdapter deviceManagerAdapter;
-    private List<ZhuFang_DeviceLists.ContentEntity> deviceList = new ArrayList<>();
+    private List<ChuZuWu_DeviceLists.ContentBean> deviceList = new ArrayList<>();
     private DeviceListAdapter deviceListAdapter;
 
     @Override
@@ -70,7 +71,7 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
         lv.setAdapter(deviceManagerAdapter);
         srl.setOnRefreshListener(this);
         srl.setColorSchemeResources(R.color.bg_blue_light);
-        srl.setProgressViewOffset(false, 0, AppUtil.dip2px(24));
+        srl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
     }
 
     @Override
@@ -113,7 +114,7 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
     }
 
     @Override
-    public void onChange(final ZhuFang_DeviceLists.ContentEntity bean, final String roomId) {
+    public void onChange(final ChuZuWu_DeviceLists.ContentBean bean, final String roomId) {
 
 
         DialogDouble dialogDouble = new DialogDouble(this, "您确定要更换该设备？", "确定", "取消");
@@ -185,13 +186,13 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
         param.put("RoomID", roomid);
         param.put("PageSize", 20);
         param.put("PageIndex", 0);
-        ThreadPoolTask.Builder<ZhuFang_DeviceLists> builder = new ThreadPoolTask.Builder<ZhuFang_DeviceLists>();
-        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "ZhuFang_DeviceLists", param)
-                .setBeanType(ZhuFang_DeviceLists.class)
+        ThreadPoolTask.Builder<ChuZuWu_DeviceLists> builder = new ThreadPoolTask.Builder<ChuZuWu_DeviceLists>();
+        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "ChuZuWu_DeviceLists", param)
+                .setBeanType(ChuZuWu_DeviceLists.class)
                 .setActivity(DeviceManagerActivity.this)
-                .setCallBack(new WebServiceCallBack<ZhuFang_DeviceLists>() {
+                .setCallBack(new WebServiceCallBack<ChuZuWu_DeviceLists>() {
                     @Override
-                    public void onSuccess(ZhuFang_DeviceLists bean) {
+                    public void onSuccess(ChuZuWu_DeviceLists bean) {
                         setProgressDialog(false);
                         deviceList = bean.getContent();
                         Log.i(TAG, "deviceList: " + deviceList.size());

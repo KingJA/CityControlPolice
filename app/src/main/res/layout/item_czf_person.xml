@@ -28,7 +28,7 @@
             android:layout_weight="6">
 
             <TextView
-                android:id="@+id/tv_info_name"
+                android:id="@+id/tv_outin_name"
                 style="@style/font_gray_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@id/tv_info_name"
+                android:layout_toRightOf="@id/tv_outin_name"
                 android:background="@drawable/bg_chang"
                 android:visibility="gone" />
 

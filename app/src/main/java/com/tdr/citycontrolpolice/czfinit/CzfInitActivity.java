@@ -3,7 +3,9 @@ package com.tdr.citycontrolpolice.czfinit;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -58,11 +60,11 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     private TextView mTvAddress;
     private ImageView mIvSearch;
     private EditText mEtCzfName;
-    private TextView mTvCzfType;
+    private EditText mTvCzfType;
     private EditText mEtAreaName;
-    private TextView mTvPolice;
-    private TextView mTvOwnerName;
-    private TextView mTvOwnerCard;
+    private EditText mTvPolice;
+    private EditText mTvOwnerName;
+    private EditText mTvOwnerCard;
     private EditText mEtOwnerPhone;
     private CheckBox mCbIsOwern;
     private LinearLayout mLlAdmin;
@@ -132,14 +134,14 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     @Override
     protected void initView() {
         mLlSearch = (LinearLayout) view.findViewById(R.id.ll_search);
-        mTvAddress = (TextView) view.findViewById(R.id.tv_address);
+        mTvAddress = (EditText) view.findViewById(R.id.tv_address);
         mIvSearch = (ImageView) view.findViewById(R.id.iv_search);
         mEtCzfName = (EditText) view.findViewById(R.id.et_czfName);
-        mTvCzfType = (TextView) view.findViewById(R.id.tv_czfType);
+        mTvCzfType = (EditText) view.findViewById(R.id.tv_czfType);
         mEtAreaName = (EditText) view.findViewById(R.id.et_areaName);
-        mTvPolice = (TextView) view.findViewById(R.id.tv_police);
-        mTvOwnerName = (TextView) view.findViewById(R.id.tv_ownerName);
-        mTvOwnerCard = (TextView) view.findViewById(R.id.tv_ownerCard);
+        mTvPolice = (EditText) view.findViewById(R.id.tv_police);
+        mTvOwnerName = (EditText) view.findViewById(R.id.tv_ownerName);
+        mTvOwnerCard = (EditText) view.findViewById(R.id.tv_ownerCard);
         mEtOwnerPhone = (EditText) view.findViewById(R.id.et_ownerPhone);
         mCbIsOwern = (CheckBox) view.findViewById(R.id.cb_isOwern);
         mLlAdmin = (LinearLayout) view.findViewById(R.id.ll_admin);
@@ -241,40 +243,41 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
 //                CheckUtil.checkEmpty(base64Room, "请拍摄房屋外景")
     }
     private Photo dz_photo, fw_photo;
-    private List<Deivce> deivceList;
+    private ArrayList<Deivce> deivceList;
     private void upload() {
         setProgressDialog(true);
         ChuZuWu_Add chuZuWuAdd = new ChuZuWu_Add();
-        chuZuWuAdd.setHOUSENAME(mCzfName);
-        chuZuWuAdd.setHOUSEID(MyUtil.getUUID());
-        chuZuWuAdd.setADDRESS(mAddress);
-        chuZuWuAdd.setSTANDARDADDRCODE(addressCode);
-        chuZuWuAdd.setHOUSINGESTATE(mAreaName);
-        chuZuWuAdd.setIDENTITYCARD(mOwnerCard);
-        chuZuWuAdd.setOWNERNAME(mOwnerName);
-        chuZuWuAdd.setOWNERNEWUSERID(MyUtil.getUUID());
-        chuZuWuAdd.setHOUSETYPE(houseType);
-        chuZuWuAdd.setPHONE(mOwnerPhone);
-        chuZuWuAdd.setPCSCO(paiChuSuo.getFDMZM());
-        chuZuWuAdd.setJWHCODE(juWeiHui.getDMZM());
-        chuZuWuAdd.setXQCODE(content.getJWHCODE().substring(0, 6));
-        chuZuWuAdd.setLNG(standardAddressCodeByKey.getX());
-        chuZuWuAdd.setLAT(standardAddressCodeByKey.getY());
-        chuZuWuAdd.setADMINISTRATORCOUNT("1");
+        chuZuWuAdd.setTaskID("1");//自动恢复
+        chuZuWuAdd.setHOUSENAME(mCzfName);//自动恢复
+        chuZuWuAdd.setHOUSEID(MyUtil.getUUID());//自动恢复
+        chuZuWuAdd.setADDRESS(mAddress);//自动恢复
+        chuZuWuAdd.setSTANDARDADDRCODE(addressCode);//自动恢复
+        chuZuWuAdd.setHOUSINGESTATE(mAreaName);//自动恢复
+        chuZuWuAdd.setIDENTITYCARD(mOwnerCard);//自动恢复
+        chuZuWuAdd.setOWNERNAME(mOwnerName);//自动恢复
+        chuZuWuAdd.setOWNERNEWUSERID(MyUtil.getUUID());//自动恢复
+        chuZuWuAdd.setHOUSETYPE(houseType);//自动恢复
+        chuZuWuAdd.setPHONE(mOwnerPhone);//自动恢复
+        chuZuWuAdd.setPCSCO(paiChuSuo.getDMZM());//自动恢复
+        chuZuWuAdd.setJWHCODE(juWeiHui.getDMZM());//自动恢复
+        chuZuWuAdd.setXQCODE(content.getJWHCODE().substring(0, 6));//自动恢复
+        chuZuWuAdd.setLNG(standardAddressCodeByKey.getX());//自动恢复
+        chuZuWuAdd.setLAT(standardAddressCodeByKey.getY());//自动恢复
+        chuZuWuAdd.setADMINISTRATORCOUNT("1");//自动恢复
         Administrator administrator = new Administrator();
-        administrator.setNEWUSERID(MyUtil.getUUID());
-        administrator.setPHONE(mAdminPhone);
-        administrator.setNAME(mAdminName);
-        administrator.setIDENTITYCARD(mAdminCard);
+        administrator.setNEWUSERID(MyUtil.getUUID());//自动恢复
+        administrator.setPHONE(mAdminPhone);//自动恢复
+        administrator.setNAME(mAdminName);//自动恢复
+        administrator.setIDENTITYCARD(mAdminCard);//自动恢复
         List<Administrator> administratorList = new ArrayList<Administrator>();
         administratorList.add(administrator);
         chuZuWuAdd.setADMINISTRATOR(administratorList);
         List<Photo> photoList = new ArrayList<Photo>();
         if (dz_photo != null) {
-            photoList.add(dz_photo);
+            photoList.add(dz_photo);//自动恢复
         }
         if (fw_photo != null) {
-            photoList.add(fw_photo);
+            photoList.add(fw_photo);//自动恢复
         }
         chuZuWuAdd.setPHOTOCOUNT(photoList.size() + "");
         chuZuWuAdd.setPHOTOLIST(photoList);
@@ -325,8 +328,12 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
 
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        imageFile = photoType == 0 ? numberFile : roomFile;
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+        if (photoType == 0) {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(numberFile));
+        } else {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(roomFile));
+        }
+
         startActivityForResult(intent, Camara);
     }
 
@@ -336,8 +343,9 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         switch (requestCode) {
             case Camara:
                 if (resultCode == RESULT_OK) {
-                    Bitmap bitmap = ImageUtil.compressScaleFromF2B(imageFile.getAbsolutePath());
+//                    Bitmap bitmap = ImageUtil.compressScaleFromF2B(imageFile.getAbsolutePath());
                     if (photoType == 0) {
+                        Bitmap bitmap = ImageUtil.compressScaleFromF2B(numberFile.getAbsolutePath());
                         base64Number = new String(ImageUtil.bitmapToBase64(bitmap));
                         mIvNumber.setImageBitmap(ImageUtil.base64ToBitmap(base64Number));
 //                        Log.i(TAG, "base64String: " + base64Number.length());
@@ -346,13 +354,14 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                         dz_photo.setTAG("电子门牌");
                         dz_photo.setIMAGE(base64Number);
                     } else {
+                        Bitmap bitmap = ImageUtil.compressScaleFromF2B(roomFile.getAbsolutePath());
                         base64Room = new String(ImageUtil.bitmapToBase64(bitmap));
                         mIvRoom.setImageBitmap(ImageUtil.base64ToBitmap(base64Room));
 //                        Log.i(TAG, "base64String: " + base64Room.length());
-                        dz_photo = new Photo();
-                        dz_photo.setLISTID(MyUtil.getUUID());
-                        dz_photo.setTAG("电子门牌");
-                        dz_photo.setIMAGE(base64Room);
+                        fw_photo = new Photo();
+                        fw_photo.setLISTID(MyUtil.getUUID());
+                        fw_photo.setTAG("房屋外径");
+                        fw_photo.setIMAGE(base64Room);
                     }
                 }
                 break;
@@ -372,8 +381,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mTvOwnerCard.setText("");
         mEtOwnerPhone.setText("");
         mTvPolice.setText("");
-
-
         mCbIsOwern.setChecked(false);
         mParam = new HashMap<>();
         mParam.put("TaskID", "1");
@@ -439,4 +446,67 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     public void onBackPressed() {
         dialogDouble.show();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy: ");
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate: ");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("numberFile", numberFile.getAbsolutePath());
+        outState.putString("roomFile", roomFile.getAbsolutePath());
+        outState.putString("base64Number", base64Number);
+        outState.putString("base64Room", base64Room);
+        outState.putString("addressCode", addressCode);
+        outState.putString("houseType", houseType);
+        outState.putInt("photoType", photoType);
+        outState.putSerializable("deivceList", deivceList);
+        outState.putSerializable("standardAddressCodeByKey", standardAddressCodeByKey);
+        outState.putSerializable("paiChuSuo", paiChuSuo);
+        outState.putSerializable("juWeiHui", juWeiHui);
+        outState.putSerializable("content", content);
+        Log.i(TAG, "onSaveInstanceState: ");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        numberFile = new File(savedInstanceState.getString("numberFile"));
+        roomFile = new File(savedInstanceState.getString("roomFile"));
+        base64Number = savedInstanceState.getString("base64Number");
+        base64Room = savedInstanceState.getString("base64Room");
+        addressCode = savedInstanceState.getString("addressCode");
+        houseType = savedInstanceState.getString("houseType");
+        photoType = savedInstanceState.getInt("photoType");
+        deivceList = (ArrayList<Deivce>) savedInstanceState.getSerializable("deivceList");
+        standardAddressCodeByKey = (Basic_StandardAddressCodeByKey_Kj.ContentBean) savedInstanceState.getSerializable("standardAddressCodeByKey");
+        paiChuSuo = (Basic_PaiChuSuo_Kj) savedInstanceState.getSerializable("paiChuSuo");
+        juWeiHui = (Basic_JuWeiHui_Kj) savedInstanceState.getSerializable("juWeiHui");
+        content = (ChuZuWu_GetSSYByStandAddressCode.ContentBean) savedInstanceState.getSerializable("content");
+        Log.i(TAG, "onRestoreInstanceState: ");
+
+
+        if (!TextUtils.isEmpty(base64Number)) {
+            mIvNumber.setImageBitmap(ImageUtil.base64ToBitmap(base64Number));
+        }
+        if (!TextUtils.isEmpty(base64Room)) {
+            mIvRoom.setImageBitmap(ImageUtil.base64ToBitmap(base64Room));
+        }
+    }
+
+//    chuZuWuAdd.setHOUSETYPE(houseType);
+//    chuZuWuAdd.setPCSCO(paiChuSuo.getDMZM());
+//    chuZuWuAdd.setJWHCODE(juWeiHui.getDMZM());
+//    chuZuWuAdd.setXQCODE(content.getJWHCODE().substring(0, 6));
+//    chuZuWuAdd.setLNG(standardAddressCodeByKey.getX());
+//    chuZuWuAdd.setLAT(standardAddressCodeByKey.getY());
 }

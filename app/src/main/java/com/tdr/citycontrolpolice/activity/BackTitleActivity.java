@@ -1,6 +1,8 @@
 package com.tdr.citycontrolpolice.activity;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
@@ -100,6 +102,5 @@ public abstract class BackTitleActivity extends BaseActivity {
     public void setOnRightClickListener(OnRightClickListener onRightClickListener) {
         this.onRightClickListener = onRightClickListener;
     }
-
 
 }

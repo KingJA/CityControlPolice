@@ -8,6 +8,7 @@
 
     <include layout="@layout/include_empty" />
 
+
     <ListView
         android:layout_weight="1"
         android:layout_margin="8dp"

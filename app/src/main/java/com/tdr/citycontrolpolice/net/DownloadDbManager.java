@@ -17,6 +17,7 @@ import com.tdr.citycontrolpolice.entity.Basic_XingZhengQuHua_Kj;
 import com.tdr.citycontrolpolice.entity.Basic_XingZhengQuHua_Return;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.util.SharedPreferencesUtils;
+import com.tdr.citycontrolpolice.util.TimeUtil;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
@@ -139,7 +140,7 @@ public class DownloadDbManager {
                             int currentPage = page + 1;
                             downloadDictionary(currentPage);
                         } else {
-                            SharedPreferencesUtils.put(Basic_Dictionary, getFormatTime());
+                            SharedPreferencesUtils.put(Basic_Dictionary, TimeUtil.getFormatTime());
                             Log.i(TAG, "Dictionary 数据库下载: " + totelDictionary);
                             sendMessage(totelDictionary, Done_Basic_Dictionary);
 
@@ -269,7 +270,7 @@ public class DownloadDbManager {
                     int currentPage = page + 1;
                     downloadPaiChuSuo(currentPage);
                 } else {
-                    SharedPreferencesUtils.put(Basic_PaiChuSuo, getFormatTime());
+                    SharedPreferencesUtils.put(Basic_PaiChuSuo, TimeUtil.getFormatTime());
                     Log.i(TAG, "PaiChuSuo 数据库下载: " + totelPaiChuSuo);
                     sendMessage(totelPaiChuSuo, Done_Basic_PaiChuSuo);
                 }
@@ -299,7 +300,7 @@ public class DownloadDbManager {
                     int currentPage = page + 1;
                     downloadXingZhengQuHua(currentPage);
                 } else {
-                    SharedPreferencesUtils.put(Basic_XingZhengQuHua, getFormatTime());
+                    SharedPreferencesUtils.put(Basic_XingZhengQuHua, TimeUtil.getFormatTime());
                     Log.i(TAG, "XingZhengQuHua 数据库下载: " + totelXingZhengQuHua);
                     sendMessage(totelXingZhengQuHua, Done_Basic_XingZhengQuHua);
                 }
@@ -329,7 +330,7 @@ public class DownloadDbManager {
                     int currentPage = page + 1;
                     downloadJuWeiHui(currentPage);
                 } else {
-                    SharedPreferencesUtils.put(Basic_JuWeiHui, getFormatTime());
+                    SharedPreferencesUtils.put(Basic_JuWeiHui, TimeUtil.getFormatTime());
                     sendMessage(totelJuWeiHui, Done_Basic_JuWeiHui);
                     Log.i(TAG, "JuWeiHui 数据库下载: " + totelJuWeiHui);
                     Log.i(TAG, " 数据库下载完成: ");
@@ -364,15 +365,6 @@ public class DownloadDbManager {
         });
     }
 
-    /**
-     * 获取标准时间格式
-     *
-     * @return
-     */
-    public String getFormatTime() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return formatter.format(new Date());
-    }
 
     /**
      * 初始化数据库

@@ -67,7 +67,7 @@ public class PersonInfoAdapter extends BaseSimpleAdapter<ChuZuWu_ComprehensiveIn
         public final View root;
 
         public ViewHolder(View root) {
-            tvinfoname = (TextView) root.findViewById(R.id.tv_info_name);
+            tvinfoname = (TextView) root.findViewById(R.id.tv_outin_name);
             ivchang = (ImageView) root.findViewById(R.id.iv_chang);
             iv_zi = (ImageView) root.findViewById(R.id.iv_zi);
             ivyao = (ImageView) root.findViewById(R.id.iv_yao);

@@ -1,5 +1,7 @@
 package com.tdr.citycontrolpolice.entity;
 
+import java.io.Serializable;
+
 /**
  * 项目名称：物联网城市防控(警用版)
  * 类描述：TODO
@@ -56,7 +58,7 @@ public class ChuZuWu_GetSSYByStandAddressCode {
         this.Content = Content;
     }
 
-    public static class ContentBean {
+    public static class ContentBean implements Serializable {
         private String STANDARDADDRCODE;
         private String IDENTITYCARD;
         private String OWNERNAME;
