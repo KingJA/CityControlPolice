@@ -132,6 +132,9 @@
         <activity
             android:name="zbar.CaptureActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BoxActivity"
+            android:screenOrientation="portrait" />
 
 
         <!-- 扫描二维码 -->

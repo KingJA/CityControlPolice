@@ -3,11 +3,10 @@
     android:id="@+id/layout_home_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sel_white2gray_kj"
-    android:clickable="true">
+    android:background="@drawable/sel_white2gray_kj">
 
     <ImageView
-        android:id="@+id/img_home_list"
+        android:id="@+id/iv_home_icon"
         android:layout_width="30dp"
         android:layout_height="38dp"
         android:layout_alignParentTop="true"
@@ -15,10 +14,10 @@
         android:layout_marginTop="10dp" />
 
     <TextView
-        android:id="@+id/tv_home_list_name"
+        android:id="@+id/tv_home_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/img_home_list"
+        android:layout_below="@id/iv_home_icon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:text="出租房登记"
@@ -28,5 +27,5 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_below="@id/tv_home_list_name" />
+        android:layout_below="@id/tv_home_title" />
 </RelativeLayout>

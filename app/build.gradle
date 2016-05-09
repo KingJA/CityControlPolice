@@ -13,7 +13,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 11
-        versionName "1.10 "
+        versionName "1.1.0 "
     }
     buildTypes {
         release {
@@ -47,7 +47,7 @@ dependencies {
     compile 'org.xutils:xutils:3.3.26'
     compile files('libs/idcard_engine_20160322.jar')
     compile 'com.tencent.bugly:crashreport:1.2.9'
-    compile files('libs/TendencyNFC2.0.jar')
     compile files('libs/ZBarDecoder.jar')
+    compile files('libs/TendencyNFC3.0.jar')
 }
 

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.activity.PersonInfoActivity;
@@ -30,6 +31,7 @@ import com.tdr.citycontrolpolice.util.MyUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.KingJA_AddNextLine;
+import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ import butterknife.OnClick;
  * 创建时间：2016/4/13 9:58
  * 修改备注：
  */
-public class InfoManagerFragment extends KjBaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class InfoManagerFragment extends KjBaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemLongClickListener {
     private static final String TAG = "InfoManagerFragment";
     @Bind(R.id.lv_init)
     ListView lvInit;
@@ -63,6 +65,10 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     ImageView ivInitDelete;
     @Bind(R.id.btn_init_submit)
     Button btnInitSubmit;
+    @Bind(R.id.btn_add)
+    ImageView btnAdd;
+    @Bind(R.id.tv_back)
+    TextView tvBack;
     private ChuZuWuInfo chuZuWuInfo;
     private View rootView;
     private HashMap<String, Object> mParam = new HashMap<>();
@@ -76,6 +82,8 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     private Param_ChuZuWu_AddRoomList param;
     private LinearLayout.LayoutParams layoutParams;
     private DialogProgress dialogProgress;
+    private DialogDouble addDialogDouble;
+    private List<String> currentRoomList = new ArrayList<>();
 
     public static InfoManagerFragment newInstance(String houseId) {
         InfoManagerFragment managerFragment = new InfoManagerFragment();
@@ -103,19 +111,22 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
     @Override
     protected void initFragmentView() {
+        addDialogDouble = new DialogDouble(getActivity(), "确定要删除该房间？", "确定", "取消");
         czfManagerAdapter = new CzfManagerAdapter(mActivity, roomList);
         lvInit.setAdapter(czfManagerAdapter);
         lvInit.setOnItemClickListener(this);
+        lvInit.setOnItemLongClickListener(this);
         srlCzfManager.setOnRefreshListener(this);
         srlCzfManager.setColorSchemeResources(R.color.bg_blue_light);
         srlCzfManager.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
         layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         dialogProgress = new DialogProgress(mActivity);
+
     }
 
     @Override
     protected void initFragmentNet() {
-        srlCzfManager.setRefreshing(true);
+        dialogProgress.show();
         ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<KjChuZuWuInfo>();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0, "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
@@ -127,13 +138,20 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
                         roomList = bean.getContent().getRoomList();
                         Log.i("roomList", "InfoManagerFragment: " + roomList.size());
                         llInitRoom.setVisibility(roomList.size() == 0 ? View.VISIBLE : View.GONE);
+                        btnAdd.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
+                        tvBack.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
                         czfManagerAdapter.setData(roomList);
-                        srlCzfManager.setRefreshing(false);
+                        dialogProgress.dismiss();
+                        currentRoomList.clear();
+                        for (int i = 0; i < roomList.size(); i++) {
+                            currentRoomList.add(String.valueOf(roomList.get(i).getROOMNO()));
+                        }
+                        Log.i(TAG, "currentRoomList: " + currentRoomList);
                     }
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-
+                        dialogProgress.dismiss();
                     }
                 }).build();
         PoolManager.getInstance().execute(task);
@@ -142,6 +160,18 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
     @Override
     protected void initFragmentData() {
+        addDialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
+            @Override
+            public void onLeft() {
+                ToastUtil.showMyToast("亲爱的用户，该用户正在发开发中...");
+            }
+
+            @Override
+            public void onRight() {
+
+            }
+        });
+
     }
 
     @Override
@@ -184,8 +214,24 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
 
     private List<KingJA_AddNextLine> roomStringList = new ArrayList<>();
-    private List<String>rooms=new ArrayList<>();
-    private List<String>floors=new ArrayList<>();
+    private List<String> rooms = new ArrayList<>();
+    private List<String> floors = new ArrayList<>();
+
+    @OnClick(R.id.btn_add)
+    void addFloat() {
+        ToastUtil.showMyToast("添加");
+        llInitRoot.removeAllViews();
+        roomStringList.clear();
+        llInitRoom.setVisibility(View.VISIBLE);
+        btnAdd.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.iv_init_delete)
+    void delete() {
+        if (roomStringList.size() > 0) {
+            llInitRoot.removeView(roomStringList.remove(roomStringList.size() - 1));
+        }
+    }
 
     @OnClick(R.id.iv_init_add)
     void add() {
@@ -193,19 +239,18 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
         llInitRoot.addView(kingJA_addNextLine, layoutParams);
         roomStringList.add(kingJA_addNextLine);
     }
-    @OnClick(R.id.iv_init_delete)
-    void delete() {
-        if (roomStringList.size() > 0) {
-            llInitRoot.removeView(roomStringList.remove(roomStringList.size()-1));
-        }
-    }
 
+    @OnClick(R.id.tv_back)
+    void back() {
+        llInitRoom.setVisibility(roomList.size() == 0 ? View.VISIBLE : View.GONE);
+        btnAdd.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
+    }
 
     @OnClick(R.id.btn_init_submit)
     void init() {
         rooms.clear();
         floors.clear();
-        Log.i(TAG, "KingJA_AddNextLine: "+ roomStringList.size());
+        Log.i(TAG, "KingJA_AddNextLine: " + roomStringList.size());
         for (KingJA_AddNextLine line : roomStringList) {
             List<String> room = line.getRoom();
             if (room != null) {
@@ -214,24 +259,33 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
                     ToastUtil.showMyToast("楼层重复");
                     rooms.clear();
                     return;
-                }else{
+                } else {
                     floors.add(floor);
                 }
                 rooms.addAll(room);
-            }else{
+            } else {
                 return;
             }
         }
         if (!rooms.isEmpty()) {
-           initRoom();
-            Log.i(TAG, "rooms: "+rooms.toString());
-        }else{
+            initRoom();
+            Log.i(TAG, "rooms: " + rooms.toString());
+        } else {
             ToastUtil.showMyToast("请添加房间");
         }
 
     }
 
     private void initRoom() {
+//        for (int i = 0; i < rooms.size(); i++) {
+//            for (int j = 0; j < currentRoomList.size(); j++) {
+//                if (rooms.get(i).equals(currentRoomList.get(j))) {
+//                    Log.i(TAG, rooms.get(i)+"&&"+currentRoomList.get(j));
+//                    ToastUtil.showMyToast(rooms.get(i) + "号房间已经存在");
+//                    return;
+//                }
+//            }
+//        }
         dialogProgress.show();
         param = new Param_ChuZuWu_AddRoomList();
         param.setTaskID("1");
@@ -254,10 +308,10 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
                     public void onSuccess(ChuZuWu_AddRoomList bean) {
                         dialogProgress.dismiss();
                         if (bean.getResultCode() == 0) {
-                            ToastUtil.showMyToast("初始化房间成功！");
+                            ToastUtil.showMyToast("添加房间成功！");
                             initFragmentNet();
                         } else {
-                            ToastUtil.showMyToast("初始化房间失败！");
+                            ToastUtil.showMyToast("添加房间失败！");
                         }
                     }
 
@@ -269,4 +323,9 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
         PoolManager.getInstance().execute(task);
     }
 
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        addDialogDouble.show();
+        return true;
+    }
 }

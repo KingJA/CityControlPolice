@@ -1,55 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gray_kj"
-    android:orientation="vertical">
-
+    android:background="@color/bg_gray_kj">
 
     <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/ll_initRoom"
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingTop="12dp">
+        android:background="@color/bg_gray_kj"
+        android:orientation="vertical">
 
-        <View style="@style/divider_yellow_horizontal" />
-
-        <TextView
-            style="@style/font_yellow_14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-            android:background="@color/bg_yellow"
-            android:gravity="center"
-            android:padding="18dp"
-            android:text="请添加楼层及房间进行初始化" />
-
-
-        <View style="@style/divider_yellow_horizontal" />
-
-        <ScrollView
-                android:layout_weight="1"
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_initRoom"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="12dp">
 
-            <LinearLayout
-                android:id="@+id/ll_init_root"
+            <View style="@style/divider_yellow_horizontal" />
+
+            <RelativeLayout
+                android:background="@color/bg_yellow"
+                android:padding="14dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-            </LinearLayout>
-        </ScrollView>
+                <TextView
+                    style="@style/font_yellow_14"
+                    android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+
+                    android:text="请添加楼层及房间" />
+
+                <TextView
+                    android:id="@+id/tv_back"
+                    style="@style/font_tip_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+
+                    android:text="返回" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_yellow_horizontal" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/ll_init_root"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </ScrollView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
-                    android:layout_alignParentRight="true"
                     android:id="@+id/iv_init_add"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
+                    android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
                     android:background="@drawable/bg_add" />
 
@@ -62,70 +82,81 @@
                     android:background="@drawable/bg_reduce" />
 
                 <Button
-                    android:layout_marginRight="4dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_toLeftOf="@id/iv_init_add"
-                    android:layout_toRightOf="@id/iv_init_delete"
                     android:id="@+id/btn_init_submit"
                     style="@style/button_16"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_toLeftOf="@id/iv_init_add"
+                    android:layout_toRightOf="@id/iv_init_delete"
                     android:text="提交" />
 
 
             </RelativeLayout>
 
 
-        <!--    <View style="@style/divider_title_horizontal" />-->
+            <!--    <View style="@style/divider_title_horizontal" />-->
 
 
-    </LinearLayout>
+        </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#F5F5F5"
-        android:paddingBottom="12dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="12dp">
-
-        <TextView
-            style="@style/font_title_12"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="房间" />
-
-        <TextView
-            style="@style/font_title_12"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="授权/实际人数" />
-
-
-    </LinearLayout>
-
-    <View style="@style/divider_nomal_horizontal" />
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:background="@color/bg_white"
-        android:id="@+id/srl_czf_manager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ListView
-            android:id="@+id/lv_init"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:cacheColorHint="#00000000"
-            android:divider="@color/gray_divider"
-            android:dividerHeight="1px"
-            android:listSelector="#00000000">
+            android:layout_height="wrap_content"
+            android:background="#F5F5F5"
+            android:paddingBottom="12dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="12dp">
 
-        </ListView>
-    </android.support.v4.widget.SwipeRefreshLayout>
-</LinearLayout>
+            <TextView
+                style="@style/font_title_12"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="房间" />
+
+            <TextView
+                style="@style/font_title_12"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="授权/实际人数" />
+
+
+        </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:background="@color/bg_white"
+            android:id="@+id/srl_czf_manager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/lv_init"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#00000000"
+                android:divider="@color/gray_divider"
+                android:dividerHeight="1px"
+                android:listSelector="#00000000">
+
+            </ListView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/btn_add"
+        android:layout_margin="24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/btn_add"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+</RelativeLayout>

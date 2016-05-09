@@ -7,6 +7,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -15,11 +16,13 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.activity.BoxActivity;
 import com.tdr.citycontrolpolice.activity.CzfInfoActivity;
 import com.tdr.citycontrolpolice.activity.CzfQueryActivity;
 import com.tdr.citycontrolpolice.activity.KjLoginActivity;
 import com.tdr.citycontrolpolice.activity.NfcActivity;
 import com.tdr.citycontrolpolice.activity.PersonCheckActivity;
+import com.tdr.citycontrolpolice.adapter.HomeAdapter;
 import com.tdr.citycontrolpolice.base.BaseFragment;
 import com.tdr.citycontrolpolice.czfinit.CzfInitActivity;
 import com.tdr.citycontrolpolice.net.DownloadDbManager;
@@ -33,7 +36,7 @@ import com.tdr.citycontrolpolice.view.NoScrollGridView;
 import com.tdr.citycontrolpolice.view.ZProgressHUD;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogNFC;
-import com.zbar.lib.CaptureActivity;
+import com.tdr.citycontrolpolice.view.popupwindow.FixedGridView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,11 +47,10 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/2/19.
  */
-public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickListener {
+public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickListener, AdapterView.OnItemClickListener {
     private static final String TAG = "TabHomeFragment";
-    private String[] topName = {"出租房登记", "出租房信息", "出租房查询", "人员核查", "房东变更", "工作统计", "更新字典"};
-    private int[] topImg = {R.mipmap.czf_register, R.mipmap.czf_info, R.drawable.bg_czfcx, R.drawable.bg_ryhc,
-            R.drawable.bg_fdbg, R.drawable.bg_gztj, R.mipmap.dic};
+    private String[] titles = {"出租房登记", "出租房信息", "出租房查询", "人员核查", "货品箱开启", "房东变更", "工作统计", "更新字典"};
+    private int[] imgs = {R.mipmap.czf_register, R.mipmap.czf_info, R.drawable.bg_czfcx, R.drawable.bg_ryhc, R.drawable.bg_box, R.drawable.bg_fdbg, R.drawable.bg_gztj, R.mipmap.dic};
     private final static int SCANNIN_GREQUEST_CODE = 2002;
     private final static int SCANNIN_CZF_CODE = 2003;
     private final static int UPDATA = 1001;
@@ -124,6 +126,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
     };
     private DialogNFC dialogNFC;
     private DialogDouble dialogDouble;
+    private HomeAdapter homeAdapter;
 
     @Override
     public View initViews() {
@@ -166,8 +169,10 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         dialogNFC = new DialogNFC(getActivity());
         dialogNFC.setOnClickListener(this);
         progressHUD = new ZProgressHUD(mActivity);
-        NoScrollGridView gv_top = (NoScrollGridView) v.findViewById(R.id.gv_home_top);
-        gv_top.setAdapter(new TopAdapet());
+        FixedGridView gv_top = (FixedGridView) v.findViewById(R.id.gv_home_top);
+        homeAdapter = new HomeAdapter(getActivity(), titles, imgs);
+        gv_top.setAdapter(homeAdapter);
+        gv_top.setOnItemClickListener(this);
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
             public void onLeft() {
@@ -186,8 +191,8 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
     public void onClick(int position) {
         switch (position) {
             case 0:
-                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
-//                ActivityUtil.goActivity(getActivity(), NfcActivity.class);
+//                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
+                ActivityUtil.goActivity(getActivity(), NfcActivity.class);
                 break;
             case 1:
 
@@ -200,100 +205,41 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         }
     }
 
-    /**
-     * GV
-     */
-    class TopAdapet extends BaseAdapter {
-        private class ViewHolder {
-            TextView tv_nanme;
-            ImageView img_content;
-            RelativeLayout layout;
-        }
-
-        @Override
-        public int getCount() {
-            int i = 4 - topName.length % 4;
-            return topName.length + i;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return position;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            final ViewHolder mHolder;
-            if (convertView == null) {
-                mHolder = new ViewHolder();
-                convertView = convertView.inflate(mActivity, R.layout.home_list, null);
-                mHolder.tv_nanme = (TextView) convertView.findViewById(R.id.tv_home_list_name);
-                mHolder.img_content = (ImageView) convertView.findViewById(R.id.img_home_list);
-                mHolder.layout = (RelativeLayout) convertView.findViewById(R.id.layout_home_list);
-                convertView.setTag(mHolder);
-            } else {
-                mHolder = (ViewHolder) convertView.getTag();
-            }
-            if (position >= topName.length) {
-                mHolder.tv_nanme.setText("");
-            } else {
-                mHolder.layout.setOnClickListener(new TopOnItem(position));
-                mHolder.tv_nanme.setText(topName[position]);
-                mHolder.img_content.setImageResource(topImg[position]);
-            }
-
-            return convertView;
-        }
-    }
-
-    /**
-     * top监听
-     */
-    class TopOnItem implements View.OnClickListener {
-        private int position;
-
-        public TopOnItem(int position) {
-            this.position = position;
-        }
-
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent();
-            switch (position) {
-                case 0:
-                    intent.setClass(mActivity, zbar.CaptureActivity.class);
-                    startActivityForResult(intent, SCANNIN_CZF_CODE);
-                    break;
-                case 1:
-                    intent.setClass(mActivity, zbar.CaptureActivity.class);
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent();
+        switch (position) {
+            case 0:
+//                    intent.setClass(mActivity, zbar.CaptureActivity.class);
+//                    startActivityForResult(intent, SCANNIN_CZF_CODE);
+                ActivityUtil.goActivity(getActivity(), CzfInitActivity.class);
+                break;
+            case 1:
+                intent.setClass(mActivity, zbar.CaptureActivity.class);
 //                    intent.setClass(mActivity, com.zbar.lib.CaptureActivity.class);
-                    startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
-                    break;
-                case 2:
-                    ActivityUtil.goActivity(mActivity, CzfQueryActivity.class);
-                    break;
+                startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
+                break;
+            case 2:
+                ActivityUtil.goActivity(mActivity, CzfQueryActivity.class);
+                break;
 
-                case 3:
-                    dialogNFC.show();
-                    break;
-                case 4:
-                    ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
-                    break;
-                case 5:
-                    ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
-                    break;
-                case 6:
-                    dialogDouble.show();
-                    break;
-            }
+            case 3:
+                dialogNFC.show();
+                break;
+            case 4:
+                ActivityUtil.goActivity(mActivity, BoxActivity.class);
+                break;
+            case 5:
+                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
+                break;
+            case 6:
+                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
+                break;
+            case 7:
+                dialogDouble.show();
+                break;
         }
     }
-
 
     /**
      * 设备查询

@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.activity.BackTitleActivity;
@@ -29,6 +32,7 @@ import com.tdr.citycontrolpolice.entity.ChuZuWu_Add;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_Add_Kj;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_GetSSYByStandAddressCode;
 import com.tdr.citycontrolpolice.entity.Common_AddDevice;
+import com.tdr.citycontrolpolice.entity.Common_InquireDevice;
 import com.tdr.citycontrolpolice.entity.Deivce;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.Photo;
@@ -36,17 +40,25 @@ import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.CheckUtil;
+import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.util.ImageUtil;
 import com.tdr.citycontrolpolice.util.MyUtil;
+import com.tdr.citycontrolpolice.util.TendencyEncrypt;
+import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
+import com.tdr.citycontrolpolice.util.WebService;
+import com.tdr.citycontrolpolice.view.ZProgressHUD;
 import com.tdr.citycontrolpolice.view.dialog.DialogAddress;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.popupwindow.BottomListPop;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -119,15 +131,18 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
 
     @Override
     public void initVariables() {
+    }
+
+    private void initDevice(String deviceCode) {
         deivceList = new ArrayList<Deivce>();
         Deivce deivce = new Deivce();
         Intent intent = getIntent();
         deivce.setDEVICENAME("二维码门牌");
         deivce.setDEVICEID(MyUtil.getUUID());
-        deivce.setDEVICECODE(intent.getStringExtra("DEVICECODE"));
-        deivce.setDEVICETYPE(intent.getStringExtra("DEVICETYPE"));
-        Log.i(TAG, "DEVICECODE: "+intent.getStringExtra("DEVICECODE"));
-        Log.i(TAG, "DEVICETYPE: "+intent.getStringExtra("DEVICETYPE"));
+        deivce.setDEVICECODE(deviceCode);
+        deivce.setDEVICETYPE("0002");
+        Log.i(TAG, "DEVICECODE: " + intent.getStringExtra("DEVICECODE"));
+        Log.i(TAG, "DEVICETYPE: " + intent.getStringExtra("DEVICETYPE"));
         deivceList.add(deivce);
     }
 
@@ -194,10 +209,62 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         setTitle("出租房登记");
     }
 
+    private final static int SCANNIN_CZF_CODE = 2003;
+
+
+    private String newcode;
+
+    /**
+     * 设备查询
+     */
+    private void inquireDevice(Intent data, final int requestCode) {
+        Bundle bundle = data.getExtras();
+        String result = bundle.getString("result");
+        Log.i(TAG, "Camera result: " + result);
+        result = result.substring(result.indexOf("?") + 1);
+        String type = result.substring(0, 2);
+        if (type.equals("AD")) {
+            String base = result.substring(2);
+            byte[] s = TendencyEncrypt.decode(base.getBytes());
+            String code = TendencyEncrypt.bytesToHexString(s);
+            Log.i(TAG, "TendencyEncrypt code: " + code);
+            newcode = code.substring(0, 6) + code.substring(9);
+            int i = newcode.length();
+            newcode = newcode.substring(0, i - 4);
+            Log.e("i", newcode);
+
+            Map<String, Object> param = new HashMap<>();
+            param.put("TaskID", "1");
+            param.put("DEVICETYPE", "2");
+            param.put("DEVICECODE", newcode);
+            ThreadPoolTask.Builder<Common_InquireDevice> builder = new ThreadPoolTask.Builder<Common_InquireDevice>();
+            ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "Common_InquireDevice", param)
+                    .setBeanType(Common_InquireDevice.class)
+                    .setActivity(CzfInitActivity.this)
+                    .setCallBack(new WebServiceCallBack<Common_InquireDevice>() {
+                        @Override
+                        public void onSuccess(Common_InquireDevice bean) {
+                            setProgressDialog(false);
+                            initDevice(newcode);
+                            upload();
+                        }
+
+                        @Override
+                        public void onErrorResult(ErrorResult errorResult) {
+                            setProgressDialog(false);
+                        }
+                    }).build();
+            PoolManager.getInstance().execute(task);
+        } else {
+            ToastUtil.showMyToast("非指定设备");
+        }
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_submit:
+//                二维码
+
                 checkData();
                 break;
             case R.id.ll_search:
@@ -237,13 +304,18 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                 CheckUtil.checkEmpty(mAdminName, "请输管理员姓名") && CheckUtil.checkEmpty(mAdminCard, "请输入管理员身份证号码") &&
                 CheckUtil.checkPhoneFormat(mAdminPhone) && CheckUtil.checkEmpty(base64Number, "请拍摄号牌")
                 ) {
-            upload();
+            Intent intent = new Intent();
+            intent.setClass(CzfInitActivity.this, zbar.CaptureActivity.class);
+            startActivityForResult(intent, SCANNIN_CZF_CODE);
+//            upload();
         }
 //        CheckUtil.checkEmpty(base64Number, "请拍摄号牌") &&
 //                CheckUtil.checkEmpty(base64Room, "请拍摄房屋外景")
     }
+
     private Photo dz_photo, fw_photo;
     private ArrayList<Deivce> deivceList;
+
     private void upload() {
         setProgressDialog(true);
         ChuZuWu_Add chuZuWuAdd = new ChuZuWu_Add();
@@ -313,7 +385,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                 Intent intent = new Intent(CzfInitActivity.this,
                         CzfInfoActivity.class);
                 intent.putExtra("HouseID", bean.getContent().getHouseID());
-                Log.i(TAG, "onSuccess: "+bean.getContent().getHouseID());
+                Log.i(TAG, "onSuccess: " + bean.getContent().getHouseID());
                 startActivity(intent);
                 finish();
             }
@@ -341,6 +413,12 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            case SCANNIN_CZF_CODE:
+                if (resultCode == RESULT_OK) {
+                    setProgressDialog(true);
+                    inquireDevice(data, requestCode);
+                }
+                break;
             case Camara:
                 if (resultCode == RESULT_OK) {
 //                    Bitmap bitmap = ImageUtil.compressScaleFromF2B(imageFile.getAbsolutePath());

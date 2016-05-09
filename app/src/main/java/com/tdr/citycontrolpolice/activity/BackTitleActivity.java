@@ -1,5 +1,6 @@
 package com.tdr.citycontrolpolice.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -73,6 +74,7 @@ public abstract class BackTitleActivity extends BaseActivity {
             flTopBackContent.addView(child, params);
         }
     }
+
 
     /**
      * 设置标题

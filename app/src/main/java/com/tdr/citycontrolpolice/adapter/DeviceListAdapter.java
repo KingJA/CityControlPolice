@@ -1,5 +1,6 @@
 package com.tdr.citycontrolpolice.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import com.tdr.citycontrolpolice.dao.DbDaoXutils3;
 import com.tdr.citycontrolpolice.entity.Basic_Dictionary_Kj;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_DeviceLists;
 import com.tdr.citycontrolpolice.util.TimeUtil;
+import com.tdr.citycontrolpolice.util.ToastUtil;
+import com.tdr.citycontrolpolice.view.popupwindow.PopupDevice;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,12 +31,18 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
     private OnDeviceChangeListener onDeviceChangeListener;
     private Map<String, String> typeMap = new HashMap<>();
     private List<Basic_Dictionary_Kj> typeList;
+    private int position;
     private String roomId;
+    private String rommNo;
+    private Activity activity;
 
 
-    public DeviceListAdapter(String roomId, Context context, List<ChuZuWu_DeviceLists.ContentBean> list) {
+    public DeviceListAdapter(int position, String roomId, String rommNo, Context context, Activity activity, List<ChuZuWu_DeviceLists.ContentBean> list) {
         super(context, list);
+        this.position = position;
         this.roomId = roomId;
+        this.rommNo = rommNo;
+        this.activity = activity;
         initDeviceType();
     }
 
@@ -62,12 +71,24 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
         viewHolder.tv_isbund.setText(list.get(position).getISBUNG() == 0 ? "未下" : "下发");
         viewHolder.tv_isbund.setTextColor(list.get(position).getISBUNG() == 0 ? context.getResources().getColor(R.color.font_title) : context.getResources().getColor(R.color.bg_orange));
 
-        viewHolder.ivdevicechange.setOnClickListener(new View.OnClickListener() {
+        viewHolder.ivdevice_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onDeviceChangeListener != null) {
-                    onDeviceChangeListener.onChange(list.get(position), roomId);
-                }
+                PopupDevice popupDevice = new PopupDevice(v, activity);
+                popupDevice.showPopupWindowCenter();
+                popupDevice.setOnPopupDeviceListener(new PopupDevice.OnPopupDeviceListener() {
+                    @Override
+                    public void onChange() {
+                        if (onDeviceChangeListener != null) {
+                            onDeviceChangeListener.onChange(list.get(position), roomId, rommNo, position);
+                        }
+                    }
+
+                    @Override
+                    public void onUnbind() {
+                        ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
+                    }
+                });
             }
         });
 
@@ -78,7 +99,7 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
         public final ImageView ivdevicestate;
         public final TextView tv_isbund;
         public final TextView tvdevicename;
-        public final ImageView ivdevicechange;
+        public final ImageView ivdevice_more;
         public final RelativeLayout rlroom;
         public final View root;
 
@@ -86,17 +107,23 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
             ivdevicestate = (ImageView) root.findViewById(R.id.iv_device_state);
             tv_isbund = (TextView) root.findViewById(R.id.tv_isbund);
             tvdevicename = (TextView) root.findViewById(R.id.tv_device_name);
-            ivdevicechange = (ImageView) root.findViewById(R.id.iv_device_change);
+            ivdevice_more = (ImageView) root.findViewById(R.id.iv_device_more);
             rlroom = (RelativeLayout) root.findViewById(R.id.rl_room);
             this.root = root;
         }
     }
 
     public interface OnDeviceChangeListener {
-        void onChange(ChuZuWu_DeviceLists.ContentBean bean, String roomId);
+        void onChange(ChuZuWu_DeviceLists.ContentBean bean, String roomId, String roomNo, int position);
     }
 
     public void setOnDeviceChangeListener(OnDeviceChangeListener onDeviceChangeListener) {
         this.onDeviceChangeListener = onDeviceChangeListener;
+    }
+
+    public void changeDevice(int position, String type, String deviceCode) {
+        list.get(position).setDEVICETYPE(type);
+        list.get(position).setDEVICECODE(deviceCode);
+        this.notifyDataSetChanged();
     }
 }

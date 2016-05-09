@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_lgray1px_bwhite_r0"
+        android:orientation="vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp">
+
+            <TextView
+                style="@style/font_tip_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:text="用户名：" />
+
+            <TextView
+
+                android:id="@+id/tv_box_name"
+                style="@style/font_content_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7" />
+
+
+        </LinearLayout>
+
+        <View style="@style/divider_light_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/font_tip_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:text="派出所：" />
+
+            <TextView
+                android:id="@+id/tv_box_police"
+                style="@style/font_content_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_lgray1px_bwhite_r0"
+        android:scaleType="center"
+        android:src="@drawable/bg_photo"
+        android:id="@+id/iv_box"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"></ImageView>
+
+    <Button
+        android:id="@+id/btn_submit"
+        style="@style/button_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="扫描并提交" />
+
+</LinearLayout>

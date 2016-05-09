@@ -16,7 +16,7 @@
         android:paddingTop="16dp">
 
         <LinearLayout
-
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
@@ -28,6 +28,8 @@
                 android:background="@drawable/circle_on" />
 
             <TextView
+                android:singleLine="true"
+                android:ellipsize="marquee"
                 android:id="@+id/tv_device_name"
                 style="@style/font_tip_16"
                 android:layout_width="wrap_content"
@@ -35,24 +37,27 @@
                 android:layout_marginLeft="4dp"
                 android:text="电子门戒" />
 
-            <TextView
-                android:textSize="16sp"
-                android:id="@+id/tv_isbund"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:text="下发" />
+
 
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/iv_device_change"
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_device_more"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/bg_change"
-            android:visibility="gone" />
+            android:background="@drawable/bg_more" />
 
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_device_more"
+            android:textSize="16sp"
+            android:id="@+id/tv_isbund"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="下发" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -1,14 +1,5 @@
 package zbar;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-
-import net.sourceforge.zbar.Config;
-import net.sourceforge.zbar.Image;
-import net.sourceforge.zbar.ImageScanner;
-import net.sourceforge.zbar.Symbol;
-import net.sourceforge.zbar.SymbolSet;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -21,16 +12,23 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
+
+import net.sourceforge.zbar.Config;
+import net.sourceforge.zbar.Image;
+import net.sourceforge.zbar.ImageScanner;
+import net.sourceforge.zbar.Symbol;
+import net.sourceforge.zbar.SymbolSet;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
 
 /**
  * 邮箱: 1076559197@qq.com
@@ -84,7 +82,7 @@ public class CaptureActivity extends Activity {
             }
         });
         TextView tv_title = (TextView) findViewById(R.id.text_title);
-        tv_title.setText("扫描登记号牌二维码");
+        tv_title.setText("扫描二维码");
     }
 
     private void findViewById() {

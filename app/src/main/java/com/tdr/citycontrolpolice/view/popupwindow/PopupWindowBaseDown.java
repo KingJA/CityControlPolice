@@ -2,6 +2,7 @@ package com.tdr.citycontrolpolice.view.popupwindow;
 
 import android.app.Activity;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +35,7 @@ public abstract class PopupWindowBaseDown<T> extends PopupWindow implements OnDi
         this.parentView = parentView;
         this.data = data;
         popupView = setPopupView(activity);
+        popupView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         initChildView();
         this.setContentView(popupView);
         this.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -49,6 +51,7 @@ public abstract class PopupWindowBaseDown<T> extends PopupWindow implements OnDi
         this.activity = activity;
         this.parentView = parentView;
         popupView = setPopupView(activity);
+        popupView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         initChildView();
         this.setContentView(popupView);
         this.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -77,6 +80,22 @@ public abstract class PopupWindowBaseDown<T> extends PopupWindow implements OnDi
         if (!this.isShowing()) {
             setAlpha(activity, 0.7f);
             this.showAsDropDown(parentView, (int) (-parentView.getWidth() * 1.3f), 0);
+        }
+    }
+
+    public void showPopupWindowCenter() {
+        int[] location = new int[2];
+        parentView.getLocationOnScreen(location);
+        Log.i(TAG, "location[0]: " + location[0] + "location[1]: " + location[1]);
+        if (!this.isShowing()) {
+//            setAlpha(activity, 0.7f);
+//            this.showAtLocation(parentView, Gravity.CENTER, 0,0);
+            int popHeight = this.getContentView().getMeasuredHeight();
+            int popWeight = this.getContentView().getMeasuredHeight();
+            Log.i(TAG, "popHeight" + popHeight);
+            Log.i(TAG, "popWeight" + popWeight);
+            this.showAtLocation(parentView, Gravity.NO_GRAVITY, location[0] - popWeight + (int) (1.5f * parentView.getWidth()), location[1] - popHeight + (int) (1.5f * parentView.getHeight()));
+
         }
     }
 

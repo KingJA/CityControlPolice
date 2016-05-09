@@ -76,7 +76,7 @@
         <ImageView
             android:id="@+id/iv_device_camera"
             android:layout_marginLeft="24dp"
-            android:background="@drawable/bg_camera"
+            android:background="@drawable/bg_photo"
             android:layout_width="24dp"
             android:layout_height="24dp" />
 

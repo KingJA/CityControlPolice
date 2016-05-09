@@ -85,5 +85,8 @@
         <item name="android:maxHeight">16dp</item>
     </style>
 
-
+    <style name="PopupScaleAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pop_scale_enter</item>
+        <item name="android:windowExitAnimation">@anim/pop_scale_exit</item>
+    </style>
 </resources>
