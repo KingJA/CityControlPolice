@@ -22,6 +22,7 @@ import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.SimpleIndicatorLayout;
 import com.tdr.citycontrolpolice.view.dialog.DialogConfirm;
@@ -110,7 +111,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 .setCallBack(new WebServiceCallBack<KjChuZuWuInfo>() {
                     @Override
                     public void onSuccess(KjChuZuWuInfo bean) {
-                        isFinished=true;
+                        isFinished = true;
                         mDialogProgress.dismiss();
                         mCzfInfo = bean;
                         mIsregister = bean.getContent().getISREGISTER();
@@ -196,19 +197,22 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
                 break;
             case 2:
-//                ActivityUtil.goActivityWithBundle(this, CzfOutInActivity.class, new Bundle());
-                CzfOutInActivity.goActivity(this, mHouseId);
+                CzfCardActivity.goActivity(this, mHouseId);
                 break;
             case 3:
+                ToastUtil.showMyToast("该功能正在开发中...");
+                break;
+            case 4:
                 Bundle bundle = new Bundle();
                 bundle.putString("HOUSE_ID", mHouseId);
                 ActivityUtil.goActivityWithBundle(this, DeviceBindingListActivity.class, bundle);
                 break;
-            case 4:
+            case 5:
                 Intent deviceIntent = new Intent(this, DeviceManagerActivity.class);
                 deviceIntent.putExtra("HOUSE_ID", mHouseId);
                 startActivity(deviceIntent);
                 break;
+
             default:
                 break;
         }

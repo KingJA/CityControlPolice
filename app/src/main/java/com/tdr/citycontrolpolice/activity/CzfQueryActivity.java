@@ -230,5 +230,6 @@ public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, 
         Basic_StandardAddressCodeByKey_Kj.ContentBean bean = (Basic_StandardAddressCodeByKey_Kj.ContentBean) parent.getItemAtPosition(position);
         geocode = bean.getId();
         czfQueryAdapter.selectPosition(position);
+        submit(geocode);
     }
 }

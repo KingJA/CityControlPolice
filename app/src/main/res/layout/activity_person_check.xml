@@ -86,7 +86,7 @@
             android:layout_height="24dp"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="32dp"
-            android:background="@drawable/bg_photo" />
+            android:background="@drawable/bg_camera" />
 
     </RelativeLayout>
 

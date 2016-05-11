@@ -124,7 +124,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="授权/实际人数" />
+                android:text="授权/检测人数" />
 
 
         </LinearLayout>

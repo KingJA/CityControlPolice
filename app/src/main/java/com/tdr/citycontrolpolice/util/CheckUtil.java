@@ -81,6 +81,14 @@ public class CheckUtil {
         }
     }
 
+    /**
+     * 检查字符串长度
+     *
+     * @param input
+     * @param lenght
+     * @param tip
+     * @return
+     */
     public static boolean checkLength(String input, int lenght, String tip) {
 
         if (input.length() > lenght) {
@@ -88,5 +96,32 @@ public class CheckUtil {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 校验18位身份证号码
+     *
+     * @param value
+     * @return
+     */
+    public static boolean isIDCard18(final String value) {
+        if (value == null || value.length() != 18)
+            return false;
+        if (!value.matches("[\\d]+[X]?"))
+            return false;
+        String code = "10X98765432";
+        int weight[] = new int[]{7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1};
+        int nSum = 0;
+        for (int i = 0; i < 17; ++i) {
+            nSum += (int) (value.charAt(i) - '0') * weight[i];
+        }
+        int nCheckNum = nSum % 11;
+        char chrValue = value.charAt(17);
+        char chrCode = code.charAt(nCheckNum);
+        if (chrValue == chrCode)
+            return true;
+        if (nCheckNum == 2 && (chrValue + ('a' - 'A') == chrCode))
+            return true;
+        return false;
     }
 }

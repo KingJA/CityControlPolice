@@ -31,15 +31,15 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
     private OnDeviceChangeListener onDeviceChangeListener;
     private Map<String, String> typeMap = new HashMap<>();
     private List<Basic_Dictionary_Kj> typeList;
-    private int position;
+    private int outPosition;
     private String roomId;
     private String rommNo;
     private Activity activity;
 
 
-    public DeviceListAdapter(int position, String roomId, String rommNo, Context context, Activity activity, List<ChuZuWu_DeviceLists.ContentBean> list) {
+    public DeviceListAdapter(int outPosition, String roomId, String rommNo, Context context, Activity activity, List<ChuZuWu_DeviceLists.ContentBean> list) {
         super(context, list);
-        this.position = position;
+        this.outPosition = outPosition;
         this.roomId = roomId;
         this.rommNo = rommNo;
         this.activity = activity;
@@ -68,8 +68,7 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
 
         viewHolder.tvdevicename.setText(list.get(position).getDEVICENAME() + "(" + typeMap.get(list.get(position).getDEVICETYPE()) + ":" + list.get(position).getDEVICECODE() + ")");
         viewHolder.ivdevicestate.setBackgroundResource(TimeUtil.isOneDay(list.get(position).getDEVICETIME()) ? R.drawable.circle_on : R.drawable.circle_off);
-        viewHolder.tv_isbund.setText(list.get(position).getISBUNG() == 0 ? "未下" : "下发");
-        viewHolder.tv_isbund.setTextColor(list.get(position).getISBUNG() == 0 ? context.getResources().getColor(R.color.font_title) : context.getResources().getColor(R.color.bg_orange));
+        viewHolder.ivisbund.setBackgroundResource(list.get(position).getISBUNG() == 0 ? R.drawable.bg_unbund : R.drawable.bg_isbund);
 
         viewHolder.ivdevice_more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +79,8 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
                     @Override
                     public void onChange() {
                         if (onDeviceChangeListener != null) {
-                            onDeviceChangeListener.onChange(list.get(position), roomId, rommNo, position);
+                            ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
+//                            onDeviceChangeListener.onChange(list.get(position), roomId, rommNo, position,outPosition);
                         }
                     }
 
@@ -97,7 +97,7 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
 
     public class ViewHolder {
         public final ImageView ivdevicestate;
-        public final TextView tv_isbund;
+        public final ImageView ivisbund;
         public final TextView tvdevicename;
         public final ImageView ivdevice_more;
         public final RelativeLayout rlroom;
@@ -105,7 +105,7 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
 
         public ViewHolder(View root) {
             ivdevicestate = (ImageView) root.findViewById(R.id.iv_device_state);
-            tv_isbund = (TextView) root.findViewById(R.id.tv_isbund);
+            ivisbund = (ImageView) root.findViewById(R.id.iv_isbund);
             tvdevicename = (TextView) root.findViewById(R.id.tv_device_name);
             ivdevice_more = (ImageView) root.findViewById(R.id.iv_device_more);
             rlroom = (RelativeLayout) root.findViewById(R.id.rl_room);
@@ -114,7 +114,7 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
     }
 
     public interface OnDeviceChangeListener {
-        void onChange(ChuZuWu_DeviceLists.ContentBean bean, String roomId, String roomNo, int position);
+        void onChange(ChuZuWu_DeviceLists.ContentBean bean, String roomId, String roomNo, int position, int outPosition);
     }
 
     public void setOnDeviceChangeListener(OnDeviceChangeListener onDeviceChangeListener) {

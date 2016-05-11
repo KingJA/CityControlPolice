@@ -102,7 +102,7 @@ public class CzfInfoDetailActivity extends BackTitleActivity {
         mRoomCount = mContent.getRoomList().size();
         for (KjChuZuWuInfo.ContentBean.RoomListBean bean : this.mRoomList) {
             if (bean.getHEADCOUNT() > 0) {
-                mPersonCount += bean.getHEADCOUNT();
+                mPersonCount += bean.getSHOUQUANCOUNT();
             }
         }
         mTvOwnerName.setText(mContent.getOWNERNAME());

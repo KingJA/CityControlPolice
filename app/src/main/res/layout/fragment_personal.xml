@@ -85,7 +85,7 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_margin="10dp"
-                android:src="@mipmap/wtfk" />
+                android:src="@drawable/bg_report" />
 
             <TextView
                 android:layout_width="0dp"

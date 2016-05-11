@@ -20,6 +20,7 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
     private static final String TAG = "CzfInfoPopKj";
     private LinearLayout ll_edit;
     private LinearLayout ll_apply;
+    private LinearLayout ll_card;
     private LinearLayout ll_register;
     private LinearLayout ll_binding;
     private LinearLayout ll_manager;
@@ -43,11 +44,13 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
     public void initChildView() {
         ll_edit = (LinearLayout) popupView.findViewById(R.id.ll_edit);
         ll_apply = (LinearLayout) popupView.findViewById(R.id.ll_apply);
+        ll_card = (LinearLayout) popupView.findViewById(R.id.ll_card);
         ll_register = (LinearLayout) popupView.findViewById(R.id.ll_register);
         ll_binding = (LinearLayout) popupView.findViewById(R.id.ll_binding);
         ll_manager = (LinearLayout) popupView.findViewById(R.id.ll_manager);
         ll_edit.setOnClickListener(this);
         ll_apply.setOnClickListener(this);
+        ll_card.setOnClickListener(this);
         ll_register.setOnClickListener(this);
         ll_binding.setOnClickListener(this);
         ll_manager.setOnClickListener(this);
@@ -66,14 +69,17 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
             case R.id.ll_apply:
                 onCzfInfoPopClickListener.onCzfInfoPop(1);
                 break;
-            case R.id.ll_register:
+            case R.id.ll_card:
                 onCzfInfoPopClickListener.onCzfInfoPop(2);
                 break;
-            case R.id.ll_binding:
+            case R.id.ll_register:
                 onCzfInfoPopClickListener.onCzfInfoPop(3);
                 break;
-            case R.id.ll_manager:
+            case R.id.ll_binding:
                 onCzfInfoPopClickListener.onCzfInfoPop(4);
+                break;
+            case R.id.ll_manager:
+                onCzfInfoPopClickListener.onCzfInfoPop(5);
                 break;
             default:
                 break;

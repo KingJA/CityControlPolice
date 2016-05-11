@@ -1,8 +1,10 @@
 package com.tdr.citycontrolpolice.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -26,7 +28,6 @@ import com.tdr.citycontrolpolice.util.MyUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +56,8 @@ public class BindingDeviceActivity extends BackTitleActivity {
     private Button btn_device_submit;
     private ImageView iv_device_icon;
     private ImageView iv_device_camera;
-    private File imageFile;
-    private String base64String;
+    private File boxFile;
+    private String base64Box;
 
     @Override
     public View setContentView() {
@@ -92,7 +93,7 @@ public class BindingDeviceActivity extends BackTitleActivity {
 
     private void bindDevice() {
         String deviceName = et_device_name.getText().toString().trim();
-        if (CheckUtil.checkEmpty(deviceName, "请输入设备名称") && CheckUtil.checkEmpty(base64String, "请拍摄设备照片")) {
+        if (CheckUtil.checkEmpty(deviceName, "请输入设备名称") && CheckUtil.checkEmpty(base64Box, "请拍摄设备照片")) {
             setProgressDialog(true);
             Param_Common_AddDevice param = new Param_Common_AddDevice();
             param.setTaskID("1");
@@ -106,7 +107,7 @@ public class BindingDeviceActivity extends BackTitleActivity {
             param.setPHOTOCOUNT(1);
             List<Param_Common_AddDevice.PHOTOLISTBean> photolist = new ArrayList<>();
             Param_Common_AddDevice.PHOTOLISTBean photolistBean = new Param_Common_AddDevice.PHOTOLISTBean();
-            photolistBean.setIMAGE(base64String);
+            photolistBean.setIMAGE(base64Box);
             photolistBean.setLISTID(MyUtil.getUUID());
             photolistBean.setTAG("设备");
             photolist.add(photolistBean);
@@ -135,9 +136,9 @@ public class BindingDeviceActivity extends BackTitleActivity {
 
     @Override
     public void initData() {
-        imageFile = ImageUtil.createImageFile();
-        Log.i(TAG, "openCamera: " + imageFile.getAbsolutePath());
-        iv_device_camera.setOnClickListener(new View.OnClickListener() {
+        boxFile = ImageUtil.createImageFile();
+        Log.i(TAG, "openCamera: " + boxFile.getAbsolutePath());
+        iv_device_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openCamera();
@@ -153,9 +154,8 @@ public class BindingDeviceActivity extends BackTitleActivity {
     }
 
     private void openCamera() {
-
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(boxFile));
         startActivityForResult(intent, Camara);
     }
 
@@ -179,34 +179,14 @@ public class BindingDeviceActivity extends BackTitleActivity {
         switch (requestCode) {
             case Camara:
                 if (resultCode == RESULT_OK) {
-//                    Intent intent = new Intent("com.android.camera.action.CROP");
-//                    intent.setDataAndType(Uri.fromFile(imageFile), "image/*");
-//                    intent.putExtra("crop", true);
-//                    intent.putExtra("aspectX", 1);
-//                    intent.putExtra("aspectY", 1);
-//                    intent.putExtra("outputX", 150);
-//                    intent.putExtra("outputY", 150);
-//                    intent.putExtra("return-data", true);
-//                    startActivityForResult(intent, SCALE);
-                    Bitmap bitmap = ImageUtil.compressScaleFromF2B(imageFile.getAbsolutePath());
-                    base64String = new String(ImageUtil.bitmapToBase64(bitmap));
-                    iv_device_icon.setImageBitmap(ImageUtil.base64ToBitmap(base64String));
-                    Log.i(TAG, "base64String: " + base64String.length());
+//                    Bundle bundle = data.getExtras();
+//                    Bitmap bitmap = (Bitmap) bundle.get("data");
+                    Bitmap bitmap = ImageUtil.compressScaleFromF2B(boxFile.getAbsolutePath());
+                    base64Box = new String(ImageUtil.bitmapToBase64(bitmap));
+                    iv_device_icon.setImageBitmap(ImageUtil.base64ToBitmap(base64Box));
+                    Log.i(TAG, "base64Box: " + base64Box.length());
                 }
                 break;
-            case SCALE:
-                if (resultCode == RESULT_OK) {
-                    if (data.getExtras() != null) {
-                        Bitmap bitmap = data.getExtras().getParcelable("data");
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
-                        byte[] bytes = stream.toByteArray();
-                        base64String = new String(ImageUtil.bitmapToBase64(bitmap));
-                        Log.i(TAG, "base64String: " + base64String.length());
-                        iv_device_icon.setImageBitmap(bitmap);
-                    }
-                }
-
             default:
 
                 break;
@@ -220,4 +200,26 @@ public class BindingDeviceActivity extends BackTitleActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(TAG, "onSaveInstanceState: ");
+        outState.putString("boxFile", boxFile.getAbsolutePath());
+        outState.putString("base64Box", base64Box);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.i(TAG, "onRestoreInstanceState: ");
+        boxFile = new File(savedInstanceState.getString("boxFile"));
+        base64Box = savedInstanceState.getString("base64Box");
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.tdr.citycontrolpolice.czfinit;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,7 +63,7 @@ import java.util.Map;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：TODO
+ * 类描述：出租房绑定
  * 创建人：KingJA
  * 创建时间：2016/4/19 16:30
  * 修改备注：
@@ -206,7 +207,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
 
     @Override
     public void setData() {
-        setTitle("出租房登记");
+        setTitle("出租房绑定");
     }
 
     private final static int SCANNIN_CZF_CODE = 2003;
@@ -256,6 +257,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                     }).build();
             PoolManager.getInstance().execute(task);
         } else {
+            setProgressDialog(false);
             ToastUtil.showMyToast("非指定设备");
         }
     }
@@ -421,12 +423,11 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                 break;
             case Camara:
                 if (resultCode == RESULT_OK) {
-//                    Bitmap bitmap = ImageUtil.compressScaleFromF2B(imageFile.getAbsolutePath());
                     if (photoType == 0) {
                         Bitmap bitmap = ImageUtil.compressScaleFromF2B(numberFile.getAbsolutePath());
                         base64Number = new String(ImageUtil.bitmapToBase64(bitmap));
                         mIvNumber.setImageBitmap(ImageUtil.base64ToBitmap(base64Number));
-//                        Log.i(TAG, "base64String: " + base64Number.length());
+                        Log.i(TAG, "base64String: " + base64Number.length());
                         dz_photo = new Photo();
                         dz_photo.setLISTID(MyUtil.getUUID());
                         dz_photo.setTAG("电子门牌");
@@ -435,7 +436,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                         Bitmap bitmap = ImageUtil.compressScaleFromF2B(roomFile.getAbsolutePath());
                         base64Room = new String(ImageUtil.bitmapToBase64(bitmap));
                         mIvRoom.setImageBitmap(ImageUtil.base64ToBitmap(base64Room));
-//                        Log.i(TAG, "base64String: " + base64Room.length());
+                        Log.i(TAG, "base64String: " + base64Room.length());
                         fw_photo = new Photo();
                         fw_photo.setLISTID(MyUtil.getUUID());
                         fw_photo.setTAG("房屋外径");
@@ -581,6 +582,9 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         }
     }
 
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
 //    chuZuWuAdd.setHOUSETYPE(houseType);
 //    chuZuWuAdd.setPCSCO(paiChuSuo.getDMZM());
 //    chuZuWuAdd.setJWHCODE(juWeiHui.getDMZM());

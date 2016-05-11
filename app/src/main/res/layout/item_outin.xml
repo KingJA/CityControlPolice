@@ -36,6 +36,7 @@
                 android:text="周磊" />
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/iv_outin_arrow"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
@@ -46,7 +47,6 @@
 
 
     <LinearLayout
-        android:visibility="gone"
         android:paddingRight="12dp"
         android:paddingLeft="12dp"
         android:id="@+id/ll_expand"

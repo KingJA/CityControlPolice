@@ -13,7 +13,6 @@
         android:orientation="vertical"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-
         >
 
         <LinearLayout
@@ -41,9 +40,10 @@
 
         </LinearLayout>
 
-        <View style="@style/divider_light_horizontal" />
+        <!--  <View style="@style/divider_light_horizontal" />-->
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp">

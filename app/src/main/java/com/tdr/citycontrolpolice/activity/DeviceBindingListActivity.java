@@ -163,7 +163,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         currentIsStation = false;
         currentRoomId = roomId;
         currentRoomNo = roomNo;
-        Intent intent = new Intent(DeviceBindingListActivity.this, CaptureActivity.class);
+        Intent intent = new Intent(DeviceBindingListActivity.this, zbar.CaptureActivity.class);
         startActivityForResult(intent, 1);
 
 //        DialogDouble dialogDouble = new DialogDouble(this, "选择哪种方式绑定设备", "蓝牙", "二维码");

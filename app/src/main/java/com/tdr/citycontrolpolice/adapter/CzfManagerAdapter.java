@@ -39,9 +39,16 @@ public class CzfManagerAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.ContentBe
         viewHolder.tvinforoom.setText(list.get(position).getROOMNO() + "");
         viewHolder.tvinfoshouquan.setText(list.get(position).getSHOUQUANCOUNT() + "");
         Log.i(TAG, "person: " + list.get(position).getHEADCOUNT());
-        viewHolder.tvinfoperson.setText(list.get(position).getHEADCOUNT() == -1 ? "未知" : list.get(position).getHEADCOUNT() + "");
+        viewHolder.tvinfoperson.setText(list.get(position).getHEADCOUNT() == -1 ? "未知" : getPersonCount(list.get(position).getHEADCOUNT()));
 
         return convertView;
+    }
+
+    private String getPersonCount(int count) {
+        if (count > 10) {
+            return "10+";
+        }
+        return String.valueOf(count);
     }
 
 

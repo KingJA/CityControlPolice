@@ -1,8 +1,6 @@
 package com.tdr.citycontrolpolice.activity;
 
 import android.app.PendingIntent;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -51,12 +49,8 @@ public class NfcActivity extends BackTitleActivity {
     private TextView tv_name;
     private TextView tv_card_no;
     private Button btn_submit;
-
-
     private TendencyReadAPI mRead;
-
     private String tagId;
-
     private NfcAdapter mAdapter = null;
     private PendingIntent pi = null;
     private IntentFilter tagDetected = null;
@@ -83,7 +77,7 @@ public class NfcActivity extends BackTitleActivity {
         tv_address = (TextView) view.findViewById(R.id.tv_address);
         tv_gender = (TextView) view.findViewById(R.id.tv_gender);
         btn_submit = (Button) view.findViewById(R.id.btn_submit);
-
+        registerNfcReceiver();
     }
 
 
@@ -111,7 +105,7 @@ public class NfcActivity extends BackTitleActivity {
 
     @Override
     public void setData() {
-        setTitle("NFC人员信息");
+        setTitle("NFC人员认证");
     }
 
 
@@ -243,16 +237,17 @@ public class NfcActivity extends BackTitleActivity {
                 } else if (tt.equals("43")) {
                     ToastUtil.showMyToast("服务器忙");
                 } else if (tt.equals("90")) {
-                    String tagId = bundle.getString(Constants.TAGID);
-                    String name = bundle.getString(Constants.NAME);
-                    String sex = bundle.getString(Constants.SEX);
-                    String nation = bundle.getString(Constants.NATION);
-                    String birthday = bundle.getString(Constants.BIRTHDAY);
-                    String address = bundle.getString(Constants.ADDRESS);
-                    String identity = bundle.getString(Constants.IDENTITY);
-                    String police = bundle.getString(Constants.POLICE);
-                    String validity = bundle.getString(Constants.VALIDITY);
-                    String dncode = bundle.getString(Constants.DNCODE);
+                    String tagId = bundle.getString(Constants.TAGID, "unknown");
+                    String name = bundle.getString(Constants.NAME, "unknown");
+                    String sex = bundle.getString(Constants.SEX, "unknown");
+                    String nation = bundle.getString(Constants.NATION, "unknown");
+                    String birthday = bundle.getString(Constants.BIRTHDAY, "unknown");
+                    String address = bundle.getString(Constants.ADDRESS, "unknown");
+                    String identity = bundle.getString(Constants.IDENTITY, "unknown");
+                    String police = bundle.getString(Constants.POLICE, "unknown");
+                    String validity = bundle.getString(Constants.VALIDITY, "unknown");
+                    String dncode = bundle.getString(Constants.DNCODE, "unknown");
+                    setCardInfo(name, sex, nation, birthday, address, identity);
                     Log.i(TAG, "身份证: " + "身份证卡片ID：" + tagId + "\r\n" + "姓名：" + name + "\r\n" + "性别：" + sex + "\r\n" + "民族：" + nation
                             + "\r\n" + "出生年月：" + birthday + "\r\n" + "地址：" + address + "\r\n" + "身份证号码：" + identity
                             + "\r\n" + "派出所：" + police + "\r\n" + "有效期：" + validity + "\r\n" + "DN码：" + dncode);

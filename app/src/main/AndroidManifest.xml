@@ -75,7 +75,7 @@
             android:name=".activity.CzfModifyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CzfOutInActivity"
+            android:name=".activity.CzfCardActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PersonInfoActivity"
@@ -106,7 +106,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BindingDeviceActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name="com.yunmai.android.idcard.ARecognize"
             android:screenOrientation="landscape" />
@@ -128,12 +129,17 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".czfinit.CzfInitActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name="zbar.CaptureActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BoxActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name=".activity.CzfOutInActivity"
             android:screenOrientation="portrait" />
 
 

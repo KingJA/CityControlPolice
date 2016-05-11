@@ -181,7 +181,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
 
     @Override
     public void setData() {
-        setTitle("人员核查");
+        setTitle("OCR人员认证");
     }
 
 

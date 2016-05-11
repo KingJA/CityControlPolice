@@ -1,6 +1,7 @@
 package com.tdr.citycontrolpolice.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Log;
@@ -56,6 +57,7 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
     private String roomId;
     private String roomNo;
     private int position;
+    private int outPosition;
 
     @Override
     public View setContentView() {
@@ -123,13 +125,13 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
     }
 
     @Override
-    public void onChange(final ChuZuWu_DeviceLists.ContentBean bean, final String roomId, final String roomNo, final int position) {
+    public void onChange(final ChuZuWu_DeviceLists.ContentBean bean, final String roomId, final String roomNo, final int position, final int outPosition) {
         DialogDouble dialogDouble = new DialogDouble(this, "您确定要更换该设备？", "确定", "取消");
         dialogDouble.show();
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
             public void onLeft() {
-                changeDevice(bean, roomId, roomNo, position);
+                changeDevice(bean, roomId, roomNo, position, outPosition);
             }
 
             @Override
@@ -145,11 +147,12 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
      * @param bean
      * @param roomId
      */
-    private void changeDevice(ChuZuWu_DeviceLists.ContentBean bean, String roomId, String roomNo, int position) {
+    private void changeDevice(ChuZuWu_DeviceLists.ContentBean bean, String roomId, String roomNo, int position, int outPosition) {
         this.bean = bean;
         this.roomId = roomId;
         this.roomNo = roomNo;
         this.position = position;
+        this.outPosition = outPosition;
 //        setProgressDialog(true);
 //        uploadDevice(bean, roomId);
 //TODO
@@ -174,8 +177,8 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
                 .setCallBack(new WebServiceCallBack<Common_ReplaceDevice>() {
                     @Override
                     public void onSuccess(Common_ReplaceDevice bean) {
-                        deviceManagerAdapter.getAdapter(position).changeDevice(position, deviceType, deviceCode);
-                        ToastUtil.showMyToast("更换成功");
+                        deviceManagerAdapter.getAdapter(outPosition).changeDevice(position, deviceType, deviceCode);
+                        ToastUtil.showMyToast("设备更换成功");
                         setProgressDialog(false);
                     }
                     @Override
@@ -293,5 +296,17 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
         } else {
             ToastUtil.showMyToast("不是要求的二维码对象");
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(TAG, "onSaveInstanceState: ");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.i(TAG, "onRestoreInstanceState: ");
     }
 }

@@ -19,10 +19,10 @@ import java.util.List;
  * 创建时间：2016/3/24 16:07
  * 修改备注：
  */
-public class CzfOutInAdapter extends BaseSimpleAdapter<ChuZuWu_SwipeCardList.ContentBean.PERSONNELINFOLISTBean> {
+public class CzfCardAdapter extends BaseSimpleAdapter<ChuZuWu_SwipeCardList.ContentBean.PERSONNELINFOLISTBean> {
     private final String[] typeArr = {};
 
-    public CzfOutInAdapter(Context context, List<ChuZuWu_SwipeCardList.ContentBean.PERSONNELINFOLISTBean> list) {
+    public CzfCardAdapter(Context context, List<ChuZuWu_SwipeCardList.ContentBean.PERSONNELINFOLISTBean> list) {
         super(context, list);
     }
 
@@ -37,13 +37,13 @@ public class CzfOutInAdapter extends BaseSimpleAdapter<ChuZuWu_SwipeCardList.Con
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (list.get(position).isExplend()) {
-            viewHolder.llexpand.setVisibility(View.VISIBLE);
-            viewHolder.ivoutinarrow.setBackgroundResource(R.drawable.bg_arrow_up);
-        } else {
-            viewHolder.llexpand.setVisibility(View.GONE);
-            viewHolder.ivoutinarrow.setBackgroundResource(R.drawable.bg_arrow_down);
-        }
+//        if (list.get(position).isExplend()) {
+//            viewHolder.llexpand.setVisibility(View.VISIBLE);
+//            viewHolder.ivoutinarrow.setBackgroundResource(R.drawable.bg_arrow_up);
+//        } else {
+//            viewHolder.llexpand.setVisibility(View.GONE);
+//            viewHolder.ivoutinarrow.setBackgroundResource(R.drawable.bg_arrow_down);
+//        }
 
         viewHolder.tvoutin_name.setText(list.get(position).getNAME());
         viewHolder.tvoutincard.setText(list.get(position).getIDENTITYCARD());
@@ -51,13 +51,13 @@ public class CzfOutInAdapter extends BaseSimpleAdapter<ChuZuWu_SwipeCardList.Con
         viewHolder.tvoutintype.setText(getType(list.get(position).getCARDTYPE()));
         viewHolder.tvoutintime.setText(list.get(position).getDEVICETIME());
 
-        viewHolder.lloutintop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                list.get(position).setExplend(!list.get(position).isExplend());
-                notifyDataSetChanged();
-            }
-        });
+//        viewHolder.lloutintop.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                list.get(position).setExplend(!list.get(position).isExplend());
+//                notifyDataSetChanged();
+//            }
+//        });
         return convertView;
     }
 
@@ -99,10 +99,10 @@ public class CzfOutInAdapter extends BaseSimpleAdapter<ChuZuWu_SwipeCardList.Con
             case "5":
                 return "e居卡";
             case "6":
-                return "有源卡";
+                return "电子门钥";
             case "9":
                 return "身份证";
-            case "19":
+            case "25":
                 return "运维卡";
             default:
                 return "未知卡";

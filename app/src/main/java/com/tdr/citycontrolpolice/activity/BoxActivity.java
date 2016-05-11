@@ -1,6 +1,7 @@
 package com.tdr.citycontrolpolice.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,7 +25,9 @@ import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.ImageUtil;
 import com.tdr.citycontrolpolice.util.MyUtil;
 import com.tdr.citycontrolpolice.util.SharedPreferencesUtils;
+import com.tdr.citycontrolpolice.util.TendencyEncrypt;
 import com.tdr.citycontrolpolice.util.ToastUtil;
+import com.tdr.citycontrolpolice.util.TypeConvert;
 import com.tdr.citycontrolpolice.util.UserService;
 
 import java.io.File;
@@ -49,6 +52,8 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
     private String userName;
     private File boxFile;
     private String base64Box;
+    private long deviceType;
+    private long boxId;
 
 
     @Override
@@ -69,7 +74,6 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
         mTvBoxPolice = (TextView) findViewById(R.id.tv_box_police);
         mIvBox = (ImageView) findViewById(R.id.iv_box);
         mBtnSubmit = (Button) findViewById(R.id.btn_submit);
-
     }
 
 
@@ -81,10 +85,11 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
      * 上传货品箱
      */
     private void upload() {
+        setProgressDialog(true);
         Common_OpenBox_Param param = new Common_OpenBox_Param();
         param.setTaskID("1");
-        param.setBOXID("xxxxxxxxxxxxx");
-        param.setDEVICETYPE(00000000000);
+        param.setBOXID(String.valueOf(boxId));
+        param.setDEVICETYPE((int) deviceType);
         param.setPHOTOCOUNT(1);
         List<Common_OpenBox_Param.PHOTOLISTBean> photolist = new ArrayList<>();
         Common_OpenBox_Param.PHOTOLISTBean photo = new Common_OpenBox_Param.PHOTOLISTBean();
@@ -100,10 +105,14 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
                 .setCallBack(new WebServiceCallBack<Common_OpenBox_Result>() {
                     @Override
                     public void onSuccess(Common_OpenBox_Result bean) {
+                        setProgressDialog(false);
+                        ToastUtil.showMyToast("箱子启用成功");
+                        finish();
                     }
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
+                        setProgressDialog(false);
                     }
                 }).build();
         PoolManager.getInstance().execute(task);
@@ -117,7 +126,7 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
     }
 
     private void scanBox() {
-        ToastUtil.showMyToast("扫描");
+//        ToastUtil.showMyToast("扫描");
         ActivityUtil.goActivityForResult(this, zbar.CaptureActivity.class, REQ_SCAN);
     }
 
@@ -138,18 +147,53 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
         switch (requestCode) {
             case REQ_SCAN:
                 if (resultCode == RESULT_OK) {
-//                    inquireDevice(data);
+                    inquireDevice(data);
                 }
                 break;
             case CAMERA:
                 if (resultCode == RESULT_OK) {
                     Bitmap bitmap = ImageUtil.compressScaleFromF2B(boxFile.getAbsolutePath());
-                    base64Box = new String(ImageUtil.bitmapToBase64(bitmap));
+                    base64Box = ImageUtil.bitmapToBase64(bitmap);
                     mIvBox.setImageBitmap(ImageUtil.base64ToBitmap(base64Box));
+                    Log.i(TAG, "base64Box: " + base64Box.length());
+//                    ImageUtil.saveBitmapFile(bitmap);
                     break;
                 }
             default:
                 break;
+        }
+    }
+
+    private void inquireDevice(Intent data) {
+        String result = data.getExtras().getString("result");
+        Log.i(TAG, "onActivityResult: " + result);
+        result = result.substring(result.indexOf("?") + 1);
+        String type = result.substring(0, 2);
+        if ("AE".equals(type)) {
+            result = result.substring(2);
+            byte[] s = TendencyEncrypt.decode(result.getBytes());
+            result = TendencyEncrypt.bytesToHexString(s);
+//            result = Equipment.decode(result);
+//            if (TextUtils.isEmpty(result)) {
+//                ToastUtil.showMyToast("可疑数据！");
+//                return;
+//            }
+            Log.i(TAG, "解码: " + result);
+            deviceType = Long.valueOf(result.substring(0, 4), 16);
+            boxId = Long.valueOf(result.substring(4, 12), 16);
+            Long boxCount = Long.valueOf(result.substring(12, 16), 16);
+            String date = TypeConvert.hexString2String(result.substring(16, 28));
+////            if (deviceType!=1040) {
+////                ToastUtil.showMyToast("未识别基站类型");
+////                return;
+////            }
+            upload();
+            Log.i(TAG, "设备类型: " + deviceType);
+            Log.i(TAG, "箱体序号: " + boxId);
+            Log.i(TAG, "boxCount: " + boxCount);
+            Log.i(TAG, "date: " + date);
+        } else {
+            ToastUtil.showMyToast("不是要求的二维码对象");
         }
     }
 
@@ -170,6 +214,25 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
         }
     }
 
+    // 转化十六进制编码为字符串
+    public String toStringHex2(String s) {
+        byte[] baKeyword = new byte[s.length() / 2];
+        for (int i = 0; i < baKeyword.length; i++) {
+            try {
+                baKeyword[i] = (byte) (0xff & Integer.parseInt(s.substring(
+                        i * 2, i * 2 + 2), 16));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            s = new String(baKeyword, "utf-8");// UTF-16le:Not
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return s;
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -186,4 +249,14 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
         base64Box = savedInstanceState.getString("base64Box");
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy: ");
+    }
 }

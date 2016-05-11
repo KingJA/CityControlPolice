@@ -1,6 +1,9 @@
 package com.tdr.citycontrolpolice.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -49,8 +52,8 @@ import java.util.Map;
  */
 public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickListener, AdapterView.OnItemClickListener {
     private static final String TAG = "TabHomeFragment";
-    private String[] titles = {"出租房登记", "出租房信息", "出租房查询", "人员核查", "货品箱开启", "房东变更", "工作统计", "更新字典"};
-    private int[] imgs = {R.mipmap.czf_register, R.mipmap.czf_info, R.drawable.bg_czfcx, R.drawable.bg_ryhc, R.drawable.bg_box, R.drawable.bg_fdbg, R.drawable.bg_gztj, R.mipmap.dic};
+    private String[] titles = {"出租房绑定", "出租房信息", "出租房查询", "身份认证", "货品箱开启", "房东变更", "工作统计", "更新字典"};
+    private int[] imgs = {R.mipmap.czf_register, R.drawable.bg_saoyisao, R.drawable.bg_czfcx, R.drawable.bg_ryhc, R.drawable.bg_box_off, R.drawable.bg_fdbg, R.drawable.bg_gztj, R.mipmap.dic};
     private final static int SCANNIN_GREQUEST_CODE = 2002;
     private final static int SCANNIN_CZF_CODE = 2003;
     private final static int UPDATA = 1001;
@@ -119,7 +122,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
                     Toast.makeText(mActivity, "网络异常", Toast.LENGTH_LONG).show();
                     break;
                 case DownloadDbManager.Done_Basic_JuWeiHui:
-                    Toast.makeText(mActivity, "数据库更新成功！", Toast.LENGTH_LONG).show();
+                    ToastUtil.showMyToast("数据库更新成功");
                     break;
             }
         }
@@ -177,7 +180,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
             @Override
             public void onLeft() {
                 DownloadDbManager.getInstance(getActivity(), mHandler).startDownloadDb();
-                Toast.makeText(mActivity, "数据库进入后台更新", Toast.LENGTH_LONG).show();
+                ToastUtil.showMyToast("数据库进入后台更新");
             }
 
             @Override
@@ -187,12 +190,28 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         });
     }
 
+    public static boolean nfcAble(Context context) {
+        NfcManager manager = (NfcManager) context.getSystemService(Context.NFC_SERVICE);
+        NfcAdapter adapter = manager.getDefaultAdapter();
+        if (adapter == null) {
+            ToastUtil.showMyToast("该设备不支持NFC");
+            return false;
+        }
+        if (!adapter.isEnabled()) {
+            ToastUtil.showMyToast("请在系统设置中开启NFC");
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void onClick(int position) {
         switch (position) {
             case 0:
 //                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
-                ActivityUtil.goActivity(getActivity(), NfcActivity.class);
+                if (nfcAble(getActivity())) {
+                    ActivityUtil.goActivity(getActivity(), NfcActivity.class);
+                }
                 break;
             case 1:
 
@@ -227,7 +246,8 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
                 dialogNFC.show();
                 break;
             case 4:
-                ActivityUtil.goActivity(mActivity, BoxActivity.class);
+                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
+//                ActivityUtil.goActivity(mActivity, BoxActivity.class);
                 break;
             case 5:
                 ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
@@ -293,6 +313,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
             }).start();
         } else {
             Toast.makeText(mActivity, "非指定设备", Toast.LENGTH_LONG).show();
+            progressHUD.dismiss();
         }
     }
 

@@ -18,9 +18,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/gray_divider"
-                android:horizontalSpacing="1dp"
+                android:horizontalSpacing="1px"
                 android:numColumns="4"
-                android:verticalSpacing="1dp" />
+                android:verticalSpacing="1px" />
 
             <View style="@style/divider_nomal_horizontal" />
 
