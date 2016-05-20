@@ -261,6 +261,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
             ToastUtil.showMyToast("非指定设备");
         }
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -530,6 +531,12 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "onDestroy: ");
+        if (numberFile.exists()) {
+            numberFile.delete();
+        }
+        if (roomFile.exists()) {
+            roomFile.delete();
+        }
     }
 
     @Override
@@ -585,10 +592,4 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
-//    chuZuWuAdd.setHOUSETYPE(houseType);
-//    chuZuWuAdd.setPCSCO(paiChuSuo.getDMZM());
-//    chuZuWuAdd.setJWHCODE(juWeiHui.getDMZM());
-//    chuZuWuAdd.setXQCODE(content.getJWHCODE().substring(0, 6));
-//    chuZuWuAdd.setLNG(standardAddressCodeByKey.getX());
-//    chuZuWuAdd.setLAT(standardAddressCodeByKey.getY());
 }

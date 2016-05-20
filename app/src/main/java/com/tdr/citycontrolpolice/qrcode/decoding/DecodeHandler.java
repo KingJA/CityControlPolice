@@ -38,7 +38,7 @@ final class DecodeHandler extends Handler {
     public void handleMessage(Message message) {
         switch (message.what) {
             case R.id.decode:
-                //Log.d(TAG, "Got decode message");
+                //Log.d(TAG, "Got checkDeviceCode message");
                 decode((byte[]) message.obj, message.arg1, message.arg2);
                 break;
             case R.id.quit:
@@ -82,7 +82,7 @@ final class DecodeHandler extends Handler {
             Bundle bundle = new Bundle();
             bundle.putParcelable(DecodeThread.BARCODE_BITMAP, source.renderCroppedGreyscaleBitmap());
             message.setData(bundle);
-            //Log.d(TAG, "Sending decode succeeded message...");
+            //Log.d(TAG, "Sending checkDeviceCode succeeded message...");
             message.sendToTarget();
         } else {
             Message message = Message.obtain(activity.getHandler(), R.id.decode_failed);

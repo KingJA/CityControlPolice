@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +27,7 @@ import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
+import com.tdr.citycontrolpolice.util.SharedPreferencesUtils;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.dialog.DialogBluetooth;
@@ -66,6 +68,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
     private List<BluetoothBean> searchDevices;
     private List<BluetoothBean> boundDevices = new ArrayList<>();
     private Button btn_submit;
+    private String bluetoothAddress;
 
     @Override
     public View setContentView() {
@@ -156,14 +159,15 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
 
             @Override
             public void onBluetoothItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //TODO 记住选择的蓝牙设备
+
                 BluetoothBean bean = (BluetoothBean) parent.getItemAtPosition(position);
+                bluetoothAddress = bean.getAddress();
+                SharedPreferencesUtils.put("BLUETOOTH", bluetoothAddress);
                 if (defaultAdapter.isDiscovering()) {
                     defaultAdapter.cancelDiscovery();
                 }
-                if (bluetoothDevice == null) {
-                    bluetoothDevice = defaultAdapter.getRemoteDevice(bean.getAddress());
-                    startConnect();
-                }
+                startBluetooth(bean.getAddress());
             }
 
             @Override
@@ -177,6 +181,18 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
                 ToastUtil.showMyToast("正在查找周围的蓝牙设备");
             }
         });
+    }
+
+    /**
+     * 开启配对蓝牙
+     *
+     * @param bluetoothAddress
+     */
+    private void startBluetooth(String bluetoothAddress) {
+        if (bluetoothDevice == null) {
+            bluetoothDevice = defaultAdapter.getRemoteDevice(bluetoothAddress);
+        }
+        startConnect();
     }
 
     @Override
@@ -234,7 +250,9 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
                 case 100:
                     cardNo = (String) msg.obj;
                     tv_card_no.setText(cardNo);
-                    startConnect();
+//                    startBluetooth(bluetoothAddress);
+                    stopConnectThread();
+//                    startConnect();
                     break;
                 case OcrEngine.RECOG_FAIL:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_blur, Toast.LENGTH_SHORT).show();
@@ -344,12 +362,16 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
             defaultAdapter.cancelDiscovery();
         }
 
+        stopConnectThread();
+        unregisterReceiver(receiver);
+        super.onDestroy();
+    }
+
+    private void stopConnectThread() {
         if (connectThread != null) {
             connectThread.cancel();
             connectThread = null;
         }
-        unregisterReceiver(receiver);
-        super.onDestroy();
     }
 
     private BluetoothDevice bluetoothDevice;
@@ -360,10 +382,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
      * 开启连接线程
      */
     private void startConnect() {
-        if (connectThread != null) {
-            connectThread.cancel();
-            connectThread = null;
-        }
+        stopConnectThread();
         connectThread = new ConnectThread(bluetoothDevice, defaultAdapter, SPP_UUID, mOcrHandler);
         connectThread.start();
     }
@@ -379,7 +398,15 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
                 ActivityUtil.goActivityForResult(PersonCheckActivity.this, ACamera.class, 100);
                 break;
             case R.id.iv_bluetooth:
-                dialogBluetooth.show();
+                //TODO 从本地记录查找，如果有上次选择的蓝牙设备则直接跳过对话框，如果没有则弹出对话款
+                bluetoothAddress = (String) SharedPreferencesUtils.get("BLUETOOTH", "");
+                if (!TextUtils.isEmpty(bluetoothAddress)) {
+                    ToastUtil.showMyToast("请在收到刷卡提示后开始刷卡");
+                    startBluetooth(bluetoothAddress);
+                } else {
+                    dialogBluetooth.show();
+                }
+
                 break;
             default:
                 break;

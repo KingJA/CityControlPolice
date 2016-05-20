@@ -70,12 +70,12 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
     private int extraPaddingBottom;
 
     /**
-     * the extra spacing between the main text and the left, actually for the left icon.
+     * the extra spacing between the main text and the left, actually for the left ic_launcher.
      */
     private int extraPaddingLeft;
 
     /**
-     * the extra spacing between the main text and the right, actually for the right icon.
+     * the extra spacing between the main text and the right, actually for the right ic_launcher.
      */
     private int extraPaddingRight;
 
@@ -332,6 +332,7 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
         init(context, attrs);
     }
 
+    @SuppressWarnings("ResourceType")
     private void init(Context context, AttributeSet attrs) {
         iconSize = getPixel(32);
         iconOuterWidth = getPixel(48);
@@ -1277,7 +1278,7 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
         int endX = getScrollX() + (iconRightBitmaps == null ? getWidth() : getWidth() - iconOuterWidth - iconPadding);
         int lineStartY = getScrollY() + getHeight() - getPaddingBottom();
 
-        // draw the icon(s)
+        // draw the ic_launcher(s)
         paint.setAlpha(255);
         if (iconLeftBitmaps != null) {
             Bitmap icon = iconLeftBitmaps[!isInternalValid() ? 3 : !isEnabled() ? 2 : hasFocus() ? 1 : 0];
@@ -1314,7 +1315,8 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
                 paint.setColor(errorColor);
                 canvas.drawRect(startX, lineStartY, endX, lineStartY + getPixel(2), paint);
             } else if (!isEnabled()) { // disabled
-                paint.setColor(underlineColor != -1 ? underlineColor : baseColor & 0x00ffffff | 0x44000000);
+
+                paint.setColor(underlineColor != -1 ? getResources().getColor(underlineColor) : getResources().getColor(baseColor & 0x00ffffff | 0x44000000));
                 float interval = getPixel(1);
                 for (float xOffset = 0; xOffset < getWidth(); xOffset += interval * 3) {
                     canvas.drawRect(startX + xOffset, lineStartY, startX + xOffset + interval, lineStartY + getPixel(1), paint);
@@ -1323,7 +1325,7 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
                 paint.setColor(primaryColor);
                 canvas.drawRect(startX, lineStartY, endX, lineStartY + getPixel(2), paint);
             } else { // normal
-                paint.setColor(underlineColor != -1 ? underlineColor : baseColor & 0x00ffffff | 0x1E000000);
+                paint.setColor(underlineColor != -1 ? getResources().getColor(underlineColor) : getResources().getColor(baseColor & 0x00ffffff | 0x1E000000));
                 canvas.drawRect(startX, lineStartY, endX, lineStartY + getPixel(1), paint);
             }
         }
@@ -1335,15 +1337,16 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
 
         // draw the characters counter
         if ((hasFocus() && hasCharactersCounter()) || !isCharactersCountValid()) {
-            textPaint.setColor(isCharactersCountValid() ? (baseColor & 0x00ffffff | 0x44000000) : errorColor);
+            textPaint.setColor(isCharactersCountValid() ? getResources().getColor((baseColor & 0x00ffffff | 0x44000000)) : getResources().getColor(errorColor));
             String charactersCounterText = getCharactersCounterText();
             canvas.drawText(charactersCounterText, isRTL() ? startX : endX - textPaint.measureText(charactersCounterText), lineStartY + bottomSpacing + relativeHeight, textPaint);
         }
 
         // draw the bottom text
         if (textLayout != null) {
+
             if (tempErrorText != null || ((helperTextAlwaysShown || hasFocus()) && !TextUtils.isEmpty(helperText))) { // error text or helper text
-                textPaint.setColor(tempErrorText != null ? errorColor : helperTextColor != -1 ? helperTextColor : (baseColor & 0x00ffffff | 0x44000000));
+                textPaint.setColor(tempErrorText != null ? getResources().getColor(errorColor) : helperTextColor != -1 ? getResources().getColor(helperTextColor) : getResources().getColor((baseColor & 0x00ffffff | 0x44000000)));
                 canvas.save();
                 if (isRTL()) {
                     canvas.translate(endX - textLayout.getWidth(), lineStartY + bottomSpacing - bottomTextPadding);

@@ -26,13 +26,13 @@ import com.tdr.citycontrolpolice.view.CustomRadioGroup;
 public class HomeActivity extends Activity {
     private CustomRadioGroup footer;// 仿微信底部菜单
     private int[] itemImage = {
-            R.mipmap.home_off,
-            R.mipmap.police_off,
-            R.mipmap.personal_off};
+            R.drawable.home_off,
+            R.drawable.police_off,
+            R.drawable.personal_off};
     private int[] itemCheckedImage = {
-            R.mipmap.home_on,
-            R.mipmap.police_on,
-            R.mipmap.personal_on};
+            R.drawable.home_on,
+            R.drawable.police_on,
+            R.drawable.personal_on};
 
     private Fragment fragment;
     private TabHomeFragment homeFragment;

@@ -6,14 +6,14 @@ import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 
+import com.tdr.citycontrolpolice.base.App;
+
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -26,21 +26,21 @@ public class ImageUtil {
     private static final String TAG = "ImageUtil";
 
     public static File createImageFile() {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File image = null;
-        try {
-            image = File.createTempFile(
-                    imageFileName,
-                    ".jpg",
-                    storageDir
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
+//        String fileName = new SimpleDateFormat("yyyy-MM-dd-HHmmss").format(new Date())+".jpg";
+        String fileName = MyUtil.getUUID() + ".jpg";
+        File rootDir = null;
+        if (SDCardUtil.isSDCardAvailable()) {
+            rootDir = Environment.getExternalStorageDirectory();
+            Log.i(TAG, "SD卡 ");
+        } else {
+            ToastUtil.showMyToast("SD卡不可用");
+            rootDir = App.getContext().getCacheDir();
+            Log.i(TAG, "手机存储");
         }
-        return image;
+
+        File saveFile = new File(rootDir, fileName);
+        Log.i(TAG, "saveFile: " + saveFile.getAbsolutePath());
+        return saveFile;
     }
 
 
@@ -154,3 +154,13 @@ public class ImageUtil {
         }
     }
 }
+//try {
+//        image = File.createTempFile(
+//        imageFileName,
+//        ".jpg",
+//        rootDir
+//        );
+//        } catch (IOException e) {
+//        e.printStackTrace();
+//        }
+//        Log.i(TAG, "image: "+image.getAbsolutePath());

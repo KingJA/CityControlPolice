@@ -1,0 +1,99 @@
+#指定代码的压缩级别
+-optimizationpasses 5
+#包明不混合大小写
+-dontusemixedcaseclassnames
+#不去忽略非公共的库类
+-dontskipnonpubliclibraryclasses
+#优化  不优化输入的类文件
+-dontoptimize
+#预校验
+-dontpreverify
+#混淆时是否记录日志
+-verbose
+# 混淆时所采用的算法
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+
+#保护注解
+-keepattributes *Annotation*
+-keepattributes Signature
+
+-keep class * extends java.lang.annotation.Annotation { *; }
+-keep public class com.google.vending.licensing.ILicensingService
+-keep public class com.android.vending.licensing.ILicensingService
+-keep class java.lang.reflect.** {*; }
+
+
+
+
+# For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+
+-keepnames class * implements java.io.Serializable
+
+
+
+
+
+
+-dontwarn android.support.**
+
+-dontwarn class com.google.gson.**
+-keep class com.google.gson.** {*; }
+
+
+
+
+-dontwarn class com.lidroid.**
+-keep class com.lidroid.** { *;}
+
+
+-keep class org.apache.** {*; }
+
+-dontwarn class net.tsz.afinal.**
+-keep class net.tsz.afinal.** {*; }
+
+-dontwarn class org.xutils.**
+-keep class org.xutils.** {*; }
+
+-keep class com.tdr.citycontrolpolice.entity.** {*; }
+
+
+-keep class javax.annotation.** {*; }
+
+-dontwarn class com.tencent.**
+-keep class com.tencent.** {*; }
+
+#==================butterknife==================
+-keep class butterknife.** { *; }
+-keepnames class * { @butterknife.Bind *;}
+-dontwarn butterknife.**
+-keep class **$$ViewBinder { *; }
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+#==================butterknife==================
+-libraryjars libs/afinal_0.5.1_bin.jar
+-keep class net.tsz.afinal.** { *; }
+-dontwarn net.tsz.afinal.**
+
+
+
+
+
+
+
+
+
+

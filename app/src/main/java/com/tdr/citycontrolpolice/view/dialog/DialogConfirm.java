@@ -33,7 +33,6 @@ public class DialogConfirm extends DialogBaseAlert {
         tv_confirm = (TextView) findViewById(R.id.tv_confirm);
         ll_confirm = (LinearLayout) findViewById(R.id.ll_confirm);
 
-
     }
 
     @Override

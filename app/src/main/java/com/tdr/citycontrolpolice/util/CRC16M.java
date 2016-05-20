@@ -109,11 +109,11 @@ public class CRC16M {
             (byte) 0x81, (byte) 0x80, (byte) 0x40};
 
     public static short CalculateCrc16(byte[] buffer) {
-        byte crcHi = (byte) 0xFF;//��λ��ʼ��
-        byte crcLo = (byte) 0xFF;//��λ��ʼ��
+        byte crcHi = (byte) 0xFF;
+        byte crcLo = (byte) 0xFF;
         for (int i = 0; i < buffer.length; i++) {
             int crcIndex = (crcHi ^ buffer[i]) & 0xff;
-            crcHi = (byte) (crcLo ^ _auchCRCHi[crcIndex]);//����CRC��ֵ
+            crcHi = (byte) (crcLo ^ _auchCRCHi[crcIndex]);
             crcLo = _auchCRCLo[crcIndex];
         }
         return (short) ((crcHi << 8 | (crcLo & 0xff)));

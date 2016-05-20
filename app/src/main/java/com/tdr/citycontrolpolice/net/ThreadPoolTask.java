@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.tdr.citycontrolpolice.activity.KjLoginActivity;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.util.ToastUtil;
@@ -57,7 +58,8 @@ public class ThreadPoolTask<T> implements Runnable {
             JSONObject rootObject = new JSONObject(json);
             resultCode = rootObject.getInt("ResultCode");
             if (resultCode != 0) {
-                Log.i(TAG, "!=0: " + json);
+                Log.i("UNSUCCESS", json);
+                Logger.json(json);
                 resultText = rootObject.getString("ResultText");
                 dataTypeCode1 = rootObject.getString("DataTypeCode");
                 errorResult = new ErrorResult();
@@ -80,7 +82,8 @@ public class ThreadPoolTask<T> implements Runnable {
                     });
                 }
             } else {
-                Log.i(TAG, "onSuccess: " + json.toString());
+                Log.i("SUCCESS", json);
+                Logger.json(json);
                 final T t = json2Bean(json.toString(), clazz);
                 if (callBack != null) {
                     activity.runOnUiThread(new Runnable() {
@@ -105,7 +108,7 @@ public class ThreadPoolTask<T> implements Runnable {
     public Map<String, Object> getGeneralParam(String token, int encryption, String dataTypeCode, Object privateParam) {
         Gson gson = new Gson();
         String json = gson.toJson(privateParam);
-        Log.i(TAG, "json: " + json);
+        Log.i("PARAM_JSON", json);
         Map<String, Object> generalParam = new HashMap<String, Object>();
         generalParam.put("token", token);
         generalParam.put("encryption", encryption);

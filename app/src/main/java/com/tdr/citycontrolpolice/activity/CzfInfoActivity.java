@@ -8,10 +8,13 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.BaseFragmentPagerAdapter;
+import com.tdr.citycontrolpolice.fragment.InfoInFragment;
+import com.tdr.citycontrolpolice.fragment.InfoLeftFragment;
 import com.tdr.citycontrolpolice.fragment.InfoManagerFragment;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_InstallStatus;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
@@ -47,7 +50,7 @@ import java.util.Map;
 
 public class CzfInfoActivity extends BackTitleActivity implements BackTitleActivity.OnRightClickListener, CzfInfoPopKj.OnCzfInfoPopClickListener {
     private static final String TAG = "CzfInfoActivity";
-    private ImageView iv_czf_info_detail;
+    private LinearLayout ll_czf_info_detail;
     private TextView tv_czf_info_name;
     private TextView tv_czf_info_phone;
     private TextView tv_czf_info_address;
@@ -56,7 +59,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
     private ViewPager vp_czf_info;
     private SimpleIndicatorLayout sil_czf_info;
     private HashMap<String, Object> mParam = new HashMap<>();
-    private List<String> mTitleList = Arrays.asList("出租房管理", "自助申报", "流动人口");
+    private List<String> mTitleList = Arrays.asList("出租房管理", "入住申报", "离开申报", "流动系统");
     private List<Fragment> mFragmentList = new ArrayList<>();
     private CzfInfoPopKj mCzfInfoPop;
     private KjChuZuWuInfo mCzfInfo = new KjChuZuWuInfo();
@@ -88,7 +91,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
     @Override
     protected void initView() {
-        iv_czf_info_detail = (ImageView) view.findViewById(R.id.iv_czf_info_detail);
+        ll_czf_info_detail = (LinearLayout) view.findViewById(R.id.ll_czf_info_detail);
         tv_czf_info_name = (TextView) view.findViewById(R.id.tv_czf_info_name);
         tv_czf_info_phone = (TextView) view.findViewById(R.id.tv_czf_info_phone);
         tv_czf_info_address = (TextView) view.findViewById(R.id.tv_czf_info_address);
@@ -133,7 +136,8 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
     @Override
     public void initData() {
         mFragmentList.add(InfoManagerFragment.newInstance(mHouseId));
-        mFragmentList.add(InfoApplyFragment.newInstance(mHouseId));
+        mFragmentList.add(InfoInFragment.newInstance(mHouseId));
+        mFragmentList.add(InfoLeftFragment.newInstance(mHouseId));
         mFragmentList.add(InfoPopulationFragment.newInstance(mHouseId));
         mCzfInfoPop.setOnCzfInfoPopClickListener(CzfInfoActivity.this);
         setOnRightClickListener(this);
@@ -157,7 +161,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
             public void onRight() {
             }
         });
-        iv_czf_info_detail.setOnClickListener(new View.OnClickListener() {
+        ll_czf_info_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CzfInfoDetailActivity.goActivity(CzfInfoActivity.this, mHouseId);
@@ -200,7 +204,8 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 CzfCardActivity.goActivity(this, mHouseId);
                 break;
             case 3:
-                ToastUtil.showMyToast("该功能正在开发中...");
+//                ToastUtil.showMyToast("该功能正在开发中...");
+                CzfOutInActivity.goActivity(this, mHouseId);
                 break;
             case 4:
                 Bundle bundle = new Bundle();
@@ -246,7 +251,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-
+                        setProgressDialog(false);
                     }
                 }).build();
         PoolManager.getInstance().execute(task);

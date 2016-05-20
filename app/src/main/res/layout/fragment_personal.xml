@@ -4,10 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/include_tab_top" />
+    <ImageView
+        android:background="@drawable/home_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
-        <View
+    <View
             style="@style/divider_title_horizontal"
             android:layout_marginTop="12dp" />
 

@@ -17,17 +17,14 @@ import com.tdr.citycontrolpolice.entity.ChuZuWu_DeviceLists;
 import com.tdr.citycontrolpolice.entity.Common_ReplaceDevice;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
-import com.tdr.citycontrolpolice.entity.ZhuFang_DeviceLists;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.AppUtil;
-import com.tdr.citycontrolpolice.util.Equipment;
-import com.tdr.citycontrolpolice.util.MyUtil;
+import com.tdr.citycontrolpolice.util.VerifyCode;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
-import com.zbar.lib.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -81,7 +78,7 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
         deviceManagerAdapter.setOnExplandListener(this);
         lv.setAdapter(deviceManagerAdapter);
         srl.setOnRefreshListener(this);
-        srl.setColorSchemeResources(R.color.bg_blue_light);
+        srl.setColorSchemeResources(R.color.bg_blue_solid);
         srl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
     }
 
@@ -265,7 +262,7 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
         String type = result.substring(0, 2);
         if ("AB".equals(type)) {
             result = result.substring(2);
-            result = Equipment.decode(result);
+            result = VerifyCode.checkDeviceCode(result);
             if (TextUtils.isEmpty(result)) {
                 ToastUtil.showMyToast("可疑数据！");
                 return;

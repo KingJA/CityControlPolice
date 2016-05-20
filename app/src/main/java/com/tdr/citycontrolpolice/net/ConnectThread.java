@@ -61,7 +61,6 @@ public class ConnectThread extends Thread {
             receiveThread = null;
         }
         try {
-
             stock.close();
         } catch (IOException e) {
             Log.e(TAG, "close() of connect " + stock + " socket failed", e);

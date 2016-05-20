@@ -9,13 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.Param_User_LoginByPolice;
 import com.tdr.citycontrolpolice.entity.User_LoginByPolice;
-import com.tdr.citycontrolpolice.materialedittext.MaterialEditText;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
@@ -27,6 +27,7 @@ import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.util.PhoneUtil;
 import com.tdr.citycontrolpolice.util.SharedPreferencesUtils;
+import com.tdr.citycontrolpolice.util.WebServiceMethod;
 import com.tdr.citycontrolpolice.view.KingJA_SwtichButton;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 
@@ -40,13 +41,16 @@ import butterknife.OnClick;
  * 创建人：KingJA
  * 创建时间：2016/3/28 14:58
  * 修改备注：
+ * May you do good and not evil.
+ * May you find forgiveness for yourself and forgive others.
+ * May you share freely, never taking more than you give.
  */
 public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnSwitchListener {
     private static final String TAG = "KjLoginActivity";
     @Bind(R.id.et_login_name)
-    MaterialEditText etLoginName;
+    EditText etLoginName;
     @Bind(R.id.et_login_password)
-    MaterialEditText etLoginPassword;
+    EditText etLoginPassword;
     @Bind(R.id.cb_remmber)
     CheckBox cbRemmber;
     @Bind(R.id.btn_login)
@@ -60,6 +64,8 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
 
     private String userName;
     private String password;
+    private long[] mHits = new long[5];
+    private boolean keyPandora = true;
     boolean isLoginByPolice = true;
     private DialogProgress dialogProgress;
     private Handler mInitHandler = new Handler() {
@@ -94,9 +100,6 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         initData();
     }
 
-    /**
-     * 初始化记住按钮
-     */
     private void initData() {
         tvVersion.setText("当前版本:" + AppInfoUtil.getVersionName());
         boolean checked = (boolean) SharedPreferencesUtils.get("login_remember", false);
@@ -129,7 +132,6 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
 
     private void remember(String userName, String password, boolean checked) {
         if (checked) {
-            Log.i(TAG, "userName: " + userName);
             SharedPreferencesUtils.put("login_name", userName);
             SharedPreferencesUtils.put("login_password", password);
             SharedPreferencesUtils.put("login_remember", true);
@@ -140,12 +142,9 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         }
     }
 
-    /**
-     * 登录
-     */
     private void onLogin() {
         dialogProgress.show();
-        String methodName = isLoginByPolice ? "User_LoginByPolice" : "User_LoginByAccount";
+        String methodName = isLoginByPolice ? WebServiceMethod.User_LoginByPolice : WebServiceMethod.User_LoginByAccount;
         Param_User_LoginByPolice paramLogin = buildParam();
         ThreadPoolTask.Builder<User_LoginByPolice> builder = new ThreadPoolTask.Builder<User_LoginByPolice>();
         ThreadPoolTask task = builder.setGeneralParam("", 0, methodName, paramLogin)
@@ -169,23 +168,12 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
 
     }
 
-    /**
-     * 保存本地XML
-     *
-     * @param bean
-     */
     private void savaDateToLocal(User_LoginByPolice bean) {
         User_LoginByPolice.ContentBean content = bean.getContent();
         SharedPreferencesUtils.put("login_name", userName);
         SharedPreferencesUtils.put("uid", content.getUserID());
         SharedPreferencesUtils.put("token", content.getToken());
     }
-
-    /**
-     * 获取参数
-     *
-     * @return
-     */
 
     private Param_User_LoginByPolice buildParam() {
         Param_User_LoginByPolice paramLogin = new Param_User_LoginByPolice();
@@ -198,13 +186,10 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         return paramLogin;
     }
 
-    /**
-     * 检查版本更新
-     */
     private void checkVersionUpdate() {
         GetVersionCodeAsynckTask asynckTask = new GetVersionCodeAsynckTask(
                 KjLoginActivity.this, mInitHandler);
-        asynckTask.execute("CityControlPolice.apk");
+        asynckTask.execute(UpdateManager.UPDATE_APKNAME);
     }
 
 
@@ -213,18 +198,15 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         this.isLoginByPolice = isLeft;
     }
 
-    private long[] mHits = new long[5];
-    private boolean key = true;
-
 
     @OnClick(R.id.v_something)
-    void doThing() {
+    void openPandora() {
         System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
         mHits[mHits.length - 1] = SystemClock.uptimeMillis();
         if (mHits[0] >= (SystemClock.uptimeMillis() - 1000)) {
-            if (key) {
+            if (keyPandora) {
                 ActivityUtil.goActivity(KjLoginActivity.this, DownloadDbActivity.class);
-                key = false;
+                keyPandora = false;
                 vSomething.setClickable(false);
             }
         }

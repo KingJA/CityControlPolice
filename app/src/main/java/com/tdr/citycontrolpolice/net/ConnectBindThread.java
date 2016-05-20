@@ -35,7 +35,6 @@ public class ConnectBindThread extends Thread {
         try {
             stock = device.createRfcommSocketToServiceRecord(UUID.fromString(uuid));
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }

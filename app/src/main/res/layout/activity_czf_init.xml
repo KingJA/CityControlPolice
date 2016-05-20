@@ -57,7 +57,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/bg_search" />
+                android:src="@drawable/btn_search_blue" />
         </LinearLayout>
         <View style="@style/divider_light_horizontal" />
         <LinearLayout
@@ -303,7 +303,7 @@
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
                 android:text="与房东同人"
-                android:textColor="@color/bg_blue_light"
+                android:textColor="@color/bg_blue_solid"
                 android:textSize="12dp" />
         </LinearLayout>
 

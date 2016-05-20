@@ -26,7 +26,8 @@
     <color name="shadow">#25808080</color>
     <!--背景颜色-->
     <color name="bg_white">#FFFFFF</color>
-    <color name="bg_blue_light">#00AAEE</color>
+    <color name="bg_blue_solid">#6178AA</color>
+    <color name="bg_blue_stroke">#607AAD</color>
     <color name="bg_orange">#F39826</color>
     <color name="bg_transparent">#00000000</color>
     <color name="bg_green">#35AA47</color>
@@ -36,6 +37,10 @@
     <color name="font_content">#434343</color>
     <color name="font_title">#A4A4A4</color>
     <color name="font_yellow">#917A49</color>
+    <color name="font_blue">#5890FF</color>
+    <color name="font_3">#333333</color>
+    <color name="font_6">#666666</color>
+    <color name="font_9">#999999</color>
     <!--分割线颜色-->
     <color name="divider_light">#E1E1E1</color>
     <color name="divider_title">#B9B9B9</color>
@@ -43,7 +48,7 @@
 
 
     <color name="switch_sel">#6F9BE6</color>
-    <color name="bg_blue">#1175C1</color>
+    <color name="bg_blue">#3B5999</color>
     <color name="blue_deep_kj">#1869a6</color>
     <color name="gray_kj">#707070</color>
 
@@ -52,12 +57,16 @@
     <color name="trnas_kj">#00000000</color>
     <color name="trans_half_kj">#22ffffff</color>
     <color name="bg_gray_kj">#F5F5F5</color>
-    <color name="gray_divider">#d2d2d2</color>
+    <color name="gray_divider">#CFCFCF</color>
     <color name="gray_pop_divider">#5d5d5d</color>
 
 
-    <color name="on">#FFFFFF</color>
-    <color name="off">#6F9BE6</color>
+    <color name="on">#6076A8</color>
+    <color name="off">#FFFFFF</color>
+
+    <color name="btn_blue_nor">#6279AB</color>
+    <color name="btn_blue_press">#A0AFCE</color>
+    <color name="bg_blue_deep">#293E6B</color>
 
 
 </resources>

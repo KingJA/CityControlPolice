@@ -1,115 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_blue"
     android:orientation="vertical"
+    android:fillViewport="true"
     android:scrollbarThumbVertical="@color/bg_transparent">
 
-    <LinearLayout
-        android:gravity="center_horizontal"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:padding="16dp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="95dp"
-            android:layout_height="85dp"
-            android:layout_marginTop="20dp"
-            android:src="@mipmap/logo" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <ImageView
+                android:layout_width="95dp"
+                android:layout_height="85dp"
+                android:layout_marginTop="64dp"
+                android:src="@drawable/login_logo" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/login_text" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:background="@drawable/shape_lnull_bwhite_r5"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+
+                    <EditText
+                        android:singleLine="true"
+                        android:id="@+id/et_login_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="账户"
+                        android:textCursorDrawable="@drawable/et_cursor"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <View style="@style/divider_nomal_horizontal" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <EditText
+                        android:singleLine="true"
+                        android:id="@+id/et_login_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="密码"
+                        android:inputType="textPassword"
+                        android:textCursorDrawable="@drawable/et_cursor"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_login"
+                style="@style/button_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/btnlogin_change"
+                android:text="登录"
+                android:textColor="@drawable/sel_text_press"
+                android:textSize="20sp" />
+
+            <RelativeLayout
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/cb_remmber"
+                    style="@style/font_white_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+
+                    android:button="@drawable/sel_cb_login"
+                    android:text="  记住密码"
+                    android:textColor="@color/bg_white" />
+
+                <com.tdr.citycontrolpolice.view.KingJA_SwtichButton
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/kj_switchbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/v_something"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="物联网治安管控"
-            android:textColor="#fff"
-            android:textSize="20sp" />
+            android:layout_alignParentBottom="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:text="出租房管理"
-            android:textColor="#fff"
-            android:textSize="22sp" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_bottom_icon" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_version"
-            style="@style/font_white_14"
+            style="@style/font_tip_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp"
             android:text="Version:1.0.3" />
 
-
-        <com.tdr.citycontrolpolice.materialedittext.MaterialEditText
-            android:id="@+id/et_login_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="账户"
-            android:layout_marginTop="48dp"
-            android:textCursorDrawable="@drawable/text_cursor_cyan"
-            android:textSize="20sp"
-            app:met_baseColor="@android:color/white"
-            app:met_floatingLabel="highlight"
-            app:met_maxCharacters="20"
-            app:met_primaryColor="@color/on"
-            app:met_singleLineEllipsis="true" />
-
-        <com.tdr.citycontrolpolice.materialedittext.MaterialEditText
-            android:id="@+id/et_login_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="密码"
-            android:inputType="textPassword"
-            android:textCursorDrawable="@drawable/text_cursor_cyan"
-            android:textSize="20sp"
-            app:met_baseColor="@android:color/white"
-            app:met_floatingLabel="highlight"
-            app:met_maxCharacters="20"
-            app:met_primaryColor="@color/on"
-            app:met_singleLineEllipsis="true" />
-
-
-        <CheckBox
-            android:textColor="@drawable/sel_text_select"
-            android:layout_gravity="start"
-            android:id="@+id/cb_remmber"
-            style="@style/font_white_16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/sel_cb_login"
-            android:paddingLeft="13dp"
-            android:text="记住密码" />
-
-        <com.tdr.citycontrolpolice.view.KingJA_SwtichButton
-
-            android:id="@+id/kj_switchbutton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginTop="12dp" />
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/btnlogin_change"
-            android:text="登录"
-            android:textColor="@drawable/sel_text_press"
-            android:textSize="20sp" />
-
-        <View
-            android:id="@+id/v_something"
-            android:layout_width="50dp"
-            android:layout_height="40dp" />
-
-    </LinearLayout>
+    </RelativeLayout>
 </ScrollView>

@@ -42,11 +42,11 @@ public class KingJA_SwtichButton extends LinearLayout {
     }
 
     private void initView() {
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1.0f);
+        LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         leftButton = new TextView(context);
         leftButton.setGravity(Gravity.CENTER);
         leftButton.setPadding(AppUtil.dp2px(8), AppUtil.dp2px(8), AppUtil.dp2px(8), AppUtil.dp2px(8));
-        leftButton.setText("警号");
+        leftButton.setText("警  号");
         leftButton.setTextColor(Color.parseColor("#ffffff"));
         leftButton.setBackgroundResource(isLeft ? R.drawable.switch_left_sel : R.drawable.switch_left_nor);
         leftButton.setOnClickListener(new OnClickListener() {

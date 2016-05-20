@@ -48,7 +48,6 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
     private DialogConfirm mDialogConfirm;
     private HashMap<String, Object> mParam = new HashMap<>();
     private Editable mEtext;
-    private DialogProgress mProgressDialog;
 
     @Override
     public void initVariables() {
@@ -74,7 +73,6 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
 
     @Override
     protected void initView() {
-        mProgressDialog = new DialogProgress(this);
         mDialogConfirm = new DialogConfirm(this, "出租房信息修改成功！", "确定");
         tv_owner_name = (TextView) findViewById(R.id.tv_owner_name);
         tv_owner_phone = (TextView) findViewById(R.id.tv_owner_phone);
@@ -87,7 +85,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
 
     @Override
     public void initNet() {
-        mProgressDialog.show();
+        setProgressDialog(true);
         ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<>();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
@@ -95,7 +93,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
                 .setCallBack(new WebServiceCallBack<KjChuZuWuInfo>() {
                     @Override
                     public void onSuccess(KjChuZuWuInfo bean) {
-                        mProgressDialog.dismiss();
+                        setProgressDialog(false);
                         tv_owner_name.setText(bean.getContent().getOWNERNAME());
                         tv_owner_phone.setText(bean.getContent().getPHONE());
                         tv_owner_address.setText(bean.getContent().getADDRESS());
@@ -106,7 +104,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-                        mProgressDialog.dismiss();
+                        setProgressDialog(false);
                     }
                 }).build();
         PoolManager.getInstance().execute(task);
@@ -148,7 +146,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
     private void modifyHouseName(String houseName) {
 
         if (CheckUtil.checkEmpty(houseName, "请输入房间名称") && CheckUtil.checkLength(houseName, 30, "房间名过长")) {
-            mProgressDialog.show();
+            setProgressDialog(true);
             param_chuZuWu_modify.setHOUSENAME(houseName);
             ThreadPoolTask.Builder<ChuZuWu_Modify> builder = new ThreadPoolTask.Builder<>();
             ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_Modify", param_chuZuWu_modify)
@@ -158,7 +156,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
                         @Override
                         public void onSuccess(ChuZuWu_Modify bean) {
                             if (bean.getResultCode() == 0) {
-                                mProgressDialog.dismiss();
+                                setProgressDialog(false);
                                 mDialogConfirm.show();
                                 Log.i(TAG, "onSuccess: " + bean.getResultText());
                             }
@@ -166,7 +164,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
 
                         @Override
                         public void onErrorResult(ErrorResult errorResult) {
-                            mProgressDialog.dismiss();
+                            setProgressDialog(false);
                         }
                     }).build();
             PoolManager.getInstance().execute(task);

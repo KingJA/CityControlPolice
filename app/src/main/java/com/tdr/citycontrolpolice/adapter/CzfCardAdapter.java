@@ -31,7 +31,7 @@ public class CzfCardAdapter extends BaseSimpleAdapter<ChuZuWu_SwipeCardList.Cont
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = View
-                    .inflate(context, R.layout.item_outin, null);
+                    .inflate(context, R.layout.item_card, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
@@ -86,23 +86,23 @@ public class CzfCardAdapter extends BaseSimpleAdapter<ChuZuWu_SwipeCardList.Cont
         }
     }
 
-    private String getType(String typeNum) {
+    private String getType(int typeNum) {
         switch (typeNum) {
-            case "1":
+            case 1:
                 return "房东卡";
-            case "2":
+            case 2:
                 return "用户卡";
-            case "3":
+            case 3:
                 return "警察卡";
-            case "4":
+            case 4:
                 return "协警卡";
-            case "5":
+            case 5:
                 return "e居卡";
-            case "6":
+            case 6:
                 return "电子门钥";
-            case "9":
+            case 9:
                 return "身份证";
-            case "25":
+            case 25:
                 return "运维卡";
             default:
                 return "未知卡";

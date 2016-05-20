@@ -81,7 +81,7 @@ public class ChuZuWu_SwipeCardList {
             private String NAME;
             private String IDENTITYCARD;
             private String CARDID;
-            private String CARDTYPE;
+            private int CARDTYPE;
             private String ROOMID;
             private String DEVICETIME;
             private boolean isExplend;
@@ -110,14 +110,6 @@ public class ChuZuWu_SwipeCardList {
                 this.CARDID = CARDID;
             }
 
-            public String getCARDTYPE() {
-                return CARDTYPE;
-            }
-
-            public void setCARDTYPE(String CARDTYPE) {
-                this.CARDTYPE = CARDTYPE;
-            }
-
             public String getROOMID() {
                 return ROOMID;
             }
@@ -140,6 +132,14 @@ public class ChuZuWu_SwipeCardList {
 
             public void setExplend(boolean explend) {
                 isExplend = explend;
+            }
+
+            public int getCARDTYPE() {
+                return CARDTYPE;
+            }
+
+            public void setCARDTYPE(int CARDTYPE) {
+                this.CARDTYPE = CARDTYPE;
             }
         }
     }

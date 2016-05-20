@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.adapter.CzfApplyAdapter;
+import com.tdr.citycontrolpolice.adapter.CzfInAdapter;
 import com.tdr.citycontrolpolice.base.KjBaseFragment;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_LKSelfReportingList;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
@@ -45,9 +45,9 @@ public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnI
     KingJA_SwtichButton_Kj kjSwitchbutton;
     private HashMap<String, Object> mParam = new HashMap<>();
     private boolean isInList = true;
-    private CzfApplyAdapter applyAdapter;
+    private CzfInAdapter applyAdapter;
     private List<ChuZuWu_LKSelfReportingList.ContentBean.PERSONNELINFOLISTBean> applyList = new ArrayList<>();
-    private Map<Boolean, CzfApplyAdapter> adapterMap = new HashMap<>();
+    private Map<Boolean, CzfInAdapter> adapterMap = new HashMap<>();
     private DialogProgress dialogProgress;
 
     public static InfoApplyFragment newInstance(String houseId) {
@@ -78,7 +78,7 @@ public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnI
 
     @Override
     protected void initFragmentView() {
-        applyAdapter = new CzfApplyAdapter(mActivity, applyList);
+        applyAdapter = new CzfInAdapter(mActivity, applyList);
         lv_exist.setAdapter(applyAdapter);
         lv_exist.setOnItemClickListener(this);
         dialogProgress = new DialogProgress(getActivity());
@@ -104,7 +104,7 @@ public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnI
                         applyList = bean.getContent().getPERSONNELINFOLIST();
                         Log.i("ApplyFragment", "applyList: " + applyList.size());
 //                        llEmpty.setVisibility(applyList.size() == 0 ? View.VISIBLE : View.GONE);
-                        applyAdapter = new CzfApplyAdapter(mActivity, applyList);
+                        applyAdapter = new CzfInAdapter(mActivity, applyList);
                         lv_exist.setAdapter(applyAdapter);
                         adapterMap.put(Boolean.valueOf(isInList), applyAdapter);
                     }

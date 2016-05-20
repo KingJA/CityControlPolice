@@ -53,7 +53,7 @@ import java.util.Map;
 public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickListener, AdapterView.OnItemClickListener {
     private static final String TAG = "TabHomeFragment";
     private String[] titles = {"出租房绑定", "出租房信息", "出租房查询", "身份认证", "货品箱开启", "房东变更", "工作统计", "更新字典"};
-    private int[] imgs = {R.mipmap.czf_register, R.drawable.bg_saoyisao, R.drawable.bg_czfcx, R.drawable.bg_ryhc, R.drawable.bg_box_off, R.drawable.bg_fdbg, R.drawable.bg_gztj, R.mipmap.dic};
+    private int[] imgs = {R.drawable.bg_czfbd, R.drawable.bg_saoyisao, R.drawable.bg_czfcx, R.drawable.bg_ryhc, R.drawable.bg_box_on, R.drawable.bg_fdbg, R.drawable.bg_gztj, R.drawable.bg_gxzd};
     private final static int SCANNIN_GREQUEST_CODE = 2002;
     private final static int SCANNIN_CZF_CODE = 2003;
     private final static int UPDATA = 1001;
@@ -246,8 +246,8 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
                 dialogNFC.show();
                 break;
             case 4:
-                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
-//                ActivityUtil.goActivity(mActivity, BoxActivity.class);
+//                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
+                ActivityUtil.goActivity(mActivity, BoxActivity.class);
                 break;
             case 5:
                 ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");

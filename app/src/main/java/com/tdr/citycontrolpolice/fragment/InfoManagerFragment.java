@@ -1,13 +1,14 @@
 package com.tdr.citycontrolpolice.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -51,24 +52,25 @@ import butterknife.OnClick;
  */
 public class InfoManagerFragment extends KjBaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemLongClickListener {
     private static final String TAG = "InfoManagerFragment";
-    @Bind(R.id.lv_init)
-    ListView lvInit;
-    @Bind(R.id.ll_initRoom)
-    LinearLayout llInitRoom;
-    @Bind(R.id.srl_czf_manager)
-    SwipeRefreshLayout srlCzfManager;
+    @Bind(R.id.tv_back)
+    TextView tvBack;
     @Bind(R.id.ll_init_root)
     LinearLayout llInitRoot;
     @Bind(R.id.iv_init_add)
     ImageView ivInitAdd;
     @Bind(R.id.iv_init_delete)
     ImageView ivInitDelete;
-    @Bind(R.id.btn_init_submit)
-    Button btnInitSubmit;
+    @Bind(R.id.iv_init_submit)
+    ImageView ivInitSubmit;
+    @Bind(R.id.ll_initRoom)
+    LinearLayout llInitRoom;
+    @Bind(R.id.lv_init)
+    ListView lvInit;
+    @Bind(R.id.srl_czf_manager)
+    SwipeRefreshLayout srlCzfManager;
     @Bind(R.id.btn_add)
     ImageView btnAdd;
-    @Bind(R.id.tv_back)
-    TextView tvBack;
+
     private ChuZuWuInfo chuZuWuInfo;
     private View rootView;
     private HashMap<String, Object> mParam = new HashMap<>();
@@ -84,6 +86,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     private DialogProgress dialogProgress;
     private DialogDouble addDialogDouble;
     private List<String> currentRoomList = new ArrayList<>();
+    private InputMethodManager inputManager;
 
     public static InfoManagerFragment newInstance(String houseId) {
         InfoManagerFragment managerFragment = new InfoManagerFragment();
@@ -117,7 +120,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
         lvInit.setOnItemClickListener(this);
         lvInit.setOnItemLongClickListener(this);
         srlCzfManager.setOnRefreshListener(this);
-        srlCzfManager.setColorSchemeResources(R.color.bg_blue_light);
+        srlCzfManager.setColorSchemeResources(R.color.bg_blue_solid);
         srlCzfManager.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
         layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         dialogProgress = new DialogProgress(mActivity);
@@ -219,7 +222,6 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
     @OnClick(R.id.btn_add)
     void addFloat() {
-        ToastUtil.showMyToast("添加");
         llInitRoot.removeAllViews();
         roomStringList.clear();
         llInitRoom.setVisibility(View.VISIBLE);
@@ -242,11 +244,13 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
     @OnClick(R.id.tv_back)
     void back() {
+        inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         llInitRoom.setVisibility(roomList.size() == 0 ? View.VISIBLE : View.GONE);
         btnAdd.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
     }
 
-    @OnClick(R.id.btn_init_submit)
+    @OnClick(R.id.iv_init_submit)
     void init() {
         rooms.clear();
         floors.clear();

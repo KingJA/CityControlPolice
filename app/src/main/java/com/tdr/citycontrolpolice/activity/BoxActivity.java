@@ -173,7 +173,7 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
             result = result.substring(2);
             byte[] s = TendencyEncrypt.decode(result.getBytes());
             result = TendencyEncrypt.bytesToHexString(s);
-//            result = Equipment.decode(result);
+//            result = VerifyCode.checkDeviceCode(result);
 //            if (TextUtils.isEmpty(result)) {
 //                ToastUtil.showMyToast("可疑数据！");
 //                return;
@@ -183,10 +183,6 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
             boxId = Long.valueOf(result.substring(4, 12), 16);
             Long boxCount = Long.valueOf(result.substring(12, 16), 16);
             String date = TypeConvert.hexString2String(result.substring(16, 28));
-////            if (deviceType!=1040) {
-////                ToastUtil.showMyToast("未识别基站类型");
-////                return;
-////            }
             upload();
             Log.i(TAG, "设备类型: " + deviceType);
             Log.i(TAG, "箱体序号: " + boxId);
@@ -214,25 +210,6 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
         }
     }
 
-    // 转化十六进制编码为字符串
-    public String toStringHex2(String s) {
-        byte[] baKeyword = new byte[s.length() / 2];
-        for (int i = 0; i < baKeyword.length; i++) {
-            try {
-                baKeyword[i] = (byte) (0xff & Integer.parseInt(s.substring(
-                        i * 2, i * 2 + 2), 16));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            s = new String(baKeyword, "utf-8");// UTF-16le:Not
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        return s;
-    }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -257,6 +234,8 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "onDestroy: ");
+        if (boxFile.exists()) {
+            boxFile.delete();
+        }
     }
 }

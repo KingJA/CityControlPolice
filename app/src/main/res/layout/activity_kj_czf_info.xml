@@ -3,114 +3,96 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_white"
     android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_blue_light"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="12dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
         android:paddingTop="12dp">
 
         <com.tdr.citycontrolpolice.view.CircleImageView
             android:id="@+id/civ_icon"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:src="@drawable/icon_userinfo" />
 
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:gravity="center_vertical">
 
-                <TextView
-                    style="@style/font_white_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="marquee"
-                    android:text="房东姓名:" />
+            <TextView
+                android:id="@+id/tv_czf_info_name"
+                style="@style/font_3_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_marginLeft="8dp"
-                    android:id="@+id/tv_czf_info_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/font_white_14" />
-
-                <ImageView
-                    android:id="@+id/iv_czf_info_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:background="@drawable/sel_btn_info" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="4dp"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    style="@style/font_white_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="手机号码:" />
-
-                <TextView
-                    android:layout_marginLeft="8dp"
                     android:id="@+id/tv_czf_info_phone"
+                    style="@style/font_9_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_white_14" />
-            </LinearLayout>
+                    android:layout_marginTop="6dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/ll_czf_info_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/font_9_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="信息/统计" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:background="@drawable/open_right" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_czf_info_address"
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="top">
+                android:layout_marginTop="6dp"
+                android:ellipsize="marquee" />
 
-                <TextView
-                    style="@style/font_white_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="标准地址:" />
-
-                <TextView
-                    android:layout_marginLeft="8dp"
-                    android:id="@+id/tv_czf_info_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="marquee"
-                    style="@style/font_white_14" />
-
-            </LinearLayout>
         </LinearLayout>
+
+
     </LinearLayout>
+
+    <View style="@style/divider_nomal_horizontal" />
 
     <com.tdr.citycontrolpolice.view.SimpleIndicatorLayout
         android:id="@+id/sil_czf_info"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:orientation="horizontal"
-        app:kjTabBgColor="@color/bg_orange"
-        app:kjTabTextColor="@color/gray_kj"
-        app:kjTabTextSelColor="@color/bg_orange"
+        app:kjTabBgColor="@color/font_blue"
+        app:kjTabTextColor="@color/font_9"
+        app:kjTabTextSelColor="@color/font_blue"
         app:kjVisibleCount="3" />
 
     <View style="@style/divider_nomal_horizontal" />

@@ -1,6 +1,8 @@
 package com.tdr.citycontrolpolice.activity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,7 +41,7 @@ import java.util.Map;
  * 创建时间：2016/4/13 9:58
  * 修改备注：
  */
-public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
+public class CzfQueryActivity extends Activity implements TextWatcher, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
     private static final String TAG = "CzfQueryActivity";
     private ImageView ivSearch;
     private ImageView ivClear;
@@ -54,39 +56,31 @@ public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, 
     private InputMethodManager inputManager;
     private String geocode;
 
-
     @Override
-    public View setContentView() {
-        view = View.inflate(this, R.layout.activity_czf_query, null);
-        return view;
-    }
-
-    @Override
-    public void initVariables() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_czf_query);
+        initView();
+        initData();
 
     }
 
-    @Override
     protected void initView() {
-        ivSearch = (ImageView) view.findViewById(R.id.iv_search);
-        ivClear = (ImageView) view.findViewById(R.id.iv_clear);
-        etQuery = (EditText) view.findViewById(R.id.et_query);
-        srl = (SwipeRefreshLayout) view.findViewById(R.id.srl);
-        lv = (ListView) view.findViewById(R.id.lv);
-        btnQuery = (Button) view.findViewById(R.id.btn_query);
+        ivSearch = (ImageView) findViewById(R.id.iv_search);
+        ivClear = (ImageView) findViewById(R.id.iv_clear);
+        etQuery = (EditText) findViewById(R.id.et_query);
+        srl = (SwipeRefreshLayout) findViewById(R.id.srl);
+        lv = (ListView) findViewById(R.id.lv);
+        btnQuery = (Button) findViewById(R.id.btn_query);
         czfQueryAdapter = new CzfQueryAdapter(this, addressList);
         dialogProgress = new DialogProgress(this);
-        srl.setColorSchemeResources(R.color.bg_blue_light);
+        srl.setColorSchemeResources(R.color.bg_blue_solid);
         srl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
     }
 
-    @Override
-    public void initNet() {
 
-    }
-
-    @Override
     public void initData() {
+        dialogProgress = new DialogProgress(this);
         srl.setOnRefreshListener(this);
         etQuery.addTextChangedListener(this);
         ivSearch.setOnClickListener(this);
@@ -96,10 +90,6 @@ public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, 
         lv.setOnItemClickListener(this);
     }
 
-    @Override
-    public void setData() {
-        setTitle("出租房查询");
-    }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -113,7 +103,7 @@ public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, 
 
     @Override
     public void afterTextChanged(Editable s) {
-        ivClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
+        ivClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
@@ -166,7 +156,7 @@ public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, 
      * @param geocode
      */
     private void submit(String geocode) {
-        setProgressDialog(true);
+        dialogProgress.show();
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
         param.put("STANDARDADDRCODE", geocode);
@@ -200,14 +190,14 @@ public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, 
     private WebServiceCallBack<ChuZuWu_SearchInfoByStandardAddr> getHouseIdCallBack = new WebServiceCallBack<ChuZuWu_SearchInfoByStandardAddr>() {
         @Override
         public void onSuccess(ChuZuWu_SearchInfoByStandardAddr bean) {
-            setProgressDialog(false);
+            dialogProgress.dismiss();
             finish();
             CzfInfoActivity.goActivity(CzfQueryActivity.this, bean.getContent().getHOUSEID());
         }
 
         @Override
         public void onErrorResult(ErrorResult errorResult) {
-            setProgressDialog(false);
+            dialogProgress.dismiss();
 
         }
     };
@@ -229,7 +219,6 @@ public class CzfQueryActivity extends BackTitleActivity implements TextWatcher, 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Basic_StandardAddressCodeByKey_Kj.ContentBean bean = (Basic_StandardAddressCodeByKey_Kj.ContentBean) parent.getItemAtPosition(position);
         geocode = bean.getId();
-        czfQueryAdapter.selectPosition(position);
         submit(geocode);
     }
 }

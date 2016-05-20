@@ -12,27 +12,19 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="95dp"
-            android:layout_height="85dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:src="@mipmap/logo" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:text="物联网治安管控"
-            style="@style/font_white_20" />
+            android:layout_marginTop="100dp"
+            android:src="@drawable/login_logo" />
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="3dp"
-            android:text="出租房管理"
-            style="@style/font_white_18" />
+            android:layout_marginTop="10dp"
+            android:src="@drawable/login_text" />
+
 
         <TextView
             android:id="@+id/tv_version"

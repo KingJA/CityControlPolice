@@ -1,8 +1,9 @@
 package com.tdr.citycontrolpolice.net;
 
+import android.text.TextUtils;
 import android.util.Log;
 
-import com.tdr.citycontrolpolice.util.ToastUtil;
+import com.tdr.citycontrolpolice.util.TypeConvert;
 
 import java.util.Arrays;
 
@@ -99,5 +100,89 @@ public class BluetoothUtil {
         }
         Log.i(TAG, "getCardNo: " + bytesToHexString(cardNO));
         return bytesToHexString(cardNO);
+    }
+
+    /**
+     * 获取基站编号，高位在前
+     *
+     * @param totelByte
+     * @return
+     */
+    public static String getStationdNo(byte[] totelByte) {
+        byte[] startFlag = Arrays.copyOfRange(totelByte, 0, 1);//开始Flag 1位
+        byte[] deviceId = Arrays.copyOfRange(totelByte, 1, 3);//设备ID 2位
+        byte[] deviceType = Arrays.copyOfRange(totelByte, 3, 5);//设备类型 2位
+        byte[] order = Arrays.copyOfRange(totelByte, 5, 6);//命令字 1位
+        byte[] length = Arrays.copyOfRange(totelByte, 6, 8);//内容长度 1位
+
+        byte[] tongxunType = Arrays.copyOfRange(totelByte, 8, 9);//卡类型 1位
+        byte[] stationNo = Arrays.copyOfRange(totelByte, 9, 13);//卡号 8位
+        byte[] stationId = Arrays.copyOfRange(totelByte, 13, 18);//姓名 15位
+        byte[] sign = Arrays.copyOfRange(totelByte, 18, 19);//身份证号 9位
+        byte[] version = Arrays.copyOfRange(totelByte, 19, 20);//版本号 1位
+
+        byte[] check = Arrays.copyOfRange(totelByte, 20, 21);//校验和 1位
+        byte[] endFlag = Arrays.copyOfRange(totelByte, 21, 22);//结束Flag 1位
+        if (tongxunType[0] == (byte) (0x01)) {
+            Log.i(TAG, "470M: " + bytesToHexString(stationNo));
+        } else if (tongxunType[0] == (byte) (0x02)) {
+            Log.i(TAG, "840M: " + bytesToHexString(stationNo));
+        }
+        String hex = bytesToHexString(stationNo);
+        long base = Long.valueOf(hex, 16);
+        int hInt = TypeConvert.getDInt((int) base);
+        Log.i(TAG, "hInt: " + hInt + "");
+        return String.valueOf(hInt);
+    }
+
+    /**
+     * 16进制累加和校验
+     *
+     * @param hexContext 16进制内容字符串
+     * @param checksum   16进制校验字符串
+     * @return
+     */
+    public static boolean checkChecksum(String hexContext, String checksum) {
+        if (TextUtils.isEmpty(hexContext) || TextUtils.isEmpty(checksum)) {
+            return false;
+        }
+        String getChecksum = makeChecksum(hexContext);
+        if (getChecksum.equalsIgnoreCase(checksum)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 根据16进制字符串生成16进制校验和
+     *
+     * @param hexContext 16进制字符串
+     * @return
+     */
+    public static String makeChecksum(String hexContext) {
+        if (TextUtils.isEmpty(hexContext)) {
+            return "";
+        }
+        int total = 0;
+        int len = hexContext.length();
+        int num = 0;
+        while (num < len) {
+            String s = hexContext.substring(num, num + 2);
+            System.out.println(s);
+            total += Integer.parseInt(s, 16);
+            num = num + 2;
+        }
+        /**
+         * 用256求余最大是255，即16进制的FF
+         */
+        int mod = total % 256;
+        String checksum = Integer.toHexString(mod);
+        len = checksum.length();
+        //如果不够校验位的长度，补0,这里用的是两位校验
+        if (len < 2) {
+            checksum = "0" + checksum;
+        }
+        return checksum;
     }
 }

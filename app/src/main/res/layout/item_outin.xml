@@ -148,6 +148,33 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="end"
+                android:text="变化状态：" />
+
+            <TextView
+
+                android:id="@+id/tv_outin_changestate"
+                style="@style/font_content_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:text="增加" />
+
+        </LinearLayout>
+
+        <View style="@style/divider_light_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/font_tip_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="end"
                 android:text="时间：" />
 
             <TextView

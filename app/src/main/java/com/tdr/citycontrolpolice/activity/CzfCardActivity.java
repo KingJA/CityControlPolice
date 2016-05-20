@@ -25,7 +25,7 @@ import java.util.Map;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：出入历史记录
+ * 类描述：刷卡记录列表
  * 创建人：KingJA
  * 创建时间：2016/3/25 13:30
  * 修改备注：
@@ -66,7 +66,7 @@ public class CzfCardActivity extends BackTitleActivity implements SwipeRefreshLa
         ll_empty = (LinearLayout) view.findViewById(R.id.ll_empty);
         single_lv = (ListView) view.findViewById(R.id.single_lv);
         single_srl = (SwipeRefreshLayout) view.findViewById(R.id.single_srl);
-        single_srl.setColorSchemeResources(R.color.bg_blue_light);
+        single_srl.setColorSchemeResources(R.color.bg_blue_solid);
         single_srl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
         single_srl.setOnRefreshListener(this);
         czfCardAdapter = new CzfCardAdapter(this, personnelinfolist);

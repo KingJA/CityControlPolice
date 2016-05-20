@@ -68,7 +68,7 @@ public final class CaptureActivityHandler extends Handler {
                 restartPreviewAndDecode();
                 break;
             case R.id.decode_succeeded:
-                Log.d(TAG, "Got decode succeeded message");
+                Log.d(TAG, "Got checkDeviceCode succeeded message");
                 state = State.SUCCESS;
                 Bundle bundle = message.getData();
                 Bitmap barcode = bundle == null ? null :
@@ -76,7 +76,7 @@ public final class CaptureActivityHandler extends Handler {
                 activity.handleDecode((Result) message.obj, barcode);
                 break;
             case R.id.decode_failed:
-                // We're decoding as fast as possible, so when one decode fails, start another.
+                // We're decoding as fast as possible, so when one checkDeviceCode fails, start another.
                 state = State.PREVIEW;
                 CameraManager.get().requestPreviewFrame(decodeThread.getHandler(), R.id.decode);
                 break;

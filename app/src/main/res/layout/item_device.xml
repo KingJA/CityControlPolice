@@ -44,9 +44,9 @@
 
             <ImageView
                 android:id="@+id/iv_device_state"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
-                android:background="@drawable/circle_on" />
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/circle_off" />
 
             <TextView
                 android:singleLine="true"

@@ -38,26 +38,17 @@ public class CzfQueryAdapter extends BaseSimpleAdapter<Basic_StandardAddressCode
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvaddress.setText(list.get(position).getAddress());
-        viewHolder.ivaddress.setBackgroundResource(position == selectPosition ? R.drawable.cb_address_sel : R.drawable.cb_address_nor);
         return convertView;
     }
 
 
-    public void selectPosition(int selectPosition) {
-        this.selectPosition = selectPosition;
-        this.notifyDataSetChanged();
-    }
 
     public class ViewHolder {
         public final TextView tvaddress;
-        public final LinearLayout llroot;
-        public final ImageView ivaddress;
         public final View root;
 
         public ViewHolder(View root) {
             tvaddress = (TextView) root.findViewById(R.id.tv_address);
-            llroot = (LinearLayout) root.findViewById(R.id.ll_root);
-            ivaddress = (ImageView) root.findViewById(R.id.iv_address);
             this.root = root;
         }
     }

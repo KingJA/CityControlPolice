@@ -11,13 +11,14 @@ import java.util.Arrays;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：处理蓝牙信息的子线程
+ * 类描述：处理蓝牙基站编号的子线程
  * 创建人：KingJA
  * 创建时间：2016/4/2 15:26
  * 修改备注：
  */
 public class ReceiveStationThread extends ReceiveBaseThread {
     private static final String TAG = "ReceiveStationThread";
+    private static final int SIGN_LENGH = 22;
 
     public ReceiveStationThread(BluetoothSocket stock, Handler handler) {
         super(stock, handler);
@@ -36,21 +37,17 @@ public class ReceiveStationThread extends ReceiveBaseThread {
                     byte[] totleByte = new byte[count];
                     inputStream.read(totleByte);
 
-                    if (totleByte.length == 22) {
+                    if (totleByte.length == SIGN_LENGH) {
                         byte[] order = Arrays.copyOfRange(totleByte, 5, 6);
                         if (order[0] != (byte) (0xb6)) {
                             Log.i(TAG, "不是基站信息HexString: " + BluetoothUtil.bytesToHexString(totleByte));
                             continue;
                         }
-                        String HexString = BluetoothUtil.bytesToHexString(totleByte);
-                        Log.i(TAG, "HexString: " + HexString);
-                        byte[] number = Arrays.copyOfRange(totleByte, 11, 15);
-                        String NoHexString = BluetoothUtil.bytesToHexString(number);
-                        Log.i(TAG, "基站HexString: " + NoHexString);
-                        String deviceNO = String.valueOf(Long.valueOf(NoHexString, 16));
-                        Log.i(TAG, "基站编号: " + deviceNO);
+                        Log.i(TAG, "HexString: " + BluetoothUtil.bytesToHexString(totleByte));
+                        String stationdNo = BluetoothUtil.getStationdNo(totleByte);
+                        Log.i(TAG, "stationdNo: " + stationdNo);
                         Message msg = handler.obtainMessage();
-                        msg.obj = deviceNO;
+                        msg.obj = stationdNo;
                         msg.what = 100;
                         handler.sendMessage(msg);
                         break;

@@ -67,6 +67,7 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
         }
 
         viewHolder.tvdevicename.setText(list.get(position).getDEVICENAME() + "(" + typeMap.get(list.get(position).getDEVICETYPE()) + ":" + list.get(position).getDEVICECODE() + ")");
+        viewHolder.ivdevicestate.setVisibility("32770".equals(list.get(position).getDEVICETYPE()) ? View.INVISIBLE : View.VISIBLE);
         viewHolder.ivdevicestate.setBackgroundResource(TimeUtil.isOneDay(list.get(position).getDEVICETIME()) ? R.drawable.circle_on : R.drawable.circle_off);
         viewHolder.ivisbund.setBackgroundResource(list.get(position).getISBUNG() == 0 ? R.drawable.bg_unbund : R.drawable.bg_isbund);
 
@@ -79,8 +80,8 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
                     @Override
                     public void onChange() {
                         if (onDeviceChangeListener != null) {
-                            ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
-//                            onDeviceChangeListener.onChange(list.get(position), roomId, rommNo, position,outPosition);
+//                            ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
+                            onDeviceChangeListener.onChange(list.get(position), roomId, rommNo, position, outPosition);
                         }
                     }
 

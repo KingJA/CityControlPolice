@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="12dp"
-            android:src="@drawable/bg_search" />
+            android:src="@drawable/btn_search_blue" />
     </LinearLayout>
 
     <View style="@style/divider_title_horizontal" />

@@ -26,13 +26,14 @@ import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
-import com.tdr.citycontrolpolice.util.Equipment;
+import com.tdr.citycontrolpolice.util.SharedPreferencesUtils;
+import com.tdr.citycontrolpolice.util.VerifyCode;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.dialog.DialogBluetooth;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogInput;
-import com.zbar.lib.CaptureActivity;
+import com.tdr.citycontrolpolice.view.dialog.DialogNumber;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +48,7 @@ import java.util.Set;
  * 创建时间：2016/4/6 10:27
  * 修改备注：
  */
-public class DeviceBindingListActivity extends BackTitleActivity implements DeviceBindingAdapter.OnBindingStationListener, SwipeRefreshLayout.OnRefreshListener,DialogInput.OnInputListener {
+public class DeviceBindingListActivity extends BackTitleActivity implements DeviceBindingAdapter.OnBindingStationListener, SwipeRefreshLayout.OnRefreshListener, DialogInput.OnInputListener {
 
     private static final String TAG = "BindingListActivity";
     private ListView lv;
@@ -67,6 +68,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
     private DialogBluetooth dialogBluetooth;
     private boolean currentIsStation;
     private DialogInput dialogInput;
+    private DialogNumber dialogNumber;
 
     @Override
     public View setContentView() {
@@ -92,7 +94,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         lv = (ListView) view.findViewById(R.id.lv_exist);
         lv.setAdapter(deviceBindingAdapter);
         srl = (SwipeRefreshLayout) view.findViewById(R.id.srl);
-        srl.setColorSchemeResources(R.color.bg_blue_light);
+        srl.setColorSchemeResources(R.color.bg_blue_solid);
         srl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
         srl.setOnRefreshListener(this);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
@@ -145,8 +147,12 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
             public void onLeft() {
-                dialogBluetooth.show();
-
+                String bluetoothAddress = (String) SharedPreferencesUtils.get("BLUETOOTH", "");
+                if (!TextUtils.isEmpty(bluetoothAddress)) {
+                    startBluetooth(bluetoothAddress, currentIsStation);
+                } else {
+                    dialogBluetooth.show();
+                }
             }
 
             @Override
@@ -209,19 +215,19 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         String type = result.substring(0, 2);
         if ("AB".equals(type)) {
             result = result.substring(2);
-            result = Equipment.decode(result);
+            result = VerifyCode.checkDeviceCode(result);
             if (TextUtils.isEmpty(result)) {
                 ToastUtil.showMyToast("可疑数据！");
                 return;
             }
             deviceType = Long.valueOf(result.substring(0, 4), 16);
             deviceNO = Long.valueOf(result.substring(4), 16);
-            if (deviceType==1040) {
+            if (deviceType == 1040) {
                 ToastUtil.showMyToast("未识别设备类型");
                 Log.i(TAG, "类型1040，不是设备类型:,");
                 return;
             }
-            Log.i(TAG, deviceType+"是设备类型:,");
+            Log.i(TAG, deviceType + "是设备类型:,");
             Log.i(TAG, "设备类型: " + deviceType);
             Log.i(TAG, "设备编号: " + deviceNO);
             showBindDialog(String.valueOf(deviceNO), String.valueOf(deviceType), false);
@@ -262,14 +268,14 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         String type = result.substring(0, 2);
         if ("AB".equals(type)) {
             result = result.substring(2);
-            result = Equipment.decode(result);
+            result = VerifyCode.checkDeviceCode(result);
             if (TextUtils.isEmpty(result)) {
                 ToastUtil.showMyToast("可疑数据！");
                 return;
             }
             stationNO = Long.valueOf(result.substring(4), 16);
             deviceType = Long.valueOf(result.substring(0, 4), 16);
-            if (deviceType!=1040) {
+            if (deviceType != 1040) {
                 ToastUtil.showMyToast("未识别基站类型");
                 return;
             }
@@ -284,7 +290,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
 
     private void showBindDialog(final String stationNO, final String type, final boolean isStation) {
         String target = isStation ? "基站" : "设备";
-        dialogDouble = new DialogDouble(this, "是否将" + stationNO + target+ "绑定到" +currentRoomNo +"房间" , "确定", "取消");
+        dialogDouble = new DialogDouble(this, "是否将" + stationNO + target + "绑定到" + currentRoomNo + "房间", "确定", "取消");
         dialogDouble.show();
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
@@ -299,7 +305,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
 
             @Override
             public void onRight() {
-
+//                stopConnectThread();
             }
         });
     }
@@ -342,13 +348,11 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         srl.setRefreshing(false);
     }
 
-
     private ConnectBindThread connectThread;
     private BluetoothDevice bluetoothDevice;
     private final String SPP_UUID = "00001101-0000-1000-8000-00805F9B34FB";//蓝牙模式串口服务
     private BluetoothAdapter defaultAdapter;
     private List<BluetoothBean> boundDevices = new ArrayList<>();
-    private List<BluetoothBean> searchDevices;
 
     /**
      * 初始化蓝牙
@@ -373,26 +377,12 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
             @Override
             public void onBluetoothItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BluetoothBean bean = (BluetoothBean) parent.getItemAtPosition(position);
+                SharedPreferencesUtils.put("BLUETOOTH", bean.getAddress());
                 if (defaultAdapter.isDiscovering()) {
                     defaultAdapter.cancelDiscovery();
                 }
-                if (bluetoothDevice == null) {
-                    bluetoothDevice = defaultAdapter.getRemoteDevice(bean.getAddress());
-                }
-                startConnect(currentIsStation);
-                setProgressDialog(true);
-                String target = currentIsStation ? "基站" : "设备";
-                ToastUtil.showMyToast("请搜索附近" + target);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        setProgressDialog(false);
-                        if (connectThread != null) {
-                            connectThread.cancel();
-                            connectThread = null;
-                        }
-                    }
-                },12*1000);
+                startBluetooth(bean.getAddress(), currentIsStation);
+
             }
 
             @Override
@@ -400,6 +390,22 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
             }
         });
 
+    }
+
+    /**
+     * 开启配对蓝牙
+     *
+     * @param bluetoothAddress
+     */
+    private void startBluetooth(String bluetoothAddress, boolean isStation) {
+        if (bluetoothDevice == null) {
+            bluetoothDevice = defaultAdapter.getRemoteDevice(bluetoothAddress);
+        }
+        startConnect(isStation);
+        dialogNumber = new DialogNumber(DeviceBindingListActivity.this, mHandler);
+        dialogNumber.show();
+        String target = currentIsStation ? "基站" : "设备";
+        ToastUtil.showMyToast("请在蓝牙倒计时结束前通过设备搜索附近" + target + "编号");
     }
 
     /**
@@ -426,10 +432,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
      * 开启连接线程
      */
     private void startConnect(boolean isStation) {
-        if (connectThread != null) {
-            connectThread.cancel();
-            connectThread = null;
-        }
+        stopConnectThread();
         connectThread = new ConnectBindThread(bluetoothDevice, defaultAdapter, SPP_UUID, mHandler, isStation);
         connectThread.start();
     }
@@ -441,17 +444,21 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
             setProgressDialog(false);
             switch (msg.what) {
                 case 100:
+                    dialogNumber.close();
                     String stationNO = (String) msg.obj;
                     showBindDialog(stationNO, null, true);
-                    startConnect(currentIsStation);
+//                    startConnect(currentIsStation);
                     break;
-
                 case 200:
                     Bundle bundle = (Bundle) msg.obj;
                     deviceType = Long.valueOf(bundle.getString("TYPE"));
                     deviceNO = Long.valueOf(bundle.getString("NO"));
                     showBindDialog(deviceNO + "", deviceType + "", false);
                     startConnect(currentIsStation);
+                    break;
+                case 300:
+                    stopConnectThread();
+//                    startConnect(currentIsStation);
                     break;
 
                 default:
@@ -468,12 +475,15 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         if (defaultAdapter != null && defaultAdapter.isDiscovering()) {
             defaultAdapter.cancelDiscovery();
         }
+        stopConnectThread();
+        super.onDestroy();
+    }
 
+    private void stopConnectThread() {
         if (connectThread != null) {
             connectThread.cancel();
             connectThread = null;
         }
-        super.onDestroy();
     }
 
     @Override
