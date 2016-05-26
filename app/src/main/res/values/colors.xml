@@ -37,7 +37,9 @@
     <color name="font_content">#434343</color>
     <color name="font_title">#A4A4A4</color>
     <color name="font_yellow">#917A49</color>
+    <color name="font_red">#DA2929</color>
     <color name="font_blue">#5890FF</color>
+    <color name="font_edit">#81899f</color>
     <color name="font_3">#333333</color>
     <color name="font_6">#666666</color>
     <color name="font_9">#999999</color>
@@ -67,6 +69,8 @@
     <color name="btn_blue_nor">#6279AB</color>
     <color name="btn_blue_press">#A0AFCE</color>
     <color name="bg_blue_deep">#293E6B</color>
+    <color name="bg_title">#F6F7F8</color>
+    <color name="stroke_gray">#CFCFCF</color>
 
 
 </resources>

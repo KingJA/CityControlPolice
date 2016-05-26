@@ -218,7 +218,7 @@ public class CzfQueryActivity extends Activity implements TextWatcher, View.OnCl
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Basic_StandardAddressCodeByKey_Kj.ContentBean bean = (Basic_StandardAddressCodeByKey_Kj.ContentBean) parent.getItemAtPosition(position);
-        geocode = bean.getId();
+        geocode = bean.getGeocode();
         submit(geocode);
     }
 }

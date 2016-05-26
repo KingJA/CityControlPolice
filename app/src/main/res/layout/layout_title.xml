@@ -14,7 +14,7 @@
         android:background="@drawable/btnback_change" />
 
     <TextView
-        android:text="扫描登记号牌二维码"
+        android:text="扫描二维码"
         android:id="@+id/text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

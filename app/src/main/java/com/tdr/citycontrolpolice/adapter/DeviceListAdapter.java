@@ -66,30 +66,18 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.tvdevicename.setText(list.get(position).getDEVICENAME() + "(" + typeMap.get(list.get(position).getDEVICETYPE()) + ":" + list.get(position).getDEVICECODE() + ")");
-        viewHolder.ivdevicestate.setVisibility("32770".equals(list.get(position).getDEVICETYPE()) ? View.INVISIBLE : View.VISIBLE);
-        viewHolder.ivdevicestate.setBackgroundResource(TimeUtil.isOneDay(list.get(position).getDEVICETIME()) ? R.drawable.circle_on : R.drawable.circle_off);
+        viewHolder.tvdevicename.setText(list.get(position).getDEVICENAME() + "  (" + list.get(position).getDEVICECODE() + ")");
+        setTypeImg(viewHolder.ivdevicestate, list.get(position).getDEVICETYPE(), TimeUtil.isOneDay(list.get(position).getDEVICETIME()));
+//        viewHolder.ivdevicestate.setVisibility("32770".equals(list.get(position).getDEVICETYPE()) ? View.INVISIBLE : View.VISIBLE);
+//        viewHolder.ivdevicestate.setBackgroundResource(TimeUtil.isOneDay(list.get(position).getDEVICETIME()) ? R.drawable.circle_on : R.drawable.circle_off);
         viewHolder.ivisbund.setBackgroundResource(list.get(position).getISBUNG() == 0 ? R.drawable.bg_unbund : R.drawable.bg_isbund);
 
         viewHolder.ivdevice_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupDevice popupDevice = new PopupDevice(v, activity);
-                popupDevice.showPopupWindowCenter();
-                popupDevice.setOnPopupDeviceListener(new PopupDevice.OnPopupDeviceListener() {
-                    @Override
-                    public void onChange() {
-                        if (onDeviceChangeListener != null) {
-//                            ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
-                            onDeviceChangeListener.onChange(list.get(position), roomId, rommNo, position, outPosition);
-                        }
-                    }
-
-                    @Override
-                    public void onUnbind() {
-                        ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
-                    }
-                });
+                if (onDeviceChangeListener != null) {
+                    onDeviceChangeListener.onChange(list.get(position), roomId, rommNo, position, outPosition);
+                }
             }
         });
 
@@ -126,5 +114,14 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
         list.get(position).setDEVICETYPE(type);
         list.get(position).setDEVICECODE(deviceCode);
         this.notifyDataSetChanged();
+    }
+
+    public void setTypeImg(ImageView iv, String type, boolean isOneDay) {
+        if ("1072".equals(type)) {
+            iv.setBackgroundResource(isOneDay ? R.drawable.bg_menjie_on : R.drawable.bg_menjie_off);
+        } else {
+            iv.setBackgroundResource(isOneDay ? R.drawable.bg_other_on : R.drawable.bg_other_off);
+        }
+
     }
 }

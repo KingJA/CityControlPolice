@@ -64,6 +64,14 @@
     <style name="CustomAlertDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/shape_lnull_bwhite_r8</item>
     </style>
+    <!--全屏对话框样式-->
+    <style name="CustomFullAlertDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/shape_lnull_bwhite_r8</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+
     <style name="CustomDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/shape_lnull_bwhite_r8</item>
         <item name="android:windowNoTitle">true</item>

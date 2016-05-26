@@ -17,6 +17,7 @@ public abstract class DialogBaseAlert extends AlertDialog implements View.OnClic
         this.context = context;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub

@@ -2,7 +2,10 @@ package com.tdr.citycontrolpolice.view.dialog;
 
 
 import android.content.Context;
+import android.view.Display;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -10,8 +13,8 @@ import com.tdr.citycontrolpolice.R;
 
 
 public class DialogNFC extends DialogBaseAlert {
-    private TextView tv_nfc;
-    private TextView tv_card;
+    private LinearLayout ll_nfc;
+    private LinearLayout ll_card;
     private OnClickListener onClickListener;
 
     public DialogNFC(Context context) {
@@ -22,10 +25,19 @@ public class DialogNFC extends DialogBaseAlert {
     @Override
     public void initView() {
         setContentView(R.layout.dialog_nfc);
-        tv_nfc = (TextView) findViewById(R.id.tv_nfc);
-        tv_card = (TextView) findViewById(R.id.tv_card);
+        ll_nfc = (LinearLayout) findViewById(R.id.ll_nfc);
+        ll_card = (LinearLayout) findViewById(R.id.ll_card);
+        setFullWidth();
 
+    }
 
+    private void setFullWidth() {
+        Window win = this.getWindow();
+        this.getWindow().getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams lp = win.getAttributes();
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        win.setAttributes(lp);
     }
 
     @Override
@@ -35,8 +47,8 @@ public class DialogNFC extends DialogBaseAlert {
 
     @Override
     public void initEvent() {
-        tv_nfc.setOnClickListener(this);
-        tv_card.setOnClickListener(this);
+        ll_nfc.setOnClickListener(this);
+        ll_card.setOnClickListener(this);
 
     }
 
@@ -49,12 +61,12 @@ public class DialogNFC extends DialogBaseAlert {
     @Override
     public void childClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_nfc:
+            case R.id.ll_nfc:
                 if (onClickListener != null) {
                     onClickListener.onClick(0);
                 }
                 break;
-            case R.id.tv_card:
+            case R.id.ll_card:
                 if (onClickListener != null) {
                     onClickListener.onClick(1);
                 }

@@ -4,16 +4,14 @@
     android:layout_height="wrap_content"
     android:background="@drawable/shape_lgray_bwhite_r8"
     android:orientation="vertical"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp">
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp">
 
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="12dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
         android:paddingTop="12dp">
 
         <LinearLayout
@@ -28,10 +26,9 @@
                 android:background="@drawable/bg_in" />
 
 
-
             <TextView
                 android:id="@+id/tv_outin_name"
-                style="@style/font_content_14"
+                style="@style/font_6_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -48,11 +45,12 @@
 
             <TextView
                 android:id="@+id/tv_info_time"
-                style="@style/font_content_14"
+                style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp" />
+                android:layout_marginRight="16dp"
+                android:text="2015-05-15" />
 
             <ImageView
                 android:id="@+id/iv_apply_arrow"
@@ -64,11 +62,11 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/ll_expand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <View style="@style/divider_nomal_horizontal" />
 
@@ -76,48 +74,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="10dp">
+            android:paddingTop="12dp">
 
             <TextView
-                style="@style/font_tip_14"
-                android:layout_width="0dp"
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="end"
-                android:text="手机号码：" />
+                android:text="手机号码" />
 
             <TextView
                 android:id="@+id/tv_info_phone"
-                style="@style/font_content_14"
+                style="@style/font_3_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
                 android:layout_weight="6"
                 android:text="18888888888" />
 
         </LinearLayout>
 
-        <View style="@style/divider_nomal_horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="10dp">
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
 
             <TextView
-                style="@style/font_tip_14"
-                android:layout_width="0dp"
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="end"
-                android:text="身份证号：" />
+                android:text="身份证号" />
 
             <TextView
-
                 android:id="@+id/tv_info_card"
-                style="@style/font_content_14"
+                style="@style/font_3_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
                 android:layout_weight="6"
                 android:text="336512228821548744" />
 

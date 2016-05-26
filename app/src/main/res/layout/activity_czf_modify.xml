@@ -3,56 +3,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_gray_kj"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
 
+    >
 
-    <View
-        style="@style/divider_title_horizontal"
-        android:layout_marginTop="12dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_lgray1_bwhite_r5"
         android:orientation="vertical">
 
+        <TextView
+            style="@style/font_bold_6_12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_title_lgray1_bgray_r5"
+            android:padding="12dp"
+            android:text="房屋信息修改" />
+
+
         <LinearLayout
-            android:background="@color/bg_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:gravity="end"
-                android:text="出租房名称:" />
+                android:text="出租房名称" />
 
             <RelativeLayout
 
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
                 android:layout_weight="5"
 
                 >
 
                 <ImageView
-
                     android:id="@+id/iv_edit_delete"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
-                    android:background="@drawable/bg_clear" />
+                    android:background="@drawable/bg_clear"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/et_czf_name"
-                    style="@style/font_content_14"
+                    style="@style/font_edit_3_14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -65,106 +73,92 @@
 
         </LinearLayout>
 
-        <View style="@style/divider_title_horizontal" />
-
-        <View
-            style="@style/divider_title_horizontal"
-            android:layout_marginTop="12dp" />
-
+        <View style="@style/divider_nomal_horizontal" />
         <LinearLayout
-            android:background="@color/bg_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="10dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_12"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:gravity="end"
-                android:text="房东姓名:" />
+                android:text="房东姓名" />
 
             <TextView
                 android:id="@+id/tv_owner_name"
-                style="@style/font_content_14"
+                style="@style/font_3_12"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="12dp"
                 android:layout_weight="5" />
 
         </LinearLayout>
 
-        <View style="@style/divider_light_horizontal" />
+        <View style="@style/divider_nomal_horizontal" />
 
         <LinearLayout
-            android:background="@color/bg_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="10dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_12"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:gravity="end"
-                android:text="房东手机:" />
+                android:text="房东手机" />
 
             <TextView
                 android:id="@+id/tv_owner_phone"
-                style="@style/font_content_14"
+                style="@style/font_3_12"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="12dp"
                 android:layout_weight="5"
                 android:gravity="center_vertical" />
 
         </LinearLayout>
 
-        <View style="@style/divider_light_horizontal" />
+
+        <View style="@style/divider_nomal_horizontal" />
 
         <LinearLayout
-            android:background="@color/bg_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="10dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:gravity="end"
-                android:text="出租房地址:" />
+                android:text="出租房地址" />
 
             <TextView
                 android:id="@+id/tv_owner_address"
-                style="@style/font_content_14"
+                style="@style/font_3_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
                 android:layout_weight="5" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <View style="@style/divider_title_horizontal" />
 
-    <Button
-        android:id="@+id/btn_submit"
-        style="@style/button_16"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="20dp"
+    <TextView
+        android:id="@+id/tv_submit"
+        style="@style/btn_small_blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         android:text="提交" />
-
 
 </LinearLayout>

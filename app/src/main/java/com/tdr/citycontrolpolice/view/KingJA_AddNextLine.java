@@ -59,11 +59,20 @@ public class KingJA_AddNextLine extends LinearLayout {
 
     }
 
+    public String getAddRoom() {
+        floor = et_floor.getText().toString().trim();
+        room = et_room.getText().toString().trim();
+        if (!CheckUtil.checkEmpty(floor, "楼层数不能为空") || !CheckUtil.checkEmpty(room, "房间序号不能为空") || !CheckUtil.checkZero(floor) || !CheckUtil.checkZero(room)) {
+            Log.i(TAG, "输入有误: ");
+            return "";
+        }
+        return floor + String.format("%02d", Integer.valueOf(room));
+    }
     /**
      * 获取房间号码
      * @return
      */
-    public List<String> getRoom() {
+    public List<String> getInitRooms() {
         floor = et_floor.getText().toString().trim();
         room = et_room.getText().toString().trim();
         Log.i(TAG, "floor: " + floor + "room: " + room);
@@ -75,7 +84,7 @@ public class KingJA_AddNextLine extends LinearLayout {
         roomlist = new ArrayList<>();
         for (int i = 1; i <= Integer.valueOf(room); i++) {
             String room = floor + String.format("%02d", i);
-            Log.i(TAG, "getRoom: " + room);
+            Log.i(TAG, "getInitRooms: " + room);
             roomlist.add(room);
         }
         return roomlist;

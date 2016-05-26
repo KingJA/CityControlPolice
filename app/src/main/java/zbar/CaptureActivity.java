@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.util.ToastUtil;
 
 import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;
@@ -27,7 +28,6 @@ import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 
 /**
@@ -117,8 +117,11 @@ public class CaptureActivity extends Activity {
         mCameraManager = new CameraManager(this);
         try {
             mCameraManager.openDriver();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            ToastUtil.showMyToast("请开启相机权限");
+            finish();
+            return;
         }
 
         mCamera = mCameraManager.getCamera();

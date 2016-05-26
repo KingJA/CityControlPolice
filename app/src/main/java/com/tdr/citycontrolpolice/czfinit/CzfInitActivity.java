@@ -5,10 +5,8 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.activity.BackTitleActivity;
@@ -41,19 +38,14 @@ import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.CheckUtil;
-import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.util.ImageUtil;
 import com.tdr.citycontrolpolice.util.MyUtil;
 import com.tdr.citycontrolpolice.util.TendencyEncrypt;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
-import com.tdr.citycontrolpolice.util.WebService;
-import com.tdr.citycontrolpolice.view.ZProgressHUD;
 import com.tdr.citycontrolpolice.view.dialog.DialogAddress;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.popupwindow.BottomListPop;
-
-import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -86,7 +78,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     private EditText mEtAdminPhone;
     private ImageView mIvNumber;
     private ImageView mIvRoom;
-    private Button mBtnSubmit;
+    private TextView mTvSubmit;
     private DialogAddress dialogAddress;
     private HashMap<String, Object> mParam;
     private Basic_JuWeiHui_Kj juWeiHui;
@@ -166,7 +158,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mEtAdminPhone = (EditText) view.findViewById(R.id.et_adminPhone);
         mIvNumber = (ImageView) view.findViewById(R.id.iv_number);
         mIvRoom = (ImageView) view.findViewById(R.id.iv_room);
-        mBtnSubmit = (Button) view.findViewById(R.id.btn_submit);
+        mTvSubmit = (TextView) view.findViewById(R.id.tv_submit);
         dialogAddress = new DialogAddress(this);
         roomTypeList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().sleectAll(Basic_Dictionary_Kj.class, "COLUMNCODE", "HOUSETYPE");
         houseTypePop = new BottomListPop(mTvAddress, CzfInitActivity.this, roomTypeList);
@@ -189,7 +181,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mTvCzfType.setOnClickListener(this);
         mIvNumber.setOnClickListener(this);
         mIvRoom.setOnClickListener(this);
-        mBtnSubmit.setOnClickListener(this);
+        mTvSubmit.setOnClickListener(this);
         houseTypePop.setOnBottemPopSelectListener(this);
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
@@ -265,7 +257,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_submit:
+            case R.id.tv_submit:
 //                二维码
 
                 checkData();
@@ -451,7 +443,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     @Override
     public void onConfirm(Basic_StandardAddressCodeByKey_Kj.ContentBean standardAddressCodeByKey) {
         this.standardAddressCodeByKey = standardAddressCodeByKey;
-        this.addressCode = standardAddressCodeByKey.getId();
+        this.addressCode = standardAddressCodeByKey.getId();// FIXME: 2016/5/26
 
         setProgressDialog(true);
         mTvAddress.setText(standardAddressCodeByKey.getAddress().substring(6));

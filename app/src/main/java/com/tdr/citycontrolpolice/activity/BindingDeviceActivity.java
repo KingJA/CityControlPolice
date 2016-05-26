@@ -53,9 +53,8 @@ public class BindingDeviceActivity extends BackTitleActivity {
     private EditText et_device_name;
     private TextView tv_device_room;
     private TextView tv_device_type;
-    private Button btn_device_submit;
+    private TextView tv_device_submit;
     private ImageView iv_device_icon;
-    private ImageView iv_device_camera;
     private File boxFile;
     private String base64Box;
 
@@ -80,9 +79,8 @@ public class BindingDeviceActivity extends BackTitleActivity {
         et_device_name = (EditText) view.findViewById(R.id.et_device_name);
         tv_device_room = (TextView) view.findViewById(R.id.tv_device_room);
         tv_device_type = (TextView) view.findViewById(R.id.tv_device_type);
-        btn_device_submit = (Button) view.findViewById(R.id.btn_device_submit);
+        tv_device_submit = (TextView) view.findViewById(R.id.tv_device_submit);
         iv_device_icon = (ImageView) view.findViewById(R.id.iv_device_icon);
-        iv_device_camera = (ImageView) view.findViewById(R.id.iv_device_camera);
     }
 
     @Override
@@ -145,7 +143,7 @@ public class BindingDeviceActivity extends BackTitleActivity {
 
             }
         });
-        btn_device_submit.setOnClickListener(new View.OnClickListener() {
+        tv_device_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bindDevice();

@@ -2,12 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/bg_gray_kj">
 
     <include layout="@layout/include_empty" />
 
     <LinearLayout
-        android:background="#F5F5F5"
+        android:background="@drawable/shape_lgray1_bwhite_r5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@drawable/shape_title_lgray1_bgray_r5"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingBottom="12dp"
@@ -16,6 +24,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/font_bold_6_12"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -23,6 +32,7 @@
             android:text="房间号" />
 
         <TextView
+            style="@style/font_bold_6_12"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -30,6 +40,7 @@
             android:text="网关/基站" />
 
         <TextView
+            style="@style/font_bold_6_12"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -37,7 +48,6 @@
             android:text="设备 " />
     </LinearLayout>
 
-    <View style="@style/divider_title_horizontal" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl"
@@ -55,4 +65,5 @@
 
         </ListView>
     </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
 </LinearLayout>

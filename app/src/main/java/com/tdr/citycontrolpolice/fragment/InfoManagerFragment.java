@@ -3,6 +3,8 @@ package com.tdr.citycontrolpolice.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +36,7 @@ import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.KingJA_AddNextLine;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
+import com.tdr.citycontrolpolice.view.popupwindow.KingJA_AddNextRoom;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,6 +73,8 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     SwipeRefreshLayout srlCzfManager;
     @Bind(R.id.btn_add)
     ImageView btnAdd;
+    @Bind(R.id.tv_tip)
+    TextView tvTip;
 
     private ChuZuWuInfo chuZuWuInfo;
     private View rootView;
@@ -87,6 +92,9 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     private DialogDouble addDialogDouble;
     private List<String> currentRoomList = new ArrayList<>();
     private InputMethodManager inputManager;
+    private boolean hasInitRoom;
+    private KingJA_AddNextLine kingJA_addNextLine;
+    private KingJA_AddNextRoom kingJA_addNextroom;
 
     public static InfoManagerFragment newInstance(String houseId) {
         InfoManagerFragment managerFragment = new InfoManagerFragment();
@@ -142,7 +150,10 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
                         Log.i("roomList", "InfoManagerFragment: " + roomList.size());
                         llInitRoom.setVisibility(roomList.size() == 0 ? View.VISIBLE : View.GONE);
                         btnAdd.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
+                        hasInitRoom = (roomList.size() == 0 ? false : true);
                         tvBack.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
+                        tvTip.setText(roomList.size() == 0 ? "请输入楼层号和房间数进行初始化" : "请输入房间号进行房间添加");
+
                         czfManagerAdapter.setData(roomList);
                         dialogProgress.dismiss();
                         currentRoomList.clear();
@@ -216,30 +227,47 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     }
 
 
-    private List<KingJA_AddNextLine> roomStringList = new ArrayList<>();
+    private List<KingJA_AddNextLine> initRoomsList = new ArrayList<>();
+    private List<KingJA_AddNextRoom> addRoomsList = new ArrayList<>();
     private List<String> rooms = new ArrayList<>();
     private List<String> floors = new ArrayList<>();
 
     @OnClick(R.id.btn_add)
     void addFloat() {
         llInitRoot.removeAllViews();
-        roomStringList.clear();
+        initRoomsList.clear();
+        addRoomsList.clear();
+
         llInitRoom.setVisibility(View.VISIBLE);
         btnAdd.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.iv_init_delete)
     void delete() {
-        if (roomStringList.size() > 0) {
-            llInitRoot.removeView(roomStringList.remove(roomStringList.size() - 1));
+        if (hasInitRoom) {
+            if (addRoomsList.size() > 0) {
+                llInitRoot.removeView(addRoomsList.remove(addRoomsList.size() - 1));
+            }
+        } else {
+            if (initRoomsList.size() > 0) {
+                llInitRoot.removeView(initRoomsList.remove(initRoomsList.size() - 1));
+            }
         }
+
     }
 
     @OnClick(R.id.iv_init_add)
     void add() {
-        KingJA_AddNextLine kingJA_addNextLine = new KingJA_AddNextLine(mActivity);
-        llInitRoot.addView(kingJA_addNextLine, layoutParams);
-        roomStringList.add(kingJA_addNextLine);
+        if (hasInitRoom) {
+            kingJA_addNextroom = new KingJA_AddNextRoom(mActivity);
+            llInitRoot.addView(kingJA_addNextroom, layoutParams);
+            addRoomsList.add(kingJA_addNextroom);
+        } else {
+            kingJA_addNextLine = new KingJA_AddNextLine(mActivity);
+            llInitRoot.addView(kingJA_addNextLine, layoutParams);
+            initRoomsList.add(kingJA_addNextLine);
+        }
+
     }
 
     @OnClick(R.id.tv_back)
@@ -252,11 +280,24 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
     @OnClick(R.id.iv_init_submit)
     void init() {
+        if (hasInitRoom) {
+            //添加房间
+            doAddRoom();
+        } else {
+            //初始化房间
+            doInitRoom();
+        }
+    }
+
+    /**
+     * 初始化房间
+     */
+    private void doInitRoom() {
         rooms.clear();
         floors.clear();
-        Log.i(TAG, "KingJA_AddNextLine: " + roomStringList.size());
-        for (KingJA_AddNextLine line : roomStringList) {
-            List<String> room = line.getRoom();
+        Log.i(TAG, "KingJA_AddNextLine: " + initRoomsList.size());
+        for (KingJA_AddNextLine line : initRoomsList) {
+            List<String> room = line.getInitRooms();
             if (room != null) {
                 String floor = line.getFloor();
                 if (floors.contains(floor)) {
@@ -277,19 +318,37 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
         } else {
             ToastUtil.showMyToast("请添加房间");
         }
+    }
+
+    /**
+     * 添加房间
+     */
+    private void doAddRoom() {
+        rooms.clear();
+        floors.clear();
+        Log.i(TAG, "KingJA_AddNextLine: " + initRoomsList.size());
+        for (KingJA_AddNextRoom line : addRoomsList) {
+            String room = line.getAddRoom();
+            if (TextUtils.isEmpty(room)) {
+                return;
+            }
+            if (rooms.contains(room)) {
+                ToastUtil.showMyToast("房间重复");
+                return;
+            } else {
+                rooms.add(room);
+            }
+        }
+        if (!rooms.isEmpty()) {
+            initRoom();
+            Log.i(TAG, "rooms: " + rooms.toString());
+        } else {
+            ToastUtil.showMyToast("请添加房间");
+        }
 
     }
 
     private void initRoom() {
-//        for (int i = 0; i < rooms.size(); i++) {
-//            for (int j = 0; j < currentRoomList.size(); j++) {
-//                if (rooms.get(i).equals(currentRoomList.get(j))) {
-//                    Log.i(TAG, rooms.get(i)+"&&"+currentRoomList.get(j));
-//                    ToastUtil.showMyToast(rooms.get(i) + "号房间已经存在");
-//                    return;
-//                }
-//            }
-//        }
         dialogProgress.show();
         param = new Param_ChuZuWu_AddRoomList();
         param.setTaskID("1");

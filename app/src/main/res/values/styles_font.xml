@@ -91,10 +91,10 @@
         <item name="android:textColor">@color/font_yellow</item>
     </style>
 
-    <style name="font_green_sel">
+    <style name="font_blue_sel">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@drawable/sel_text_green</item>
-        <item name="android:background">@drawable/sel_btn_green</item>
+        <item name="android:textColor">@drawable/sel_text_blue</item>
+        <item name="android:background">@drawable/sel_btn_blue_detail</item>
         <item name="android:paddingBottom">4dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
@@ -110,6 +110,11 @@
 
     <style name="font_6_12">
         <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/font_6</item>
+    </style>
+
+    <style name="font_6_14">
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/font_6</item>
     </style>
 
@@ -132,4 +137,29 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/font_3</item>
     </style>
+
+    <style name="font_bold_6_12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/font_6</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="font_red_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/font_red</item>
+    </style>
+
+    <style name="font_edit_3_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/font_3</item>
+        <item name="android:textColorHint">@color/font_edit</item>
+    </style>
+
+    <style name="font_edit_f_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/bg_white</item>
+        <item name="android:textColorHint">@color/font_edit</item>
+    </style>
+
+
 </resources>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_initRoom"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="12dp"
+    android:background="@drawable/shape_lgray1_bwhite_r5"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_title_lgray1_bgray_r5"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_tip"
+            style="@style/font_bold_6_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请添加楼层及房间" />
+
+        <TextView
+            android:id="@+id/tv_back"
+            style="@style/font_tip_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="取消" />
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/ll_init_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <ImageView
+            android:id="@+id/iv_init_add"
+            android:layout_width="66dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_add" />
+
+        <ImageView
+            android:id="@+id/iv_init_delete"
+            android:layout_width="66dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/iv_init_add"
+            android:background="@drawable/bg_reduce" />
+
+        <ImageView
+            android:id="@+id/iv_init_submit"
+            android:layout_width="68dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/sel_btn_submit" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

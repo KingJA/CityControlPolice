@@ -48,7 +48,7 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
     private TextView mTvBoxName;
     private TextView mTvBoxPolice;
     private ImageView mIvBox;
-    private Button mBtnSubmit;
+    private TextView tv_submit;
     private String userName;
     private File boxFile;
     private String base64Box;
@@ -73,7 +73,7 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
         mTvBoxName = (TextView) findViewById(R.id.tv_box_name);
         mTvBoxPolice = (TextView) findViewById(R.id.tv_box_police);
         mIvBox = (ImageView) findViewById(R.id.iv_box);
-        mBtnSubmit = (Button) findViewById(R.id.btn_submit);
+        tv_submit = (TextView) findViewById(R.id.tv_submit);
     }
 
 
@@ -120,7 +120,7 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
 
     @Override
     public void initData() {
-        mBtnSubmit.setOnClickListener(this);
+        tv_submit.setOnClickListener(this);
         mIvBox.setOnClickListener(this);
         boxFile = ImageUtil.createImageFile();
     }
@@ -201,7 +201,7 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(boxFile));
                 startActivityForResult(intent, CAMERA);
                 break;
-            case R.id.btn_submit:
+            case R.id.tv_submit:
                 if (CheckUtil.checkEmpty(base64Box, "请拍摄货品箱图片")) {
                     scanBox();
                 }

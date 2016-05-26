@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.activity.DetailPersonActivity;
-import com.tdr.citycontrolpolice.adapter.CzfPersonAdapter;
+import com.tdr.citycontrolpolice.adapter.CzfPopulationAdapter;
 import com.tdr.citycontrolpolice.base.KjBaseFragment;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_LKJBInfoList;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
  * 创建时间：2016/3/24 16:26
  * 修改备注：
  */
-public class InfoPopulationFragment extends KjBaseFragment implements CzfPersonAdapter.OnClickDetailListener {
+public class InfoPopulationFragment extends KjBaseFragment implements CzfPopulationAdapter.OnClickDetailListener {
     @Bind(R.id.lv_exist)
     ListView lv;
     @Bind(R.id.ll_empty)
@@ -41,7 +41,7 @@ public class InfoPopulationFragment extends KjBaseFragment implements CzfPersonA
     private HashMap<String, Object> mParam = new HashMap<>();
     private List<ChuZuWu_LKJBInfoList.ContentEntity.PERSONNELINFOLISTEntity> personnelinfolist = new ArrayList<>();
     private String mToken;
-    private CzfPersonAdapter czfPersonAdapter;
+    private CzfPopulationAdapter czfPersonAdapter;
 
     public static InfoPopulationFragment newInstance(String houseId) {
         InfoPopulationFragment applyFragment = new InfoPopulationFragment();
@@ -71,7 +71,7 @@ public class InfoPopulationFragment extends KjBaseFragment implements CzfPersonA
 
     @Override
     protected void initFragmentView() {
-        czfPersonAdapter = new CzfPersonAdapter(mActivity, personnelinfolist);
+        czfPersonAdapter = new CzfPopulationAdapter(mActivity, personnelinfolist);
         lv.setAdapter(czfPersonAdapter);
     }
 

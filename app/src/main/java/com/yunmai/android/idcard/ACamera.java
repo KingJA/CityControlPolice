@@ -198,6 +198,7 @@ public class ACamera extends BaseActivity implements SurfaceHolder.Callback {
         } catch (Exception e) {
             Toast.makeText(ACamera.this, R.string.camera_open_error,
                     Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 

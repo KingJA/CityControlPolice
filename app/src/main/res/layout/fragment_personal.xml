@@ -5,172 +5,155 @@
     android:orientation="vertical">
 
     <ImageView
-        android:background="@drawable/home_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/home_top" />
 
-
-    <View
-            style="@style/divider_title_horizontal"
-            android:layout_marginTop="12dp" />
-
-        <LinearLayout
-            android:id="@+id/ll_personal_modify"
-            style="@style/LinearLayout_style"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_margin="10dp"
-                android:src="@mipmap/xgmm" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="6dp"
-                android:text="修改密码"
-                android:textSize="15dp" />
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_margin="10dp"
-                android:src="@mipmap/right" />
-        </LinearLayout>
-
-    <View style="@style/divider_title_horizontal" />
-
-    <View
-        style="@style/divider_title_horizontal"
-        android:layout_marginTop="12dp" />
 
     <LinearLayout
-            android:id="@+id/ll_personal_question"
-        style="@style/LinearLayout_style"
-
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ll_personal_modify"
         android:gravity="center_vertical">
 
         <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-                android:layout_margin="10dp"
-            android:src="@mipmap/cjwt" />
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/xgmm" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="6dp"
-                android:text="常见问题"
-                android:textSize="15dp" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:text="修改密码"
+            style="@style/font_3_14" />
 
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_margin="10dp"
-                android:src="@mipmap/right" />
-        </LinearLayout>
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="15dp"
+            android:src="@drawable/right" />
+    </LinearLayout>
 
-        <View
-            style="@style/divider_light_horizontal"
-            android:layout_marginLeft="56dp" />
-
-        <LinearLayout
-            android:id="@+id/ll_personal_report"
-            style="@style/LinearLayout_style"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/bg_report" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="6dp"
-                android:text="问题反馈"
-                android:textSize="15dp" />
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_margin="10dp"
-                android:src="@mipmap/right" />
-        </LinearLayout>
+    <View style="@style/divider_nomal_horizontal" />
 
     <View
-        style="@style/divider_light_horizontal"
-        android:layout_marginLeft="56dp" />
+        style="@style/divider_nomal_horizontal"
+        android:layout_marginTop="16dp" />
 
-        <LinearLayout
-            android:id="@+id/ll_personal_about"
-            style="@style/LinearLayout_style"
-            android:gravity="center_vertical">
+    <LinearLayout
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ll_personal_question"
+        android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_margin="10dp"
-                android:src="@mipmap/gywm" />
+        <ImageView
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/cjwt" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="6dp"
-                android:text="关于我们"
-                android:textSize="15dp" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:text="常见问题"
+            style="@style/font_3_14" />
 
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_margin="10dp"
-                android:src="@mipmap/right" />
-        </LinearLayout>
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="15dp"
+            android:src="@drawable/right" />
+    </LinearLayout>
 
-    <View style="@style/divider_title_horizontal" />
+
+    <LinearLayout
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="10dp"
+        android:id="@+id/ll_personal_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/wtfj" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:text="问题反馈"
+            style="@style/font_3_14" />
+
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="15dp"
+            android:src="@drawable/right" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:id="@+id/ll_personal_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/gywm" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:text="关于我们"
+            style="@style/font_3_14" />
+
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="15dp"
+            android:src="@drawable/right" />
+    </LinearLayout>
+
+    <View style="@style/divider_nomal_horizontal" />
 
     <View
-        style="@style/divider_title_horizontal"
-        android:layout_marginTop="12dp" />
+        style="@style/divider_nomal_horizontal"
+        android:layout_marginTop="16dp" />
 
-        <LinearLayout
-            android:id="@+id/ll_personal_quit"
-            style="@style/LinearLayout_style"
-            android:gravity="center_vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ll_personal_quit"
+        android:padding="12dp"
+        android:gravity="center">
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_margin="10dp"
-                android:src="@mipmap/out" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="退出"
+            style="@style/font_red_14" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="6dp"
-                android:text="退出当前账号"
-                android:textSize="15dp" />
+    </LinearLayout>
 
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_margin="10dp"
-                android:src="@mipmap/right" />
-        </LinearLayout>
-
-    <View style="@style/divider_title_horizontal" />
+    <View style="@style/divider_nomal_horizontal" />
 
 
 </LinearLayout>

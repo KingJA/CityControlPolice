@@ -13,20 +13,18 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center">
+            android:layout_weight="1">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="楼层 :" />
+                android:text="楼层 " />
 
             <EditText
                 android:textCursorDrawable="@drawable/et_cursor"
                 android:id="@+id/et_floor"
-                style="@style/font_content_14"
+                style="@style/font_edit_3_14"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -40,20 +38,19 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center">
+            android:layout_weight="1">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="房间 :" />
+                android:text="房间" />
 
             <EditText
                 android:textCursorDrawable="@drawable/et_cursor"
                 android:id="@+id/et_room"
-                style="@style/font_content_14"
+                style="@style/font_edit_3_14"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"

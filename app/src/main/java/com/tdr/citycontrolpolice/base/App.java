@@ -33,7 +33,7 @@ public class App extends Application {
         mAppContext = getApplicationContext();
         mSharedPreferences = getSharedPreferences(CustomConstants.APPLICATION_NAME,
                 MODE_PRIVATE);
-        CrashReport.initCrashReport(mAppContext, "900026215", false);
+//        CrashReport.initCrashReport(mAppContext, "900026215", false);
         initXutils3();
     }
 

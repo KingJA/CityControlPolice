@@ -1,34 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="280dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:orientation="vertical"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp"
-    android:paddingRight="32dp"
-    android:paddingLeft="32dp">
+    android:orientation="vertical">
 
-    <TextView
-
-        android:id="@+id/tv_nfc"
-        android:gravity="center"
-        android:padding="10dp"
-        style="@style/font_white_16"
-        android:background="@drawable/shape_lblue_bblue_r4"
+    <LinearLayout
+        android:background="@drawable/sel_top_tr2gray"
+        android:id="@+id/ll_nfc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NFC核查" />
+        android:gravity="center_vertical"
+        android:padding="18dp">
 
-    <TextView
-        android:id="@+id/tv_card"
-        android:layout_marginTop="16dp"
-        android:padding="10dp"
-        android:gravity="center"
-        style="@style/font_white_16"
-        android:background="@drawable/shape_lblue_bblue_r4"
-        android:text="身份证ID卡刷卡核查"
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bg_dialog_nfc" />
+
+        <TextView
+
+            style="@style/font_3_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="NFC核查" />
+    </LinearLayout>
+
+    <View style="@style/divider_nomal_horizontal" />
+
+    <LinearLayout
+        android:background="@drawable/sel_bottom_tr2gray"
+        android:id="@+id/ll_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="18dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bg_dialog_card" />
+
+        <TextView
+
+            style="@style/font_3_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="身份证ID卡刷卡核查" />
+    </LinearLayout>
 
 </LinearLayout>

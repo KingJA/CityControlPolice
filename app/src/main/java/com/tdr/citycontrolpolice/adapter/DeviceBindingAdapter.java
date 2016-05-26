@@ -42,7 +42,7 @@ public class DeviceBindingAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.Conten
         final boolean isStation = !TextUtils.isEmpty(list.get(position).getSTATIONNO());
         viewHolder.station.setBackgroundResource(isStation ? R.drawable.shape_lgray_bgray_r4 : R.drawable.shape_lgreen_bgreen_r4);
         viewHolder.station.setEnabled(isStation ? false : true);
-        viewHolder.station.setBackgroundResource(isStation ? R.drawable.binding_off : R.drawable.bing_on);
+        viewHolder.station.setBackgroundResource(isStation ? R.drawable.binding_off : R.drawable.sel_binding);
         viewHolder.station.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

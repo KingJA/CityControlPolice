@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/pop_top"
+            android:background="@drawable/bg_popwindow"
             android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:paddingLeft="18dp">
 
             <LinearLayout
                 android:id="@+id/ll_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/sel_tr2half_kj"
                 android:gravity="center_vertical"
@@ -31,7 +30,7 @@
                     android:background="@drawable/bg_fwxx" />
 
                 <TextView
-                    style="@style/font_white_16"
+                    style="@style/font_3_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -39,16 +38,16 @@
             </LinearLayout>
 
             <LinearLayout
-
+                android:visibility="gone"
                 android:id="@+id/ll_apply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <View style="@style/divider_pop_horizontal" />
+                <View style="@style/divider_nomal_horizontal" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/sel_tr2half_kj"
                     android:gravity="center_vertical"
@@ -62,7 +61,7 @@
                         android:background="@drawable/bg_sbsb" />
 
                     <TextView
-                        style="@style/font_white_16"
+                        style="@style/font_3_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
@@ -70,11 +69,11 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <View style="@style/divider_pop_horizontal" />
+            <View style="@style/divider_nomal_horizontal" />
 
             <LinearLayout
                 android:id="@+id/ll_card"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/sel_tr2half_kj"
                 android:gravity="center_vertical"
@@ -87,18 +86,18 @@
                     android:background="@drawable/bg_card" />
 
                 <TextView
-                    style="@style/font_white_16"
+                    style="@style/font_3_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="刷卡记录列表" />
             </LinearLayout>
 
-            <View style="@style/divider_pop_horizontal" />
+            <View style="@style/divider_nomal_horizontal" />
 
             <LinearLayout
                 android:id="@+id/ll_register"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/sel_tr2half_kj"
                 android:gravity="center_vertical"
@@ -111,18 +110,18 @@
                     android:background="@drawable/bg_crjl" />
 
                 <TextView
-                    style="@style/font_white_16"
+                    style="@style/font_3_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="出入历史列表" />
             </LinearLayout>
 
-            <View style="@style/divider_pop_horizontal" />
+            <View style="@style/divider_nomal_horizontal" />
 
             <LinearLayout
                 android:id="@+id/ll_binding"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/sel_tr2half_kj"
                 android:gravity="center_vertical"
@@ -132,21 +131,21 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:background="@mipmap/czf_binding" />
+                    android:background="@drawable/czf_binding" />
 
                 <TextView
-                    style="@style/font_white_16"
+                    style="@style/font_3_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="防控设备绑定" />
             </LinearLayout>
 
-            <View style="@style/divider_pop_horizontal" />
+            <View style="@style/divider_nomal_horizontal" />
 
             <LinearLayout
                 android:id="@+id/ll_manager"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/sel_tr2half_kj"
                 android:gravity="center_vertical"
@@ -156,10 +155,10 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:background="@mipmap/czf_manager" />
+                    android:background="@drawable/czf_manager" />
 
                 <TextView
-                    style="@style/font_white_16"
+                    style="@style/font_3_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"

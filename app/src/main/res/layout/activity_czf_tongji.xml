@@ -1,176 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gray_kj">
-
-    <View
-        style="@style/divider_title_horizontal"
-        android:layout_marginTop="12dp" />
-    <LinearLayout
-        android:background="@color/bg_white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="12dp">
-
-        <TextView
-            style="@style/font_tip_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="end"
-            android:text="房东名称:" />
-
-        <TextView
-            android:id="@+id/tv_ownerName"
-            style="@style/font_content_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="7" />
-
-
-    </LinearLayout>
-
-    <View style="@style/divider_light_horizontal" />
+    android:background="@color/bg_gray_kj"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="16dp">
 
     <LinearLayout
-        android:background="@color/bg_white"
+        style="@style/font_bold_6_12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="12dp">
+        android:background="@drawable/shape_lgray1_bwhite_r5"
+        android:orientation="vertical">
 
         <TextView
-            style="@style/font_tip_14"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="end"
-            android:text="联系号码:" />
+            android:background="@drawable/shape_title_lgray1_bgray_r5"
+            android:padding="12dp"
+            android:text="出租屋信息统计" />
 
-        <TextView
-            android:id="@+id/tv_ownerPhone"
-            style="@style/font_content_14"
-            android:layout_width="0dp"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="7" />
+            android:gravity="center_vertical"
+            android:padding="12dp">
 
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:text="房东名称" />
+
+            <TextView
+                android:id="@+id/tv_ownerName"
+                style="@style/font_3_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7" />
+
+
+        </LinearLayout>
+
+        <View style="@style/divider_light_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:text="房东手机" />
+
+            <TextView
+                android:id="@+id/tv_ownerPhone"
+                style="@style/font_3_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7" />
+
+
+        </LinearLayout>
+
+
+        <View style="@style/divider_light_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:text="房间个数" />
+
+            <TextView
+                android:id="@+id/tv_roomCount"
+                style="@style/font_3_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7" />
+
+
+        </LinearLayout>
+
+        <View style="@style/divider_light_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:text="授权人数" />
+
+            <TextView
+                android:id="@+id/tv_personCount"
+                style="@style/font_3_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7" />
+
+
+        </LinearLayout>
+
+        <View style="@style/divider_light_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:text="出租房名称" />
+
+            <TextView
+                android:id="@+id/tv_czfName"
+                style="@style/font_3_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7" />
+
+
+        </LinearLayout>
+
+        <View style="@style/divider_light_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:text="出租房地址" />
+
+            <TextView
+                android:id="@+id/tv_czfAddress"
+                style="@style/font_content_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7" />
+        </LinearLayout>
 
     </LinearLayout>
-
-    <View style="@style/divider_light_horizontal" />
-
-    <LinearLayout
-        android:background="@color/bg_white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="12dp">
-
-        <TextView
-            style="@style/font_tip_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="end"
-            android:text="出租房名称:" />
-
-        <TextView
-            android:id="@+id/tv_czfName"
-            style="@style/font_content_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="7" />
-
-
-    </LinearLayout>
-
-    <View style="@style/divider_light_horizontal" />
-
-    <LinearLayout
-        android:background="@color/bg_white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="12dp">
-
-        <TextView
-            style="@style/font_tip_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="end"
-            android:text="房间个数:" />
-
-        <TextView
-            android:id="@+id/tv_roomCount"
-            style="@style/font_content_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="7" />
-
-
-    </LinearLayout>
-
-    <View style="@style/divider_light_horizontal" />
-
-    <LinearLayout
-        android:background="@color/bg_white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="12dp">
-
-        <TextView
-            style="@style/font_tip_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="end"
-            android:text="授权人数:" />
-
-        <TextView
-            android:id="@+id/tv_personCount"
-            style="@style/font_content_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="7" />
-
-
-    </LinearLayout>
-
-    <View style="@style/divider_light_horizontal" />
-
-    <LinearLayout
-        android:background="@color/bg_white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="12dp">
-
-        <TextView
-            style="@style/font_tip_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="end"
-            android:text="出租房地址:" />
-
-        <TextView
-            android:id="@+id/tv_czfAddress"
-            style="@style/font_content_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="7" />
-    </LinearLayout>
-
-    <View style="@style/divider_light_horizontal" />
 </LinearLayout>

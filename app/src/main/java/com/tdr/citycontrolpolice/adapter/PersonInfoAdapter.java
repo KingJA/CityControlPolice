@@ -39,9 +39,13 @@ public class PersonInfoAdapter extends BaseSimpleAdapter<ChuZuWu_ComprehensiveIn
         viewHolder.tvinfophone.setText(list.get(position).getPHONENUM());
         viewHolder.tvinfocard.setText(list.get(position).getIDENTITYCARD());
 
-        viewHolder.ivtf.setVisibility(list.get(position).getTF()==0?View.GONE:View.VISIBLE);
-        viewHolder.ivxj.setVisibility(list.get(position).getISXJ()==0?View.GONE:View.VISIBLE);
-        viewHolder.ivliu.setVisibility(list.get(position).getLK()==0?View.GONE:View.VISIBLE);
+        viewHolder.lltag.setVisibility((list.get(position).getTF() > 0 ||
+                list.get(position).getISXJ() > 0) ? View.VISIBLE : View.GONE);
+
+        viewHolder.ivtf.setVisibility(list.get(position).getTF() == 0 ? View.GONE : View.VISIBLE);
+        viewHolder.ivxj.setVisibility(list.get(position).getISXJ() == 0 ? View.GONE : View.VISIBLE);
+
+        viewHolder.ivliu.setVisibility(list.get(position).getLK() == 0 ? View.GONE : View.VISIBLE);
         viewHolder.ivyao.setVisibility(list.get(position).getDEV() == 0 ? View.GONE : View.VISIBLE);
         viewHolder.iv_zi.setVisibility(list.get(position).getZZSB() == 0 ? View.GONE : View.VISIBLE);
 

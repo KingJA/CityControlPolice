@@ -3,6 +3,7 @@ package com.tdr.citycontrolpolice.view.popupwindow;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.tdr.citycontrolpolice.R;
@@ -27,6 +28,7 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
 
     public CzfInfoPopKj(View parentView, Activity activity) {
         super(parentView, activity);
+        this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
 

@@ -5,7 +5,6 @@ import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +20,6 @@ import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.dialog.DialogConfirm;
-import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 
 import java.util.HashMap;
 
@@ -39,7 +37,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
     private TextView tv_owner_phone;
     private TextView tv_owner_address;
     private EditText et_czf_name;
-    private Button btn_submit;
+    private TextView tv_submit;
     private ImageView iv_edit_delete;
     private String mHouseName;
     private String mToken;
@@ -78,7 +76,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
         tv_owner_phone = (TextView) findViewById(R.id.tv_owner_phone);
         tv_owner_address = (TextView) findViewById(R.id.tv_owner_address);
         et_czf_name = (EditText) findViewById(R.id.et_czf_name);
-        btn_submit = (Button) findViewById(R.id.btn_submit);
+        tv_submit = (TextView) findViewById(R.id.tv_submit);
         iv_edit_delete = (ImageView) findViewById(R.id.iv_edit_delete);
 
     }
@@ -112,7 +110,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
 
     @Override
     public void initData() {
-        btn_submit.setOnClickListener(this);
+        tv_submit.setOnClickListener(this);
         iv_edit_delete.setOnClickListener(this);
         et_czf_name.addTextChangedListener(this);
     }
@@ -134,7 +132,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
             case R.id.iv_edit_delete:
                 et_czf_name.setText("");
                 break;
-            case R.id.btn_submit:
+            case R.id.tv_submit:
                 mHouseName = et_czf_name.getText().toString().trim();
                 modifyHouseName(mHouseName);
                 break;
@@ -145,7 +143,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
 
     private void modifyHouseName(String houseName) {
 
-        if (CheckUtil.checkEmpty(houseName, "请输入房间名称") && CheckUtil.checkLength(houseName, 30, "房间名过长")) {
+        if (CheckUtil.checkEmpty(houseName, "请输入房间名称") && CheckUtil.checkLengthMax(houseName, 30, "房间名过长")) {
             setProgressDialog(true);
             param_chuZuWu_modify.setHOUSENAME(houseName);
             ThreadPoolTask.Builder<ChuZuWu_Modify> builder = new ThreadPoolTask.Builder<>();

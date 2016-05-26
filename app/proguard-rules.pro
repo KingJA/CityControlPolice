@@ -52,8 +52,8 @@
 -dontwarn  cn.com.cybertech.**
 -keep class cn.com.cybertech.** { *;}
 #TendencyNFC3.0.jar
-#-dontwarn  com.tdr.tendencynfc.**
-#-keep class com.tdr.tendencynfc.** { *;}
+-dontwarn  com.tdr.tendencynfc.**
+-keep class com.tdr.tendencynfc.** { *;}
 #ysidcard.jar
 -dontwarn  com.ivsign.android.**
 -keep class com.ivsign.android.** { *;}
@@ -141,6 +141,10 @@ native <methods>;
 -keepclassmembers class * extends android.app.Activity {
    public void *(android.view.View);
 }
+
+#-keepclassmembers class * extends android.app.Dialog {
+#   public void *(android.view.View);
+#}
 -keepclassmembers enum * {
     public static **[] values();
     public static ** valueOf(java.lang.String);

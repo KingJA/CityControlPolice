@@ -1,252 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fillViewport="true"
-    android:scrollbarThumbVertical="@color/bg_transparent">
+    android:orientation="vertical"
+    android:scrollbarThumbVertical="@color/bg_transparent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="16dp"
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
         android:background="@color/bg_gray_kj"
-        android:orientation="vertical">
-
-
-        <TextView
-            style="@style/font_yellow_14"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_yellow"
-
-            android:gravity="center"
-            android:padding="18dp"
-            android:text="请把证件放置设备上并保持不动，等待获取信息" />
-
-        <View
-            style="@style/divider_yellow_horizontal"
-            android:layout_marginBottom="16dp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_lgray1px_bwhite_r0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+            android:background="@drawable/shape_lgray1_bwhite_r5"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp">
-
-                <TextView
-                    style="@style/font_tip_14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="end"
-                    android:text="卡号:" />
-
-                <TextView
-                    android:id="@+id/tv_card_no"
-                    style="@style/font_gray_16"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="10"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="12dp"
-                    android:text="" />
-            </LinearLayout>
-
-            <View style="@style/divider_special_horizontal" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp">
-
-                <TextView
-                    style="@style/font_tip_14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="end"
-                    android:text="姓名:" />
-
-                <TextView
-                    android:id="@+id/tv_name"
-                    style="@style/font_gray_16"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="10"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="12dp"
-                    android:text="" />
-            </LinearLayout>
-
-            <View style="@style/divider_special_horizontal" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp">
-
-                <TextView
-                    style="@style/font_tip_14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="end"
-                    android:text="身份证号:" />
-
-                <TextView
-                    android:id="@+id/tv_card"
-                    style="@style/font_gray_16"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="10"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="12dp"
-                    android:text="" />
-            </LinearLayout>
-
-            <View style="@style/divider_special_horizontal" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp">
-
-                <TextView
-                    style="@style/font_tip_14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="end"
-                    android:text="性别:" />
-
-                <TextView
-                    android:id="@+id/tv_gender"
-
-                    style="@style/font_gray_16"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="10"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="12dp"
-                    android:text="" />
-            </LinearLayout>
-
-            <View style="@style/divider_special_horizontal" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp">
-
-                <TextView
-                    style="@style/font_tip_14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="end"
-                    android:text="民族:" />
-
-                <TextView
-                    android:id="@+id/tv_nation"
-                    style="@style/font_gray_16"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="10"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="12dp"
-                    android:text="" />
-            </LinearLayout>
-
-            <View style="@style/divider_special_horizontal" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp">
-
-                <TextView
-                    style="@style/font_tip_14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="end"
-                    android:text="出生:" />
-
-                <TextView
-                    android:id="@+id/tv_birthday"
-                    style="@style/font_gray_16"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="10"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="12dp"
-                    android:text="" />
-            </LinearLayout>
-
-            <View style="@style/divider_special_horizontal" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp">
-
-                <TextView
-                    style="@style/font_tip_14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="end"
-                    android:text="地址:" />
-
-                <TextView
-                    android:id="@+id/tv_address"
-                    style="@style/font_gray_16"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="10"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="12dp"
-                    android:text="" />
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <Button
-            android:id="@+id/btn_submit"
-            style="@style/button_16"
+        <TextView
+            style="@style/font_6_12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="32dp"
-            android:text="确定" />
+            android:background="@drawable/shape_title_lgray1_bgray_r5"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="请把证件放置设备上并保持不动，等待获取信息" />
 
+            <LinearLayout
+            android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp">
+
+            <TextView
+                style="@style/font_9_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="end"
+                android:text="卡号:" />
+
+            <TextView
+                android:id="@+id/tv_card_no"
+                style="@style/font_3_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="10"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:text="" />
+        </LinearLayout>
+
+            <View style="@style/divider_special_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                style="@style/font_9_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="end"
+                android:text="姓名:" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/font_3_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="10"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:text="" />
+        </LinearLayout>
+
+        <View style="@style/divider_special_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                style="@style/font_9_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="end"
+                android:text="身份证号:" />
+
+            <TextView
+                android:id="@+id/tv_card"
+                style="@style/font_3_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="10"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:text="" />
+        </LinearLayout>
+
+        <View style="@style/divider_special_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                style="@style/font_9_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="end"
+                android:text="性别:" />
+
+            <TextView
+                android:id="@+id/tv_gender"
+
+                style="@style/font_3_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="10"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:text="" />
+        </LinearLayout>
+
+        <View style="@style/divider_special_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                style="@style/font_9_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="end"
+                android:text="民族:" />
+
+            <TextView
+                android:id="@+id/tv_nation"
+                style="@style/font_3_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="10"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:text="" />
+        </LinearLayout>
+
+        <View style="@style/divider_special_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                style="@style/font_9_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="end"
+                android:text="出生:" />
+
+            <TextView
+                android:id="@+id/tv_birthday"
+                style="@style/font_3_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="10"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:text="" />
+        </LinearLayout>
+
+        <View style="@style/divider_special_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                style="@style/font_9_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="end"
+                android:text="地址:" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                style="@style/font_3_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="10"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:text="" />
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_submit"
+                style="@style/btn_small_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="32dp"
+                android:text="提交" />
     </LinearLayout>
+
+    </RelativeLayout>
 </ScrollView>

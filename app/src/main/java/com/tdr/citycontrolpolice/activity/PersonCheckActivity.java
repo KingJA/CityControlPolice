@@ -67,7 +67,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
     private DialogProgress dialogProgress;
     private List<BluetoothBean> searchDevices;
     private List<BluetoothBean> boundDevices = new ArrayList<>();
-    private Button btn_submit;
+    private TextView tv_submit;
     private String bluetoothAddress;
 
     @Override
@@ -91,7 +91,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
         tv_address = (TextView) view.findViewById(R.id.tv_address);
         tv_gender = (TextView) view.findViewById(R.id.tv_gender);
         iv_camera = (ImageView) view.findViewById(R.id.iv_camera);
-        btn_submit = (Button) view.findViewById(R.id.btn_submit);
+        tv_submit = (TextView) view.findViewById(R.id.tv_submit);
         iv_bluetooth = (ImageView) view.findViewById(R.id.iv_bluetooth);
         dialogBluetooth = new DialogBluetooth(this, boundDevices);
         dialogProgress = new DialogProgress(this);
@@ -152,7 +152,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
 
     @Override
     public void initData() {
-        btn_submit.setOnClickListener(this);
+        tv_submit.setOnClickListener(this);
         iv_camera.setOnClickListener(this);
         iv_bluetooth.setOnClickListener(this);
         dialogBluetooth.setOnBuletoothListener(new DialogBluetooth.OnBuletoothListener() {
@@ -391,7 +391,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_submit:
+            case R.id.tv_submit:
                 submit();
                 break;
             case R.id.iv_camera:

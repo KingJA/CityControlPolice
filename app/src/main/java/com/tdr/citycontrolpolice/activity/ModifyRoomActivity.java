@@ -173,6 +173,9 @@ public class ModifyRoomActivity extends BackTitleActivity implements BottomListP
         load();
     }
 
+    public int string2Int(String num) {
+        return "".equals(num) ? 0 : Integer.valueOf(num);
+    }
     /**
      * 上传修改数据到服务器
      */
@@ -182,17 +185,17 @@ public class ModifyRoomActivity extends BackTitleActivity implements BottomListP
         }
         setProgressDialog(true);
         mParam_chuZuWu_modifyRoom = new Param_ChuZuWu_ModifyRoom();
-        mParam_chuZuWu_modifyRoom.setDEPOSIT(Integer.valueOf(payment));
-        mParam_chuZuWu_modifyRoom.setFIXTURE(Integer.valueOf(renovation));
+        mParam_chuZuWu_modifyRoom.setDEPOSIT(string2Int(payment));
+        mParam_chuZuWu_modifyRoom.setFIXTURE(string2Int(renovation));
         mParam_chuZuWu_modifyRoom.setTaskID("1");
         mParam_chuZuWu_modifyRoom.setHOUSEID(mHouseId);
         mParam_chuZuWu_modifyRoom.setROOMID(mRoomId);
-        mParam_chuZuWu_modifyRoom.setSHI(Integer.valueOf(mShi));
-        mParam_chuZuWu_modifyRoom.setTING(Integer.valueOf(mTing));
-        mParam_chuZuWu_modifyRoom.setWEI(Integer.valueOf(mWei));
-        mParam_chuZuWu_modifyRoom.setYANGTAI(Integer.valueOf(mYangTai));
-        mParam_chuZuWu_modifyRoom.setSQUARE(Integer.valueOf(mArea));
-        mParam_chuZuWu_modifyRoom.setGALLERYFUL(Integer.valueOf(mPerson));
+        mParam_chuZuWu_modifyRoom.setSHI(string2Int(mShi));
+        mParam_chuZuWu_modifyRoom.setTING(string2Int(mTing));
+        mParam_chuZuWu_modifyRoom.setWEI(string2Int(mWei));
+        mParam_chuZuWu_modifyRoom.setYANGTAI(string2Int(mYangTai));
+        mParam_chuZuWu_modifyRoom.setSQUARE(string2Int(mArea));
+        mParam_chuZuWu_modifyRoom.setGALLERYFUL(string2Int(mPerson));
         ThreadPoolTask.Builder<ChuZuWu_Modify> builder = new ThreadPoolTask.Builder<ChuZuWu_Modify>();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_ModifyRoom", mParam_chuZuWu_modifyRoom)
                 .setBeanType(ChuZuWu_Modify.class)

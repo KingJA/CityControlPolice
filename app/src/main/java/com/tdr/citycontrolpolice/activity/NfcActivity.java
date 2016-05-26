@@ -48,7 +48,7 @@ public class NfcActivity extends BackTitleActivity {
     private TextView tv_card;
     private TextView tv_name;
     private TextView tv_card_no;
-    private Button btn_submit;
+    private TextView tv_submit;
     private TendencyReadAPI mRead;
     private String tagId;
     private NfcAdapter mAdapter = null;
@@ -76,7 +76,7 @@ public class NfcActivity extends BackTitleActivity {
         tv_birthday = (TextView) view.findViewById(R.id.tv_birthday);
         tv_address = (TextView) view.findViewById(R.id.tv_address);
         tv_gender = (TextView) view.findViewById(R.id.tv_gender);
-        btn_submit = (Button) view.findViewById(R.id.btn_submit);
+        tv_submit = (TextView) view.findViewById(R.id.tv_submit);
         registerNfcReceiver();
     }
 
@@ -95,7 +95,7 @@ public class NfcActivity extends BackTitleActivity {
         } else {
             initNfc();
         }
-        btn_submit.setOnClickListener(new View.OnClickListener() {
+        tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 submit();

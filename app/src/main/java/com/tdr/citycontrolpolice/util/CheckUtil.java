@@ -82,16 +82,25 @@ public class CheckUtil {
     }
 
     /**
-     * 检查字符串长度
+     * 检查字符串最大长度
      *
      * @param input
      * @param lenght
      * @param tip
      * @return
      */
-    public static boolean checkLength(String input, int lenght, String tip) {
+    public static boolean checkLengthMax(String input, int lenght, String tip) {
 
         if (input.length() > lenght) {
+            ToastUtil.showMyToast(tip);
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean checkLengthMin(String input, int lenght, String tip) {
+
+        if (input.length() < lenght) {
             ToastUtil.showMyToast(tip);
             return false;
         }

@@ -488,7 +488,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
 
     @Override
     public void onInput(String statioNo) {
-        if (CheckUtil.checkLength(statioNo, 9, "您好，基站编号过长")) {
+        if (CheckUtil.checkLengthMax(statioNo, 9, "您好，基站编号过长")) {
             BindingStation(mHouseId, currentRoomId, statioNo);
         }
     }

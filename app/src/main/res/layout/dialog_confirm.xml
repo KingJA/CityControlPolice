@@ -24,7 +24,7 @@
 
     <LinearLayout
         android:id="@+id/ll_confirm"
-        android:background="@drawable/sel_single_tr2gray"
+        android:background="@drawable/sel_bottom_tr2gray"
         android:padding="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
