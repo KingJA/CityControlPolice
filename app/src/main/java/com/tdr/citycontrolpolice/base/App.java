@@ -3,13 +3,8 @@ package com.tdr.citycontrolpolice.base;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.text.TextUtils;
 
-import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.util.CustomConstants;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import org.xutils.BuildConfig;
 import org.xutils.x;

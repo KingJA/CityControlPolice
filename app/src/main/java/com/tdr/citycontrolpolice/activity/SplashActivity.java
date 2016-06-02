@@ -18,6 +18,7 @@ import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.AppInfoUtil;
 import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.util.DatebaseManager;
+import com.tdr.citycontrolpolice.util.StatusBarCompat;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -81,6 +82,7 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_splash);
+        StatusBarCompat.initStatusBar(this);
         ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
 
@@ -134,7 +136,7 @@ public class SplashActivity extends Activity {
         PoolManager.getInstance().execute(new Runnable() {
             @Override
             public void run() {
-                DatebaseManager.getInstance(SplashActivity.this).copyDataBase("citypolice.db");
+                DatebaseManager.getInstance(SplashActivity.this).copyDataBase("citypolice_wz.db");
                 mInitHandler.sendEmptyMessage(CALL_CHECK_DB_UPDATE);
             }
         });

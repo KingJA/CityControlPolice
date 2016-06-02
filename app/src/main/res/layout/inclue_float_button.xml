@@ -15,7 +15,7 @@
             android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_add"
+            android:background="@drawable/bg_room_add"
             android:text="增加"
             android:visibility="gone" />
 

@@ -153,7 +153,7 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
 //        setProgressDialog(true);
 //        uploadDevice(bean, roomId);
 //TODO
-        Intent intent = new Intent(DeviceManagerActivity.this, com.zbar.lib.CaptureActivity.class);
+        Intent intent = new Intent(DeviceManagerActivity.this, zbar.CaptureActivity.class);
         startActivityForResult(intent, 1);
 
     }

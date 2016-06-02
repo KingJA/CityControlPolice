@@ -19,7 +19,6 @@ import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.UserService;
-import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 
 import java.util.ArrayList;
 import java.util.HashMap;

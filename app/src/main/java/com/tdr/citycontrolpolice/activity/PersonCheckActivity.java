@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -118,10 +117,10 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
          */
         boundDevices = getBoundDevices();
 
-        IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        this.registerReceiver(receiver, intentFilter);
-        intentFilter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-        this.registerReceiver(receiver, intentFilter);
+//        IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+//        this.registerReceiver(receiver, intentFilter);
+//        intentFilter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+//        this.registerReceiver(receiver, intentFilter);
 
     }
 
@@ -363,7 +362,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
         }
 
         stopConnectThread();
-        unregisterReceiver(receiver);
+//        unregisterReceiver(receiver);
         super.onDestroy();
     }
 

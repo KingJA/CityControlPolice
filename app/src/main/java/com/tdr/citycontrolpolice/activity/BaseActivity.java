@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
-import com.tdr.citycontrolpolice.view.dialog.DialogProgressX;
 
 /**
  * 项目名称：物联网城市防控(警用版)

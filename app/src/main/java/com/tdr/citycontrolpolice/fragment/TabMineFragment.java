@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.activity.BluetoothChangeActivity;
 import com.tdr.citycontrolpolice.activity.MineAboutActivity;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
@@ -29,6 +30,7 @@ public class TabMineFragment extends Fragment implements View.OnClickListener, D
     private LinearLayout ll_personal_report;
     private LinearLayout ll_personal_quit;
     private View view;
+    private LinearLayout ll_personal_change;
 
     @Nullable
     @Override
@@ -45,11 +47,13 @@ public class TabMineFragment extends Fragment implements View.OnClickListener, D
         ll_personal_report = (LinearLayout) view.findViewById(R.id.ll_personal_report);
         ll_personal_about = (LinearLayout) view.findViewById(R.id.ll_personal_about);
         ll_personal_quit = (LinearLayout) view.findViewById(R.id.ll_personal_quit);
+        ll_personal_change = (LinearLayout) view.findViewById(R.id.ll_personal_change);
         ll_personal_modify.setOnClickListener(this);
         ll_personal_question.setOnClickListener(this);
         ll_personal_report.setOnClickListener(this);
         ll_personal_about.setOnClickListener(this);
         ll_personal_quit.setOnClickListener(this);
+        ll_personal_change.setOnClickListener(this);
     }
 
     @Override
@@ -71,6 +75,11 @@ public class TabMineFragment extends Fragment implements View.OnClickListener, D
                 DialogDouble dialogDouble = new DialogDouble(getActivity(), "您确定要退出应用？", "确定", "取消");
                 dialogDouble.show();
                 dialogDouble.setOnDoubleClickListener(this);
+                break;
+            case R.id.ll_personal_change:
+                ActivityUtil.goActivity(getActivity(), BluetoothChangeActivity.class);
+                break;
+            default:
                 break;
 
         }

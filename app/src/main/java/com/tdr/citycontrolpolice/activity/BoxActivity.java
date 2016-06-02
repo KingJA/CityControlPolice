@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -85,16 +84,18 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
      * 上传货品箱
      */
     private void upload() {
+        String totelId = String.format("%04d", deviceType) + "-" + String.format("%010d", boxId);
+        Log.i(TAG, "totelId: " + totelId);
         setProgressDialog(true);
         Common_OpenBox_Param param = new Common_OpenBox_Param();
         param.setTaskID("1");
-        param.setBOXID(String.valueOf(boxId));
+        param.setBOXID(totelId);
         param.setDEVICETYPE((int) deviceType);
         param.setPHOTOCOUNT(1);
         List<Common_OpenBox_Param.PHOTOLISTBean> photolist = new ArrayList<>();
         Common_OpenBox_Param.PHOTOLISTBean photo = new Common_OpenBox_Param.PHOTOLISTBean();
         photo.setLISTID(MyUtil.getUUID());
-        photo.setIMAGE("");
+        photo.setIMAGE(base64Box);
         photo.setTAG("货品箱");
         photolist.add(photo);
         param.setPHOTOLIST(photolist);
@@ -126,7 +127,6 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
     }
 
     private void scanBox() {
-//        ToastUtil.showMyToast("扫描");
         ActivityUtil.goActivityForResult(this, zbar.CaptureActivity.class, REQ_SCAN);
     }
 
@@ -173,6 +173,7 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
             result = result.substring(2);
             byte[] s = TendencyEncrypt.decode(result.getBytes());
             result = TendencyEncrypt.bytesToHexString(s);
+            //FIXME
 //            result = VerifyCode.checkDeviceCode(result);
 //            if (TextUtils.isEmpty(result)) {
 //                ToastUtil.showMyToast("可疑数据！");

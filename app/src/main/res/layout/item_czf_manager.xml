@@ -20,14 +20,13 @@
             android:text="101"
             android:layout_marginLeft="16dp"
             android:id="@+id/tv_info_room"
-            style="@style/font_tip_14"
+            style="@style/font_3_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1">
@@ -35,12 +34,12 @@
         <TextView
             android:text="5"
             android:id="@+id/tv_info_shouquan"
-            style="@style/font_title_12"
+            style="@style/font_3_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            style="@style/font_title_12"
+            style="@style/font_3_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="  /  " />
@@ -48,7 +47,7 @@
         <TextView
             android:text="5"
             android:id="@+id/tv_info_person"
-            style="@style/font_title_12"
+            style="@style/font_3_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

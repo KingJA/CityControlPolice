@@ -2,12 +2,10 @@ package com.tdr.citycontrolpolice.view.dialog;
 
 
 import android.content.Context;
-import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 
@@ -63,12 +61,12 @@ public class DialogNFC extends DialogBaseAlert {
         switch (v.getId()) {
             case R.id.ll_nfc:
                 if (onClickListener != null) {
-                    onClickListener.onClick(0);
+                    onClickListener.onNfcClick(0);
                 }
                 break;
             case R.id.ll_card:
                 if (onClickListener != null) {
-                    onClickListener.onClick(1);
+                    onClickListener.onNfcClick(1);
                 }
                 break;
             default:
@@ -84,7 +82,7 @@ public class DialogNFC extends DialogBaseAlert {
     }
 
     public interface OnClickListener {
-        void onClick(int position);
+        void onNfcClick(int position);
     }
 
 }

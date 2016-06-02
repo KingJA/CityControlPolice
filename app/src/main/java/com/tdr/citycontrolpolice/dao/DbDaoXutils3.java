@@ -35,7 +35,7 @@ public class DbDaoXutils3<T> implements DbDao<T> {
 
     private DbDaoXutils3() {
         DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
-                .setDbName("citypolice.db")
+                .setDbName("citypolice_wz.db")
                 .setDbVersion(1)
                 .setDbOpenListener(new DbManager.DbOpenListener() {
                     @Override

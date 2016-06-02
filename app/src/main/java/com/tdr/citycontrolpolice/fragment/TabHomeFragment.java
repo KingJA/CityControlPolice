@@ -9,12 +9,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -23,7 +19,7 @@ import com.tdr.citycontrolpolice.activity.BoxActivity;
 import com.tdr.citycontrolpolice.activity.CzfInfoActivity;
 import com.tdr.citycontrolpolice.activity.CzfQueryActivity;
 import com.tdr.citycontrolpolice.activity.KjLoginActivity;
-import com.tdr.citycontrolpolice.activity.NfcActivity;
+import com.tdr.citycontrolpolice.NfcActivity;
 import com.tdr.citycontrolpolice.activity.PersonCheckActivity;
 import com.tdr.citycontrolpolice.adapter.HomeAdapter;
 import com.tdr.citycontrolpolice.base.BaseFragment;
@@ -35,7 +31,6 @@ import com.tdr.citycontrolpolice.util.TendencyEncrypt;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.util.WebService;
-import com.tdr.citycontrolpolice.view.NoScrollGridView;
 import com.tdr.citycontrolpolice.view.ZProgressHUD;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogNFC;
@@ -50,7 +45,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/2/19.
  */
-public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickListener, AdapterView.OnItemClickListener {
+public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickListener, AdapterView.OnItemClickListener, View.OnClickListener {
     private static final String TAG = "TabHomeFragment";
     private String[] titles = {"出租房绑定", "出租房信息", "出租房查询", "身份认证", "货品箱开启", "房东变更", "工作统计", "更新字典"};
     private int[] imgs = {R.drawable.bg_czfbd, R.drawable.bg_saoyisao, R.drawable.bg_czfcx, R.drawable.bg_ryhc, R.drawable.bg_box_on, R.drawable.bg_fdbg, R.drawable.bg_gztj, R.drawable.bg_gxzd};
@@ -130,6 +125,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
     private DialogNFC dialogNFC;
     private DialogDouble dialogDouble;
     private HomeAdapter homeAdapter;
+    private RelativeLayout rl_guide;
 
     @Override
     public View initViews() {
@@ -168,6 +164,8 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
      * 初始化控件
      */
     private void init_view(View v) {
+        rl_guide = (RelativeLayout) v.findViewById(R.id.rl_guide);
+        rl_guide.setOnClickListener(this);
         dialogDouble = new DialogDouble(getActivity(), "是否要进行数据升级?", "确定", "取消");
         dialogNFC = new DialogNFC(getActivity());
         dialogNFC.setOnClickListener(this);
@@ -205,10 +203,9 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
     }
 
     @Override
-    public void onClick(int position) {
+    public void onNfcClick(int position) {
         switch (position) {
             case 0:
-//                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
                 if (nfcAble(getActivity())) {
                     ActivityUtil.goActivity(getActivity(), NfcActivity.class);
                 }
@@ -229,13 +226,10 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         Intent intent = new Intent();
         switch (position) {
             case 0:
-//                    intent.setClass(mActivity, zbar.CaptureActivity.class);
-//                    startActivityForResult(intent, SCANNIN_CZF_CODE);
                 ActivityUtil.goActivity(getActivity(), CzfInitActivity.class);
                 break;
             case 1:
                 intent.setClass(mActivity, zbar.CaptureActivity.class);
-//                    intent.setClass(mActivity, com.zbar.lib.CaptureActivity.class);
                 startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
                 break;
             case 2:
@@ -317,4 +311,14 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.rl_guide:
+                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
+                break;
+            default:
+                break;
+        }
+    }
 }

@@ -13,8 +13,6 @@ import com.tdr.citycontrolpolice.dao.DbDaoXutils3;
 import com.tdr.citycontrolpolice.entity.Basic_Dictionary_Kj;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_DeviceLists;
 import com.tdr.citycontrolpolice.util.TimeUtil;
-import com.tdr.citycontrolpolice.util.ToastUtil;
-import com.tdr.citycontrolpolice.view.popupwindow.PopupDevice;
 
 import java.util.HashMap;
 import java.util.List;
@@ -66,10 +64,8 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.tvdevicename.setText(list.get(position).getDEVICENAME() + "  (" + list.get(position).getDEVICECODE() + ")");
+        viewHolder.tvdevicename.setText(list.get(position).getDEVICENAME() + "  (" + typeMap.get(list.get(position).getDEVICETYPE()) + " : " + list.get(position).getDEVICECODE() + ")");
         setTypeImg(viewHolder.ivdevicestate, list.get(position).getDEVICETYPE(), TimeUtil.isOneDay(list.get(position).getDEVICETIME()));
-//        viewHolder.ivdevicestate.setVisibility("32770".equals(list.get(position).getDEVICETYPE()) ? View.INVISIBLE : View.VISIBLE);
-//        viewHolder.ivdevicestate.setBackgroundResource(TimeUtil.isOneDay(list.get(position).getDEVICETIME()) ? R.drawable.circle_on : R.drawable.circle_off);
         viewHolder.ivisbund.setBackgroundResource(list.get(position).getISBUNG() == 0 ? R.drawable.bg_unbund : R.drawable.bg_isbund);
 
         viewHolder.ivdevice_more.setOnClickListener(new View.OnClickListener() {

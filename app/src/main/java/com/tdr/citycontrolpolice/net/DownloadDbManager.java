@@ -23,9 +23,7 @@ import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +41,7 @@ public class DownloadDbManager {
     public static final String Basic_JuWeiHui = "Basic_JuWeiHui";
     public static final String Basic_PaiChuSuo = "Basic_PaiChuSuo";
     public static final String Basic_XingZhengQuHua = "Basic_XingZhengQuHua";
-    public static final String DB_NAME = "citypolice.db";
+    public static final String DB_NAME = "citypolice_wz.db";
 
     public static final String DEFAULT_TIME = "2014-10-30 23:11:02";
     public static final int REQUEST_SIZE = 500;

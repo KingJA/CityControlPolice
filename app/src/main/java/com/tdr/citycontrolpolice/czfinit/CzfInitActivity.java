@@ -9,7 +9,6 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -443,7 +442,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     @Override
     public void onConfirm(Basic_StandardAddressCodeByKey_Kj.ContentBean standardAddressCodeByKey) {
         this.standardAddressCodeByKey = standardAddressCodeByKey;
-        this.addressCode = standardAddressCodeByKey.getId();// FIXME: 2016/5/26
+        this.addressCode = standardAddressCodeByKey.getGeocode();
 
         setProgressDialog(true);
         mTvAddress.setText(standardAddressCodeByKey.getAddress().substring(6));

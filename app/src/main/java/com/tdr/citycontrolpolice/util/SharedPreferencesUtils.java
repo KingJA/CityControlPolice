@@ -1,7 +1,6 @@
 package com.tdr.citycontrolpolice.util;
 
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.tdr.citycontrolpolice.base.App;

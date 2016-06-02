@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tdr.citycontrolpolice">
 
-    <uses-feature
-        android:name="android.hardware.nfc"
-        android:required="true" />
+
     <!--Bugly-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -13,7 +11,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
-    <permission android:name="com.tdr.tendencyNfc.ReadCard" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -24,9 +21,13 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--nfc-->
     <uses-permission android:name="android.permission.NFC" />
+    <permission android:name="com.tdr.tendencyNfc.ReadCard" />
 
     <uses-feature
         android:name="android.hardware.nfc"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.usb.host"
         android:required="true" />
     <!--扫一扫-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -45,69 +46,66 @@
 
     <!--app-->
     <application
-        android:name=".base.App"
+        android:name="com.tdr.citycontrolpolice.base.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-
-            android:name=".activity.SplashActivity"
+            android:name="com.tdr.citycontrolpolice.activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <!--<category android:name="android.intent.category.INFO" />-->
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
-
         </activity>
         <activity
-            android:name=".activity.KjLoginActivity"
+            android:name="com.tdr.citycontrolpolice.activity.KjLoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CzfInfoActivity"
+            android:name="com.tdr.citycontrolpolice.activity.CzfInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activity.CzfModifyActivity"
+            android:name="com.tdr.citycontrolpolice.activity.CzfModifyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CzfCardActivity"
+            android:name="com.tdr.citycontrolpolice.activity.CzfCardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.PersonInfoActivity"
+            android:name="com.tdr.citycontrolpolice.activity.PersonInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ModifyRoomActivity"
+            android:name="com.tdr.citycontrolpolice.activity.ModifyRoomActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.HomeActivity"
+            android:name="com.tdr.citycontrolpolice.activity.HomeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.MineAboutActivity"
+            android:name="com.tdr.citycontrolpolice.activity.MineAboutActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.ModifyPwdActivity"
+            android:name="com.tdr.citycontrolpolice.activity.ModifyPwdActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.DeviceManagerActivity"
+            android:name="com.tdr.citycontrolpolice.activity.DeviceManagerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.DeviceBindingListActivity"
+            android:name="com.tdr.citycontrolpolice.activity.DeviceBindingListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.PersonCheckActivity"
+            android:name="com.tdr.citycontrolpolice.activity.PersonCheckActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.BindingDeviceActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:name="com.tdr.citycontrolpolice.activity.BindingDeviceActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.yunmai.android.idcard.ARecognize"
             android:screenOrientation="landscape" />
@@ -115,49 +113,50 @@
             android:name="com.yunmai.android.idcard.ACamera"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.CzfQueryActivity"
+            android:name="com.tdr.citycontrolpolice.activity.CzfQueryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.DetailPersonActivity"
+            android:name="com.tdr.citycontrolpolice.activity.DetailPersonActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CzfInfoDetailActivity"
+            android:name="com.tdr.citycontrolpolice.activity.CzfInfoDetailActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.DownloadDbActivity"
+            android:name="com.tdr.citycontrolpolice.activity.DownloadDbActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".czfinit.CzfInitActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:name="com.tdr.citycontrolpolice.czfinit.CzfInitActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name="zbar.CaptureActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.BoxActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:name="com.tdr.citycontrolpolice.activity.BoxActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CzfOutInActivity"
+            android:name="com.tdr.citycontrolpolice.activity.CzfOutInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BluetoothChangeActivity"
             android:screenOrientation="portrait" />
 
 
         <!-- 扫描二维码 -->
         <activity
-            android:name=".activity.CaptureActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.zbar.lib.CaptureActivity"
+            android:name="com.tdr.citycontrolpolice.activity.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
+
         <activity
-            android:name=".activity.NfcActivity"
+            android:name="com.tdr.citycontrolpolice.NfcActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
             </intent-filter>
@@ -171,14 +170,15 @@
 
         </activity>
 
-        <receiver android:name=".receiver.MessageReceiver">
-            <intent-filter>
-                <action android:name="com.tdr.identity.readcard" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.tdr.ecard.readcard" />
-            </intent-filter>
-        </receiver>
+        <!--     <receiver android:name="com.tdr.citycontrolpolice.receiver.MessageReceiver">
+                 <intent-filter>
+                     <action android:name="com.tdr.identity.readcard" />
+                 </intent-filter>
+                 <intent-filter>
+                     <action android:name="com.tdr.ecard.readcard" />
+                 </intent-filter>
+             </receiver>-->
+
     </application>
 
 </manifest>

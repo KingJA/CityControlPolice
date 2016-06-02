@@ -1,7 +1,6 @@
 package com.tdr.citycontrolpolice.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;

@@ -164,7 +164,7 @@
 
             <TextView
                 android:id="@+id/tv_czfAddress"
-                style="@style/font_content_14"
+                style="@style/font_3_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />

@@ -1,13 +1,11 @@
 package com.tdr.citycontrolpolice.view;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.util.CheckUtil;

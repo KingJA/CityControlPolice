@@ -17,6 +17,7 @@ import com.tdr.citycontrolpolice.fragment.TabHomeFragment;
 import com.tdr.citycontrolpolice.fragment.TabMineFragment;
 import com.tdr.citycontrolpolice.fragment.TabWorkFragment;
 import com.tdr.citycontrolpolice.util.NetUtil;
+import com.tdr.citycontrolpolice.util.StatusBarCompat;
 import com.tdr.citycontrolpolice.view.CustomRadioGroup;
 
 
@@ -44,6 +45,7 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        StatusBarCompat.initStatusBar(this);
         init_view();
 //        registerDateTransReceiver();
     }

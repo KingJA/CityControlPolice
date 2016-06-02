@@ -3,7 +3,6 @@ package com.tdr.citycontrolpolice.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,8 +62,8 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     ImageView ivInitAdd;
     @Bind(R.id.iv_init_delete)
     ImageView ivInitDelete;
-    @Bind(R.id.iv_init_submit)
-    ImageView ivInitSubmit;
+    @Bind(R.id.tv_init_submit)
+    TextView tvInitSubmit;
     @Bind(R.id.ll_initRoom)
     LinearLayout llInitRoom;
     @Bind(R.id.lv_init)
@@ -151,7 +150,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
                         llInitRoom.setVisibility(roomList.size() == 0 ? View.VISIBLE : View.GONE);
                         btnAdd.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
                         hasInitRoom = (roomList.size() == 0 ? false : true);
-                        tvBack.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
+//                        tvBack.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
                         tvTip.setText(roomList.size() == 0 ? "请输入楼层号和房间数进行初始化" : "请输入房间号进行房间添加");
 
                         czfManagerAdapter.setData(roomList);
@@ -272,13 +271,15 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
     @OnClick(R.id.tv_back)
     void back() {
-        inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        llInitRoom.setVisibility(roomList.size() == 0 ? View.VISIBLE : View.GONE);
-        btnAdd.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
+//        inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+//        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+//        llInitRoom.setVisibility(roomList.size() == 0 ? View.VISIBLE : View.GONE);
+//        btnAdd.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
+        llInitRoom.setVisibility(View.GONE);
+        btnAdd.setVisibility(View.VISIBLE);
     }
 
-    @OnClick(R.id.iv_init_submit)
+    @OnClick(R.id.tv_init_submit)
     void init() {
         if (hasInitRoom) {
             //添加房间

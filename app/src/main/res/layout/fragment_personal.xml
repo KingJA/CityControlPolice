@@ -4,12 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
+    <TextView
+        android:background="@color/bg_blue"
+        android:gravity="center"
+        android:text="我"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/home_top" />
+        android:layout_height="48dp"
+        android:textSize="18sp"
+        android:textColor="@color/bg_white">
 
 
+    </TextView>
     <LinearLayout
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
@@ -154,6 +159,16 @@
     </LinearLayout>
 
     <View style="@style/divider_nomal_horizontal" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:id="@+id/ll_personal_change"
+        android:layout_width="48dp"
+        android:layout_height="48dp">
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

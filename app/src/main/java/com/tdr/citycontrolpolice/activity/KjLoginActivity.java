@@ -22,6 +22,7 @@ import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.update.GetVersionCodeAsynckTask;
 import com.tdr.citycontrolpolice.update.UpdateManager;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.AesEncoder;
 import com.tdr.citycontrolpolice.util.AppInfoUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.Constants;
@@ -90,6 +91,7 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
     };
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,9 +108,11 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         if (checked) {
             String login_name = (String) SharedPreferencesUtils.get("login_name", "");
             String login_password = (String) SharedPreferencesUtils.get("login_password", "");
+            Log.i(TAG, "login_password: " + login_password);
             isLoginByPolice = (Boolean) SharedPreferencesUtils.get("login_police", true);
             etLoginName.setText(login_name);
-            etLoginPassword.setText(login_password);
+            etLoginPassword.setText(AesEncoder.decode(login_password));
+            Log.i(TAG, "etLoginPassword: " + AesEncoder.decode(login_password));
             cbRemmber.setChecked(true);
             kjSwitchbutton.setSwitch(isLoginByPolice);
         }
@@ -133,10 +137,11 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
     private void remember(String userName, String password, boolean checked) {
         if (checked) {
             SharedPreferencesUtils.put("login_name", userName);
-            SharedPreferencesUtils.put("login_password", password);
+            SharedPreferencesUtils.put("login_password", AesEncoder.encode(password));
+            Log.i(TAG, "remember password: " + password);
+            Log.i(TAG, "remember AES: " + AesEncoder.encode(password));
             SharedPreferencesUtils.put("login_remember", true);
             SharedPreferencesUtils.put("login_police", isLoginByPolice);
-
         } else {
             SharedPreferencesUtils.put("login_remember", false);
         }
@@ -211,4 +216,6 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
             }
         }
     }
+
+
 }

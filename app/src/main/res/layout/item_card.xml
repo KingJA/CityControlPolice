@@ -2,34 +2,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_lgray1px_bwhite_r0"
+    android:background="@color/bg_gray_kj"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:background="@drawable/shape_lgray1_bwhite_r5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <TextView
+            style="@style/font_bold_6_12"
+            android:background="@drawable/shape_title_lgray1_bgray_r5"
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="刷卡记录" />
     <LinearLayout
         android:id="@+id/ll_outin_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:padding="16dp">
+        android:padding="12dp">
 
         <TextView
-            style="@style/font_gray_14"
+            style="@style/font_9_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="end"
-            android:text="姓名：" />
+            android:layout_weight="3"
+            android:text="姓名" />
 
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="6">
+            android:layout_weight="7">
 
             <TextView
                 android:id="@+id/tv_outin_name"
-                style="@style/font_content_14"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -47,8 +58,7 @@
 
 
     <LinearLayout
-        android:paddingRight="12dp"
-        android:paddingLeft="12dp"
+
         android:id="@+id/ll_expand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,22 +70,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="16dp">
+            android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="end"
-                android:text="身份证号：" />
+                android:layout_weight="3"
+                android:text="身份证号" />
 
             <TextView
                 android:id="@+id/tv_outin_card"
-                style="@style/font_content_14"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="6"
+                android:layout_weight="7"
                 android:text="18888888888" />
 
         </LinearLayout>
@@ -86,23 +95,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="16dp">
+            android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="end"
-                android:text="卡号：" />
+                android:layout_weight="3"
+                android:text="卡号" />
 
             <TextView
 
                 android:id="@+id/tv_outin_cardNo"
-                style="@style/font_content_14"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="6"
+                android:layout_weight="7"
                 android:text="336512228821548744" />
 
         </LinearLayout>
@@ -113,23 +121,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="16dp">
+            android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="end"
-                android:text="卡类型：" />
+                android:layout_weight="3"
+                android:text="卡类型" />
 
             <TextView
 
                 android:id="@+id/tv_outin_type"
-                style="@style/font_content_14"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="6"
+                android:layout_weight="7"
                 android:text="336512228821548744" />
 
         </LinearLayout>
@@ -140,23 +147,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="16dp">
+            android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="end"
-                android:text="时间：" />
+                android:layout_weight="3"
+                android:text="时间" />
 
             <TextView
 
                 android:id="@+id/tv_outin_time"
-                style="@style/font_content_14"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="6"
+                android:layout_weight="7"
                 android:text="336512228821548744" />
 
         </LinearLayout>
@@ -185,5 +191,6 @@
                     android:layout_weight="6"
                     android:text="101" />
             </LinearLayout>-->
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>

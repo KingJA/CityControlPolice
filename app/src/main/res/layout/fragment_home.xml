@@ -1,32 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/bg_gray_kj">
 
-    <ImageView
-        android:background="@drawable/home_top"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-
-        <LinearLayout
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@drawable/home_top" />
 
-            <com.tdr.citycontrolpolice.view.popupwindow.FixedGridView
-                android:id="@+id/gv_home_top"
+        <com.tdr.citycontrolpolice.view.popupwindow.FixedGridView
+            android:id="@+id/gv_home_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:horizontalSpacing="1px"
+            android:numColumns="4"
+            android:verticalSpacing="1px" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_banner" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+
+                android:id="@+id/rl_guide"
+                android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@color/bg_white"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/font_3_14"
+                    android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="使用指南" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/right" />
+
+
+            </RelativeLayout>
+
+            <View style="@style/divider_nomal_horizontal" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/bg_white"
-                android:horizontalSpacing="1px"
-                android:numColumns="4"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                android:verticalSpacing="1px" />
+                <TextView
+                    style="@style/font_3_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="如何绑定出租房？" />
 
+                <TextView
+                    style="@style/font_9_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="打开首页点击“出租房绑定”，之后再填写详细信息，然后扫描出租房二维码" />
 
+            </LinearLayout>
+
+            <View style="@style/divider_nomal_horizontal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_white"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/font_3_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="找不到防控设备管理?" />
+
+                <TextView
+                    style="@style/font_9_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="打开首页点击“出租房信息”，之后点击右上角下拉按钮，然后点击防控设备管理" />
+
+            </LinearLayout>
+
+            <View style="@style/divider_nomal_horizontal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_white"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/font_3_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="如何更改房屋信息？" />
+
+                <TextView
+                    style="@style/font_9_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="打开首页点击“出租房信息”，之后点击右上角下拉按钮，然后点击更改房屋信息" />
+
+            </LinearLayout>
         </LinearLayout>
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

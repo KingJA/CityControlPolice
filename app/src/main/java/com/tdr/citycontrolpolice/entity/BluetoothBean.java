@@ -10,6 +10,7 @@ package com.tdr.citycontrolpolice.entity;
 public class BluetoothBean {
     private String name;
     private String address;
+    private boolean isChecked;
 
     public String getName() {
         return name;
@@ -25,5 +26,13 @@ public class BluetoothBean {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.BluetoothAdapter;
@@ -13,11 +11,6 @@ import com.tdr.citycontrolpolice.entity.BluetoothBean;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnItemClick;
 
 /**
  * 项目名称：物联网城市防控(警用版)

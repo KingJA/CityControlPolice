@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_LKSelfReportingList;
-import com.tdr.citycontrolpolice.util.TimeUtil;
 
 import java.util.List;
 

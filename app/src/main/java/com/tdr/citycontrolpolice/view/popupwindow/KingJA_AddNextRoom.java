@@ -10,9 +10,6 @@ import android.widget.LinearLayout;
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.util.CheckUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 项目名称：物联网城市防控(警用版)
  * 类描述：TODO

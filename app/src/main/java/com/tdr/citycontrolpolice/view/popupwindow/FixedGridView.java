@@ -3,7 +3,6 @@ package com.tdr.citycontrolpolice.view.popupwindow;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.GridView;
-import android.widget.ListView;
 
 /**
  * 项目名称：物联网城市防控(警用版)

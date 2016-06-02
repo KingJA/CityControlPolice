@@ -25,6 +25,7 @@ import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
+import com.tdr.citycontrolpolice.util.StatusBarCompat;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
@@ -60,6 +61,7 @@ public class CzfQueryActivity extends Activity implements TextWatcher, View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_czf_query);
+        StatusBarCompat.initStatusBar(this);
         initView();
         initData();
 

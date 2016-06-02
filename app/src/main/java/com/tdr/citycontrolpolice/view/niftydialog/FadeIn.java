@@ -1,6 +1,5 @@
 package com.tdr.citycontrolpolice.view.niftydialog;
 
-import android.util.Log;
 import android.view.View;
 
 import com.nineoldandroids.animation.ObjectAnimator;

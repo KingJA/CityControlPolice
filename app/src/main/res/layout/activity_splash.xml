@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_blue"
-    android:id="@+id/rl_root">
+    android:id="@+id/rl_root"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="3dp"
-            android:text="Version:1.0.3"
+            android:text="Version:"
             style="@style/font_white_14" />
     </LinearLayout>
 

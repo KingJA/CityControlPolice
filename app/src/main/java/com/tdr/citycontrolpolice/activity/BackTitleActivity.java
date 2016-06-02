@@ -1,16 +1,15 @@
 package com.tdr.citycontrolpolice.activity;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.util.StatusBarCompat;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,6 +42,7 @@ public abstract class BackTitleActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_top_back);
+        StatusBarCompat.initStatusBar(this);
         ButterKnife.bind(this);
         view = setContentView();
         initTopView();

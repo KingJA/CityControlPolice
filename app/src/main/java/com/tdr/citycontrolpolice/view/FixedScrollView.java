@@ -2,7 +2,6 @@ package com.tdr.citycontrolpolice.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.ListView;
 import android.widget.ScrollView;
 
 /**

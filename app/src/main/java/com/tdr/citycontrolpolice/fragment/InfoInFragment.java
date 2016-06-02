@@ -11,7 +11,6 @@ import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.CzfInAdapter;
-import com.tdr.citycontrolpolice.adapter.CzfLeftAdapter;
 import com.tdr.citycontrolpolice.base.KjBaseFragment;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_LKSelfReportingList;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
@@ -20,7 +19,6 @@ import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.UserService;
-import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -52,8 +52,8 @@
 -dontwarn  cn.com.cybertech.**
 -keep class cn.com.cybertech.** { *;}
 #TendencyNFC3.0.jar
--dontwarn  com.tdr.tendencynfc.**
--keep class com.tdr.tendencynfc.** { *;}
+#-dontwarn  com.tdr.tendencynfc.**
+#-keep class com.tdr.tendencynfc.** { *;}
 #ysidcard.jar
 -dontwarn  com.ivsign.android.**
 -keep class com.ivsign.android.** { *;}

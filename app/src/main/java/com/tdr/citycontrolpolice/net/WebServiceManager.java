@@ -5,7 +5,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.tdr.citycontrolpolice.util.Constants;
 
-import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
