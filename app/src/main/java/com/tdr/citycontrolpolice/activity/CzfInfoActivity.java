@@ -185,7 +185,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
     public void onCzfInfoPop(int position) {
         switch (position) {
             case 0:
-                Intent intent = new Intent(this, CzfModifyActivity.class);
+                Intent intent = new Intent(this, ModifyCzfActivity.class);
                 intent.putExtra("CZF_INFO", mCzfInfo);
                 startActivity(intent);
                 break;

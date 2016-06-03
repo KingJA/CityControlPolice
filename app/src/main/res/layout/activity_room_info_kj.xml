@@ -6,273 +6,242 @@
     android:background="@color/bg_gray_kj"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="12dp">
 
     <LinearLayout
-
-        android:id="@+id/ll_room_no"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/bg_white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:text="房间号:"
-            style="@style/font_tip_14" />
-
-        <TextView
-            android:id="@+id/tv_room_number"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:inputType="number"
-            android:text="101"
-            style="@style/font_content_14" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/bg_white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:text="装修程度:"
-            style="@style/font_tip_14" />
-
-        <TextView
-            android:id="@+id/tv_room_renovation"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            style="@style/font_content_14" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/bg_white"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:text="户型:"
-            style="@style/font_tip_14" />
-
-        <EditText
-            android:id="@+id/et_room__shi"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/bg_edittext_selector"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="1"
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical|right"
-            android:text="室"
-            android:textColor="#444" />
-
-        <EditText
-            android:id="@+id/et_room_ting"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/bg_edittext_selector"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="1"
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical|right"
-            android:text="厅"
-            android:textColor="#444" />
-
-        <EditText
-            android:id="@+id/et_room_wei"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/bg_edittext_selector"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="1"
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical|right"
-            android:text="卫"
-            android:textColor="#444" />
-
-        <EditText
-            android:id="@+id/et_room_yangtai"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/bg_edittext_selector"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="1"
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical|right"
-            android:text="阳台"
-            android:textColor="#444" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/bg_white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:text="面积:"
-            style="@style/font_tip_14" />
-
-        <EditText
-            android:id="@+id/et_room_area"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="6"
-            style="@style/font_content_14" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/bg_white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:text="容纳人数:"
-            style="@style/font_tip_14" />
-
-        <EditText
-            android:id="@+id/et_room_person"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="2"
-            style="@style/font_content_14" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/bg_white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:text="支付方式:"
-            style="@style/font_tip_14" />
-
-        <TextView
-            android:id="@+id/tv_room_payment"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#fff"
-            android:gravity="center"
-            style="@style/font_content_14" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_room_photo"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@drawable/bg_fg"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:text="图片"
-            android:textSize="12dp" />
-
-        <ImageView
-            android:id="@+id/img_room_info_add"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:paddingRight="10dp"
-            android:src="@mipmap/imageadd_on" />
-    </LinearLayout>
-
-    <com.tdr.citycontrolpolice.view.NoScrollGridView
-        android:id="@+id/gv_room_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:horizontalSpacing="1dp"
-        android:numColumns="4"
-        android:verticalSpacing="1dp" />
+        android:background="@drawable/shape_lgray1_bwhite_r5"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/bt_room_submit"
-        style="@style/button_16"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="30dp"
-        android:enabled="false"
-        android:text="提交" />
+        <TextView
+            style="@style/font_bold_6_12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_title_lgray1_bgray_r5"
+            android:padding="12dp"
+            android:text="修改房间信息" />
 
+
+        <LinearLayout
+            android:id="@+id/ll_room_no"
+            style="@style/ll_padding12_orientation">
+
+            <TextView
+                style="@style/font_head_2"
+                android:text="房间号" />
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tv_room_number"
+                style="@style/font_content_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:inputType="number"
+                />
+        </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal" />
+
+        <LinearLayout style="@style/ll_padding12_orientation">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="户型"
+                android:textColor="@color/font_9" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8">
+
+                <EditText
+                    android:id="@+id/et_room__shi"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/bg_edittext_selector"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="15sp" />
+
+                <TextView
+                    style="@style/font_3_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical|right"
+                    android:text="室" />
+
+                <EditText
+                    android:id="@+id/et_room_ting"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/bg_edittext_selector"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="15sp" />
+
+                <TextView
+                    style="@style/font_3_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical|right"
+                    android:text="厅" />
+
+                <EditText
+                    android:id="@+id/et_room_wei"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/bg_edittext_selector"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="15sp" />
+
+                <TextView
+                    style="@style/font_3_14"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical|right"
+                    android:text="卫" />
+
+                <EditText
+                    android:id="@+id/et_room_yangtai"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/bg_edittext_selector"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textSize="15sp" />
+
+                <TextView
+                    style="@style/font_3_14"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical|right"
+                    android:text="阳台" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal" />
+
+        <LinearLayout style="@style/ll_padding12_orientation">
+
+            <TextView
+                style="@style/font_head_2"
+                android:text="面积" />
+
+            <EditText
+                android:gravity="center"
+                android:id="@+id/et_room_area"
+                style="@style/font_content_8"
+                android:inputType="number"
+                android:maxLength="6" />
+        </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal" />
+
+        <LinearLayout style="@style/ll_padding12_orientation">
+
+            <TextView
+                style="@style/font_head_2"
+                android:text="容纳人数" />
+
+            <EditText
+                android:gravity="center"
+                android:id="@+id/et_room_person"
+                style="@style/font_content_8"
+                android:inputType="number"
+                android:maxLength="2" />
+        </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal" />
+
+        <LinearLayout style="@style/ll_padding12_orientation">
+
+            <TextView
+                style="@style/font_head_2"
+                android:text="装修程度" />
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tv_room_renovation"
+                style="@style/font_content_8" />
+        </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal" />
+
+        <LinearLayout style="@style/ll_padding12_orientation">
+
+            <TextView
+                style="@style/font_head_2"
+                android:text="支付方式" />
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tv_room_payment"
+                style="@style/font_content_8" />
+        </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal" />
+
+        <LinearLayout
+            android:id="@+id/ll_room_photo"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_fg"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="图片"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:id="@+id/img_room_info_add"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="10dp"
+                android:src="@mipmap/imageadd_on" />
+        </LinearLayout>
+
+        <com.tdr.citycontrolpolice.view.NoScrollGridView
+            android:id="@+id/gv_room_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="1dp"
+            android:numColumns="4"
+            android:verticalSpacing="1dp" />
+
+        <TextView
+            android:id="@+id/tv_room_submit"
+            style="@style/btn_small_blue"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:enabled="false"
+            android:text="提交" />
+
+    </LinearLayout>
 </LinearLayout>
+

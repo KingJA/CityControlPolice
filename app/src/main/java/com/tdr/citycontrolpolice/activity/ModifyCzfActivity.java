@@ -30,8 +30,8 @@ import java.util.HashMap;
  * 创建时间：2016/3/25 13:19
  * 修改备注：
  */
-public class CzfModifyActivity extends BackTitleActivity implements View.OnClickListener, TextWatcher {
-    private static final String TAG = "CzfModifyActivity";
+public class ModifyCzfActivity extends BackTitleActivity implements View.OnClickListener, TextWatcher {
+    private static final String TAG = "ModifyCzfActivity";
     private KjChuZuWuInfo mCzfInfo = new KjChuZuWuInfo();
     private TextView tv_owner_name;
     private TextView tv_owner_phone;
@@ -87,7 +87,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
         ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<>();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
-                .setActivity(CzfModifyActivity.this)
+                .setActivity(ModifyCzfActivity.this)
                 .setCallBack(new WebServiceCallBack<KjChuZuWuInfo>() {
                     @Override
                     public void onSuccess(KjChuZuWuInfo bean) {
@@ -149,7 +149,7 @@ public class CzfModifyActivity extends BackTitleActivity implements View.OnClick
             ThreadPoolTask.Builder<ChuZuWu_Modify> builder = new ThreadPoolTask.Builder<>();
             ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_Modify", param_chuZuWu_modify)
                     .setBeanType(ChuZuWu_Modify.class)
-                    .setActivity(CzfModifyActivity.this)
+                    .setActivity(ModifyCzfActivity.this)
                     .setCallBack(new WebServiceCallBack<ChuZuWu_Modify>() {
                         @Override
                         public void onSuccess(ChuZuWu_Modify bean) {

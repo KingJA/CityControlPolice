@@ -3,7 +3,7 @@ package com.tdr.citycontrolpolice.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,7 +44,7 @@ public class ModifyRoomActivity extends BackTitleActivity implements BottomListP
     private EditText et_room_yangtai;
     private EditText et_room_area;
     private EditText et_room_person;
-    private Button bt_room_submit;
+    private TextView tv_room_submit;
     private LinearLayout ll_root;
     private String mToken;
     private String mHouseId;
@@ -68,6 +68,7 @@ public class ModifyRoomActivity extends BackTitleActivity implements BottomListP
     private List<Basic_Dictionary_Kj> renovationList;
     private BottomListPop renovationPop;
     private BottomListPop paymentPop;
+    private InputMethodManager inputManager;
 
 
     @Override
@@ -98,7 +99,7 @@ public class ModifyRoomActivity extends BackTitleActivity implements BottomListP
         et_room_yangtai = (EditText) view.findViewById(R.id.et_room_yangtai);
         et_room_area = (EditText) view.findViewById(R.id.et_room_area);
         et_room_person = (EditText) view.findViewById(R.id.et_room_person);
-        bt_room_submit = (Button) view.findViewById(R.id.bt_room_submit);
+        tv_room_submit = (TextView) view.findViewById(R.id.tv_room_submit);
         mDialogConfirm = new DialogConfirm(this, "成功修改房间信息!", "确定");
         paymentList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().sleectAll(Basic_Dictionary_Kj.class, "COLUMNCODE", "DEPOSIT");
         renovationList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().sleectAll(Basic_Dictionary_Kj.class, "COLUMNCODE", "FIXTURE");
@@ -122,7 +123,7 @@ public class ModifyRoomActivity extends BackTitleActivity implements BottomListP
         renovationPop.setOnBottemPopSelectListener(this);
         paymentPop.setOnBottemPopSelectListener(this);
         mDialogConfirm.setOnConfirmClickListener(this);
-        bt_room_submit.setOnClickListener(this);
+        tv_room_submit.setOnClickListener(this);
         tv_room_payment.setOnClickListener(this);
         tv_room_renovation.setOnClickListener(this);
     }
@@ -153,8 +154,8 @@ public class ModifyRoomActivity extends BackTitleActivity implements BottomListP
         et_room_area.setText(content.getSQUARE() + "");
         et_room_person.setText(content.getGALLERYFUL() + "");
         setProgressDialog(false);
-        bt_room_submit.setEnabled(true);
-        bt_room_submit.setClickable(true);
+        tv_room_submit.setEnabled(true);
+        tv_room_submit.setClickable(true);
     }
 
     /**
@@ -232,18 +233,27 @@ public class ModifyRoomActivity extends BackTitleActivity implements BottomListP
                 break;
         }
     }
+    /**
+     * 隐藏软键盘
+     */
+    private void hideInput() {
 
+        inputManager = (InputMethodManager) getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.bt_room_submit:
+            case R.id.tv_room_submit:
                 mododifyRoomInfo();
                 break;
             case R.id.tv_room_renovation:
+                hideInput();
                 selectType = 0;//装修
                 renovationPop.showPopupWindow();
                 break;
             case R.id.tv_room_payment:
+                hideInput();
                 selectType = 1;//支付
                 paymentPop.showPopupWindow();
                 break;

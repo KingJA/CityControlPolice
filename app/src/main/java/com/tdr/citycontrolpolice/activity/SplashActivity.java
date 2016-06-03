@@ -136,7 +136,7 @@ public class SplashActivity extends Activity {
         PoolManager.getInstance().execute(new Runnable() {
             @Override
             public void run() {
-                DatebaseManager.getInstance(SplashActivity.this).copyDataBase("citypolice_wz.db");
+                DatebaseManager.getInstance(getApplicationContext()).copyDataBase("citypolice_wz.db");
                 mInitHandler.sendEmptyMessage(CALL_CHECK_DB_UPDATE);
             }
         });

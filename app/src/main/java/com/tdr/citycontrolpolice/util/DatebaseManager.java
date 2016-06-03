@@ -1,6 +1,6 @@
 package com.tdr.citycontrolpolice.util;
 
-import android.app.Activity;
+import android.content.Context;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,14 +15,14 @@ import java.io.InputStream;
  * 修改备注：
  */
 public class DatebaseManager {
-    private Activity context;
+    private Context context;
     private static DatebaseManager mDateBaseManager;
 
-    private DatebaseManager(Activity context) {
+    private DatebaseManager(Context context) {
         this.context = context;
     }
 
-    public static DatebaseManager getInstance(Activity context) {
+    public static DatebaseManager getInstance(Context context) {
         if (mDateBaseManager == null) {
             synchronized (DatebaseManager.class) {
                 if (mDateBaseManager == null) {
@@ -38,7 +38,6 @@ public class DatebaseManager {
      * 复制数据库assets=>databases
      */
     public void copyDataBase(String dataBaseName) {
-        long startTime = System.currentTimeMillis();
         File dateBasePath = new File("/data/data/" + context.getPackageName() + "/databases");
         File targetPath = new File("/data/data/" + context.getPackageName() + "/databases/" + dataBaseName);
         /**
@@ -51,7 +50,6 @@ public class DatebaseManager {
          * 检查数据库文件是否存在
          */
         if (targetPath.exists() && targetPath.length() > 0) {
-//            ToastUtil.showThreadToast(context, "数据库已经存在不用复制！");
             return;
         }
         try {
@@ -64,8 +62,6 @@ public class DatebaseManager {
             }
             inputStream.close();
             outputStream.close();
-            long endTime = System.currentTimeMillis();
-//            ToastUtil.showThreadToast(context, "数据库复制成功,用时：" + String.valueOf(endTime - startTime));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,7 +71,6 @@ public class DatebaseManager {
         File dateBasePath = new File("/data/data/" + context.getPackageName() + "/databases");
         File targetPath = new File("/data/data/" + context.getPackageName() + "/databases/" + dataBaseName);
         if (dateBasePath.exists() && targetPath.delete()) {
-            ToastUtil.showThreadToast(context, "数据库删除成功");
         }
     }
 }

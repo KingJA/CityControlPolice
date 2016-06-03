@@ -10,12 +10,13 @@
     >
 
 
+
+
     <LinearLayout
         android:background="@drawable/shape_lgray1_bwhite_r5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <TextView
             android:background="@drawable/shape_title_lgray1_bgray_r5"
             android:padding="12dp"
@@ -30,7 +31,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -38,7 +39,7 @@
 
             <TextView
                 android:id="@+id/tv_zzzh"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -55,7 +56,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -63,7 +64,7 @@
 
             <TextView
                 android:id="@+id/tv_xm"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -80,7 +81,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -88,7 +89,7 @@
 
             <TextView
                 android:id="@+id/tv_lxdh"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -105,7 +106,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -113,7 +114,7 @@
 
             <TextView
                 android:id="@+id/tv_sfzh"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -130,7 +131,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -139,7 +140,7 @@
 
             <TextView
                 android:id="@+id/tv_hksx"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -156,7 +157,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -165,7 +166,7 @@
 
             <TextView
                 android:id="@+id/tv_hkxz"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -183,7 +184,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -192,7 +193,7 @@
 
             <TextView
                 android:id="@+id/tv_bm"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -209,7 +210,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -218,7 +219,7 @@
 
             <TextView
                 android:id="@+id/tv_xb"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -235,7 +236,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -244,7 +245,7 @@
 
             <TextView
                 android:id="@+id/tv_csrq"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -261,7 +262,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -270,7 +271,7 @@
 
             <TextView
                 android:id="@+id/tv_mz"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -287,7 +288,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -296,7 +297,7 @@
 
             <TextView
                 android:id="@+id/tv_hyzk"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -313,7 +314,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -322,7 +323,7 @@
 
             <TextView
                 android:id="@+id/tv_whcd"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -339,7 +340,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -348,7 +349,7 @@
 
             <TextView
                 android:id="@+id/tv_dqfl"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -365,7 +366,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -374,7 +375,7 @@
 
             <TextView
                 android:id="@+id/tv_djrq"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -391,7 +392,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -400,7 +401,7 @@
 
             <TextView
                 android:id="@+id/tv_dqrq"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -417,7 +418,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -426,7 +427,7 @@
 
             <TextView
                 android:id="@+id/tv_cszy"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -443,7 +444,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -452,7 +453,7 @@
 
             <TextView
                 android:id="@+id/tv_gzcs"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />
@@ -469,7 +470,7 @@
             android:padding="12dp">
 
             <TextView
-                style="@style/font_tip_14"
+                style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -478,7 +479,7 @@
 
             <TextView
                 android:id="@+id/tv_gzdz"
-                style="@style/font_gray_16"
+                style="@style/font_3_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7" />

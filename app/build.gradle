@@ -29,7 +29,7 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
-            minifyEnabled true
+            minifyEnabled false
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
@@ -57,6 +57,7 @@ android {
         compile files('libs/commons-codec-1.8.jar')
         compile files('libs/idcard_engine_20160322.jar')
         compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
+        debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     }
 }
 

@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.activity.DetailPersonActivity;
+import com.tdr.citycontrolpolice.activity.PopulationPersonActivity;
 import com.tdr.citycontrolpolice.adapter.CzfPopulationAdapter;
 import com.tdr.citycontrolpolice.base.KjBaseFragment;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_LKJBInfoList;
@@ -126,6 +126,6 @@ public class InfoPopulationFragment extends KjBaseFragment implements CzfPopulat
 
     @Override
     public void onClickDetail(String identityCard) {
-        DetailPersonActivity.goActivity(mActivity, identityCard);
+        PopulationPersonActivity.goActivity(mActivity, identityCard);
     }
 }

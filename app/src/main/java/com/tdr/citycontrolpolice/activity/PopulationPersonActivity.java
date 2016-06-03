@@ -24,7 +24,7 @@ import java.util.Map;
  * 创建时间：2016/4/13 15:37
  * 修改备注：
  */
-public class DetailPersonActivity extends BackTitleActivity {
+public class PopulationPersonActivity extends BackTitleActivity {
 
     private TextView mTvZzzh;
     private TextView mTvXm;
@@ -92,7 +92,7 @@ public class DetailPersonActivity extends BackTitleActivity {
         param.put("IDENTITYCARD", identityCard);
         ThreadPoolTask.Builder<Common_LKRenYuanXinxi> builder = new ThreadPoolTask.Builder<Common_LKRenYuanXinxi>();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "Common_LKRenYuanXinxi", param)
-                .setActivity(DetailPersonActivity.this)
+                .setActivity(PopulationPersonActivity.this)
                 .setBeanType(Common_LKRenYuanXinxi.class)
                 .setCallBack(getDetailCallBack).build();
         PoolManager.getInstance().execute(task);
@@ -109,7 +109,7 @@ public class DetailPersonActivity extends BackTitleActivity {
     }
 
     public static void goActivity(Context context, String identityCard) {
-        Intent intent = new Intent(context, DetailPersonActivity.class);
+        Intent intent = new Intent(context, PopulationPersonActivity.class);
         intent.putExtra("IDENTITYCARD", identityCard);
         context.startActivity(intent);
     }
