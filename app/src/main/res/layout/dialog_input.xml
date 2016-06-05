@@ -3,25 +3,25 @@
     android:layout_width="280dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp"
-   >
+    >
 
     <EditText
+        style="@style/font_edit_3_14"
         android:maxLength="9"
         android:id="@+id/et_station_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_lblue_bnull_r0"
         android:hint="请输入基站编号"
         android:inputType="number"
-        android:padding="8dp" />
+        android:padding="24dp" />
+    <View style="@style/divider_nomal_horizontal" />
 
     <Button
+        android:padding="12dp"
         android:id="@+id/btn_station_input"
         style="@style/font_blue_16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/sel_tr2gray_kj"
+        android:background="@drawable/sel_bottom_tr2gray"
         android:text="提交" />
 </LinearLayout>

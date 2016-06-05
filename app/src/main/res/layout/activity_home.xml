@@ -2,20 +2,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:clipToPadding="true"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/fl_home"
+        android:id="@+id/fl_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
     <View style="@style/divider_title_horizontal" />
 
-    <com.tdr.citycontrolpolice.view.CustomRadioGroup
-        android:id="@+id/crg_home"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_main_czf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_main_czf"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/home_on" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_main_work"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_main_work"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/police_off" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_main_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_main_info"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/personal_off" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

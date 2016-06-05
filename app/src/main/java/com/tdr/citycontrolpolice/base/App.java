@@ -13,7 +13,7 @@ import org.xutils.x;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：TODO
+ * 类描述：应用Application
  * 创建人：KingJA
  * 创建时间：2016/3/25 16:31
  * 修改备注：

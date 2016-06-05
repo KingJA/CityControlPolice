@@ -54,10 +54,10 @@ public class DeviceBindingAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.Conten
         viewHolder.device.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isStation) {
-                    ToastUtil.showMyToast("请先绑定基站");
-                    return;
-                }
+//                if (!isStation) {
+//                    ToastUtil.showMyToast("请先绑定基站");
+//                    return;
+//                }
                 if (onBindingStationListener != null) {
                     onBindingStationListener.onBindingDevice(list.get(position).getROOMID(), list.get(position).getROOMNO());
                 }

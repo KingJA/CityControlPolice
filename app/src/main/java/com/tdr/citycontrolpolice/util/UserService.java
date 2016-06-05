@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
+import com.tdr.citycontrolpolice.base.App;
+
 /**
  * 使用单例模式实例化User对象
  *
@@ -19,6 +21,7 @@ public class UserService {
      * 将构造函数定义私有，不允许外部实例化该对象，而只能使用getInstance()方法
      */
     private UserService() {
+        this.context= App.getContext();
     }
 
     /**
@@ -28,9 +31,9 @@ public class UserService {
      * @return
      */
     public static UserService getInstance(Context context) {
-        UserService.context = context;
+//        UserService.context = context;
         if (UserService.instance == null) {
-            return new UserService();
+            instance=new UserService();
         }
         return instance;
     }
