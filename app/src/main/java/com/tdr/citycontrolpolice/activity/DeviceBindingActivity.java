@@ -43,7 +43,7 @@ import java.util.Set;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：防控设备管理
+ * 类描述：防控设备绑定
  * 创建人：KingJA
  * 创建时间：2016/4/6 10:27
  * 修改备注：
@@ -222,12 +222,10 @@ public class DeviceBindingActivity extends BackTitleActivity implements DeviceBi
             }
             deviceType = Long.valueOf(result.substring(0, 4), 16);
             deviceNO = Long.valueOf(result.substring(4), 16);
-            if (deviceType == 1040) {
-                ToastUtil.showMyToast("未识别设备类型");
-                Log.i(TAG, "类型1040，不是设备类型:,");
+            if (deviceType != 1072) {
+                ToastUtil.showMyToast("设备不是门戒类型");
                 return;
             }
-            Log.i(TAG, deviceType + "是设备类型:,");
             Log.i(TAG, "设备类型: " + deviceType);
             Log.i(TAG, "设备编号: " + deviceNO);
             showBindDialog(String.valueOf(deviceNO), String.valueOf(deviceType), false);

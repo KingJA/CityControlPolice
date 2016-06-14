@@ -44,7 +44,7 @@ public abstract class PopupWindowBaseDown<T> extends PopupWindow implements OnDi
         this.setBackgroundDrawable(new BitmapDrawable());
         this.setOnDismissListener(this);
         this.setFocusable(true);
-        this.setAnimationStyle(R.style.PopupTopAnimation);
+        this.setAnimationStyle(R.style.PopupTopRightAnimation);
     }
 
     public PopupWindowBaseDown(View parentView, Activity activity) {
@@ -60,7 +60,7 @@ public abstract class PopupWindowBaseDown<T> extends PopupWindow implements OnDi
         this.setBackgroundDrawable(new BitmapDrawable());
         this.setOnDismissListener(this);
         this.setFocusable(true);
-        this.setAnimationStyle(R.style.PopupTopAnimation);
+        this.setAnimationStyle(R.style.PopupTopRightAnimation);
     }
 
 
@@ -76,10 +76,17 @@ public abstract class PopupWindowBaseDown<T> extends PopupWindow implements OnDi
 
     }
 
-    public void showPopupWindowDown() {
+    public void showPopupWindowDownOffset() {
         if (!this.isShowing()) {
             setAlpha(activity, 0.7f);
             this.showAsDropDown(parentView, (int) (-parentView.getWidth() * 1.3f), 0);
+        }
+    }
+
+    public void showPopupWindowDown() {
+        if (!this.isShowing()) {
+            setAlpha(activity, 0.7f);
+            this.showAsDropDown(parentView);
         }
     }
 

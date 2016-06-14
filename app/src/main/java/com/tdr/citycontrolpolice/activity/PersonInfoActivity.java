@@ -112,7 +112,7 @@ public class PersonInfoActivity extends BackTitleActivity implements BackTitleAc
 
     @Override
     public void onRightClick() {
-        czfListDetailPop.showPopupWindowDown();
+        czfListDetailPop.showPopupWindowDownOffset();
     }
 
     @Override

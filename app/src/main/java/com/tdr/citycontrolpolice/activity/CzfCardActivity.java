@@ -7,16 +7,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.CzfCardAdapter;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_SwipeCardList;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
+import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.AppUtil;
+import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
+import com.tdr.citycontrolpolice.view.popupwindow.RoomSelectPop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +37,7 @@ import java.util.Map;
  */
 public class CzfCardActivity extends BackTitleActivity implements SwipeRefreshLayout.OnRefreshListener {
     public static final String HOUSE_ID = "HOUSE_ID";
+    public static final String CZFINFO = "CZFINFO";
     private static final String TAG = "CzfCardActivity";
     private String houseId;
     private LinearLayout ll_empty;
@@ -39,30 +45,27 @@ public class CzfCardActivity extends BackTitleActivity implements SwipeRefreshLa
     private SwipeRefreshLayout single_srl;
     private List<ChuZuWu_SwipeCardList.ContentBean.PERSONNELINFOLISTBean> personnelinfolist = new ArrayList<>();
     private CzfCardAdapter czfCardAdapter;
+    private KjChuZuWuInfo czfinfo;
+    private RelativeLayout rl_select;
+    private RoomSelectPop roomSelectPop;
+    private TextView tv_room;
 
     @Override
     public View setContentView() {
-        view = View.inflate(this, R.layout.single_lv, null);
+        view = View.inflate(this, R.layout.template_select, null);
         return view;
     }
 
     @Override
     public void initVariables() {
         houseId = getIntent().getStringExtra(HOUSE_ID);
-//        for (int i = 0; i < 6; i++) {
-//            ChuZuWu_SwipeCardList.ContentBean.PERSONNELINFOLISTBean bean = new ChuZuWu_SwipeCardList.ContentBean.PERSONNELINFOLISTBean();
-//            bean.setNAME("张三");
-//            bean.setCARDID("330399887");
-//            bean.setDEVICETIME("2016-05-06 12:55:11");
-//            bean.setIDENTITYCARD("330399887451124144");
-//            bean.setCARDTYPE(String.valueOf(new Random().nextInt(7)));
-//            personnelinfolist.add(bean);
-//        }
-
+        czfinfo = (KjChuZuWuInfo) getIntent().getSerializableExtra(CZFINFO);
     }
 
     @Override
     protected void initView() {
+        tv_room = (TextView) view.findViewById(R.id.tv_room);
+        rl_select = (RelativeLayout) view.findViewById(R.id.rl_select);
         ll_empty = (LinearLayout) view.findViewById(R.id.ll_empty);
         single_lv = (ListView) view.findViewById(R.id.single_lv);
         single_srl = (SwipeRefreshLayout) view.findViewById(R.id.single_srl);
@@ -71,15 +74,20 @@ public class CzfCardActivity extends BackTitleActivity implements SwipeRefreshLa
         single_srl.setOnRefreshListener(this);
         czfCardAdapter = new CzfCardAdapter(this, personnelinfolist);
         single_lv.setAdapter(czfCardAdapter);
+        roomSelectPop = new RoomSelectPop(rl_select, this, czfinfo.getContent().getRoomList());
     }
 
     @Override
     public void initNet() {
+        loadNet("");
+    }
+
+    private void loadNet(String roomId) {
         single_srl.setRefreshing(true);
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
         param.put("HOUSEID", houseId);
-        param.put("ROOMID", "");
+        param.put("ROOMID", roomId);
         param.put("PageSize", 500);
         param.put("PageIndex", 0);
         ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
@@ -106,7 +114,19 @@ public class CzfCardActivity extends BackTitleActivity implements SwipeRefreshLa
 
     @Override
     public void initData() {
-
+        rl_select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                roomSelectPop.showPopupWindowDown();
+            }
+        });
+        roomSelectPop.setOnRoomSelectListener(new RoomSelectPop.OnRoomSelectListener() {
+            @Override
+            public void onSelect(int position, KjChuZuWuInfo.ContentBean.RoomListBean bean) {
+                tv_room.setText(position==0?"全部房间":bean.getROOMNO()+"");
+                loadNet(position==0?"":bean.getROOMID());
+            }
+        });
     }
 
     @Override
@@ -114,8 +134,9 @@ public class CzfCardActivity extends BackTitleActivity implements SwipeRefreshLa
         setTitle("刷卡记录列表");
     }
 
-    public static void goActivity(Context context, String houseId) {
+    public static void goActivity(Context context, String houseId, KjChuZuWuInfo czfinfo) {
         Intent intent = new Intent(context, CzfCardActivity.class);
+        intent.putExtra(CZFINFO,czfinfo);
         intent.putExtra(HOUSE_ID, houseId);
         context.startActivity(intent);
     }

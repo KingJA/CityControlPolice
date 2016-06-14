@@ -32,6 +32,7 @@
             android:text="房间号" />
 
         <TextView
+            android:visibility="gone"
             style="@style/font_bold_6_12"
             android:gravity="center"
             android:layout_width="0dp"

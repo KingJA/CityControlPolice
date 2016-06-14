@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--右上角出来Popupwindow样式-->
-    <style name="PopupTopAnimation" parent="android:Animation">
+    <style name="PopupTopRightAnimation" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/pop_enter</item>
         <!--<item name="android:windowExitAnimation">@anim/pop_exit</item>-->
     </style>
@@ -10,6 +10,11 @@
     <style name="PopupBottomAnimation" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/menu_up</item>
         <item name="android:windowExitAnimation">@anim/menu_down</item>
+    </style>
+
+    <style name="PopupTopAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/spaner_enter</item>
+        <item name="android:windowExitAnimation">@anim/spaner_exit</item>
     </style>
 
     <!--普通水平分割线-->

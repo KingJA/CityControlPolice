@@ -51,6 +51,7 @@ import java.util.Set;
 public class PersonCheckActivity extends BackTitleActivity implements View.OnClickListener {
 
     private static final String TAG = "PersonCheckActivity";
+    private ImageView iv_nfc;
     private ImageView iv_bluetooth;
     private ImageView iv_camera;
     private TextView tv_gender;
@@ -92,6 +93,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
         iv_camera = (ImageView) view.findViewById(R.id.iv_camera);
         tv_submit = (TextView) view.findViewById(R.id.tv_submit);
         iv_bluetooth = (ImageView) view.findViewById(R.id.iv_bluetooth);
+        iv_nfc = (ImageView) view.findViewById(R.id.iv_nfc);
         dialogBluetooth = new DialogBluetooth(this, boundDevices);
         dialogProgress = new DialogProgress(this);
 
@@ -153,6 +155,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
     public void initData() {
         tv_submit.setOnClickListener(this);
         iv_camera.setOnClickListener(this);
+        iv_nfc.setOnClickListener(this);
         iv_bluetooth.setOnClickListener(this);
         dialogBluetooth.setOnBuletoothListener(new DialogBluetooth.OnBuletoothListener() {
 
@@ -390,6 +393,8 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_nfc:
+                break;
             case R.id.tv_submit:
                 submit();
                 break;

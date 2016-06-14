@@ -176,7 +176,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
     @Override
     public void onRightClick() {
         if (isFinished) {
-            mCzfInfoPop.showPopupWindowDown();
+            mCzfInfoPop.showPopupWindowDownOffset();
         }
 
     }
@@ -198,7 +198,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
                 break;
             case 2:
-                CzfCardActivity.goActivity(this, mHouseId);
+                CzfCardActivity.goActivity(this, mHouseId,mCzfInfo);
                 break;
             case 3:
 //                ToastUtil.showMyToast("该功能正在开发中...");
