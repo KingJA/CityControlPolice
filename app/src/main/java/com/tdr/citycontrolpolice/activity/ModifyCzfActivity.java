@@ -84,7 +84,7 @@ public class ModifyCzfActivity extends BackTitleActivity implements View.OnClick
     @Override
     public void initNet() {
         setProgressDialog(true);
-        ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
                 .setActivity(ModifyCzfActivity.this)
@@ -146,7 +146,7 @@ public class ModifyCzfActivity extends BackTitleActivity implements View.OnClick
         if (CheckUtil.checkEmpty(houseName, "请输入房间名称") && CheckUtil.checkLengthMax(houseName, 30, "房间名过长")) {
             setProgressDialog(true);
             param_chuZuWu_modify.setHOUSENAME(houseName);
-            ThreadPoolTask.Builder<ChuZuWu_Modify> builder = new ThreadPoolTask.Builder<>();
+            ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
             ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_Modify", param_chuZuWu_modify)
                     .setBeanType(ChuZuWu_Modify.class)
                     .setActivity(ModifyCzfActivity.this)

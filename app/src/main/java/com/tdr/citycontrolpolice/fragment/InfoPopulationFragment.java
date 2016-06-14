@@ -77,7 +77,7 @@ public class InfoPopulationFragment extends KjBaseFragment implements CzfPopulat
 
     @Override
     protected void initFragmentNet() {
-        ThreadPoolTask.Builder<ChuZuWu_LKJBInfoList> builder = new ThreadPoolTask.Builder<ChuZuWu_LKJBInfoList>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_LKJBInfoList", mParam)
                 .setBeanType(ChuZuWu_LKJBInfoList.class)
                 .setActivity(getActivity())

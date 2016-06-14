@@ -82,7 +82,7 @@ public class DownloadDbActivity extends BackTitleActivity {
                 tv_paiChuSuo.setText("下载中");
                 tv_xingZhengQuHua.setText("下载中");
                 tv_juWeiHui.setText("下载中");
-                DownloadDbManager.getInstance(DownloadDbActivity.this, handler).startDownloadDb();
+                new DownloadDbManager(handler).startDownloadDb();
             }
         });
     }

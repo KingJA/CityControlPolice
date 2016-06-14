@@ -149,7 +149,7 @@ public class NfcActivity extends BackTitleActivity {
             param.put("ADDRESS", address);
             param.put("IDENTITYCARD", cardNO);
             param.put("IDENTITYCARDID", cardID);
-            ThreadPoolTask.Builder<Common_IdentityCardAuthentication> builder = new ThreadPoolTask.Builder<Common_IdentityCardAuthentication>();
+            ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
             ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(NfcActivity.this).getToken(), 0, "Common_IdentityCardAuthentication", param)
                     .setBeanType(Common_IdentityCardAuthentication.class)
                     .setActivity(NfcActivity.this)

@@ -93,7 +93,7 @@ public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnI
     private void getAppleList(final boolean isInList) {
         dialogProgress.show();
         String methodName = isInList ? "ChuZuWu_LKSelfReportingList" : "ChuZuWu_LKSelfReportingOutList";
-        ThreadPoolTask.Builder<ChuZuWu_LKSelfReportingList> builder = new ThreadPoolTask.Builder<ChuZuWu_LKSelfReportingList>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0, methodName, mParam)
                 .setBeanType(ChuZuWu_LKSelfReportingList.class)
                 .setActivity(getActivity())

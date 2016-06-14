@@ -99,7 +99,7 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
         photo.setTAG("货品箱");
         photolist.add(photo);
         param.setPHOTOLIST(photolist);
-        ThreadPoolTask.Builder<Common_OpenBox_Result> builder = new ThreadPoolTask.Builder<Common_OpenBox_Result>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "Common_OpenBox", param)
                 .setBeanType(Common_OpenBox_Result.class)
                 .setActivity(BoxActivity.this)

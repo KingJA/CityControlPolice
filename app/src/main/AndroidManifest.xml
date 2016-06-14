@@ -97,7 +97,7 @@
             android:name="com.tdr.citycontrolpolice.activity.DeviceManagerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.tdr.citycontrolpolice.activity.DeviceBindingListActivity"
+            android:name=".activity.DeviceBindingActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.tdr.citycontrolpolice.activity.PersonCheckActivity"

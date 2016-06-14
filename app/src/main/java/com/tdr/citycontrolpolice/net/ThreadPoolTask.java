@@ -2,6 +2,8 @@ package com.tdr.citycontrolpolice.net;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -22,20 +24,18 @@ import java.util.Map;
  * 创建时间：2016/3/22 13:08
  * 修改备注：
  */
-public class ThreadPoolTask<T> implements Runnable {
+public class ThreadPoolTask implements Runnable {
 
 
-    private static final String TAG = "ThreadPoolTask";
     private String token;
     private int encryption;
     private String dataTypeCode;
     private Object privateParam;
-    private Class<T> clazz;
-    private WebServiceCallBack<T> callBack;
+    private Class clazz;
+
+    private WebServiceCallBack callBack;
     private Activity activity;
     private int resultCode;
-    private String resultText;
-    private String dataTypeCode1;
     private ErrorResult errorResult;
 
     public ThreadPoolTask(Builder builder) {
@@ -48,25 +48,29 @@ public class ThreadPoolTask<T> implements Runnable {
         this.activity = builder.activity;
     }
 
+    public void execute() {
+        PoolManager.getInstance().execute(this);
+    }
+
 
     @Override
     public void run() {
         Map<String, Object> generalParam = getGeneralParam(token, encryption, dataTypeCode, privateParam);
         try {
-            String json = WebServiceManager.getInstance().load(generalParam);
+            final String json = WebServiceManager.getInstance().load(generalParam);
             JSONObject rootObject = new JSONObject(json);
             resultCode = rootObject.getInt("ResultCode");
             if (resultCode != 0) {
                 Log.i("UNSUCCESS", json);
                 Logger.json(json);
-                resultText = rootObject.getString("ResultText");
-                dataTypeCode1 = rootObject.getString("DataTypeCode");
+                String resultText = rootObject.getString("ResultText");
+                String dataTypeCode1 = rootObject.getString("DataTypeCode");
                 errorResult = new ErrorResult();
                 errorResult.setResultCode(resultCode);
                 errorResult.setResultText(resultText);
                 errorResult.setDataTypeCode(dataTypeCode1);
                 if (callBack != null) {
-                    activity.runOnUiThread(new Runnable() {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
                             callBack.onErrorResult(errorResult);
@@ -83,19 +87,20 @@ public class ThreadPoolTask<T> implements Runnable {
             } else {
                 Log.i("SUCCESS", json);
                 Logger.json(json);
-                final T t = json2Bean(json.toString(), clazz);
+
                 if (callBack != null) {
-                    activity.runOnUiThread(new Runnable() {
+
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
-                            callBack.onSuccess(t);
+                            callBack.onSuccess(json2Bean(json, clazz));
                         }
                     });
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            activity.runOnUiThread(new Runnable() {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
                     ToastUtil.showMyToast("连接超时");
@@ -108,7 +113,7 @@ public class ThreadPoolTask<T> implements Runnable {
         Gson gson = new Gson();
         String json = gson.toJson(privateParam);
         Log.i("PARAM_JSON", json);
-        Map<String, Object> generalParam = new HashMap<String, Object>();
+        Map<String, Object> generalParam = new HashMap<>();
         generalParam.put("token", token);
         generalParam.put("encryption", encryption);
         generalParam.put("dataTypeCode", dataTypeCode);
@@ -118,16 +123,16 @@ public class ThreadPoolTask<T> implements Runnable {
     }
 
 
-    static public class Builder<T> {
+    public static class Builder {
         private String token;
         private int encryption;
         private String dataTypeCode;
         private Object privateParam;
-        private Class<T> clazz;
+        private Class clazz;
         private WebServiceCallBack callBack;
         private Activity activity;
 
-        public Builder setGeneralParam(String token, int encryption, String dataTypeCode, Object privateParam) {
+        public ThreadPoolTask.Builder setGeneralParam(String token, int encryption, String dataTypeCode, Object privateParam) {
             this.token = token;
             this.encryption = encryption;
             this.dataTypeCode = dataTypeCode;
@@ -135,17 +140,19 @@ public class ThreadPoolTask<T> implements Runnable {
             return this;
         }
 
-        public Builder setBeanType(Class<T> clazz) {
+        public <T> ThreadPoolTask.Builder setBeanType(Class<T> clazz) {
             this.clazz = clazz;
             return this;
         }
 
-        public Builder setCallBack(WebServiceCallBack<T> callBack) {
+        public <T> ThreadPoolTask.Builder setCallBack(WebServiceCallBack<T> callBack) {
             this.callBack = callBack;
             return this;
+
+
         }
 
-        public Builder setActivity(Activity activity) {
+        public ThreadPoolTask.Builder setActivity(Activity activity) {
             this.activity = activity;
             return this;
         }
@@ -155,7 +162,7 @@ public class ThreadPoolTask<T> implements Runnable {
         }
     }
 
-    private static <T> T json2Bean(String json, Class<T> clazz) {
+    private <T> T json2Bean(String json, Class<T> clazz) {
         Gson gson = new Gson();
         return gson.fromJson(json, clazz);
     }

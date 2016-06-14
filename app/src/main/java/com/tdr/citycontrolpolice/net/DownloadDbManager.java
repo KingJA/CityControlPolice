@@ -1,6 +1,5 @@
 package com.tdr.citycontrolpolice.net;
 
-import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -55,7 +54,6 @@ public class DownloadDbManager {
     private static int totelJuWeiHui;
     private final String[] checkArr = {Basic_PaiChuSuo, Basic_XingZhengQuHua, Basic_JuWeiHui};
     private static DownloadDbManager mDownloadDbManager;
-    private Activity activity;
     private Handler handler;
     private DbManager.DaoConfig daoConfig;
     private DbManager db;
@@ -63,25 +61,24 @@ public class DownloadDbManager {
     private Basic_CheckUpdate_Param.DatasBean bean;
     private List<String> downAbleList;
 
-    private DownloadDbManager(Activity activity, Handler handler) {
-
-        this.activity = activity;
+    public DownloadDbManager(Handler handler) {
         this.handler = handler;
         initDb();
-    }
-
-
-    public static DownloadDbManager getInstance(Activity activity, Handler handler) {
         initData();
-        if (mDownloadDbManager == null) {
-            synchronized (DownloadDbManager.class) {
-                if (mDownloadDbManager == null) {
-                    mDownloadDbManager = new DownloadDbManager(activity, handler);
-                }
-            }
-        }
-        return mDownloadDbManager;
     }
+
+
+//    public static DownloadDbManager getInstance(Handler handler) {
+//        initData();
+//        if (mDownloadDbManager == null) {
+//            synchronized (DownloadDbManager.class) {
+//                if (mDownloadDbManager == null) {
+//                    mDownloadDbManager = new DownloadDbManager(handler);
+//                }
+//            }
+//        }
+//        return mDownloadDbManager;
+//    }
 
     private static void initData() {
         totelDictionary = 0;
@@ -91,15 +88,14 @@ public class DownloadDbManager {
     }
 
 
-    public <T> void downloadDb(String method, final int page, Class<T> clazz, Activity activity, WebServiceCallBack<T> callBack) {
+    public <T> void downloadDb(String method, final int page, Class<T> clazz, WebServiceCallBack<T> callBack) {
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
         param.put("PageSize", REQUEST_SIZE);
         param.put("PageIndex", page);
-        ThreadPoolTask.Builder<T> builder = new ThreadPoolTask.Builder<>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam("", 0, method, param)
                 .setBeanType(clazz)
-                .setActivity(activity)
                 .setCallBack(callBack).build();
         PoolManager.getInstance().execute(task);
     }
@@ -108,6 +104,8 @@ public class DownloadDbManager {
      * 开始下载
      */
     public void startDownloadDb() {
+        initDb();
+        initData();
         downloadDictionary(0);
         checkUpdate();
     }
@@ -123,10 +121,9 @@ public class DownloadDbManager {
         param.put("UpdateTime", SharedPreferencesUtils.get(Basic_Dictionary, DEFAULT_TIME));
         param.put("PageSize", REQUEST_SIZE);
         param.put("PageIndex", page);
-        ThreadPoolTask.Builder<Basic_Dictionary_Return> builder = new ThreadPoolTask.Builder<Basic_Dictionary_Return>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam("", 0, Basic_Dictionary, param)
                 .setBeanType(Basic_Dictionary_Return.class)
-                .setActivity(activity)
                 .setCallBack(new WebServiceCallBack<Basic_Dictionary_Return>() {
                     @Override
                     public void onSuccess(Basic_Dictionary_Return bean) {
@@ -167,10 +164,9 @@ public class DownloadDbManager {
             datas.add(bean);
         }
         param.setDatas(datas);
-        ThreadPoolTask.Builder<Basic_CheckUpdate> builder = new ThreadPoolTask.Builder<Basic_CheckUpdate>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam("", 0, "Basic_CheckUpdate", param)
                 .setBeanType(Basic_CheckUpdate.class)
-                .setActivity(activity)
                 .setCallBack(new WebServiceCallBack<Basic_CheckUpdate>() {
 
                     @Override
@@ -257,7 +253,7 @@ public class DownloadDbManager {
      * @param page
      */
     public void downloadPaiChuSuo(final int page) {
-        downloadDb(Basic_PaiChuSuo, page, Basic_PaiChuSuo_Return.class, activity, new WebServiceCallBack<Basic_PaiChuSuo_Return>() {
+        downloadDb(Basic_PaiChuSuo, page, Basic_PaiChuSuo_Return.class, new WebServiceCallBack<Basic_PaiChuSuo_Return>() {
             @Override
             public void onSuccess(Basic_PaiChuSuo_Return bean) {
                 List<Basic_PaiChuSuo_Kj> content = bean.getContent();
@@ -287,7 +283,7 @@ public class DownloadDbManager {
      * @param page
      */
     public void downloadXingZhengQuHua(final int page) {
-        downloadDb(Basic_XingZhengQuHua, page, Basic_XingZhengQuHua_Return.class, activity, new WebServiceCallBack<Basic_XingZhengQuHua_Return>() {
+        downloadDb(Basic_XingZhengQuHua, page, Basic_XingZhengQuHua_Return.class, new WebServiceCallBack<Basic_XingZhengQuHua_Return>() {
             @Override
             public void onSuccess(Basic_XingZhengQuHua_Return bean) {
                 List<Basic_XingZhengQuHua_Kj> content = bean.getContent();
@@ -317,7 +313,7 @@ public class DownloadDbManager {
      * @param page
      */
     public void downloadJuWeiHui(final int page) {
-        downloadDb(Basic_JuWeiHui, page, Basic_JuWeiHui_Return.class, activity, new WebServiceCallBack<Basic_JuWeiHui_Return>() {
+        downloadDb(Basic_JuWeiHui, page, Basic_JuWeiHui_Return.class, new WebServiceCallBack<Basic_JuWeiHui_Return>() {
             @Override
             public void onSuccess(Basic_JuWeiHui_Return bean) {
                 List<Basic_JuWeiHui_Kj> content = bean.getContent();

@@ -137,7 +137,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     @Override
     protected void initFragmentNet() {
         dialogProgress.show();
-        ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<KjChuZuWuInfo>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0, "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
                 .setActivity(getActivity())
@@ -363,7 +363,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
             roomlist.add(roomlistBean);
         }
         param.setROOMLIST(roomlist);
-        ThreadPoolTask.Builder<ChuZuWu_AddRoomList> builder = new ThreadPoolTask.Builder<ChuZuWu_AddRoomList>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0, "ChuZuWu_AddRoomList", param)
                 .setBeanType(ChuZuWu_AddRoomList.class)
                 .setActivity(getActivity())

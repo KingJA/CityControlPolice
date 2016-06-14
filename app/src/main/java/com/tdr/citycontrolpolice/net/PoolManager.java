@@ -23,8 +23,6 @@ public class PoolManager {
             synchronized (PoolManager.class) {
                 if (mPoolManager == null) {
                     mPoolManager = new PoolManager();
-
-                    return mPoolManager;
                 }
             }
         }

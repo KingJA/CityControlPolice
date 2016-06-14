@@ -118,7 +118,7 @@ public class DialogAddress extends Dialog implements View.OnClickListener,Adapte
         param.put("PageIndex", "0");
         param.put("KEY", queryAddress);
 
-        ThreadPoolTask.Builder<Basic_StandardAddressCodeByKey_Kj> builder = new ThreadPoolTask.Builder<Basic_StandardAddressCodeByKey_Kj>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(context).getToken(), 0, "Basic_StandardAddressCodeByKey", param)
                 .setActivity(activity)
                 .setBeanType(Basic_StandardAddressCodeByKey_Kj.class)

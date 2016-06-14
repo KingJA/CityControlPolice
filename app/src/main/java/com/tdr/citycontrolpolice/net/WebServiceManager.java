@@ -23,7 +23,6 @@ import java.util.Map;
  * 修改备注：
  */
 public class WebServiceManager {
-    //    private static final String SERVER_URL = "http://zafkapp.test.iotone.cn/rentalestate.asmx";//Url
     private static final String SERVER_URL = Constants.WEBSERVER_URL;//Url
     private static final String SERVER_NAMESPACE = "http://tempuri.org/";//命名空间
     private static final String SERVER_METHOD = "RERequest";// 治安防控APP接口
@@ -32,7 +31,6 @@ public class WebServiceManager {
     private WebServiceManager() {
     }
 
-    ;
     private static WebServiceManager mWebServiceManager;
 
     public static WebServiceManager getInstance() {
@@ -40,7 +38,6 @@ public class WebServiceManager {
             synchronized (WebServiceManager.class) {
                 if (mWebServiceManager == null) {
                     mWebServiceManager = new WebServiceManager();
-                    return mWebServiceManager;
                 }
             }
         }
@@ -77,7 +74,7 @@ public class WebServiceManager {
 
     }
 
-    private static <T> T json2Bean(String json, Class<T> clazz) {
+    public static <T> T json2Bean(String json, Class<T> clazz) {
         Gson gson = new Gson();
         return gson.fromJson(json, clazz);
     }

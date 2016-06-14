@@ -115,8 +115,9 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
     public void setTypeImg(ImageView iv, String type, boolean isOneDay) {
         if ("1072".equals(type)) {
             iv.setBackgroundResource(isOneDay ? R.drawable.bg_menjie_on : R.drawable.bg_menjie_off);
-        } else {
-            iv.setBackgroundResource(isOneDay ? R.drawable.bg_other_on : R.drawable.bg_other_off);
+        }
+        else {
+            iv.setBackgroundResource(R.drawable.bg_other_off);
         }
 
     }

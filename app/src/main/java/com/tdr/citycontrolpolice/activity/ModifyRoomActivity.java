@@ -108,7 +108,7 @@ public class ModifyRoomActivity extends BackTitleActivity implements BottomListP
     @Override
     public void initNet() {
         setProgressDialog(true);
-        ThreadPoolTask.Builder<ChuZuWu_RoomInfo> builder = new ThreadPoolTask.Builder<ChuZuWu_RoomInfo>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_RoomInfo", mParam)
                 .setBeanType(ChuZuWu_RoomInfo.class)
                 .setActivity(ModifyRoomActivity.this)
@@ -197,7 +197,7 @@ public class ModifyRoomActivity extends BackTitleActivity implements BottomListP
         mParam_chuZuWu_modifyRoom.setYANGTAI(string2Int(mYangTai));
         mParam_chuZuWu_modifyRoom.setSQUARE(string2Int(mArea));
         mParam_chuZuWu_modifyRoom.setGALLERYFUL(string2Int(mPerson));
-        ThreadPoolTask.Builder<ChuZuWu_Modify> builder = new ThreadPoolTask.Builder<ChuZuWu_Modify>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_ModifyRoom", mParam_chuZuWu_modifyRoom)
                 .setBeanType(ChuZuWu_Modify.class)
                 .setActivity(ModifyRoomActivity.this)

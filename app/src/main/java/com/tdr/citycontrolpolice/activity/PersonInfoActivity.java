@@ -77,7 +77,7 @@ public class PersonInfoActivity extends BackTitleActivity implements BackTitleAc
     @Override
     public void initNet() {
         setProgressDialog(true);
-        ThreadPoolTask.Builder<ChuZuWu_ComprehensiveInfo> builder = new ThreadPoolTask.Builder<ChuZuWu_ComprehensiveInfo>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_ComprehensiveInfo", mParam)
                 .setBeanType(ChuZuWu_ComprehensiveInfo.class)
                 .setActivity(PersonInfoActivity.this)

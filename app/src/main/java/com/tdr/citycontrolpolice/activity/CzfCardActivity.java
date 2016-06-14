@@ -82,7 +82,7 @@ public class CzfCardActivity extends BackTitleActivity implements SwipeRefreshLa
         param.put("ROOMID", "");
         param.put("PageSize", 500);
         param.put("PageIndex", 0);
-        ThreadPoolTask.Builder<ChuZuWu_SwipeCardList> builder = new ThreadPoolTask.Builder<ChuZuWu_SwipeCardList>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "ChuZuWu_SwipeCardList", param)
                 .setBeanType(ChuZuWu_SwipeCardList.class)
                 .setActivity(CzfCardActivity.this)

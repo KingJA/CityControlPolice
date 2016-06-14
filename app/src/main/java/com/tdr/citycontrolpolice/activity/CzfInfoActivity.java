@@ -104,7 +104,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
     @Override
     public void initNet() {
         mDialogProgress.dismiss();
-        ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<KjChuZuWuInfo>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
                 .setActivity(CzfInfoActivity.this)
@@ -207,7 +207,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
             case 4:
                 Bundle bundle = new Bundle();
                 bundle.putString("HOUSE_ID", mHouseId);
-                ActivityUtil.goActivityWithBundle(this, DeviceBindingListActivity.class, bundle);
+                ActivityUtil.goActivityWithBundle(this, DeviceBindingActivity.class, bundle);
                 break;
             case 5:
                 Intent deviceIntent = new Intent(this, DeviceManagerActivity.class);
@@ -231,7 +231,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
         param.put("HOUSEID", mHouseId);
         param.put("ISREGISTER", "1");
 
-        ThreadPoolTask.Builder<ChuZuWu_InstallStatus> builder = new ThreadPoolTask.Builder<ChuZuWu_InstallStatus>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_InstallStatus", param)
                 .setBeanType(ChuZuWu_InstallStatus.class)
                 .setActivity(CzfInfoActivity.this)

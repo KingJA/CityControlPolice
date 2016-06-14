@@ -85,7 +85,7 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
     @Override
     public void initNet() {
         srl.setRefreshing(true);
-        ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<KjChuZuWuInfo>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
                 .setActivity(DeviceManagerActivity.this)
@@ -167,7 +167,7 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
         param.put("OLDDEVICECODE", bean.getDEVICECODE());
         param.put("OTHERTYPE", "2");
         param.put("OTHERID", roomId);
-        ThreadPoolTask.Builder<Common_ReplaceDevice> builder = new ThreadPoolTask.Builder<Common_ReplaceDevice>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "Common_ReplaceDevice", param)
                 .setBeanType(Common_ReplaceDevice.class)
                 .setActivity(DeviceManagerActivity.this)
@@ -206,7 +206,7 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
         param.put("RoomID", roomid);
         param.put("PageSize", 20);
         param.put("PageIndex", 0);
-        ThreadPoolTask.Builder<ChuZuWu_DeviceLists> builder = new ThreadPoolTask.Builder<ChuZuWu_DeviceLists>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "ChuZuWu_DeviceLists", param)
                 .setBeanType(ChuZuWu_DeviceLists.class)
                 .setActivity(DeviceManagerActivity.this)

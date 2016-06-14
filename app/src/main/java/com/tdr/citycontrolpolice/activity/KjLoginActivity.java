@@ -151,10 +151,9 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         dialogProgress.show();
         String methodName = isLoginByPolice ? WebServiceMethod.User_LoginByPolice : WebServiceMethod.User_LoginByAccount;
         Param_User_LoginByPolice paramLogin = buildParam();
-        ThreadPoolTask.Builder<User_LoginByPolice> builder = new ThreadPoolTask.Builder<User_LoginByPolice>();
-        ThreadPoolTask task = builder.setGeneralParam("", 0, methodName, paramLogin)
+        new ThreadPoolTask.Builder()
+                .setGeneralParam("", 0, methodName, paramLogin)
                 .setBeanType(User_LoginByPolice.class)
-                .setActivity(KjLoginActivity.this)
                 .setCallBack(new WebServiceCallBack<User_LoginByPolice>() {
                     @Override
                     public void onSuccess(User_LoginByPolice bean) {
@@ -168,14 +167,13 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
                     public void onErrorResult(ErrorResult errorResult) {
                         dialogProgress.dismiss();
                     }
-                }).build();
-        PoolManager.getInstance().execute(task);
+                }).build().execute();
 
     }
 
     private void savaDateToLocal(User_LoginByPolice bean) {
         User_LoginByPolice.ContentBean content = bean.getContent();
-        SharedPreferencesUtils.put("login_name", userName);
+        SharedPreferencesUtils.put("login_name", content.getName());
         SharedPreferencesUtils.put("uid", content.getUserID());
         SharedPreferencesUtils.put("token", content.getToken());
     }

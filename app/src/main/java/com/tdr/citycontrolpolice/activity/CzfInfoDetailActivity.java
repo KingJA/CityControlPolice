@@ -66,7 +66,7 @@ public class CzfInfoDetailActivity extends BackTitleActivity {
     @Override
     public void initNet() {
         setProgressDialog(true);
-        ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<KjChuZuWuInfo>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
                 .setActivity(CzfInfoDetailActivity.this)

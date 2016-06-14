@@ -25,6 +25,7 @@ import com.tdr.citycontrolpolice.adapter.HomeAdapter;
 import com.tdr.citycontrolpolice.base.BaseFragment;
 import com.tdr.citycontrolpolice.czfinit.CzfInitActivity;
 import com.tdr.citycontrolpolice.net.DownloadDbManager;
+import com.tdr.citycontrolpolice.net.NfcUtil;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.util.QRCodeUtil;
@@ -53,7 +54,6 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
     private final static int SCANNIN_GREQUEST_CODE = 2002;
     private final static int SCANNIN_CZF_CODE = 2003;
     private ZProgressHUD progressHUD;
-    private String newcode;
     private final static int ERROR = 4001;
     private Handler mHandler = new Handler() {
         @Override
@@ -61,28 +61,6 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
             super.handleMessage(msg);
             Intent intent = new Intent();
             switch (msg.what) {
-//                /**
-//                 * 设备登记
-//                 */
-//                case SCANNIN_CZF_CODE:
-//                    if (msg.getData().getInt("error") == 0) {
-//                        progressHUD.dismiss();
-//                        //TODO
-//                        intent.setClass(mActivity, CzfInitActivity.class);
-//                        intent.putExtra("DEVICECODE", newcode);
-//                        intent.putExtra("DEVICETYPE", "0002");
-//                        startActivity(intent);
-//                    }
-//                    if (msg.getData().getInt("error") == 1) {
-//                        progressHUD.dismiss();
-//                        Toast.makeText(mActivity, "已登记", Toast.LENGTH_LONG).show();
-//                    } else {
-//                        progressHUD.dismiss();
-//                    }
-//                    break;
-//                /**
-//                 * 查询设备
-//                 */
                 case SCANNIN_GREQUEST_CODE:
                     if (msg.getData().getInt("error") == 1) {
                         progressHUD.dismiss();
@@ -101,7 +79,6 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
                         Toast.makeText(mActivity, "号牌未登记", Toast.LENGTH_LONG).show();
                     } else if (msg.getData().getInt("error") == 2) {
                         progressHUD.dismiss();
-
                         ToastUtil.showMyToast("登录失效，请重新登录！");
                         Intent reLoginIntent = new Intent(mActivity, KjLoginActivity.class);
                         mActivity.startActivity(reLoginIntent);
@@ -174,7 +151,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
             public void onLeft() {
-                DownloadDbManager.getInstance(getActivity(), mHandler).startDownloadDb();
+                new DownloadDbManager(mHandler).startDownloadDb();
                 ToastUtil.showMyToast("数据库进入后台更新");
             }
 
@@ -185,32 +162,17 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         });
     }
 
-    public static boolean nfcAble(Context context) {
-        NfcManager manager = (NfcManager) context.getSystemService(Context.NFC_SERVICE);
-        NfcAdapter adapter = manager.getDefaultAdapter();
-        if (adapter == null) {
-            ToastUtil.showMyToast("该设备不支持NFC");
-            return false;
-        }
-        if (!adapter.isEnabled()) {
-            ToastUtil.showMyToast("请在系统设置中开启NFC");
-            return false;
-        }
-        return true;
-    }
 
     @Override
     public void onNfcClick(int position) {
         switch (position) {
             case 0:
-                if (nfcAble(getActivity())) {
+                if (NfcUtil.isEnable()) {
                     ActivityUtil.goActivity(getActivity(), NfcActivity.class);
                 }
                 break;
             case 1:
-
                 ActivityUtil.goActivity(getActivity(), PersonCheckActivity.class);
-
                 break;
             default:
                 break;
@@ -220,14 +182,15 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent();
         switch (position) {
             case 0:
                 ActivityUtil.goActivity(getActivity(), CzfInitActivity.class);
                 break;
             case 1:
+                Intent intent = new Intent();
                 intent.setClass(mActivity, zbar.CaptureActivity.class);
                 startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
+//                ActivityUtil.goActivityForResult(mActivity,zbar.CaptureActivity.class,SCANNIN_GREQUEST_CODE);
                 break;
             case 2:
                 ActivityUtil.goActivity(mActivity, CzfQueryActivity.class);
@@ -255,20 +218,6 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
      * 设备查询
      */
     private void inquireDevice(Intent data, final int requestCode) {
-//        Bundle bundle = data.getExtras();
-//        String result = bundle.getString("result");
-//        Log.i(TAG, "Camera result: " + result);
-//        result = result.substring(result.indexOf("?") + 1);
-//        String type = result.substring(0, 2);
-//        if (type.equals("AD")) {
-//            String base = result.substring(2);
-//            byte[] s = TendencyEncrypt.decode(base.getBytes());
-//            String code = TendencyEncrypt.bytesToHexString(s);
-//            Log.i(TAG, "TendencyEncrypt code: " + code);
-//            newcode = code.substring(0, 6) + code.substring(9);
-//            int i = newcode.length();
-//            newcode = newcode.substring(0, i - 4);
-//            Log.e("i", newcode);
 
         deviceCode = QRCodeUtil.inquireCzf(data);
 

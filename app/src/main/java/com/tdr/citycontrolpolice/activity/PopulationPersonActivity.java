@@ -90,7 +90,7 @@ public class PopulationPersonActivity extends BackTitleActivity {
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
         param.put("IDENTITYCARD", identityCard);
-        ThreadPoolTask.Builder<Common_LKRenYuanXinxi> builder = new ThreadPoolTask.Builder<Common_LKRenYuanXinxi>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "Common_LKRenYuanXinxi", param)
                 .setActivity(PopulationPersonActivity.this)
                 .setBeanType(Common_LKRenYuanXinxi.class)

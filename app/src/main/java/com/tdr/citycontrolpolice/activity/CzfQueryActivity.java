@@ -143,7 +143,7 @@ public class CzfQueryActivity extends Activity implements TextWatcher, View.OnCl
         param.put("PageIndex", "0");
         param.put("KEY", queryAddress);
 
-        ThreadPoolTask.Builder<Basic_StandardAddressCodeByKey_Kj> builder = new ThreadPoolTask.Builder<Basic_StandardAddressCodeByKey_Kj>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "Basic_StandardAddressCodeByKey", param)
                 .setActivity(CzfQueryActivity.this)
                 .setBeanType(Basic_StandardAddressCodeByKey_Kj.class)
@@ -163,7 +163,7 @@ public class CzfQueryActivity extends Activity implements TextWatcher, View.OnCl
         param.put("TaskID", "1");
         param.put("STANDARDADDRCODE", geocode);
 
-        ThreadPoolTask.Builder<ChuZuWu_SearchInfoByStandardAddr> builder = new ThreadPoolTask.Builder<ChuZuWu_SearchInfoByStandardAddr>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "ChuZuWu_SearchInfoByStandardAddr", param)
                 .setActivity(CzfQueryActivity.this)
                 .setBeanType(ChuZuWu_SearchInfoByStandardAddr.class)

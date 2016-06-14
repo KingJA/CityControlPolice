@@ -109,7 +109,7 @@ public class BindingDeviceActivity extends BackTitleActivity {
             photolistBean.setTAG("设备");
             photolist.add(photolistBean);
             param.setPHOTOLIST(photolist);
-            ThreadPoolTask.Builder<Common_AddDevice> builder = new ThreadPoolTask.Builder<Common_AddDevice>();
+            ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
             ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "Common_AddDevice", param)
                     .setBeanType(Common_AddDevice.class)
                     .setActivity(BindingDeviceActivity.this)

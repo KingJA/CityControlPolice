@@ -1,6 +1,8 @@
 package com.tdr.citycontrolpolice.dao;
 
 
+import com.tdr.citycontrolpolice.net.DownloadDbManager;
+
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.x;
@@ -9,7 +11,7 @@ import java.util.List;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：TODO
+ * 类描述：数据库管理类
  * 创建人：KingJA
  * 创建时间：2016/4/11 13:57
  * 修改备注：
@@ -25,7 +27,6 @@ public class DbDaoXutils3<T> implements DbDao<T> {
             synchronized (DbDaoXutils3.class) {
                 if (mDbDaoXutils3 == null) {
                     mDbDaoXutils3 = new DbDaoXutils3();
-                    return mDbDaoXutils3;
                 }
             }
         }
@@ -35,7 +36,7 @@ public class DbDaoXutils3<T> implements DbDao<T> {
 
     private DbDaoXutils3() {
         DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
-                .setDbName("citypolice_wz.db")
+                .setDbName(DownloadDbManager.DB_NAME)
                 .setDbVersion(1)
                 .setDbOpenListener(new DbManager.DbOpenListener() {
                     @Override

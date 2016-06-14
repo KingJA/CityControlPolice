@@ -82,7 +82,7 @@ public class InfoInFragment extends KjBaseFragment implements SwipeRefreshLayout
     @Override
     protected void initFragmentNet() {
         singleSrl.setRefreshing(true);
-        ThreadPoolTask.Builder<ChuZuWu_LKSelfReportingList> builder = new ThreadPoolTask.Builder<ChuZuWu_LKSelfReportingList>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0, "ChuZuWu_LKSelfReportingList", mParam)
                 .setBeanType(ChuZuWu_LKSelfReportingList.class)
                 .setActivity(getActivity())

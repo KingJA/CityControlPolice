@@ -48,7 +48,7 @@ import java.util.Set;
  * 创建时间：2016/4/6 10:27
  * 修改备注：
  */
-public class DeviceBindingListActivity extends BackTitleActivity implements DeviceBindingAdapter.OnBindingStationListener, SwipeRefreshLayout.OnRefreshListener, DialogInput.OnInputListener {
+public class DeviceBindingActivity extends BackTitleActivity implements DeviceBindingAdapter.OnBindingStationListener, SwipeRefreshLayout.OnRefreshListener, DialogInput.OnInputListener {
 
     private static final String TAG = "BindingListActivity";
     private ListView lv;
@@ -104,10 +104,10 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
     @Override
     public void initNet() {
         setProgressDialog(true);
-        ThreadPoolTask.Builder<KjChuZuWuInfo> builder = new ThreadPoolTask.Builder<KjChuZuWuInfo>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
-                .setActivity(DeviceBindingListActivity.this)
+                .setActivity(DeviceBindingActivity.this)
                 .setCallBack(new WebServiceCallBack<KjChuZuWuInfo>() {
                     @Override
                     public void onSuccess(KjChuZuWuInfo bean) {
@@ -157,7 +157,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
 
             @Override
             public void onRight() {
-//                Intent intent = new Intent(DeviceBindingListActivity.this, CaptureActivity.class);
+//                Intent intent = new Intent(DeviceBindingActivity.this, CaptureActivity.class);
 //                startActivityForResult(intent, 0);
                 dialogInput.show();
             }
@@ -169,7 +169,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         currentIsStation = false;
         currentRoomId = roomId;
         currentRoomNo = roomNo;
-        Intent intent = new Intent(DeviceBindingListActivity.this, zbar.CaptureActivity.class);
+        Intent intent = new Intent(DeviceBindingActivity.this, zbar.CaptureActivity.class);
         startActivityForResult(intent, 1);
 
 //        DialogDouble dialogDouble = new DialogDouble(this, "选择哪种方式绑定设备", "蓝牙", "二维码");
@@ -183,7 +183,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
 //
 //            @Override
 //            public void onRight() {
-//                Intent intent = new Intent(DeviceBindingListActivity.this, CaptureActivity.class);
+//                Intent intent = new Intent(DeviceBindingActivity.this, CaptureActivity.class);
 //                startActivityForResult(intent, 1);
 //            }
 //        });
@@ -323,10 +323,10 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
         paramBinding.put("HOUSEID", houseId);
         paramBinding.put("ROOMID", roomId);
         paramBinding.put("STATIONNO", stationNO);
-        ThreadPoolTask.Builder<ChuZuWu_SetRoomStationNo> builder = new ThreadPoolTask.Builder<ChuZuWu_SetRoomStationNo>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_SetRoomStationNo", paramBinding)
                 .setBeanType(ChuZuWu_SetRoomStationNo.class)
-                .setActivity(DeviceBindingListActivity.this)
+                .setActivity(DeviceBindingActivity.this)
                 .setCallBack(new WebServiceCallBack<ChuZuWu_SetRoomStationNo>() {
                     @Override
                     public void onSuccess(ChuZuWu_SetRoomStationNo bean) {
@@ -402,7 +402,7 @@ public class DeviceBindingListActivity extends BackTitleActivity implements Devi
             bluetoothDevice = defaultAdapter.getRemoteDevice(bluetoothAddress);
         }
         startConnect(isStation);
-        dialogNumber = new DialogNumber(DeviceBindingListActivity.this, mHandler);
+        dialogNumber = new DialogNumber(DeviceBindingActivity.this, mHandler);
         dialogNumber.show();
         String target = currentIsStation ? "基站" : "设备";
         ToastUtil.showMyToast("请在蓝牙倒计时结束前通过设备搜索附近" + target + "编号");

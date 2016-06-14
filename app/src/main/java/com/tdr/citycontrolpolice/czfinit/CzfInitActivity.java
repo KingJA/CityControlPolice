@@ -229,7 +229,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
             param.put("TaskID", "1");
             param.put("DEVICETYPE", "2");
             param.put("DEVICECODE", newcode);
-            ThreadPoolTask.Builder<Common_InquireDevice> builder = new ThreadPoolTask.Builder<Common_InquireDevice>();
+            ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
             ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "Common_InquireDevice", param)
                     .setBeanType(Common_InquireDevice.class)
                     .setActivity(CzfInitActivity.this)
@@ -301,10 +301,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
             Intent intent = new Intent();
             intent.setClass(CzfInitActivity.this, zbar.CaptureActivity.class);
             startActivityForResult(intent, SCANNIN_CZF_CODE);
-//            upload();
         }
-//        CheckUtil.checkEmpty(base64Number, "请拍摄号牌") &&
-//                CheckUtil.checkEmpty(base64Room, "请拍摄房屋外景")
     }
 
     private Photo dz_photo, fw_photo;
@@ -351,7 +348,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         chuZuWuAdd.setDEVICELIST(deivceList);
 
 
-        ThreadPoolTask.Builder<Common_AddDevice> builder = new ThreadPoolTask.Builder<Common_AddDevice>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "ChuZuWu_Add", chuZuWuAdd)
                 .setBeanType(ChuZuWu_Add_Kj.class)
                 .setActivity(CzfInitActivity.this)
@@ -456,7 +453,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mParam = new HashMap<>();
         mParam.put("TaskID", "1");
         mParam.put("STANDARDADDRCODE", addressCode);
-        ThreadPoolTask.Builder<ChuZuWu_GetSSYByStandAddressCode> builder = new ThreadPoolTask.Builder<ChuZuWu_GetSSYByStandAddressCode>();
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "ChuZuWu_GetSSYByStandAddressCode", mParam)
                 .setBeanType(ChuZuWu_GetSSYByStandAddressCode.class)
                 .setActivity(CzfInitActivity.this)
