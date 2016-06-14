@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.squareup.leakcanary.LeakCanary;
 import com.tdr.citycontrolpolice.util.CustomConstants;
 
 import org.xutils.BuildConfig;
@@ -30,7 +29,7 @@ public class App extends Application {
         mSharedPreferences = getSharedPreferences(CustomConstants.APPLICATION_NAME,
                 MODE_PRIVATE);
 //        CrashReport.initCrashReport(mAppContext, "900026215", false);
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
         initXutils3();
     }
 

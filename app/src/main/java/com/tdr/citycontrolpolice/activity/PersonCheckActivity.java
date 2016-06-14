@@ -1,11 +1,16 @@
 package com.tdr.citycontrolpolice.activity;
 
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.nfc.NfcAdapter;
+import android.nfc.tech.MifareClassic;
+import android.nfc.tech.NfcA;
+import android.nfc.tech.NfcB;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -16,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tdr.citycontrolpolice.Converter;
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.entity.BluetoothBean;
 import com.tdr.citycontrolpolice.entity.Common_IdentityCardAuthentication;
@@ -69,6 +75,11 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
     private List<BluetoothBean> boundDevices = new ArrayList<>();
     private TextView tv_submit;
     private String bluetoothAddress;
+    private NfcAdapter mAdapter;
+    private PendingIntent pi ;
+    private IntentFilter tagDetected;
+    private IntentFilter ocrDetected;
+    private String[][] mTechLists;
 
     @Override
     public View setContentView() {
@@ -183,6 +194,53 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
                 ToastUtil.showMyToast("正在查找周围的蓝牙设备");
             }
         });
+
+        mAdapter = NfcAdapter.getDefaultAdapter(this);
+        if (mAdapter == null) {
+            Toast.makeText(this, "当前设备不支持nfc", Toast.LENGTH_SHORT).show();
+        } else {
+            initNfc();
+        }
+    }
+
+    private void initNfc() {
+        pi = PendingIntent.getActivity(this, 0, new Intent(this, getClass()), 0);
+        tagDetected = new IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED);
+        tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
+        ocrDetected = new IntentFilter("com.android.activity.OCR");
+        ocrDetected.addCategory(Intent.CATEGORY_DEFAULT);
+        mTechLists = new String[][]{new String[]{NfcB.class.getName()},
+                new String[]{NfcA.class.getName()},
+                new String[]{MifareClassic.class.getName()}};
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mAdapter != null) {
+            stopNfcListener();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mAdapter != null)
+            startNfcListener();
+    }
+
+    private void startNfcListener() {
+        mAdapter.enableForegroundDispatch(this, pi, new IntentFilter[]{tagDetected,ocrDetected}, mTechLists);
+    }
+
+    private void stopNfcListener() {
+        mAdapter.disableForegroundDispatch(this);
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        String tagId = Converter.bytesToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)).toUpperCase();
+        tv_card_no.setText(tagId);
+        Log.i(TAG, "tagId: "+tagId);
     }
 
     /**

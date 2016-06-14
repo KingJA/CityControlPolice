@@ -101,7 +101,22 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.tdr.citycontrolpolice.activity.PersonCheckActivity"
-            android:screenOrientation="portrait" />
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+            </intent-filter>
+            <intent-filter>
+                <action  android:name = "com.android.activity.OCR"  />
+                <category android:name = "android.intent.category.DEFAULT"  />
+            </intent-filter>
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/filter_nfc" />
+        </activity>
         <activity
             android:name="com.tdr.citycontrolpolice.activity.BindingDeviceActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -163,7 +178,6 @@
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
             </intent-filter>
-
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/filter_nfc" />

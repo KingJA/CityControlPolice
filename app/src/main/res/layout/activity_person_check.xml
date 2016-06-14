@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="以下信息通过蓝牙获取" />
+                    android:text="以下信息通过蓝牙或NFC获取" />
 
 
                 <ImageView
@@ -75,6 +75,7 @@
                     android:text="身份证卡号" />
 
                 <TextView
+                    android:paddingLeft="12dp"
                     android:id="@+id/tv_card_no"
                     style="@style/font_3_14"
                     android:layout_width="0dp"
@@ -107,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="身份证信息" />
+                    android:text="以下信息通过相机获取" />
 
                 <ImageView
                     android:id="@+id/iv_camera"

@@ -201,8 +201,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 CzfCardActivity.goActivity(this, mHouseId,mCzfInfo);
                 break;
             case 3:
-//                ToastUtil.showMyToast("该功能正在开发中...");
-                CzfOutInActivity.goActivity(this, mHouseId);
+                CzfOutInActivity.goActivity(this, mHouseId,mCzfInfo);
                 break;
             case 4:
                 Bundle bundle = new Bundle();

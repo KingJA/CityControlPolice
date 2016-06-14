@@ -462,10 +462,15 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                     public void onSuccess(ChuZuWu_GetSSYByStandAddressCode bean) {
                         setProgressDialog(false);
                         content = bean.getContent();
+                        juWeiHui = (Basic_JuWeiHui_Kj) DbDaoXutils3.getInstance().sleectFirst(Basic_JuWeiHui_Kj.class, "DMZM", content.getJWHCODE());
+                        if (juWeiHui == null) {
+                            ToastUtil.showMyToast("请更新字典获取最新数据");
+                            return;
+                        }
+
                         mTvOwnerName.setText(content.getOWNERNAME());
                         mTvOwnerCard.setText(content.getIDENTITYCARD());
                         mEtOwnerPhone.setText(content.getPHONE());
-                        juWeiHui = (Basic_JuWeiHui_Kj) DbDaoXutils3.getInstance().sleectFirst(Basic_JuWeiHui_Kj.class, "DMZM", content.getJWHCODE());
                         paiChuSuo = (Basic_PaiChuSuo_Kj) DbDaoXutils3.getInstance().sleectFirst(Basic_PaiChuSuo_Kj.class, "DMZM", juWeiHui.getFDMZM());
                         mTvPolice.setText(paiChuSuo.getDMMC());
                     }

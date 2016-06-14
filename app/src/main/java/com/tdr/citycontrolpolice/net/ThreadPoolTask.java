@@ -113,6 +113,7 @@ public class ThreadPoolTask implements Runnable {
         Gson gson = new Gson();
         String json = gson.toJson(privateParam);
         Log.i("PARAM_JSON", json);
+        Logger.json(json);
         Map<String, Object> generalParam = new HashMap<>();
         generalParam.put("token", token);
         generalParam.put("encryption", encryption);

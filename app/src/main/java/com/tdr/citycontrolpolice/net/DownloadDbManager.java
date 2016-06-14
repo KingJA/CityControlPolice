@@ -1,5 +1,6 @@
 package com.tdr.citycontrolpolice.net;
 
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -365,6 +366,7 @@ public class DownloadDbManager {
      */
     private void initDb() {
         daoConfig = new DbManager.DaoConfig()
+//                .setDbDir(Environment.getExternalStorageDirectory())
                 .setDbName(DB_NAME)
                 .setDbVersion(1)
                 .setDbOpenListener(new DbManager.DbOpenListener() {
