@@ -15,7 +15,7 @@ public class Constants {
     /*温州版接口*/
 //    public static final String WEBSERVER_URL = "http://127.0.0.1:8002/rentalestate.asmx";//温州版
 //    public static final String NFC_URL = "http://127.0.0.1:8891/AppHandler.ashx";//温州NFC地址
-//    public static final String NFC_IP = "127.0.0.1";//温州NFC IP
+    public static final String NFC_IP = "127.0.0.1";//温州NFC IP
 
 
     /*省厅版接口*/
@@ -25,20 +25,10 @@ public class Constants {
 
     /*温州内侧版接口*/
 //    public static final String WEBSERVER_URL = "http://127.0.0.1:8890/rentalestate.asmx";//温州内测版
-    public static final String NFC_IP = "103.21.119.78";//温州NFC IP
+//    public static final String NFC_IP = "103.21.119.78";//温州NFC IP
 
     public static final String WEBSERVER_NAMESPACE = "http://tempuri.org/";
-    public static final String WEBSERVER_LOGIN = "Login";// 用户名密码登录
-    public static final String WEBSERVER_REGISTERUSER = "RegisterUser ";// 注册
-    public static final String WEBSERVER_SENDVALIDCODE = "sendValidCode";// 获取验证码
-    public static final String WEBSERVER_MODIFYPWD = "ModifyPwd";// 修改密码
-    public static final String WEBSERVER_CHANGEPHOTO = "ChangePhoto";// 更换图片
     public static final String WEBSERVER_PUBLICSECURITYCONTROLAPP = "RERequest";// 治安防控APP接口
-    public static final String WEBSERVER_RESETPWDFORZAFK = "ResetPwdForZAFK";// 治安管控重置密码
-    public static final String WEBSERVER_AUTOLOGIN = "AutoLogin";//	自动登录
-    public static final String WEBSERVER_CHECKUSER = "checkUser";// 验证用户
-    public static final String WEBSERVER_VERIFYNEWPHONE = "VerifyNewPhone";// 验证新手机
-    public static final String WEBSERVER_CHUZUWU_LIST = "ChuZuWu_List";//出租屋列表
     public static final String USER_DETAILS = "userDetails.xml";
 
 }

@@ -467,8 +467,6 @@
             <TextView
                 android:id="@+id/tv_submit"
                 style="@style/btn_small_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="12dp"
                 android:text="提交" />

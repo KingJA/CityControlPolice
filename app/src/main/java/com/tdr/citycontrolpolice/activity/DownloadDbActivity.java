@@ -89,7 +89,7 @@ public class DownloadDbActivity extends BackTitleActivity {
 
     @Override
     public void setData() {
-        setTitle("Admin");
+        setTitle("...");
     }
 
 

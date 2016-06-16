@@ -27,7 +27,6 @@ public class DatebaseManager {
             synchronized (DatebaseManager.class) {
                 if (mDateBaseManager == null) {
                     mDateBaseManager = new DatebaseManager(context);
-                    return mDateBaseManager;
                 }
             }
         }

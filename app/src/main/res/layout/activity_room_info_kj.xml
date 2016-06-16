@@ -200,7 +200,7 @@
 
         <View style="@style/divider_nomal_horizontal" />
 
-        <LinearLayout
+      <!--  <LinearLayout
             android:id="@+id/ll_room_photo"
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -224,15 +224,15 @@
                 android:layout_gravity="center_vertical"
                 android:paddingRight="10dp"
                 android:src="@mipmap/imageadd_on" />
-        </LinearLayout>
+        </LinearLayout>-->
 
-        <com.tdr.citycontrolpolice.view.NoScrollGridView
-            android:id="@+id/gv_room_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:horizontalSpacing="1dp"
-            android:numColumns="4"
-            android:verticalSpacing="1dp" />
+        <!--<com.tdr.citycontrolpolice.view.NoScrollGridView-->
+            <!--android:id="@+id/gv_room_info"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:horizontalSpacing="1dp"-->
+            <!--android:numColumns="4"-->
+            <!--android:verticalSpacing="1dp" />-->
 
         <TextView
             android:id="@+id/tv_room_submit"

@@ -81,7 +81,7 @@ public class BluetoothChangeActivity extends BackTitleActivity implements Adapte
 
     @Override
     public void setData() {
-        setTitle("更换蓝牙设备");
+        setTitle("...");
     }
 
     @Override

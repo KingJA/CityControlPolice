@@ -32,8 +32,8 @@ import com.tdr.citycontrolpolice.view.dialog.DialogConfirm;
 public class UpdateManager {
 
     /*温州版接口*/
-//    public static final String UPDATE_SERVER = "http://127.0.0.1:8890/newestapk/";// 温州更新下载地址
-//    public static final String WEBSERVER_URL = "http://127.0.0.1:8890/WebServiceAPKRead.asmx";// 温州
+    public static final String UPDATE_SERVER = "http://127.0.0.1:8890/newestapk/";// 温州更新下载地址
+    public static final String WEBSERVER_URL = "http://127.0.0.1:8890/WebServiceAPKRead.asmx";// 温州
 
     /*省厅版接口*/
 //    public static final String UPDATE_SERVER = "http://172.18.18.21:8892/newestapk/";// 省厅更新下载地址
@@ -42,8 +42,8 @@ public class UpdateManager {
     public static final String PACKAGE_NAME = "com.tdr.citycontrolpolice";// 包名
     public static String UPDATE_APKNAME = "CityControlPolice.apk";// APK名称
 
-    public static final String UPDATE_SERVER = "http://dmi.tdr-cn.com/newestapk/";// APK下载地址
-    public static final String WEBSERVER_URL = "http://dmi.tdr-cn.com/WebServiceAPKRead.asmx";// 获取版本号Webservice方法
+//    public static final String UPDATE_SERVER = "http://dmi.tdr-cn.com/newestapk/";// APK下载地址
+//    public static final String WEBSERVER_URL = "http://dmi.tdr-cn.com/WebServiceAPKRead.asmx";// 获取版本号Webservice方法
 
     /* 新版本号 */
     private double newVersion;

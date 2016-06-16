@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--nfc-->
     <uses-permission android:name="android.permission.NFC" />
-    <permission android:name="com.tdr.tendencyNfc.ReadCard" />
+    <!--   <permission android:name="com.tdr.tendencyNfc.ReadCard" />-->
 
     <uses-feature
         android:name="android.hardware.nfc"
@@ -110,9 +110,10 @@
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
             </intent-filter>
             <intent-filter>
-                <action  android:name = "com.android.activity.OCR"  />
-                <category android:name = "android.intent.category.DEFAULT"  />
+                <action android:name="com.android.activity.OCR" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/filter_nfc" />
@@ -158,6 +159,13 @@
             android:name=".activity.BluetoothChangeActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.GmActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ExceptionActivity"
+            android:screenOrientation="portrait" />
+
 
         <!-- 扫描二维码 -->
         <activity
@@ -178,6 +186,7 @@
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
             </intent-filter>
+
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/filter_nfc" />

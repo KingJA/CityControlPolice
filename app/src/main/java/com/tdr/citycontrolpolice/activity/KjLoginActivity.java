@@ -25,6 +25,7 @@ import com.tdr.citycontrolpolice.update.UpdateManager;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.AesEncoder;
 import com.tdr.citycontrolpolice.util.AppInfoUtil;
+import com.tdr.citycontrolpolice.util.AppManager;
 import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.util.PhoneUtil;
@@ -96,6 +97,7 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppManager.getAppManager().addActivity(this);
         setContentView(R.layout.activity_login_kj);
         ButterKnife.bind(this);
         checkVersionUpdate();
@@ -210,12 +212,16 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         mHits[mHits.length - 1] = SystemClock.uptimeMillis();
         if (mHits[0] >= (SystemClock.uptimeMillis() - 1000)) {
             if (keyPandora) {
-                ActivityUtil.goActivity(KjLoginActivity.this, DownloadDbActivity.class);
+                ActivityUtil.goActivity(KjLoginActivity.this, GmActivity.class);
                 keyPandora = false;
                 vSomething.setClickable(false);
             }
         }
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.getAppManager().finishActivity(this);
+    }
 }

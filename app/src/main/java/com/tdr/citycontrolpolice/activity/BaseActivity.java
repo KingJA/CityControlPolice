@@ -3,6 +3,8 @@ package com.tdr.citycontrolpolice.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.tdr.citycontrolpolice.util.AppManager;
+import com.tdr.citycontrolpolice.util.StatusBarCompat;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 
 /**
@@ -20,6 +22,8 @@ public abstract class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarCompat.initStatusBar(this);
+        AppManager.getAppManager().addActivity(this);
         initConmonView();
         initVariables();
         initView();

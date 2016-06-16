@@ -1,9 +1,6 @@
 package com.tdr.citycontrolpolice.fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.nfc.NfcAdapter;
-import android.nfc.NfcManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.activity.BoxActivity;
 import com.tdr.citycontrolpolice.activity.CzfInfoActivity;
@@ -29,14 +25,13 @@ import com.tdr.citycontrolpolice.net.NfcUtil;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.util.QRCodeUtil;
-import com.tdr.citycontrolpolice.util.TendencyEncrypt;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.util.WebService;
 import com.tdr.citycontrolpolice.view.ZProgressHUD;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogNFC;
-import com.tdr.citycontrolpolice.view.popupwindow.FixedGridView;
+import com.tdr.citycontrolpolice.view.FixedGridView;
 
 import org.json.JSONException;
 import org.json.JSONObject;

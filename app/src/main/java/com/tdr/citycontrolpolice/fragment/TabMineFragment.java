@@ -23,14 +23,7 @@ import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
  * 修改备注：
  */
 public class TabMineFragment extends Fragment implements View.OnClickListener, DialogDouble.OnDoubleClickListener {
-
-    private LinearLayout ll_personal_about;
-    private LinearLayout ll_personal_modify;
-    private LinearLayout ll_personal_question;
-    private LinearLayout ll_personal_report;
-    private LinearLayout ll_personal_quit;
     private View view;
-    private LinearLayout ll_personal_change;
 
     @Nullable
     @Override
@@ -42,18 +35,16 @@ public class TabMineFragment extends Fragment implements View.OnClickListener, D
 
 
     private void initView() {
-        ll_personal_modify = (LinearLayout) view.findViewById(R.id.ll_personal_modify);
-        ll_personal_question = (LinearLayout) view.findViewById(R.id.ll_personal_question);
-        ll_personal_report = (LinearLayout) view.findViewById(R.id.ll_personal_report);
-        ll_personal_about = (LinearLayout) view.findViewById(R.id.ll_personal_about);
-        ll_personal_quit = (LinearLayout) view.findViewById(R.id.ll_personal_quit);
-        ll_personal_change = (LinearLayout) view.findViewById(R.id.ll_personal_change);
+        LinearLayout ll_personal_modify = (LinearLayout) view.findViewById(R.id.ll_personal_modify);
+        LinearLayout ll_personal_question = (LinearLayout) view.findViewById(R.id.ll_personal_question);
+        LinearLayout ll_personal_report = (LinearLayout) view.findViewById(R.id.ll_personal_report);
+        LinearLayout ll_personal_about = (LinearLayout) view.findViewById(R.id.ll_personal_about);
+        LinearLayout ll_personal_quit = (LinearLayout) view.findViewById(R.id.ll_personal_quit);
         ll_personal_modify.setOnClickListener(this);
         ll_personal_question.setOnClickListener(this);
         ll_personal_report.setOnClickListener(this);
         ll_personal_about.setOnClickListener(this);
         ll_personal_quit.setOnClickListener(this);
-        ll_personal_change.setOnClickListener(this);
     }
 
     @Override
@@ -75,9 +66,6 @@ public class TabMineFragment extends Fragment implements View.OnClickListener, D
                 DialogDouble dialogDouble = new DialogDouble(getActivity(), "您确定要退出应用？", "确定", "取消");
                 dialogDouble.show();
                 dialogDouble.setOnDoubleClickListener(this);
-                break;
-            case R.id.ll_personal_change:
-                ActivityUtil.goActivity(getActivity(), BluetoothChangeActivity.class);
                 break;
             default:
                 break;

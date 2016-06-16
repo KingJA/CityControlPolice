@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.tdr.citycontrolpolice.util.CrashHandler;
 import com.tdr.citycontrolpolice.util.CustomConstants;
 
 import org.xutils.BuildConfig;
@@ -25,6 +26,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        CrashHandler.getInstance().init(this);
         mAppContext = getApplicationContext();
         mSharedPreferences = getSharedPreferences(CustomConstants.APPLICATION_NAME,
                 MODE_PRIVATE);

@@ -42,7 +42,6 @@ public abstract class BackTitleActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_top_back);
-        StatusBarCompat.initStatusBar(this);
         ButterKnife.bind(this);
         view = setContentView();
         initTopView();

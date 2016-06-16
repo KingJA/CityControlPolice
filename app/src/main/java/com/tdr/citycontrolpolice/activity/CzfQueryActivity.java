@@ -1,6 +1,5 @@
 package com.tdr.citycontrolpolice.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -23,9 +22,9 @@ import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
+import com.tdr.citycontrolpolice.util.AppManager;
 import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
-import com.tdr.citycontrolpolice.util.StatusBarCompat;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
@@ -42,7 +41,7 @@ import java.util.Map;
  * 创建时间：2016/4/13 9:58
  * 修改备注：
  */
-public class CzfQueryActivity extends Activity implements TextWatcher, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
+public class CzfQueryActivity extends BaseActivity implements TextWatcher, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
     private static final String TAG = "CzfQueryActivity";
     private ImageView ivSearch;
     private ImageView ivClear;
@@ -59,14 +58,16 @@ public class CzfQueryActivity extends Activity implements TextWatcher, View.OnCl
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_czf_query);
-        StatusBarCompat.initStatusBar(this);
-        initView();
-        initData();
+        super.onCreate(savedInstanceState);
 
     }
 
+    @Override
+    public void initVariables() {
+
+    }
+    @Override
     protected void initView() {
         ivSearch = (ImageView) findViewById(R.id.iv_search);
         ivClear = (ImageView) findViewById(R.id.iv_clear);
@@ -80,7 +81,12 @@ public class CzfQueryActivity extends Activity implements TextWatcher, View.OnCl
         srl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
     }
 
+    @Override
+    public void initNet() {
 
+    }
+
+    @Override
     public void initData() {
         dialogProgress = new DialogProgress(this);
         srl.setOnRefreshListener(this);
@@ -90,6 +96,11 @@ public class CzfQueryActivity extends Activity implements TextWatcher, View.OnCl
         btnQuery.setOnClickListener(this);
         lv.setAdapter(czfQueryAdapter);
         lv.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void setData() {
+
     }
 
 
@@ -222,5 +233,11 @@ public class CzfQueryActivity extends Activity implements TextWatcher, View.OnCl
         Basic_StandardAddressCodeByKey_Kj.ContentBean bean = (Basic_StandardAddressCodeByKey_Kj.ContentBean) parent.getItemAtPosition(position);
         geocode = bean.getGeocode();
         submit(geocode);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.getAppManager().finishActivity(this);
     }
 }
