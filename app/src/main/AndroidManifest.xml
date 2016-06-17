@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--nfc-->
     <uses-permission android:name="android.permission.NFC" />
-    <!--   <permission android:name="com.tdr.tendencyNfc.ReadCard" />-->
+     <!--  <permission android:name="com.tdr.tendencyNfc.ReadCard" />-->
 
     <uses-feature
         android:name="android.hardware.nfc"

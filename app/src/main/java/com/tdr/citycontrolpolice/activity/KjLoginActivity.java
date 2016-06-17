@@ -177,7 +177,7 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
 
     private void savaDateToLocal(User_LoginByPolice bean) {
         User_LoginByPolice.ContentBean content = bean.getContent();
-        SharedPreferencesUtils.put("login_name", content.getName());
+        SharedPreferencesUtils.put("login_name", userName);
         SharedPreferencesUtils.put("uid", content.getUserID());
         SharedPreferencesUtils.put("token", content.getToken());
     }

@@ -24,7 +24,6 @@ import java.util.Random;
  */
 public class GmActivity extends BackTitleActivity implements View.OnClickListener, AdapterView.OnItemLongClickListener {
     private boolean key;
-    private int position;
     private int tip;
     private FixedGridView gv_key;
     private Button btn_database;
@@ -96,7 +95,6 @@ public class GmActivity extends BackTitleActivity implements View.OnClickListene
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
         String tipString = String.valueOf(tip);
         String a = tipString.substring(0, 1);
         String b = tipString.substring(1, 2);

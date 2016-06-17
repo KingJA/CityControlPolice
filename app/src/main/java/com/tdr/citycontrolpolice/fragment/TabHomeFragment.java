@@ -147,7 +147,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
             @Override
             public void onLeft() {
                 new DownloadDbManager(mHandler).startDownloadDb();
-                ToastUtil.showMyToast("数据库进入后台更新");
+                ToastUtil.showMyToast("数据库后台更新");
             }
 
             @Override

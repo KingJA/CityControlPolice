@@ -60,5 +60,6 @@ public abstract class BaseActivity extends FragmentActivity {
         if (mDialogProgress.isShowing()) {
             mDialogProgress.dismiss();
         }
+        AppManager.getAppManager().finishActivity(this);
     }
 }

@@ -144,6 +144,11 @@ public class TendencyReadAPI implements Callback {
             });
 
         } else {
+            // 以广播的形式传值
+            intent = new Intent(NfcConstants.ACTION_IDENTITY);
+            bundle.putString(NfcConstants.STATE, "" + 404);
+            intent.putExtra("data", bundle);
+            mContext.sendBroadcast(intent);
             System.out.println("刷的可能不是身份证");
         }
 
@@ -328,28 +333,6 @@ public class TendencyReadAPI implements Callback {
                 });
                 thread.start();
                 break;
-
-//		case NfcConstants.HANDLER_KEY_GETECARD_SUCCESS:
-//			Bundle bundle2 = msg.getData();
-//			String e_card = bundle2.getString("E_Msg");
-//			String[] msg1 = e_card.split("|");
-//
-//			// 以广播的形式传值
-//			intent = new Intent(NfcConstants.ACTION_ECARD);
-//
-//			bundle.putString(NfcConstants.TAGID, tagId);
-//			bundle.putString(NfcConstants.ID_CARD, ID_CARD);
-//			bundle.putString(NfcConstants.PHONE_NUM, PHONE_NUM);
-//			bundle.putString(NfcConstants.E_NAME, NAME);
-//			bundle.putString(NfcConstants.CHILD_ID, CHILD_ID);
-//			bundle.putString(NfcConstants.CHILD_NAME, CHILD_NAME);
-//			bundle.putString(NfcConstants.CURRENT_ADDRESS, CURRENT_ADDRESS);
-//			bundle.putString(NfcConstants.PRIMARY_ADDRESS, PRIMARY_ADDRESS);
-//			intent.putExtra("data", bundle);
-//
-//			// mContext.sendBroadcast(intent, NfcConstants.PERMSISION);
-//			mContext.sendBroadcast(intent);
-//			break;
 
             default:
                 break;

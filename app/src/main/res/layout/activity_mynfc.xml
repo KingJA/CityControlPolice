@@ -309,6 +309,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
-            android:text="提交" />
+            android:text="关闭" />
     </LinearLayout>
 </ScrollView>

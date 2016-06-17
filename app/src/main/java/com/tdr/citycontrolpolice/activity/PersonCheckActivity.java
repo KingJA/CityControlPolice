@@ -239,8 +239,13 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         String tagId = Converter.bytesToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)).toUpperCase();
-        tv_card_no.setText(tagId);
         Log.i(TAG, "tagId: "+tagId);
+        if (tagId.length() != 16) {
+            ToastUtil.showMyToast("请使用身份证刷卡");
+            return;
+        }
+        tv_card_no.setText(tagId);
+
     }
 
     /**

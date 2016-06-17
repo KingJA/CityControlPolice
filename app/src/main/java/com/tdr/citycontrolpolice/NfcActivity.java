@@ -232,7 +232,7 @@ public class NfcActivity extends BackTitleActivity {
         public void onReceive(Context context, Intent intent) {
             setProgressDialog(false);
             String action = intent.getAction();
-            if (action.equals("com.tdr.identity.readcard")) {// 身份证
+            if (action.equals("com.tdr.identity.readcard")) {
                 Bundle bundle = intent.getBundleExtra("data");
                 String tt = bundle.getString(NfcConstants.STATE);
                 if (tt.equals("2")) {
@@ -243,6 +243,8 @@ public class NfcActivity extends BackTitleActivity {
                     ToastUtil.showMyToast("没有找到服务器");
                 } else if (tt.equals("43")) {
                     ToastUtil.showMyToast("服务器忙");
+                } else if (tt.equals("404")) {
+                    ToastUtil.showMyToast("请使用身份证刷卡");
                 } else if (tt.equals("90")) {
                     String tagId = bundle.getString(NfcConstants.TAGID, "unknown");
                     String name = bundle.getString(NfcConstants.NAME, "unknown");
@@ -259,19 +261,6 @@ public class NfcActivity extends BackTitleActivity {
                             + "\r\n" + "出生年月：" + birthday + "\r\n" + "地址：" + address + "\r\n" + "身份证号码：" + identity
                             + "\r\n" + "派出所：" + police + "\r\n" + "有效期：" + validity + "\r\n" + "DN码：" + dncode);
                 }
-            } else if (action.equals("com.tdr.ecard.readcard")) {// E居卡
-                Bundle bundle = intent.getBundleExtra("data");
-                String e_tagId = bundle.getString(NfcConstants.TAGID);
-                String e_idCard = bundle.getString(NfcConstants.ID_CARD);
-                String e_phoneNum = bundle.getString(NfcConstants.PHONE_NUM);
-                String e_name = bundle.getString(NfcConstants.E_NAME);
-                String e_childId = bundle.getString(NfcConstants.CHILD_ID);
-                String e_childName = bundle.getString(NfcConstants.CHILD_NAME);
-                String e_currentAddress = bundle.getString(NfcConstants.CURRENT_ADDRESS);
-                String e_primaryAddress = bundle.getString(NfcConstants.PRIMARY_ADDRESS);
-                Log.i(TAG, "E居卡: " + "E居卡ID：" + e_tagId + "\r\n" + "身份证号码：" + e_idCard + "\r\n" + "手机号码：" + e_phoneNum + "\r\n" + "姓名："
-                        + e_name + "\r\n" + "儿童身份证号码：" + e_childId + "\r\n" + "儿童姓名：" + e_childName + "\r\n"
-                        + "现住址：" + e_currentAddress + "\r\n" + "户籍住址：" + e_primaryAddress);
             }
         }
     };
