@@ -1,6 +1,7 @@
 package com.tdr.citycontrolpolice.fragment;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
+import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 
 import java.util.ArrayList;
@@ -33,11 +35,13 @@ import butterknife.ButterKnife;
  * 创建时间：2016/3/24 16:26
  * 修改备注：
  */
-public class InfoPopulationFragment extends KjBaseFragment implements CzfPopulationAdapter.OnClickDetailListener {
-    @Bind(R.id.lv_exist)
-    ListView lv;
+public class InfoPopulationFragment extends KjBaseFragment implements CzfPopulationAdapter.OnClickDetailListener , SwipeRefreshLayout.OnRefreshListener{
     @Bind(R.id.ll_empty)
     LinearLayout llEmpty;
+    @Bind(R.id.single_lv)
+    ListView singleLv;
+    @Bind(R.id.single_srl)
+    SwipeRefreshLayout singleSrl;
     private HashMap<String, Object> mParam = new HashMap<>();
     private List<ChuZuWu_LKJBInfoList.ContentEntity.PERSONNELINFOLISTEntity> personnelinfolist = new ArrayList<>();
     private String mToken;
@@ -64,7 +68,7 @@ public class InfoPopulationFragment extends KjBaseFragment implements CzfPopulat
 
     @Override
     public View onFragmentCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_lv, container, false);
+        rootView = inflater.inflate(R.layout.single_lv, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -72,7 +76,9 @@ public class InfoPopulationFragment extends KjBaseFragment implements CzfPopulat
     @Override
     protected void initFragmentView() {
         czfPersonAdapter = new CzfPopulationAdapter(mActivity, personnelinfolist);
-        lv.setAdapter(czfPersonAdapter);
+        singleSrl.setColorSchemeResources(R.color.bg_blue_solid);
+        singleSrl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
+        singleLv.setAdapter(czfPersonAdapter);
     }
 
     @Override
@@ -84,6 +90,7 @@ public class InfoPopulationFragment extends KjBaseFragment implements CzfPopulat
                 .setCallBack(new WebServiceCallBack<ChuZuWu_LKJBInfoList>() {
                     @Override
                     public void onSuccess(ChuZuWu_LKJBInfoList bean) {
+                        singleSrl.setRefreshing(false);
                         personnelinfolist = bean.getContent().getPERSONNELINFOLIST();
                         Log.i("ApplyFragment", "流动人口列表: " + personnelinfolist.size());
                         czfPersonAdapter.setData(personnelinfolist);
@@ -93,6 +100,7 @@ public class InfoPopulationFragment extends KjBaseFragment implements CzfPopulat
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
+                        singleSrl.setRefreshing(false);
 
                     }
                 }).build();
@@ -102,6 +110,7 @@ public class InfoPopulationFragment extends KjBaseFragment implements CzfPopulat
     @Override
     protected void initFragmentData() {
         czfPersonAdapter.setOnClickDetailListener(this);
+        singleSrl.setOnRefreshListener(this);
     }
 
     @Override
@@ -118,7 +127,6 @@ public class InfoPopulationFragment extends KjBaseFragment implements CzfPopulat
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, rootView);
         return rootView;
@@ -127,5 +135,10 @@ public class InfoPopulationFragment extends KjBaseFragment implements CzfPopulat
     @Override
     public void onClickDetail(String identityCard) {
         PopulationPersonActivity.goActivity(mActivity, identityCard);
+    }
+
+    @Override
+    public void onRefresh() {
+        initFragmentNet();
     }
 }

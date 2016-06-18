@@ -124,7 +124,6 @@ public class InfoInFragment extends KjBaseFragment implements SwipeRefreshLayout
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, rootView);
         return rootView;
@@ -132,6 +131,6 @@ public class InfoInFragment extends KjBaseFragment implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
-        singleSrl.setRefreshing(false);
+        initFragmentNet();
     }
 }

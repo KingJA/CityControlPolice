@@ -100,7 +100,7 @@ public class NfcActivity extends BackTitleActivity {
         tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showMyToast("完成审核");
+//                ToastUtil.showMyToast("完成审核");
                 finish();
             }
         });
@@ -156,7 +156,7 @@ public class NfcActivity extends BackTitleActivity {
                     .setCallBack(new WebServiceCallBack<Common_IdentityCardAuthentication>() {
                         @Override
                         public void onSuccess(Common_IdentityCardAuthentication bean) {
-                            ToastUtil.showMyToast("完成审核");
+//                            ToastUtil.showMyToast("完成审核");
                             finish();
                         }
 
