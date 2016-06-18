@@ -49,6 +49,7 @@ public class CzfCardActivity extends BackTitleActivity implements SwipeRefreshLa
     private RelativeLayout rl_select;
     private RoomSelectPop roomSelectPop;
     private TextView tv_room;
+    private String currentSelectType="";
 
     @Override
     public View setContentView() {
@@ -79,7 +80,7 @@ public class CzfCardActivity extends BackTitleActivity implements SwipeRefreshLa
 
     @Override
     public void initNet() {
-        loadNet("");
+        loadNet(currentSelectType);
     }
 
     private void loadNet(String roomId) {
@@ -124,7 +125,8 @@ public class CzfCardActivity extends BackTitleActivity implements SwipeRefreshLa
             @Override
             public void onSelect(int position, KjChuZuWuInfo.ContentBean.RoomListBean bean) {
                 tv_room.setText(position==0?"全部房间":bean.getROOMNO()+"");
-                loadNet(position==0?"":bean.getROOMID());
+                CzfCardActivity.this.currentSelectType=position==0?"":bean.getROOMID();
+                loadNet(currentSelectType);
             }
         });
     }
@@ -143,6 +145,6 @@ public class CzfCardActivity extends BackTitleActivity implements SwipeRefreshLa
 
     @Override
     public void onRefresh() {
-        single_srl.setRefreshing(false);
+        loadNet(currentSelectType);
     }
 }

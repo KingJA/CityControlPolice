@@ -197,7 +197,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
 
         mAdapter = NfcAdapter.getDefaultAdapter(this);
         if (mAdapter == null) {
-            Toast.makeText(this, "当前设备不支持nfc", Toast.LENGTH_SHORT).show();
+            ToastUtil.showMyToast("当前设备不支持nfc");
         } else {
             initNfc();
         }

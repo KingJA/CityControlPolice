@@ -3,6 +3,8 @@ package com.tdr.citycontrolpolice.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
@@ -38,10 +40,11 @@ public class ToastUtil {
         }
     }
 
-    public static void showMyToast(String message
-    ) {
+    public static void showMyToast(String message) {
         showToast(AppUtil.getContext(), message, Toast.LENGTH_SHORT);
     }
+
+
 
     private static void showToast(Context mContext, String message, int duration) {
         if (mToast == null) {
@@ -55,5 +58,16 @@ public class ToastUtil {
         mToast.setDuration(duration);
         mToast.setView(toastRoot);
         mToast.show();
+    }
+
+    public static void showThreadToast(final String msg) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                ToastUtil.showMyToast(msg);
+                Looper.loop();
+            }
+        }).start();
     }
 }

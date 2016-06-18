@@ -3,6 +3,8 @@ package com.tdr.citycontrolpolice.update;
 
 import android.util.Log;
 
+import com.tdr.citycontrolpolice.util.Constants;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
@@ -36,7 +38,7 @@ public class WebserviceRequest {
         envelope.bodyOut = request;
 
         MyHttpTransportSE ht = new MyHttpTransportSE(
-                UpdateManager.WEBSERVER_URL);
+                Constants.getUpdataUrl());
         ht.call(WEBSERVER_NAMESPACE + "GetCode", envelope);
         String result = ((SoapPrimitive) envelope.getResponse()).toString();
         Log.e("CityControlPolice.apk", result);

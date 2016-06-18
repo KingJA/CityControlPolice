@@ -24,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.view.dialog.DialogConfirm;
 
 /**
@@ -32,8 +33,8 @@ import com.tdr.citycontrolpolice.view.dialog.DialogConfirm;
 public class UpdateManager {
 
     /*温州版接口*/
-    public static final String UPDATE_SERVER = "http://127.0.0.1:8890/newestapk/";// 温州更新下载地址
-    public static final String WEBSERVER_URL = "http://127.0.0.1:8890/WebServiceAPKRead.asmx";// 温州
+//    public static final String UPDATE_SERVER = "http://127.0.0.1:8890/newestapk/";// 温州更新下载地址
+//    public static final String WEBSERVER_URL = "http://127.0.0.1:8890/WebServiceAPKRead.asmx";// 温州
 
     /*省厅版接口*/
 //    public static final String UPDATE_SERVER = "http://172.18.18.21:8892/newestapk/";// 省厅更新下载地址
@@ -222,7 +223,7 @@ public class UpdateManager {
                     String sdpath = Environment.getExternalStorageDirectory()
                             + "/";
                     mSavePath = sdpath + "download";
-                    URL url = new URL(UPDATE_SERVER + UPDATE_APKNAME);
+                    URL url = new URL(Constants.getUpdataService() + UPDATE_APKNAME);
                     // 创建连接
                     HttpURLConnection conn = (HttpURLConnection) url
                             .openConnection();

@@ -19,6 +19,7 @@ import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.AppUtil;
+import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.popupwindow.RoomSelectPop;
 
@@ -49,6 +50,7 @@ public class CzfOutInActivity extends BackTitleActivity implements SwipeRefreshL
     private RelativeLayout rl_select;
     private RoomSelectPop roomSelectPop;
     private TextView tv_room;
+    private String currentSelectType="";
 
     @Override
     public View setContentView() {
@@ -80,7 +82,7 @@ public class CzfOutInActivity extends BackTitleActivity implements SwipeRefreshL
 
     @Override
     public void initNet() {
-        loadNet("");
+        loadNet(currentSelectType);
     }
 
     private void loadNet(String roomId) {
@@ -125,7 +127,8 @@ public class CzfOutInActivity extends BackTitleActivity implements SwipeRefreshL
             @Override
             public void onSelect(int position, KjChuZuWuInfo.ContentBean.RoomListBean bean) {
                 tv_room.setText(position==0?"全部房间":bean.getROOMNO()+"");
-                loadNet(position==0?"":bean.getROOMID());
+                CzfOutInActivity.this.currentSelectType=position==0?"":bean.getROOMID();
+                loadNet(currentSelectType);
             }
         });
     }
@@ -144,6 +147,6 @@ public class CzfOutInActivity extends BackTitleActivity implements SwipeRefreshL
 
     @Override
     public void onRefresh() {
-        single_srl.setRefreshing(false);
+        loadNet(currentSelectType);
     }
 }

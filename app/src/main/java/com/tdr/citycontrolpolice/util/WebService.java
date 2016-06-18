@@ -25,7 +25,7 @@ public class WebService {
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.dotNet = true;
         envelope.bodyOut = request;
-        HttpTransportSE ht = new HttpTransportSE(Constants.WEBSERVER_URL);
+        HttpTransportSE ht = new HttpTransportSE(Constants.getHostUrl());
         ht.call(nanmespace + name, envelope);
         SoapPrimitive soapPrimitive = (SoapPrimitive) envelope.getResponse();
         return soapPrimitive.toString();
@@ -41,7 +41,7 @@ public class WebService {
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.dotNet = true;
         envelope.bodyOut = request;
-        MyHttpTransportSE ht = new MyHttpTransportSE(Constants.WEBSERVER_URL);
+        MyHttpTransportSE ht = new MyHttpTransportSE(Constants.getHostUrl());
         ht.call(Constants.WEBSERVER_NAMESPACE + name, envelope);
         SoapPrimitive soapPrimitive = (SoapPrimitive) envelope.getResponse();
         return soapPrimitive.toString();

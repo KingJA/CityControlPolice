@@ -1,11 +1,15 @@
 package com.tdr.citycontrolpolice.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.util.Log;
+
+import com.tdr.citycontrolpolice.activity.HomeActivity;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -52,16 +56,31 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     }
 
     @Override
-    public void uncaughtException(Thread thread, Throwable ex) {
+    public void uncaughtException(final Thread thread, final Throwable ex) {
+        Log.e("uncaughtException: ", "uncaughtException: ");
         savaToSdCard(ex);
         uploadToService(ex);
-        AppManager.getAppManager().finishAllActivity();//避免前台的其他APP被关闭
-        if (mDefaultHandler != null) {
-            mDefaultHandler.uncaughtException(thread, ex);
-        } else {
-            android.os.Process.killProcess(android.os.Process.myPid());
+        ToastUtil.showThreadToast("很抱歉，程序遭遇异常，即将重启");
+        try {
+            thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
+        AppManager.getAppManager().finishAllActivity();//避免前台的其他APP被关闭
+        Intent intent = new Intent(context, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+//        if (mDefaultHandler != null) {
+//            mDefaultHandler.uncaughtException(thread, ex);
+//        } else {
+//            android.os.Process.killProcess(android.os.Process.myPid());
+//            System.exit(10);
+//        }
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
+
+
 
     /**
      * 上传异常信息到服务器

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.fragment.TabHomeFragment;
+import com.tdr.citycontrolpolice.util.AppManager;
 import com.tdr.citycontrolpolice.util.FragmentUtil;
 import com.tdr.citycontrolpolice.util.ResourcesUtil;
 import com.tdr.citycontrolpolice.util.StatusBarCompat;
@@ -39,6 +40,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppManager.getAppManager().addActivity(this);
         setContentView(R.layout.activity_home);
         StatusBarCompat.initStatusBar(this);
         mSupportFragmentManager = getSupportFragmentManager();
@@ -113,6 +115,12 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.getAppManager().addActivity(this);
     }
 }
 

@@ -136,7 +136,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
     @Override
     protected void initFragmentNet() {
-        dialogProgress.show();
+        srlCzfManager.setRefreshing(true);
         ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0, "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
@@ -144,15 +144,14 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
                 .setCallBack(new WebServiceCallBack<KjChuZuWuInfo>() {
                     @Override
                     public void onSuccess(KjChuZuWuInfo bean) {
+                        srlCzfManager.setRefreshing(false);
                         kjChuZuWuInfo = bean;
                         roomList = bean.getContent().getRoomList();
                         Log.i("roomList", "InfoManagerFragment: " + roomList.size());
                         llInitRoom.setVisibility(roomList.size() == 0 ? View.VISIBLE : View.GONE);
                         btnAdd.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
                         hasInitRoom = (roomList.size() == 0 ? false : true);
-//                        tvBack.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
                         tvTip.setText(roomList.size() == 0 ? "请输入楼层号和房间数进行初始化" : "请输入房间号进行房间添加");
-
                         czfManagerAdapter.setData(roomList);
                         dialogProgress.dismiss();
                         currentRoomList.clear();
@@ -164,7 +163,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-                        dialogProgress.dismiss();
+                        srlCzfManager.setRefreshing(false);
                     }
                 }).build();
         PoolManager.getInstance().execute(task);
@@ -222,7 +221,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
     @Override
     public void onRefresh() {
-        srlCzfManager.setRefreshing(false);
+        initFragmentNet();
     }
 
 

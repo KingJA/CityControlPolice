@@ -110,7 +110,7 @@ public class TendencyReadAPI implements Callback {
             params.put("identitycardid", tagId);
             params.put("commid", "120");
             FinalHttp fh = new FinalHttp();
-            fh.post(Constants.NFC_URL, params, new AjaxCallBack<Object>() {
+            fh.post(Constants.getNFCUrl(), params, new AjaxCallBack<Object>() {
                 @Override
                 public void onFailure(Throwable t, int errorNo, String strMsg) {
                     super.onFailure(t, errorNo, strMsg);
@@ -324,7 +324,7 @@ public class TendencyReadAPI implements Callback {
                         System.out.println("访问艺数时间：" + System.currentTimeMillis());
                         readflag = 1;
                         ReadCardAPI.setPort(9018);
-                        ReadCardAPI.setIP(Constants.NFC_IP);
+                        ReadCardAPI.setIP(Constants.getNFCIP());
                         // ReadCardAPI.setIP("127.0.0.1");//公安内网
                         readresult = ReadCardAPI.NfcReadCard(inintent);
                         mHandler.sendEmptyMessageDelayed(NfcConstants.MESSAGE_VALID_NFCBUTTON, 0);

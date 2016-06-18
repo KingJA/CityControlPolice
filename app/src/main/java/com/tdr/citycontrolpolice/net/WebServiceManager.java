@@ -23,7 +23,7 @@ import java.util.Map;
  * 修改备注：
  */
 public class WebServiceManager {
-    private static final String SERVER_URL = Constants.WEBSERVER_URL;//Url
+//    private static final String SERVER_URL = Constants.WEBSERVER_URL;//Url
     private static final String SERVER_NAMESPACE = "http://tempuri.org/";//命名空间
     private static final String SERVER_METHOD = "RERequest";// 治安防控APP接口
     private static final String TAG = "WebServiceManager";
@@ -45,7 +45,7 @@ public class WebServiceManager {
     }
 
     public static String load(Map<String, Object> paramMap) throws IOException, XmlPullParserException {
-        HttpTransportSE mHttpTransportSE = new HttpTransportSE(SERVER_URL, 20000);
+        HttpTransportSE mHttpTransportSE = new HttpTransportSE(Constants.getHostUrl(), 20000);
         SoapObject mSoapObject = new SoapObject(SERVER_NAMESPACE, SERVER_METHOD);
         for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
             mSoapObject.addProperty(entry.getKey(), entry.getValue());
@@ -59,7 +59,7 @@ public class WebServiceManager {
     }
 
     public static <T> T load(Map<String, Object> paramMap, Class<T> clazz) throws IOException, XmlPullParserException {
-        HttpTransportSE mHttpTransportSE = new HttpTransportSE(SERVER_URL);
+        HttpTransportSE mHttpTransportSE = new HttpTransportSE(Constants.getHostUrl());
         SoapObject mSoapObject = new SoapObject(SERVER_NAMESPACE, SERVER_METHOD);
         for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
             mSoapObject.addProperty(entry.getKey(), entry.getValue());
