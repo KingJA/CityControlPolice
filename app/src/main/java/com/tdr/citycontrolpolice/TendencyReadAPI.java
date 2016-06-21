@@ -107,14 +107,16 @@ public class TendencyReadAPI implements Callback {
 
             // 访问本地数据库，请求身份证数据
             AjaxParams params = new AjaxParams();
+            Log.e(TAG, "tagId: "+tagId);
             params.put("identitycardid", tagId);
             params.put("commid", "120");
+            Log.e(TAG, "尝试从本地服务器读取："+Constants.getNFCUrl());
             FinalHttp fh = new FinalHttp();
             fh.post(Constants.getNFCUrl(), params, new AjaxCallBack<Object>() {
                 @Override
                 public void onFailure(Throwable t, int errorNo, String strMsg) {
                     super.onFailure(t, errorNo, strMsg);
-                    Log.e(TAG, "访问本地库失败！");
+                    Log.e(TAG, "本地服务器读取失败！");
                     mHandler.sendEmptyMessage(NfcConstants.HANDLER_KEY_GETIDENTITY_LOCAL_FAIL);
                 }
 
@@ -164,7 +166,7 @@ public class TendencyReadAPI implements Callback {
                 ReadCardAPI.writeFile("come into MESSAGE_CLEAR_ITEMS 1");
                 tt = readresult;
                 ReadCardAPI.writeFile("come into MESSAGE_CLEAR_ITEMS 2");
-                Log.e("For Test", " ReadCard TT=" + tt);
+                Log.e(TAG, " 艺数返回参数 tt=" + tt);
                 if (tt == 2) {
                     Log.e("t = 2:", "接收数据超时！");
                     NfcConstants.myToast(mContext, "接收数据超时！");
@@ -216,6 +218,7 @@ public class TendencyReadAPI implements Callback {
                     params.put("status", "1");
                     params.put("source", "3");
                     FinalHttp fh = new FinalHttp();
+                    Log.e(TAG, "缓存 URL: "+NfcConstants.URL );
                     fh.post(NfcConstants.URL, params, new AjaxCallBack<Object>() {
                         @Override
                         public void onFailure(Throwable t, int errorNo, String strMsg) {
@@ -321,10 +324,13 @@ public class TendencyReadAPI implements Callback {
                         if (readflag == 1) {
                             return;
                         }
-                        System.out.println("访问艺数时间：" + System.currentTimeMillis());
+//                        System.out.println("访问艺数时间：" + System.currentTimeMillis());
                         readflag = 1;
                         ReadCardAPI.setPort(9018);
                         ReadCardAPI.setIP(Constants.getNFCIP());
+                        Log.e(TAG, "尝试从艺数读取");
+                        Log.e(TAG, "艺数端口:9018");
+                        Log.e(TAG, "艺数IP:"+Constants.getNFCIP());
                         // ReadCardAPI.setIP("127.0.0.1");//公安内网
                         readresult = ReadCardAPI.NfcReadCard(inintent);
                         mHandler.sendEmptyMessageDelayed(NfcConstants.MESSAGE_VALID_NFCBUTTON, 0);

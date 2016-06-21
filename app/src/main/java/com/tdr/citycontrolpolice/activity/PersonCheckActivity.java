@@ -9,6 +9,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.tech.MifareClassic;
 import android.nfc.tech.NfcA;
 import android.nfc.tech.NfcB;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +51,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import butterknife.ButterKnife;
+
 /**
  * 项目名称：物联网城市防控(警用版)
  * 类描述：人员核查页面
@@ -56,7 +60,7 @@ import java.util.Set;
  * 创建时间：2016/4/6 17:03
  * 修改备注：
  */
-public class PersonCheckActivity extends BackTitleActivity implements View.OnClickListener ,BackTitleActivity.OnRightClickListener{
+public class PersonCheckActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "PersonCheckActivity";
     private ImageView iv_nfc;
@@ -78,15 +82,21 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
     private TextView tv_submit;
     private String bluetoothAddress;
     private NfcAdapter mAdapter;
-    private PendingIntent pi ;
+    private PendingIntent pi;
     private IntentFilter tagDetected;
     private IntentFilter ocrDetected;
     private String[][] mTechLists;
+    private TextView tv_count;
+    private RelativeLayout rl_count;
+    private RelativeLayout rl_queue;
+    private RelativeLayout rl_top_back_left;
+    private List<OCR_Kj> ocrList;
 
     @Override
-    public View setContentView() {
-        view = View.inflate(this, R.layout.activity_person_check, null);
-        return view;
+    protected void onCreate(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_person_check);
+        ButterKnife.bind(this);
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -96,17 +106,21 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
 
     @Override
     protected void initView() {
-        tv_card_no = (TextView) view.findViewById(R.id.tv_card_no);
-        et_name = (EditText) view.findViewById(R.id.et_name);
-        tv_card = (TextView) view.findViewById(R.id.tv_card);
-        tv_nation = (TextView) view.findViewById(R.id.tv_nation);
-        tv_birthday = (TextView) view.findViewById(R.id.tv_birthday);
-        tv_address = (TextView) view.findViewById(R.id.tv_address);
-        tv_gender = (TextView) view.findViewById(R.id.tv_gender);
-        iv_camera = (ImageView) view.findViewById(R.id.iv_camera);
-        tv_submit = (TextView) view.findViewById(R.id.tv_submit);
-        iv_bluetooth = (ImageView) view.findViewById(R.id.iv_bluetooth);
-        iv_nfc = (ImageView) view.findViewById(R.id.iv_nfc);
+        rl_top_back_left = (RelativeLayout) findViewById(R.id.rl_top_back_left);
+        rl_queue = (RelativeLayout) findViewById(R.id.rl_queue);
+        rl_count = (RelativeLayout) findViewById(R.id.rl_count);
+        tv_count = (TextView) findViewById(R.id.tv_count);
+        tv_card_no = (TextView) findViewById(R.id.tv_card_no);
+        et_name = (EditText) findViewById(R.id.et_name);
+        tv_card = (TextView) findViewById(R.id.tv_card);
+        tv_nation = (TextView) findViewById(R.id.tv_nation);
+        tv_birthday = (TextView) findViewById(R.id.tv_birthday);
+        tv_address = (TextView) findViewById(R.id.tv_address);
+        tv_gender = (TextView) findViewById(R.id.tv_gender);
+        iv_camera = (ImageView) findViewById(R.id.iv_camera);
+        tv_submit = (TextView) findViewById(R.id.tv_submit);
+        iv_bluetooth = (ImageView) findViewById(R.id.iv_bluetooth);
+        iv_nfc = (ImageView) findViewById(R.id.iv_nfc);
         dialogBluetooth = new DialogBluetooth(this, boundDevices);
         dialogProgress = new DialogProgress(this);
 
@@ -132,10 +146,6 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
          */
         boundDevices = getBoundDevices();
 
-//        IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-//        this.registerReceiver(receiver, intentFilter);
-//        intentFilter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-//        this.registerReceiver(receiver, intentFilter);
 
     }
 
@@ -166,6 +176,8 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
 
     @Override
     public void initData() {
+        rl_top_back_left.setOnClickListener(this);
+        rl_queue.setOnClickListener(this);
         tv_submit.setOnClickListener(this);
         iv_camera.setOnClickListener(this);
         iv_nfc.setOnClickListener(this);
@@ -215,6 +227,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
                 new String[]{NfcA.class.getName()},
                 new String[]{MifareClassic.class.getName()}};
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -231,17 +244,18 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
     }
 
     private void startNfcListener() {
-        mAdapter.enableForegroundDispatch(this, pi, new IntentFilter[]{tagDetected,ocrDetected}, mTechLists);
+        mAdapter.enableForegroundDispatch(this, pi, new IntentFilter[]{tagDetected, ocrDetected}, mTechLists);
     }
 
     private void stopNfcListener() {
         mAdapter.disableForegroundDispatch(this);
     }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         String tagId = Converter.bytesToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)).toUpperCase();
-        Log.i(TAG, "tagId: "+tagId);
+        Log.i(TAG, "tagId: " + tagId);
         if (tagId.length() != 16) {
             ToastUtil.showMyToast("请使用身份证刷卡");
             return;
@@ -264,9 +278,15 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
 
     @Override
     public void setData() {
-        setOnRightClickListener(this);
-        setTitle("OCR人员认证");
-        setRightTextVisibility("队列");
+
+        setQueueSize();
+    }
+
+    private void setQueueSize() {
+        ocrList = DbDaoXutils3.getInstance().selectAll(OCR_Kj.class);
+        Log.e(TAG, "setQueueSize: "+ocrList.size());
+        rl_count.setVisibility(ocrList.size() > 0 ? View.VISIBLE : View.GONE);
+        tv_count.setText(ocrList.size() >99?"...":String.valueOf(ocrList.size()));
     }
 
 
@@ -430,6 +450,12 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.rl_top_back_left:
+                finish();
+                break;
+            case R.id.rl_queue:
+                ActivityUtil.goActivity(this, QueueActivity.class);
+                break;
             case R.id.iv_nfc:
                 break;
             case R.id.tv_submit:
@@ -471,14 +497,13 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
 //
 
 //        CheckUtil.checkEmpty(cardID, "请通过蓝牙或NFC获取身份证卡号") &&
-        if ( CheckUtil.checkEmpty(cardID, "请通过蓝牙或NFC获取身份证卡号") &&CheckUtil.checkEmpty(cardNO, "请通过相机获取身份证信息")) {
-
+        if (CheckUtil.checkEmpty(cardID, "请通过蓝牙或NFC获取身份证卡号") &&CheckUtil.checkEmpty(cardNO, "请通过相机获取身份证信息")) {
             if (!NetUtil.netAvailable()) {
                 ToastUtil.showMyToast("当前网络不可用，信息暂存在队列");
                 //存放数据库
                 OCR_Kj ocr = new OCR_Kj();
-                ocr.setTaskID( "1");
-                ocr.setNAME( name);
+                ocr.setTaskID("1");
+                ocr.setNAME(name);
                 ocr.setSEX(gender);
                 ocr.setNATION(nation);
                 ocr.setBIRTHDAY(birthday);
@@ -487,7 +512,14 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
                 ocr.setIDENTITYCARDID(cardID);
                 Log.e(TAG, ocr.toString());
                 DbDaoXutils3.getInstance().saveOrUpdate(ocr);
-                return ;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setQueueSize();
+                    }
+                },200);
+
+                return;
             }
             Map<String, Object> param = new HashMap<>();
             param.put("TaskID", "1");
@@ -518,8 +550,5 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
         }
     }
 
-    @Override
-    public void onRightClick() {
-       ActivityUtil.goActivity(this,QueueActivity.class);
-    }
+
 }

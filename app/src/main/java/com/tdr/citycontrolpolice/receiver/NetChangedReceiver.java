@@ -46,6 +46,7 @@ public class NetChangedReceiver extends BroadcastReceiver {
             uploadData();
         } else {
             ToastUtil.showMyToast("没有网络");
+            Log.e("onReceive", "没有网络");
         }
     }
 
@@ -59,6 +60,7 @@ public class NetChangedReceiver extends BroadcastReceiver {
         }
 
     }
+
 
     private void doNet(final OCR_Kj info) {
         Map<String, Object> param = new HashMap<>();
