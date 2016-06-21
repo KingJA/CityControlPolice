@@ -7,6 +7,7 @@ import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,12 +76,26 @@ public class DbDaoXutils3<T> implements DbDao<T> {
         return t;
     }
 
-    @Override
-    public List<T> sleectAll(Class<T> clazz, String key, String value) {
+
+
+    public List<T> selectAllWhere(Class<T> clazz, String key, String value) {
         List<T> list = null;
         try {
             list = dbManager.selector(clazz).where(key, "=", value).findAll();
 
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<T> selectAll(Class<T> clazz) {
+        List<T> list = new ArrayList<>();
+        try {
+            list = dbManager.selector(clazz).findAll();
+            if (list == null) {
+                list=new ArrayList<>();
+            }
 
         } catch (DbException e) {
             e.printStackTrace();
@@ -89,9 +104,23 @@ public class DbDaoXutils3<T> implements DbDao<T> {
     }
 
     @Override
-    public void saveOrUpdate(T t) {
+    public void saveOrUpdate(final T t) {
+        x.task().run(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    dbManager.saveOrUpdate(t);
+                } catch (DbException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void deleteById(Class<T> clazz,String id) {
         try {
-            dbManager.saveOrUpdate(t);
+            dbManager.deleteById(clazz, id);
         } catch (DbException e) {
             e.printStackTrace();
         }

@@ -23,6 +23,7 @@ import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.SimpleIndicatorLayout;
 import com.tdr.citycontrolpolice.view.dialog.DialogConfirm;
@@ -168,7 +169,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
     @Override
     public void setData() {
-        setRightVisibility(View.VISIBLE);
+        setRightImageVisibility(View.VISIBLE);
         setTitle("出租房管理");
 
     }
@@ -204,6 +205,10 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 CzfOutInActivity.goActivity(this, mHouseId,mCzfInfo);
                 break;
             case 4:
+                if (mIsregister != 1) {
+                    ToastUtil.showMyToast("请先进行设备安装申报");
+                    return;
+                }
                 Bundle bundle = new Bundle();
                 bundle.putString("HOUSE_ID", mHouseId);
                 ActivityUtil.goActivityWithBundle(this, DeviceBindingActivity.class, bundle);

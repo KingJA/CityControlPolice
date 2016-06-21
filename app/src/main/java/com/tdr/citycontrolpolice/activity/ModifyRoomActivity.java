@@ -101,8 +101,8 @@ public class ModifyRoomActivity extends BackTitleActivity implements BottomListP
         et_room_person = (EditText) view.findViewById(R.id.et_room_person);
         tv_room_submit = (TextView) view.findViewById(R.id.tv_room_submit);
         mDialogConfirm = new DialogConfirm(this, "成功修改房间信息!", "确定");
-        paymentList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().sleectAll(Basic_Dictionary_Kj.class, "COLUMNCODE", "DEPOSIT");
-        renovationList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().sleectAll(Basic_Dictionary_Kj.class, "COLUMNCODE", "FIXTURE");
+        paymentList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().selectAllWhere(Basic_Dictionary_Kj.class, "COLUMNCODE", "DEPOSIT");
+        renovationList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().selectAllWhere(Basic_Dictionary_Kj.class, "COLUMNCODE", "FIXTURE");
     }
 
     @Override

@@ -7,9 +7,7 @@ import android.widget.FrameLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.util.StatusBarCompat;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,6 +30,8 @@ public abstract class BackTitleActivity extends BaseActivity {
     RelativeLayout rlTopBackRight;
     @Bind(R.id.rl_parent)
     RelativeLayout rlParent;
+    @Bind(R.id.tv_right)
+    TextView tvRight;
     private OnRightClickListener onRightClickListener;
 
     @Bind(R.id.tv_top_back_title)
@@ -62,6 +62,13 @@ public abstract class BackTitleActivity extends BaseActivity {
         }
     }
 
+    @OnClick(R.id.tv_right)
+    void onRightText() {
+        if (onRightClickListener != null) {
+            onRightClickListener.onRightClick();
+        }
+    }
+
     /**
      * 初始化TopView
      */
@@ -85,8 +92,13 @@ public abstract class BackTitleActivity extends BaseActivity {
     /**
      * 设置右侧按钮是否可见
      */
-    public void setRightVisibility(int visibility) {
+    public void setRightImageVisibility(int visibility) {
         rlTopBackRight.setVisibility(visibility);
+    }
+
+    public void setRightTextVisibility(String tv) {
+        tvRight.setVisibility(View.VISIBLE);
+        tvRight.setText(tv);
     }
 
 

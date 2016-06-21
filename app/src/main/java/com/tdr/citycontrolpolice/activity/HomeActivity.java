@@ -1,5 +1,6 @@
 package com.tdr.citycontrolpolice.activity;
 
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.fragment.TabHomeFragment;
+import com.tdr.citycontrolpolice.receiver.NetChangedReceiver;
 import com.tdr.citycontrolpolice.util.AppManager;
 import com.tdr.citycontrolpolice.util.FragmentUtil;
 import com.tdr.citycontrolpolice.util.ResourcesUtil;
@@ -36,10 +38,13 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     private Fragment mCurrentFragment;
     private int nCurrentPosition = -1;
     private int mSelectedPosition = -1;
+    private NetChangedReceiver netChangedReceiver;
+    public static final String CONNECTIVITY_CHANGE_ACTION = "android.net.conn.CONNECTIVITY_CHANGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        registerDateTransReceiver();
         AppManager.getAppManager().addActivity(this);
         setContentView(R.layout.activity_home);
         StatusBarCompat.initStatusBar(this);
@@ -117,9 +122,20 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     protected void onSaveInstanceState(Bundle outState) {
     }
 
+
+
+    private void registerDateTransReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(CONNECTIVITY_CHANGE_ACTION);
+        filter.setPriority(1000);
+        netChangedReceiver = new NetChangedReceiver();
+        registerReceiver(netChangedReceiver, filter);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
+//        unregisterReceiver(netChangedReceiver);
         AppManager.getAppManager().addActivity(this);
     }
 }

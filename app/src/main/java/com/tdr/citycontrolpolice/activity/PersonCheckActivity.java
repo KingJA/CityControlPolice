@@ -3,8 +3,6 @@ package com.tdr.citycontrolpolice.activity;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
@@ -17,21 +15,25 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.Converter;
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.dao.DbDaoXutils3;
 import com.tdr.citycontrolpolice.entity.BluetoothBean;
 import com.tdr.citycontrolpolice.entity.Common_IdentityCardAuthentication;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
+import com.tdr.citycontrolpolice.entity.OCR_Kj;
 import com.tdr.citycontrolpolice.net.ConnectThread;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
+import com.tdr.citycontrolpolice.util.NetUtil;
 import com.tdr.citycontrolpolice.util.SharedPreferencesUtils;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
@@ -54,7 +56,7 @@ import java.util.Set;
  * 创建时间：2016/4/6 17:03
  * 修改备注：
  */
-public class PersonCheckActivity extends BackTitleActivity implements View.OnClickListener {
+public class PersonCheckActivity extends BackTitleActivity implements View.OnClickListener ,BackTitleActivity.OnRightClickListener{
 
     private static final String TAG = "PersonCheckActivity";
     private ImageView iv_nfc;
@@ -65,7 +67,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
     private TextView tv_birthday;
     private TextView tv_nation;
     private TextView tv_card;
-    private TextView tv_name;
+    private EditText et_name;
     private TextView tv_card_no;
     private DialogBluetooth dialogBluetooth;
     private String cardNo;
@@ -95,7 +97,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
     @Override
     protected void initView() {
         tv_card_no = (TextView) view.findViewById(R.id.tv_card_no);
-        tv_name = (TextView) view.findViewById(R.id.tv_name);
+        et_name = (EditText) view.findViewById(R.id.et_name);
         tv_card = (TextView) view.findViewById(R.id.tv_card);
         tv_nation = (TextView) view.findViewById(R.id.tv_nation);
         tv_birthday = (TextView) view.findViewById(R.id.tv_birthday);
@@ -262,7 +264,9 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
 
     @Override
     public void setData() {
+        setOnRightClickListener(this);
         setTitle("OCR人员认证");
+        setRightTextVisibility("队列");
     }
 
 
@@ -380,7 +384,7 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
      * @param idCard
      */
     private void setCardInfo(IDCard idCard) {
-        tv_name.setText(idCard.getName());
+        et_name.setText(idCard.getName());
         tv_card.setText(idCard.getCardNo());
         tv_nation.setText(idCard.getEthnicity());
         tv_birthday.setText(idCard.getBirth());
@@ -388,35 +392,6 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
         tv_gender.setText(idCard.getSex());
     }
 
-    /**
-     * 蓝牙搜索广播
-     */
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            String action = intent.getAction();
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-                    BluetoothBean bluetoothBean = new BluetoothBean();
-                    bluetoothBean.setAddress(device.getAddress());
-                    bluetoothBean.setName(device.getName());
-                    searchDevices.add(bluetoothBean);
-                    mOcrHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            dialogBluetooth.refresh(searchDevices);
-
-                        }
-                    });
-                }
-            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                ToastUtil.showMyToast("搜索完毕！");
-            }
-
-        }
-    };
 
     /**
      * 退出界面时，如果在搜索停止搜索，停止接收信号输入，解绑广播
@@ -428,7 +403,6 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
         }
 
         stopConnectThread();
-//        unregisterReceiver(receiver);
         super.onDestroy();
     }
 
@@ -473,7 +447,6 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
                 } else {
                     dialogBluetooth.show();
                 }
-
                 break;
             default:
                 break;
@@ -485,14 +458,37 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
      * 上传身份证信息
      */
     private void submit() {
-        String name = tv_name.getText().toString().trim();
+        String name = et_name.getText().toString().trim();
         String gender = tv_gender.getText().toString().trim();
         String nation = tv_nation.getText().toString().trim();
         String birthday = tv_birthday.getText().toString().trim();
         String address = tv_address.getText().toString().trim();
         String cardNO = tv_card.getText().toString().trim();
         String cardID = tv_card_no.getText().toString().trim();
-        if (CheckUtil.checkEmpty(cardID, "请通过蓝牙获取身份证卡号") && CheckUtil.checkEmpty(cardNO, "请通过相机获取身份证信息")) {
+
+
+//        List<OCR_Kj> list = DbDaoXutils3.getInstance().selectAll(OCR_Kj.class);
+//
+
+//        CheckUtil.checkEmpty(cardID, "请通过蓝牙或NFC获取身份证卡号") &&
+        if ( CheckUtil.checkEmpty(cardID, "请通过蓝牙或NFC获取身份证卡号") &&CheckUtil.checkEmpty(cardNO, "请通过相机获取身份证信息")) {
+
+            if (!NetUtil.netAvailable()) {
+                ToastUtil.showMyToast("当前网络不可用，信息暂存在队列");
+                //存放数据库
+                OCR_Kj ocr = new OCR_Kj();
+                ocr.setTaskID( "1");
+                ocr.setNAME( name);
+                ocr.setSEX(gender);
+                ocr.setNATION(nation);
+                ocr.setBIRTHDAY(birthday);
+                ocr.setADDRESS(address);
+                ocr.setIDENTITYCARD(cardNO);
+                ocr.setIDENTITYCARDID(cardID);
+                Log.e(TAG, ocr.toString());
+                DbDaoXutils3.getInstance().saveOrUpdate(ocr);
+                return ;
+            }
             Map<String, Object> param = new HashMap<>();
             param.put("TaskID", "1");
             param.put("NAME", name);
@@ -522,4 +518,8 @@ public class PersonCheckActivity extends BackTitleActivity implements View.OnCli
         }
     }
 
+    @Override
+    public void onRightClick() {
+       ActivityUtil.goActivity(this,QueueActivity.class);
+    }
 }

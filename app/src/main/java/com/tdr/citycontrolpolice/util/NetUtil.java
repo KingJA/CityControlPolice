@@ -43,4 +43,35 @@ public class NetUtil {
         }
         return netType;
     }
+
+    public static String getNetworkStringType() {
+        String result = "";
+        switch (getNetworkType()) {
+            case NETTYPE_WIFI:
+                result = "WIFI";
+                break;
+            case NETTYPE_CMWAP:
+                result = "Wap网络";
+                break;
+            case NETTYPE_CMNET:
+                result = "Net网络";
+                break;
+        }
+        return result;
+    }
+
+    public static boolean netAvailable() {
+        boolean netAvailable;
+        ConnectivityManager connectMgr = (ConnectivityManager) App.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mobNetInfo = connectMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo wifiNetInfo = connectMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (!mobNetInfo.isConnected() && !wifiNetInfo.isConnected()) {
+            netAvailable = false;
+        } else {
+            netAvailable = true;
+        }
+        return netAvailable;
+    }
+
+
 }

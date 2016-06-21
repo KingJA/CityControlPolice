@@ -166,6 +166,16 @@
             android:name=".activity.ExceptionActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.QueueActivity"
+            android:screenOrientation="portrait" />
+
+        <receiver android:name=".receiver.NetChangedReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
 
         <!-- 扫描二维码 -->
         <activity
@@ -201,6 +211,13 @@
                      <action android:name="com.tdr.ecard.readcard" />
                  </intent-filter>
              </receiver>-->
+
+
+
+
+
+
+
 
     </application>
 

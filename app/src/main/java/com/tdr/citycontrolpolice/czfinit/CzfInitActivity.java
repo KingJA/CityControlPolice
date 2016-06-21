@@ -28,7 +28,6 @@ import com.tdr.citycontrolpolice.entity.Basic_StandardAddressCodeByKey_Kj;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_Add;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_Add_Kj;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_GetSSYByStandAddressCode;
-import com.tdr.citycontrolpolice.entity.Common_AddDevice;
 import com.tdr.citycontrolpolice.entity.Common_InquireDevice;
 import com.tdr.citycontrolpolice.entity.Deivce;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
@@ -159,7 +158,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mIvRoom = (ImageView) view.findViewById(R.id.iv_room);
         mTvSubmit = (TextView) view.findViewById(R.id.tv_submit);
         dialogAddress = new DialogAddress(this);
-        roomTypeList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().sleectAll(Basic_Dictionary_Kj.class, "COLUMNCODE", "HOUSETYPE");
+        roomTypeList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().selectAllWhere(Basic_Dictionary_Kj.class, "COLUMNCODE", "HOUSETYPE");
         houseTypePop = new BottomListPop(mTvAddress, CzfInitActivity.this, roomTypeList);
         dialogDouble = new DialogDouble(this, "确定要退出出租房登记页面？", "确定", "取消");
         dialogAddress = new DialogAddress(this);

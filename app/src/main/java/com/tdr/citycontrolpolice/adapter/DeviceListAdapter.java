@@ -46,7 +46,7 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
 
     private void initDeviceType() {
 
-        typeList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().sleectAll(Basic_Dictionary_Kj.class, "COLUMNCODE", "DEVICETYPE");
+        typeList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().selectAllWhere(Basic_Dictionary_Kj.class, "COLUMNCODE", "DEVICETYPE");
         for (Basic_Dictionary_Kj bean : typeList) {
             typeMap.put(bean.getCOLUMNVALUE(), bean.getCOLUMNCOMMENT());
         }

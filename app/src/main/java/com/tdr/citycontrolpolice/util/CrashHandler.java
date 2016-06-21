@@ -58,6 +58,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(final Thread thread, final Throwable ex) {
         Log.e("uncaughtException: ", "uncaughtException: ");
+        ex.printStackTrace();
         savaToSdCard(ex);
         uploadToService(ex);
         ToastUtil.showThreadToast("很抱歉，程序遭遇异常，即将重启");

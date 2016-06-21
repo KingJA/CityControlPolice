@@ -69,7 +69,7 @@ public class NfcActivity extends BackTitleActivity {
     @Override
     protected void initView() {
         tv_card_no = (TextView) view.findViewById(R.id.tv_card_no);
-        tv_name = (TextView) view.findViewById(R.id.tv_name);
+        tv_name = (TextView) view.findViewById(R.id.et_name);
         tv_card = (TextView) view.findViewById(R.id.tv_card);
         tv_nation = (TextView) view.findViewById(R.id.tv_nation);
         tv_birthday = (TextView) view.findViewById(R.id.tv_birthday);

@@ -66,7 +66,7 @@ public class PersonInfoActivity extends BackTitleActivity implements BackTitleAc
     @Override
     protected void initView() {
 
-        setRightVisibility(View.VISIBLE);
+        setRightImageVisibility(View.VISIBLE);
         lv = (ListView) findViewById(R.id.lv_exist);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
         personInfoAdapter = new PersonInfoAdapter(this, personnelinfolist);

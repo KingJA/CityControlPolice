@@ -14,7 +14,13 @@ public interface DbDao<T> {
 
     public T sleectFirst(Class<T> clazz, String key1, String value1, String key2, String value2);
 
-    public List<T> sleectAll(Class<T> clazz, String key, String value);
+    public List<T> selectAllWhere(Class<T> clazz, String key, String value);
+
+    public List<T> selectAll(Class<T> clazz);
 
     public void saveOrUpdate(T t);
+
+    public void deleteById(Class<T> clazz, String id);
+
+
 }
