@@ -1,23 +1,20 @@
 package com.tdr.citycontrolpolice.activity;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.adapter.PersonInfoAdapter;
-import com.tdr.citycontrolpolice.entity.ChuZuWu_ComprehensiveInfo;
-import com.tdr.citycontrolpolice.entity.ErrorResult;
-import com.tdr.citycontrolpolice.net.PoolManager;
-import com.tdr.citycontrolpolice.net.ThreadPoolTask;
-import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.UserService;
-import com.tdr.citycontrolpolice.view.popupwindow.CzfListDetailPop;
+import com.tdr.citycontrolpolice.adapter.BaseFragmentPagerAdapter;
+import com.tdr.citycontrolpolice.fragment.InfoInFragment;
+import com.tdr.citycontrolpolice.fragment.InfoManagerFragment;
+import com.tdr.citycontrolpolice.fragment.PersonAccreditFragment;
+import com.tdr.citycontrolpolice.fragment.PersonInfoFragment;
+import com.tdr.citycontrolpolice.view.SimpleIndicatorLayout;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,82 +24,47 @@ import java.util.List;
  * 创建时间：2016/3/25 16:52
  * 修改备注：
  */
-public class PersonInfoActivity extends BackTitleActivity implements BackTitleActivity.OnRightClickListener, CzfListDetailPop.OnPopClickListener {
+public class PersonInfoActivity extends BackTitleActivity {
 
     private static final String TAG = "PersonInfoActivity";
     private String mHouseId;
     private String mRoomId;
-    private ListView lv;
-    private String mToken;
-    private HashMap<String, Object> mParam = new HashMap<>();
-    private List<ChuZuWu_ComprehensiveInfo.ContentBean.PERSONNELINFOLISTBean> personnelinfolist = new ArrayList<>();
-    private PersonInfoAdapter personInfoAdapter;
-    private LinearLayout ll_empty;
-    private CzfListDetailPop czfListDetailPop;
-    private String mRoomNo;
-    private String mRoomId1;
+    private SimpleIndicatorLayout mSilPersonInfo;
+    private ViewPager mVpPersonInfo;
+    private List<String> mTitleList = Arrays.asList("综合人员信息", "门戒授权");
+    private List<Fragment> mFragmentList = new ArrayList<>();
 
     @Override
     public void initVariables() {
         Bundle bundle = getIntent().getExtras();
         mHouseId = bundle.getString("HOUSE_ID");
         mRoomId = bundle.getString("ROOM_ID");
-        mRoomNo = bundle.getString("ROOM_NO");
-        mToken = UserService.getInstance(this).getToken();
-
-        mParam.put("TaskID", "1");
-        mParam.put("HOUSEID", mHouseId);
-        mParam.put("ROOMID", mRoomId);
-        mParam.put("PageSize", 100);
-        mParam.put("PageIndex", 0);
     }
 
     @Override
     public View setContentView() {
-        view = View.inflate(this, R.layout.fragment_lv, null);
+        view = View.inflate(this, R.layout.activity_czfinfo, null);
         return view;
     }
 
     @Override
     protected void initView() {
-
-        setRightImageVisibility(View.VISIBLE);
-        lv = (ListView) findViewById(R.id.lv_exist);
-        ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
-        personInfoAdapter = new PersonInfoAdapter(this, personnelinfolist);
-        lv.setAdapter(personInfoAdapter);
-        czfListDetailPop = new CzfListDetailPop(rlParent, PersonInfoActivity.this);
+        mSilPersonInfo = (SimpleIndicatorLayout) view.findViewById(R.id.sil_person_info);
+        mVpPersonInfo = (ViewPager) view.findViewById(R.id.vp_person_info);
     }
 
     @Override
     public void initNet() {
-        setProgressDialog(true);
-        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
-        ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_ComprehensiveInfo", mParam)
-                .setBeanType(ChuZuWu_ComprehensiveInfo.class)
-                .setActivity(PersonInfoActivity.this)
-                .setCallBack(new WebServiceCallBack<ChuZuWu_ComprehensiveInfo>() {
-                    @Override
-                    public void onSuccess(ChuZuWu_ComprehensiveInfo bean) {
-                        setProgressDialog(false);
-                       personnelinfolist = bean.getContent().getPERSONNELINFOLIST();
-                        Log.i(TAG, "personnelinfolist: " + PersonInfoActivity.this.personnelinfolist.size());
-                        personInfoAdapter.setData(PersonInfoActivity.this.personnelinfolist);
-                        ll_empty.setVisibility(PersonInfoActivity.this.personnelinfolist.size() == 0 ? View.VISIBLE : View.GONE);
-                    }
-
-                    @Override
-                    public void onErrorResult(ErrorResult errorResult) {
-                        setProgressDialog(false);
-                    }
-                }).build();
-        PoolManager.getInstance().execute(task);
     }
 
     @Override
     public void initData() {
-        setOnRightClickListener(this);
-        czfListDetailPop.setOnPopClickListener(this);
+        mFragmentList.add(PersonInfoFragment.newInstance(mHouseId,mRoomId));
+        mFragmentList.add(PersonAccreditFragment.newInstance(mHouseId,mRoomId));
+        mVpPersonInfo.setOffscreenPageLimit(mTitleList.size() - 1);
+        mVpPersonInfo.setAdapter(new BaseFragmentPagerAdapter(getSupportFragmentManager(), mFragmentList));
+        mSilPersonInfo.setTitles(mTitleList);
+        mSilPersonInfo.setUpWithViewPager(mVpPersonInfo, 0);
     }
 
     @Override
@@ -110,19 +72,4 @@ public class PersonInfoActivity extends BackTitleActivity implements BackTitleAc
         setTitle("人员信息");
     }
 
-    @Override
-    public void onRightClick() {
-        czfListDetailPop.showPopupWindowDownOffset();
-    }
-
-    @Override
-    public void onCzfInfoPop(int position) {
-        switch (position) {
-            case 0:
-                ModifyRoomActivity.goActivity(this, mHouseId, mRoomId, mRoomNo);
-                break;
-            default:
-                break;
-        }
-    }
 }

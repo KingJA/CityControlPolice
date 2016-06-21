@@ -29,7 +29,7 @@ public class PersonInfoAdapter extends BaseSimpleAdapter<ChuZuWu_ComprehensiveIn
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = View
-                    .inflate(context, R.layout.item_czf_person, null);
+                    .inflate(context, R.layout.item_person_info, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
