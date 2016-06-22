@@ -290,22 +290,22 @@
             android:background="@drawable/shape_lgray1_bwhite_r5"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:background="@drawable/shape_title_lgray1_bgray_r5"
                 android:padding="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
                 <TextView
                     style="@style/font_bold_6_12"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="管理员信息" />
 
+
                 <CheckBox
+                    android:layout_alignParentRight="true"
                     android:id="@+id/cb_isOwern"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -317,7 +317,17 @@
                     android:text="与房东同人"
                     android:textColor="@color/font_3"
                     android:textSize="12dp" />
-            </LinearLayout>
+                <TextView
+                    android:layout_marginRight="12dp"
+                    android:layout_toLeftOf="@id/cb_isOwern"
+                    android:id="@+id/tv_addAdmin"
+                    style="@style/font_blue_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="添加" />
+
+            </RelativeLayout>
+
 
 
             <LinearLayout
@@ -325,7 +335,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"

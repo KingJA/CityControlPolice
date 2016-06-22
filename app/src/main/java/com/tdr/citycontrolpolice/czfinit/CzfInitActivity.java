@@ -112,6 +112,8 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     private Basic_StandardAddressCodeByKey_Kj.ContentBean standardAddressCodeByKey;
     private ChuZuWu_GetSSYByStandAddressCode.ContentBean content;
     private LinearLayout mLlSearch;
+    private TextView mTvAddAdmin;
+    private boolean addAdmin;
 
 
     @Override
@@ -157,6 +159,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mIvNumber = (ImageView) view.findViewById(R.id.iv_number);
         mIvRoom = (ImageView) view.findViewById(R.id.iv_room);
         mTvSubmit = (TextView) view.findViewById(R.id.tv_submit);
+        mTvAddAdmin = (TextView) view.findViewById(R.id.tv_addAdmin);
         dialogAddress = new DialogAddress(this);
         roomTypeList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().selectAllWhere(Basic_Dictionary_Kj.class, "COLUMNCODE", "HOUSETYPE");
         houseTypePop = new BottomListPop(mTvAddress, CzfInitActivity.this, roomTypeList);
@@ -173,6 +176,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
 
     @Override
     public void initData() {
+        mTvAddAdmin.setOnClickListener(this);
         mLlSearch.setOnClickListener(this);
         dialogAddress.setOnSearchListener(this);
         mCbIsOwern.setOnCheckedChangeListener(this);
@@ -275,6 +279,11 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                 photoType = 1;
                 takePhoto();
                 break;
+            case R.id.tv_addAdmin:
+                addAdmin =!addAdmin;
+                mLlAdmin.setVisibility(addAdmin ?View.VISIBLE:View.GONE);
+                mTvAddAdmin.setText(addAdmin ?"取消":"添加");
+                break;
         }
     }
 
@@ -325,6 +334,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         chuZuWuAdd.setXQCODE(content.getJWHCODE().substring(0, 6));//自动恢复
         chuZuWuAdd.setLNG(standardAddressCodeByKey.getX());//自动恢复
         chuZuWuAdd.setLAT(standardAddressCodeByKey.getY());//自动恢复
+
         chuZuWuAdd.setADMINISTRATORCOUNT("1");//自动恢复
         Administrator administrator = new Administrator();
         administrator.setNEWUSERID(MyUtil.getUUID());//自动恢复
