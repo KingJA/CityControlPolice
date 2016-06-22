@@ -3,7 +3,7 @@
     android:id="@+id/layout_home_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sel_white2gray_kj">
+    >
 
     <ImageView
         android:id="@+id/iv_home_icon"

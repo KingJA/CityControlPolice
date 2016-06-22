@@ -28,6 +28,7 @@ import com.tdr.citycontrolpolice.util.QRCodeUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.util.WebService;
+import com.tdr.citycontrolpolice.view.MyViewPager;
 import com.tdr.citycontrolpolice.view.ZProgressHUD;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogNFC;
@@ -36,16 +37,22 @@ import com.tdr.citycontrolpolice.view.FixedGridView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Administrator on 2016/2/19.
  */
-public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickListener, AdapterView.OnItemClickListener, View.OnClickListener {
+public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickListener, View.OnClickListener {
     private static final String TAG = "TabHomeFragment";
-    private String[] titles = {"出租房绑定", "出租房信息", "出租房查询", "身份认证", "货品箱开启", "房东变更", "工作统计", "更新字典"};
-    private int[] imgs = {R.drawable.bg_czfbd, R.drawable.bg_saoyisao, R.drawable.bg_czfcx, R.drawable.bg_ryhc, R.drawable.bg_box_on, R.drawable.bg_fdbg, R.drawable.bg_gztj, R.drawable.bg_gxzd};
+    private String[] page1Titles = {"出租房绑定", "出租房信息", "出租房查询", "身份认证", "货品箱开启", "登机牌变更", "出租房关注", "更新字典"};
+    private String[] page2Titles = {"工作统计", "", "", "", ""};
+    private int[] page1Imgs = {R.drawable.bg_czfbd, R.drawable.bg_saoyisao, R.drawable.bg_czfcx, R.drawable.bg_ryhc, R.drawable.bg_box_on, R.drawable.bg_fdbg, R.drawable.bg_czfgz, R.drawable.bg_gxzd};
+    private int[] page2Imgs = {R.drawable.bg_gztj, R.drawable.t, R.drawable.t, R.drawable.t, R.drawable.t};
+
+
     private final static int SCANNIN_GREQUEST_CODE = 2002;
     private final static int SCANNIN_CZF_CODE = 2003;
     private ZProgressHUD progressHUD;
@@ -97,6 +104,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
             }
         }
     };
+    private HomeAdapter home2Adapter;
 
 
     @Override
@@ -140,12 +148,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         dialogNFC = new DialogNFC(getActivity());
         dialogNFC.setOnClickListener(this);
         progressHUD = new ZProgressHUD(mActivity);
-
-        FixedGridView gv_top = (FixedGridView) v.findViewById(R.id.gv_home_top);
-        homeAdapter = new HomeAdapter(getActivity(), titles, imgs);
-        gv_top.setAdapter(homeAdapter);
-        gv_top.setOnItemClickListener(this);
-
+        setupViewPager(v);
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
             public void onLeft() {
@@ -158,6 +161,25 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
 
             }
         });
+    }
+
+    private void setupViewPager(View v) {
+        MyViewPager vp_home = (MyViewPager) v.findViewById(R.id.vp_home);
+        RelativeLayout rl_vp = (RelativeLayout) v.findViewById(R.id.rl_vp);
+        List<View> viewList=new ArrayList<>();
+        View pageView1 = View.inflate(getActivity(), R.layout.include_gv1, null);
+        View pageView2 = View.inflate(getActivity(), R.layout.include_gv2, null);
+        FixedGridView gv_page1 = (FixedGridView) pageView1.findViewById(R.id.gv_page1);
+        FixedGridView gv_page2 = (FixedGridView) pageView2.findViewById(R.id.gv_page2);
+        homeAdapter = new HomeAdapter(getActivity(), page1Titles, page1Imgs);
+        home2Adapter = new HomeAdapter(getActivity(), page2Titles, page2Imgs);
+        gv_page1.setAdapter(homeAdapter);
+        gv_page2.setAdapter(home2Adapter);
+        gv_page1.setOnItemClickListener(page1OnItemClickListener);
+        gv_page2.setOnItemClickListener(page2OnItemClickListener);
+        viewList.add(pageView1);
+        viewList.add(pageView2);
+        vp_home.setContent(viewList,rl_vp);
     }
 
 
@@ -178,37 +200,50 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (position) {
-            case 0:
-                ActivityUtil.goActivity(getActivity(), CzfInitActivity.class);
-                break;
-            case 1:
-                Intent intent = new Intent();
-                intent.setClass(mActivity, zbar.CaptureActivity.class);
-                startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
-                break;
-            case 2:
-                ActivityUtil.goActivity(mActivity, CzfQueryActivity.class);
-                break;
-            case 3:
-                dialogNFC.show();
-                break;
-            case 4:
-                ActivityUtil.goActivity(mActivity, BoxActivity.class);
-                break;
-            case 5:
-                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
-                break;
-            case 6:
-                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
-                break;
-            case 7:
-                dialogDouble.show();
-                break;
+    private AdapterView.OnItemClickListener page1OnItemClickListener=new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            switch (position) {
+                case 0:
+                    ActivityUtil.goActivity(getActivity(), CzfInitActivity.class);
+                    break;
+                case 1:
+                    Intent intent = new Intent();
+                    intent.setClass(mActivity, zbar.CaptureActivity.class);
+                    startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
+                    break;
+                case 2:
+                    ActivityUtil.goActivity(mActivity, CzfQueryActivity.class);
+                    break;
+                case 3:
+                    dialogNFC.show();
+                    break;
+                case 4:
+                    ActivityUtil.goActivity(mActivity, BoxActivity.class);
+                    break;
+                case 5:
+                    ToastUtil.showMyToast("亲爱的用户，登机牌变更正在开发中...");
+                    break;
+                case 6:
+                    ToastUtil.showMyToast("亲爱的用户，出租房正在开发中...");
+                    break;
+                case 7:
+                    dialogDouble.show();
+                    break;
+            }
         }
-    }
+    };
+    private AdapterView.OnItemClickListener page2OnItemClickListener=new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            switch (position) {
+                case 0:
+                    ToastUtil.showMyToast("亲爱的用户，工作统计更换正在开发中...");
+                    break;
+            }
+        }
+    };
+
 
     /**
      * 设备查询

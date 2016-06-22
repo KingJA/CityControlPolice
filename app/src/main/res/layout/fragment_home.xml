@@ -14,14 +14,25 @@
             android:layout_height="wrap_content"
             android:background="@drawable/home_top" />
 
-        <com.tdr.citycontrolpolice.view.FixedGridView
+        <!--<com.tdr.citycontrolpolice.view.FixedGridView
             android:id="@+id/gv_home_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/bg_white"
             android:horizontalSpacing="1px"
             android:numColumns="4"
-            android:verticalSpacing="1px" />
+            android:verticalSpacing="1px" />-->
+
+        <RelativeLayout
+            android:id="@+id/rl_vp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.tdr.citycontrolpolice.view.MyViewPager
+                android:id="@+id/vp_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
 
         <ImageView
             android:layout_width="match_parent"
