@@ -36,8 +36,8 @@ public class PersonAccreditAdapter extends BaseSimpleAdapter<ChuZuWu_MenPaiAutho
         viewHolder.tvinfoname.setText(list.get(position).getNAME());
         viewHolder.tvinfophone.setText(list.get(position).getPHONENUM());
         viewHolder.tvinfocard.setText(list.get(position).getIDENTITYCARD());
-
-
+        viewHolder.tvinfocardId.setText(list.get(position).getCARDDID());
+        viewHolder.tvinfocardType.setText(getCarType(list.get(position).getCARDTYPE()));
         return convertView;
     }
 
@@ -57,6 +57,29 @@ public class PersonAccreditAdapter extends BaseSimpleAdapter<ChuZuWu_MenPaiAutho
             tvinfocardId = (TextView) root.findViewById(R.id.tv_info_cardId);
             tvinfocardType = (TextView) root.findViewById(R.id.tv_info_cardType);
             this.root = root;
+        }
+    }
+
+    private String getCarType(int typeNum) {
+        switch (typeNum) {
+            case 1:
+                return "房东卡";
+            case 2:
+                return "用户卡";
+            case 3:
+                return "警察卡";
+            case 4:
+                return "协警卡";
+            case 5:
+                return "e居卡";
+            case 6:
+                return "电子门钥";
+            case 9:
+                return "身份证";
+            case 25:
+                return "运维卡";
+            default:
+                return "未知卡";
         }
     }
 }

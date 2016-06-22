@@ -3,6 +3,7 @@ package com.tdr.citycontrolpolice.activity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
@@ -27,21 +28,24 @@ public class QueueActivity extends BackTitleActivity implements SwipeRefreshLayo
     private ListView mSingleLv;
     private List<OCR_Kj> queue=new ArrayList<>();
     private QueueAdapter queueAdapter;
+    private LinearLayout ll_network;
 
     @Override
     public View setContentView() {
-        view=View.inflate(this, R.layout.single_lv,null);
+        view=View.inflate(this, R.layout.activity_queue,null);
         return view;
     }
 
     @Override
     public void initVariables() {
         queue = DbDaoXutils3.getInstance().selectAll(OCR_Kj.class);
+        ll_network.setVisibility(queue.size()>0?View.GONE:View.VISIBLE);
         Log.e("queue", queue.toString());
     }
 
     @Override
     protected void initView() {
+        ll_network = (LinearLayout) view.findViewById(R.id.ll_network);
         mSingleSrl = (SwipeRefreshLayout) view.findViewById(R.id.single_srl);
         mSingleLv = (ListView) view.findViewById(R.id.single_lv);
         queueAdapter = new QueueAdapter(this, queue);
@@ -71,6 +75,7 @@ public class QueueActivity extends BackTitleActivity implements SwipeRefreshLayo
     public void onRefresh() {
         mSingleSrl.setRefreshing(false);
         queue = DbDaoXutils3.getInstance().selectAll(OCR_Kj.class);
+        ll_network.setVisibility(queue.size()>0?View.GONE:View.VISIBLE);
         queueAdapter.setData(queue);
     }
 }

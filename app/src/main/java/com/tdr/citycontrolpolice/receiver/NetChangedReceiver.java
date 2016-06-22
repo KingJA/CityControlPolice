@@ -3,26 +3,19 @@ package com.tdr.citycontrolpolice.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.tdr.citycontrolpolice.activity.HomeActivity;
-import com.tdr.citycontrolpolice.activity.KjLoginActivity;
-import com.tdr.citycontrolpolice.activity.PersonCheckActivity;
 import com.tdr.citycontrolpolice.dao.DbDaoXutils3;
-import com.tdr.citycontrolpolice.entity.Common_IdentityCardAuthentication;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.OCR_Kj;
 import com.tdr.citycontrolpolice.entity.User_LoginByPolice;
-import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.NetUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +27,18 @@ import java.util.Map;
  * 创建人：KingJA
  * 创建时间：2016/6/20 10:18
  * 修改备注：
+ */
+
+/**
+ *
+ * 程序第一次启动时会收到一个Broadcast
+ 从 GPRS 到 WIFI，程序至少会收到3个Broadcast
+ 第一个是连接到WIFI
+ 第二个是断开GPRS
+ 第三个是连接到WIFI
+ 从WIFI到GPRS，程序至少会收到2个Broadcast
+ 第一个是断开Wifi
+ 第二个是连接到GPRS
  */
 public class NetChangedReceiver extends BroadcastReceiver {
     private Context context;
@@ -58,7 +63,6 @@ public class NetChangedReceiver extends BroadcastReceiver {
                 doNet(info);
             }
         }
-
     }
 
 
@@ -80,6 +84,7 @@ public class NetChangedReceiver extends BroadcastReceiver {
                     public void onSuccess(User_LoginByPolice bean) {
                         Log.e("断网上传", "onSuccess: ");
                         DbDaoXutils3.getInstance().deleteById(OCR_Kj.class,info.getIDENTITYCARD());
+                        EventBus.getDefault().post(new Object());
                     }
 
                     @Override

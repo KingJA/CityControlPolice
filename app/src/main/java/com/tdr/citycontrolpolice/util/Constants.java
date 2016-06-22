@@ -5,7 +5,7 @@ package com.tdr.citycontrolpolice.util;
  */
 public class Constants {
 
-    public static final int RELEASE_SERVICE = 0;
+    public static final int RELEASE_SERVICE = 3;
 /* =================================================================================================================   */
 
     public static final int TEST = 0;
@@ -13,8 +13,8 @@ public class Constants {
     public static final int LIUGUANTONG = 2;
     public static final int SHENGTING = 3;
 
-    public static final int HANDLER_KEY_GETVERSION_SUCCESS = 0;// 获取版本号成功为最初的参数“0”
-    public static final int HANDLER_KEY_GETVERSION_FAIL = HANDLER_KEY_GETVERSION_SUCCESS + 1;
+    public static final int HANDLER_KEY_GETVERSION_SUCCESS = 0;
+    public static final int HANDLER_KEY_GETVERSION_FAIL = 1;
 
     /*测试接口*/
 //    public static final String WEBSERVER_URL = "http://zafkapp.test.iotone.cn/rentalestate.asmx"; //正式接口

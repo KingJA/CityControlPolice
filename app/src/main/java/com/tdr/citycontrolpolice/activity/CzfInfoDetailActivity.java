@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：TODO
+ * 类描述：出租屋信息统计
  * 创建人：KingJA
  * 创建时间：2016/4/13 16:41
  * 修改备注：
@@ -31,11 +31,7 @@ public class CzfInfoDetailActivity extends BackTitleActivity {
     private TextView mTvCzfAddress;
     private TextView mTvRoomCount;
     private TextView mTvPersonCount;
-    private List<KjChuZuWuInfo.ContentBean.RoomListBean> mRoomList;
     private KjChuZuWuInfo.ContentBean mContent;
-    private int mRoomCount;
-    private int mPersonCount;
-    private String houseId;
     private HashMap<String, Object> mParam = new HashMap<>();
 
 
@@ -47,7 +43,7 @@ public class CzfInfoDetailActivity extends BackTitleActivity {
 
     @Override
     public void initVariables() {
-        houseId = getIntent().getStringExtra(CZF_INFO_DETAIL);
+        String houseId = getIntent().getStringExtra(CZF_INFO_DETAIL);
         mParam.put("TaskID", "1");
         mParam.put("HouseID", houseId);
 
@@ -98,19 +94,18 @@ public class CzfInfoDetailActivity extends BackTitleActivity {
     }
 
     private void setData(KjChuZuWuInfo.ContentBean mContent) {
-        mRoomList = mContent.getRoomList();
-        mRoomCount = mContent.getRoomList().size();
-        for (KjChuZuWuInfo.ContentBean.RoomListBean bean : this.mRoomList) {
-            if (bean.getHEADCOUNT() > 0) {
-                mPersonCount += bean.getSHOUQUANCOUNT();
-            }
+        List<KjChuZuWuInfo.ContentBean.RoomListBean> mRoomList = mContent.getRoomList();
+        int mRoomCount = mContent.getRoomList().size();
+        int mShouQuanCount=0;
+        for (KjChuZuWuInfo.ContentBean.RoomListBean bean : mRoomList) {
+            mShouQuanCount += bean.getSHOUQUANCOUNT();
         }
         mTvOwnerName.setText(mContent.getOWNERNAME());
         mTvOwnerPhone.setText(mContent.getPHONE());
         mTvCzfName.setText(mContent.getHOUSENAME());
         mTvCzfAddress.setText(mContent.getADDRESS());
-        mTvRoomCount.setText(mRoomCount + "");
-        mTvPersonCount.setText(mPersonCount + "");
+        mTvRoomCount.setText(String.valueOf(mRoomCount));
+        mTvPersonCount.setText(String.valueOf(mShouQuanCount));
     }
 
     public static void goActivity(Context context, String houseId) {

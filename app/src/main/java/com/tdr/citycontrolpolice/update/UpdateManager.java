@@ -24,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.util.AppInfoUtil;
 import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.view.dialog.DialogConfirm;
 
@@ -40,7 +41,7 @@ public class UpdateManager {
 //    public static final String UPDATE_SERVER = "http://172.18.18.21:8892/newestapk/";// 省厅更新下载地址
 //    public static final String WEBSERVER_URL = "http://172.18.18.21:8892/WebServiceAPKRead.asmx";// 省厅
 
-    public static final String PACKAGE_NAME = "com.tdr.citycontrolpolice";// 包名
+    public static final String PACKAGE_NAME = "com.tdr.wlwj.wz";// 包名
     public static String UPDATE_APKNAME = "CityControlPolice.apk";// APK名称
 
 //    public static final String UPDATE_SERVER = "http://dmi.tdr-cn.com/newestapk/";// APK下载地址
@@ -83,8 +84,6 @@ public class UpdateManager {
                     break;
             }
         }
-
-        ;
     };
 
     public UpdateManager(Context context, double newVersion) {
@@ -109,59 +108,36 @@ public class UpdateManager {
      */
     private boolean isUpdate() {
         // 获取当前软件版本
-        double versionCode = getVersionCode(mContext);
+        int versionCode = AppInfoUtil.getVersionCode();
         if (versionCode < newVersion) {
             return true;
         }
         return false;
     }
 
-    /**
-     * 获取软件版本号
-     *
-     * @param context
-     * @return
-     */
-    private double getVersionCode(Context context) {
-        double versionCode = 0;
-        try {
-            // 获取软件版本号，对应AndroidManifest.xml下android:versionCode
-            versionCode = mContext.getPackageManager().getPackageInfo(
-                    PACKAGE_NAME, 0).versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return versionCode;
-    }
+//    /**
+//     * 获取软件版本号
+//     *
+//     * @param context
+//     * @return
+//     */
+//    private double getVersionCode(Context context) {
+//        double versionCode = 0;
+//        try {
+//            // 获取软件版本号，对应AndroidManifest.xml下android:versionCode
+//            versionCode = mContext.getPackageManager().getPackageInfo(
+//                    PACKAGE_NAME, 0).versionCode;
+//
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return versionCode;
+//    }
 
     /**
      * 显示软件更新对话框
      */
     private void showNoticeDialog() {
-//        // 构造对话框
-//        AlertDialog.Builder builder = new Builder(mContext);
-//        builder.setTitle("软件版本更新");
-//        builder.setMessage("检测到新版本，立即更新吗？");
-//        // 更新
-//        builder.setPositiveButton("更新", new OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//                // 显示下载对话框
-//                showDownloadDialog();
-//            }
-//        });
-//        // 稍后更新
-////        builder.setNegativeButton("以后再说", new OnClickListener() {
-////            @Override
-////            public void onClick(DialogInterface dialog, int which) {
-////                dialog.dismiss();
-////                System.exit(0);
-////            }
-////        });
-//        Dialog noticeDialog = builder.create();
-//        noticeDialog.show();
-
         DialogConfirm dialogConfirm = new DialogConfirm(mContext, "检查到新版本，即将进行更新", "确定");
         dialogConfirm.show();
         dialogConfirm.setOnConfirmClickListener(new DialogConfirm.OnConfirmClickListener() {

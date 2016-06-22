@@ -40,10 +40,14 @@ import com.tdr.citycontrolpolice.util.SharedPreferencesUtils;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.dialog.DialogBluetooth;
+import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 import com.yunmai.android.engine.OcrEngine;
 import com.yunmai.android.idcard.ACamera;
 import com.yunmai.android.vo.IDCard;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,9 +95,11 @@ public class PersonCheckActivity extends BaseActivity implements View.OnClickLis
     private RelativeLayout rl_queue;
     private RelativeLayout rl_top_back_left;
     private List<OCR_Kj> ocrList;
+    private DialogDouble dialogDouble;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_person_check);
         ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
@@ -123,6 +129,7 @@ public class PersonCheckActivity extends BaseActivity implements View.OnClickLis
         iv_nfc = (ImageView) findViewById(R.id.iv_nfc);
         dialogBluetooth = new DialogBluetooth(this, boundDevices);
         dialogProgress = new DialogProgress(this);
+        dialogDouble = new DialogDouble(this, "是否继续进行审查", "是", "否");
 
     }
 
@@ -182,6 +189,17 @@ public class PersonCheckActivity extends BaseActivity implements View.OnClickLis
         iv_camera.setOnClickListener(this);
         iv_nfc.setOnClickListener(this);
         iv_bluetooth.setOnClickListener(this);
+        dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
+            @Override
+            public void onLeft() {
+                reset();
+            }
+
+            @Override
+            public void onRight() {
+                finish();
+            }
+        });
         dialogBluetooth.setOnBuletoothListener(new DialogBluetooth.OnBuletoothListener() {
 
             @Override
@@ -215,6 +233,17 @@ public class PersonCheckActivity extends BaseActivity implements View.OnClickLis
         } else {
             initNfc();
         }
+
+    }
+
+    private void reset() {
+        et_name.setText("");
+        tv_gender.setText("");
+        tv_nation.setText("");
+        tv_birthday.setText("");
+        tv_address.setText("");
+        tv_card.setText("");
+        tv_card_no.setText("");
     }
 
     private void initNfc() {
@@ -284,9 +313,9 @@ public class PersonCheckActivity extends BaseActivity implements View.OnClickLis
 
     private void setQueueSize() {
         ocrList = DbDaoXutils3.getInstance().selectAll(OCR_Kj.class);
-        Log.e(TAG, "setQueueSize: "+ocrList.size());
+        Log.e(TAG, "setQueueSize: " + ocrList.size());
         rl_count.setVisibility(ocrList.size() > 0 ? View.VISIBLE : View.GONE);
-        tv_count.setText(ocrList.size() >99?"...":String.valueOf(ocrList.size()));
+        tv_count.setText(ocrList.size() > 99 ? "..." : String.valueOf(ocrList.size()));
     }
 
 
@@ -339,34 +368,23 @@ public class PersonCheckActivity extends BaseActivity implements View.OnClickLis
                 case 100:
                     cardNo = (String) msg.obj;
                     tv_card_no.setText(cardNo);
-//                    startBluetooth(bluetoothAddress);
                     stopConnectThread();
-//                    startConnect();
                     break;
                 case OcrEngine.RECOG_FAIL:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_blur, Toast.LENGTH_SHORT).show();
-//                    setResult(RESULT_RECOG_FAILED);
-//                    finish();
                     break;
                 case OcrEngine.RECOG_BLUR:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_blur, Toast.LENGTH_SHORT).show();
-//                    setResult(RESULT_RECOG_FAILED);
-//                    finish();
                     break;
                 case OcrEngine.RECOG_OK:
                     Log.i(TAG, "handleMessage: " + idCard.toString());
-
                     setCardInfo(idCard);
                     break;
                 case OcrEngine.RECOG_IMEI_ERROR:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_imei, Toast.LENGTH_SHORT).show();
-//                    setResult(RESULT_RECOG_FAILED);
-//                    finish();
                     break;
                 case OcrEngine.RECOG_FAIL_CDMA:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_cdma, Toast.LENGTH_SHORT).show();
-//                    setResult(RESULT_RECOG_FAILED);
-//                    finish();
                     break;
                 case OcrEngine.RECOG_LICENSE_ERROR:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_licens, Toast.LENGTH_SHORT).show();
@@ -375,23 +393,15 @@ public class PersonCheckActivity extends BaseActivity implements View.OnClickLis
                     break;
                 case OcrEngine.RECOG_TIME_OUT:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_time_out, Toast.LENGTH_SHORT).show();
-//                    setResult(RESULT_RECOG_FAILED);
-//                    finish();
                     break;
                 case OcrEngine.RECOG_ENGINE_INIT_ERROR:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_engine_init, Toast.LENGTH_SHORT).show();
-//                    setResult(RESULT_RECOG_FAILED);
-//                    finish();
                     break;
                 case OcrEngine.RECOG_COPY:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_fail_copy, Toast.LENGTH_SHORT).show();
-//                    setResult(RESULT_RECOG_FAILED);
-//                    finish();
                     break;
                 default:
                     Toast.makeText(PersonCheckActivity.this, R.string.reco_dialog_blur, Toast.LENGTH_SHORT).show();
-//                    setResult(RESULT_RECOG_FAILED);
-//                    finish();
                     break;
             }
         }
@@ -418,11 +428,13 @@ public class PersonCheckActivity extends BaseActivity implements View.OnClickLis
      */
     @Override
     protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
         if (defaultAdapter != null && defaultAdapter.isDiscovering()) {
             defaultAdapter.cancelDiscovery();
         }
 
         stopConnectThread();
+
         super.onDestroy();
     }
 
@@ -465,7 +477,6 @@ public class PersonCheckActivity extends BaseActivity implements View.OnClickLis
                 ActivityUtil.goActivityForResult(PersonCheckActivity.this, ACamera.class, 100);
                 break;
             case R.id.iv_bluetooth:
-                //TODO 从本地记录查找，如果有上次选择的蓝牙设备则直接跳过对话框，如果没有则弹出对话款
                 bluetoothAddress = (String) SharedPreferencesUtils.get("BLUETOOTH", "");
                 if (!TextUtils.isEmpty(bluetoothAddress)) {
                     ToastUtil.showMyToast("请在收到刷卡提示后开始刷卡");
@@ -491,64 +502,74 @@ public class PersonCheckActivity extends BaseActivity implements View.OnClickLis
         String address = tv_address.getText().toString().trim();
         String cardNO = tv_card.getText().toString().trim();
         String cardID = tv_card_no.getText().toString().trim();
-
-
-//        List<OCR_Kj> list = DbDaoXutils3.getInstance().selectAll(OCR_Kj.class);
-//
-
-//        CheckUtil.checkEmpty(cardID, "请通过蓝牙或NFC获取身份证卡号") &&
-        if (CheckUtil.checkEmpty(cardID, "请通过蓝牙或NFC获取身份证卡号") &&CheckUtil.checkEmpty(cardNO, "请通过相机获取身份证信息")) {
+        if (CheckUtil.checkEmpty(cardID, "请通过蓝牙或NFC获取身份证卡号") && CheckUtil.checkEmpty(cardNO, "身份证号获取错误，请重新获取")
+                && CheckUtil.checkEmpty(address, "地址获取错误，请重新获取")
+                && CheckUtil.checkBirthday(birthday, "出生日期获取错误，请重新获取")
+                && CheckUtil.checkEmpty(nation, "名族获取错误，请重新获取")
+                && CheckUtil.checkEmpty(gender, "性别获取错误，请重新获取")
+                && CheckUtil.checkEmpty(name, "姓名获取错误，请重新获取")) {
             if (!NetUtil.netAvailable()) {
                 ToastUtil.showMyToast("当前网络不可用，信息暂存在队列");
-                //存放数据库
-                OCR_Kj ocr = new OCR_Kj();
-                ocr.setTaskID("1");
-                ocr.setNAME(name);
-                ocr.setSEX(gender);
-                ocr.setNATION(nation);
-                ocr.setBIRTHDAY(birthday);
-                ocr.setADDRESS(address);
-                ocr.setIDENTITYCARD(cardNO);
-                ocr.setIDENTITYCARDID(cardID);
-                Log.e(TAG, ocr.toString());
-                DbDaoXutils3.getInstance().saveOrUpdate(ocr);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        setQueueSize();
-                    }
-                },200);
-
+                saveToDb(name, gender, nation, birthday, address, cardNO, cardID);
+                dialogDouble.show();
                 return;
             }
-            Map<String, Object> param = new HashMap<>();
-            param.put("TaskID", "1");
-            param.put("NAME", name);
-            param.put("SEX", gender);
-            param.put("NATION", nation);
-            param.put("BIRTHDAY", birthday);
-            param.put("ADDRESS", address);
-            param.put("IDENTITYCARD", cardNO);
-            param.put("IDENTITYCARDID", cardID);
-            ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
-            ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(PersonCheckActivity.this).getToken(), 0, "Common_IdentityCardAuthentication", param)
-                    .setBeanType(Common_IdentityCardAuthentication.class)
-                    .setActivity(PersonCheckActivity.this)
-                    .setCallBack(new WebServiceCallBack<Common_IdentityCardAuthentication>() {
-                        @Override
-                        public void onSuccess(Common_IdentityCardAuthentication bean) {
-                            ToastUtil.showMyToast("完成审核");
-                            finish();
-                        }
-
-                        @Override
-                        public void onErrorResult(ErrorResult errorResult) {
-
-                        }
-                    }).build();
-            PoolManager.getInstance().execute(task);
+            uploadToService(name, gender, nation, birthday, address, cardNO, cardID);
         }
     }
 
+    private void uploadToService(String name, String gender, String nation, String birthday, String address, String cardNO, String cardID) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("TaskID", "1");
+        param.put("NAME", name);
+        param.put("SEX", gender);
+        param.put("NATION", nation);
+        param.put("BIRTHDAY", birthday);
+        param.put("ADDRESS", address);
+        param.put("IDENTITYCARD", cardNO);
+        param.put("IDENTITYCARDID", cardID);
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
+        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(PersonCheckActivity.this).getToken(), 0, "Common_IdentityCardAuthentication", param)
+                .setBeanType(Common_IdentityCardAuthentication.class)
+                .setActivity(PersonCheckActivity.this)
+                .setCallBack(new WebServiceCallBack<Common_IdentityCardAuthentication>() {
+                    @Override
+                    public void onSuccess(Common_IdentityCardAuthentication bean) {
+                        ToastUtil.showMyToast("完成审核");
+                        dialogDouble.show();
+                    }
 
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+
+                    }
+                }).build();
+        PoolManager.getInstance().execute(task);
+    }
+
+    private void saveToDb(String name, String gender, String nation, String birthday, String address, String cardNO, String cardID) {
+        OCR_Kj ocr = new OCR_Kj();
+        ocr.setTaskID("1");
+        ocr.setNAME(name);
+        ocr.setSEX(gender);
+        ocr.setNATION(nation);
+        ocr.setBIRTHDAY(birthday);
+        ocr.setADDRESS(address);
+        ocr.setIDENTITYCARD(cardNO);
+        ocr.setIDENTITYCARDID(cardID);
+        Log.e(TAG, ocr.toString());
+        DbDaoXutils3.getInstance().saveOrUpdate(ocr);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setQueueSize();
+                dialogDouble.show();
+            }
+        }, 200);
+    }
+
+    @Subscribe
+    public void onEventMainThread(Object obj) {
+        setQueueSize();
+    }
 }

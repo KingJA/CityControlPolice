@@ -107,6 +107,15 @@ public class CheckUtil {
         return true;
     }
 
+    public static boolean checkBirthday(String input, String tip) {
+
+        if (input.length()!=11) {
+            ToastUtil.showMyToast(tip);
+            return false;
+        }
+        return true;
+    }
+
     /**
      * 校验18位身份证号码
      *
