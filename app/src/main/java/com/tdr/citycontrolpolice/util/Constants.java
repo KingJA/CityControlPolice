@@ -5,7 +5,7 @@ package com.tdr.citycontrolpolice.util;
  */
 public class Constants {
 
-    public static final int RELEASE_SERVICE = 3;
+    public static final int RELEASE_SERVICE = 0;
 /* =================================================================================================================   */
 
     public static final int TEST = 0;
@@ -15,6 +15,7 @@ public class Constants {
 
     public static final int HANDLER_KEY_GETVERSION_SUCCESS = 0;
     public static final int HANDLER_KEY_GETVERSION_FAIL = 1;
+
 
     /*测试接口*/
 //    public static final String WEBSERVER_URL = "http://zafkapp.test.iotone.cn/rentalestate.asmx"; //正式接口
@@ -42,7 +43,8 @@ public class Constants {
         String hostUrl = "";
         switch (RELEASE_SERVICE) {
             case TEST:
-                hostUrl = "http://zafkapp.test.iotone.cn/rentalestate.asmx";
+                hostUrl = "http://192.168.168.161:8888/RentalEstate.asmx";
+//                hostUrl = "http://zafkapp.test.iotone.cn/rentalestate.asmx";
                 break;
             case PSTORE:
             case LIUGUANTONG:
@@ -76,7 +78,7 @@ public class Constants {
         String nfcIp = "";
         switch (RELEASE_SERVICE) {
             case TEST:
-                nfcIp = "127.0.0.1";
+                nfcIp = "103.21.119.78";
                 break;
             case PSTORE:
             case LIUGUANTONG:

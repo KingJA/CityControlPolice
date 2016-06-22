@@ -39,7 +39,6 @@ public class QueueActivity extends BackTitleActivity implements SwipeRefreshLayo
     @Override
     public void initVariables() {
         queue = DbDaoXutils3.getInstance().selectAll(OCR_Kj.class);
-        ll_network.setVisibility(queue.size()>0?View.GONE:View.VISIBLE);
         Log.e("queue", queue.toString());
     }
 
@@ -68,7 +67,7 @@ public class QueueActivity extends BackTitleActivity implements SwipeRefreshLayo
     @Override
     public void setData() {
         setTitle("上传队列");
-
+        ll_network.setVisibility(queue.size()>0?View.GONE:View.VISIBLE);
     }
 
     @Override

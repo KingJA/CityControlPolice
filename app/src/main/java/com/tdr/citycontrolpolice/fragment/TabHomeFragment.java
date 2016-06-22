@@ -50,6 +50,11 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
     private final static int SCANNIN_CZF_CODE = 2003;
     private ZProgressHUD progressHUD;
     private final static int ERROR = 4001;
+    private DialogNFC dialogNFC;
+    private DialogDouble dialogDouble;
+    private HomeAdapter homeAdapter;
+    private RelativeLayout rl_guide;
+    private String deviceCode;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -92,11 +97,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
             }
         }
     };
-    private DialogNFC dialogNFC;
-    private DialogDouble dialogDouble;
-    private HomeAdapter homeAdapter;
-    private RelativeLayout rl_guide;
-    private String deviceCode;
+
 
     @Override
     public View initViews() {
@@ -139,10 +140,12 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         dialogNFC = new DialogNFC(getActivity());
         dialogNFC.setOnClickListener(this);
         progressHUD = new ZProgressHUD(mActivity);
+
         FixedGridView gv_top = (FixedGridView) v.findViewById(R.id.gv_home_top);
         homeAdapter = new HomeAdapter(getActivity(), titles, imgs);
         gv_top.setAdapter(homeAdapter);
         gv_top.setOnItemClickListener(this);
+
         dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
             public void onLeft() {
@@ -185,12 +188,10 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
                 Intent intent = new Intent();
                 intent.setClass(mActivity, zbar.CaptureActivity.class);
                 startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
-//                ActivityUtil.goActivityForResult(mActivity,zbar.CaptureActivity.class,SCANNIN_GREQUEST_CODE);
                 break;
             case 2:
                 ActivityUtil.goActivity(mActivity, CzfQueryActivity.class);
                 break;
-
             case 3:
                 dialogNFC.show();
                 break;
