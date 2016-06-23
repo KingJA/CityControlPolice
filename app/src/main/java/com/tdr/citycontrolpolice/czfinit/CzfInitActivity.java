@@ -114,6 +114,8 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     private LinearLayout mLlSearch;
     private TextView mTvAddAdmin;
     private boolean addAdmin;
+    private LinearLayout mLlAddaAdmin;
+    private Administrator administrator;
 
 
     @Override
@@ -142,6 +144,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     @Override
     protected void initView() {
         mLlSearch = (LinearLayout) view.findViewById(R.id.ll_search);
+        mLlAddaAdmin = (LinearLayout) view.findViewById(R.id.ll_addaAdmin);
         mTvAddress = (EditText) view.findViewById(R.id.tv_address);
         mIvSearch = (ImageView) view.findViewById(R.id.iv_search);
         mEtCzfName = (EditText) view.findViewById(R.id.et_czfName);
@@ -280,9 +283,9 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                 takePhoto();
                 break;
             case R.id.tv_addAdmin:
-                addAdmin =!addAdmin;
-                mLlAdmin.setVisibility(addAdmin ?View.VISIBLE:View.GONE);
-                mTvAddAdmin.setText(addAdmin ?"取消":"添加");
+                addAdmin = !addAdmin;
+                mLlAddaAdmin.setVisibility(addAdmin ? View.VISIBLE : View.GONE);
+                mTvAddAdmin.setText(addAdmin ? "取消" : "添加");
                 break;
         }
     }
@@ -300,16 +303,31 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mAdminCard = mEtAdminCard.getText().toString().trim();
         mAdminPhone = mEtAdminPhone.getText().toString().trim();
 
-        if (CheckUtil.checkEmpty(mAddress, "请选择地址") && CheckUtil.checkEmpty(mCzfName, "请输入出租房名称") &&
-                CheckUtil.checkEmpty(mCzfType, "请选择房屋类型") && CheckUtil.checkEmpty(mOwnerName, "房东姓名空缺") &&
-                CheckUtil.checkEmpty(mOwnerCard, "房东身份证空缺") && CheckUtil.checkPhoneFormat(mOwnerPhone) &&
-                CheckUtil.checkEmpty(mAdminName, "请输管理员姓名") && CheckUtil.checkEmpty(mAdminCard, "请输入管理员身份证号码") &&
-                CheckUtil.checkPhoneFormat(mAdminPhone) && CheckUtil.checkEmpty(base64Number, "请拍摄号牌")
-                ) {
-            Intent intent = new Intent();
-            intent.setClass(CzfInitActivity.this, zbar.CaptureActivity.class);
-            startActivityForResult(intent, SCANNIN_CZF_CODE);
+        if (CheckUtil.checkEmpty(mAddress, "请选择地址")
+                && CheckUtil.checkEmpty(mCzfName, "请输入出租房名称")
+                &&CheckUtil.checkEmpty(mCzfType, "请选择房屋类型")
+                && CheckUtil.checkEmpty(mOwnerName, "房东姓名空缺")
+                &&CheckUtil.checkEmpty(mOwnerCard, "房东身份证空缺")
+                && CheckUtil.checkPhoneFormat(mOwnerPhone)
+                &&CheckUtil.checkEmpty(base64Number, "请拍摄号牌")) {
+
+            if (addAdmin) {
+                if (CheckUtil.checkEmpty(mAdminName, "请输管理员姓名")
+                        && CheckUtil.checkEmpty(mAdminCard, "请输入管理员身份证号码")
+                        &&CheckUtil.checkPhoneFormat(mAdminPhone)) {
+                    goCaptureActivity();
+                }
+            }else {
+                goCaptureActivity();
+            }
+
         }
+    }
+
+    private void goCaptureActivity() {
+        Intent intent = new Intent();
+        intent.setClass(CzfInitActivity.this, zbar.CaptureActivity.class);
+        startActivityForResult(intent, SCANNIN_CZF_CODE);
     }
 
     private Photo dz_photo, fw_photo;
@@ -335,12 +353,18 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         chuZuWuAdd.setLNG(standardAddressCodeByKey.getX());//自动恢复
         chuZuWuAdd.setLAT(standardAddressCodeByKey.getY());//自动恢复
 
-        chuZuWuAdd.setADMINISTRATORCOUNT("1");//自动恢复
-        Administrator administrator = new Administrator();
-        administrator.setNEWUSERID(MyUtil.getUUID());//自动恢复
-        administrator.setPHONE(mAdminPhone);//自动恢复
-        administrator.setNAME(mAdminName);//自动恢复
-        administrator.setIDENTITYCARD(mAdminCard);//自动恢复
+        if (addAdmin) {
+            chuZuWuAdd.setADMINISTRATORCOUNT("1");//自动恢复
+            administrator = new Administrator();
+            administrator.setNEWUSERID(MyUtil.getUUID());//自动恢复
+            administrator.setPHONE(mAdminPhone);//自动恢复
+            administrator.setNAME(mAdminName);//自动恢复
+            administrator.setIDENTITYCARD(mAdminCard);//自动恢复
+        } else {
+            chuZuWuAdd.setADMINISTRATORCOUNT("0");//自动恢复
+        }
+
+
         List<Administrator> administratorList = new ArrayList<Administrator>();
         administratorList.add(administrator);
         chuZuWuAdd.setADMINISTRATOR(administratorList);

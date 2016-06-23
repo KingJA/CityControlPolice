@@ -43,8 +43,8 @@ public class Constants {
         String hostUrl = "";
         switch (RELEASE_SERVICE) {
             case TEST:
-                hostUrl = "http://192.168.168.161:8888/RentalEstate.asmx";
-//                hostUrl = "http://zafkapp.test.iotone.cn/rentalestate.asmx";
+//                hostUrl = "http://192.168.168.161:8888/RentalEstate.asmx";
+                hostUrl = "http://zafkapp.test.iotone.cn/rentalestate.asmx";
                 break;
             case PSTORE:
             case LIUGUANTONG:
