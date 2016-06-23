@@ -24,6 +24,7 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
     private LinearLayout ll_register;
     private LinearLayout ll_binding;
     private LinearLayout ll_manager;
+    private LinearLayout ll_attention;
 
     public CzfInfoPopKj(View parentView, Activity activity) {
         super(parentView, activity);
@@ -49,12 +50,14 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
         ll_register = (LinearLayout) popupView.findViewById(R.id.ll_register);
         ll_binding = (LinearLayout) popupView.findViewById(R.id.ll_binding);
         ll_manager = (LinearLayout) popupView.findViewById(R.id.ll_manager);
+        ll_attention = (LinearLayout) popupView.findViewById(R.id.ll_attention);
         ll_edit.setOnClickListener(this);
         ll_apply.setOnClickListener(this);
         ll_card.setOnClickListener(this);
         ll_register.setOnClickListener(this);
         ll_binding.setOnClickListener(this);
         ll_manager.setOnClickListener(this);
+        ll_attention.setOnClickListener(this);
 
     }
 
@@ -81,6 +84,9 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
                 break;
             case R.id.ll_manager:
                 onCzfInfoPopClickListener.onCzfInfoPop(5);
+                break;
+            case R.id.ll_attention:
+                onCzfInfoPopClickListener.onCzfInfoPop(6);
                 break;
             default:
                 break;

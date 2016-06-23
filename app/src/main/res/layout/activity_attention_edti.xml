@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray_kj"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:scrollbarThumbVertical="@color/bg_transparent">
+
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_lgray1_bwhite_r5"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_title_lgray1_bgray_r5"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <TextView
+                    style="@style/font_bold_6_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="提醒房间" />
+
+                <CheckBox
+                    android:id="@+id/cb_together"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:button="@null"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/checkbox"
+                    android:gravity="center_vertical"
+                    android:text="统一配置"
+                    android:textColor="@color/font_3"
+                    android:textSize="12dp" />
+            </RelativeLayout>
+
+            <com.tdr.citycontrolpolice.view.FixedListView
+                android:id="@+id/lv_attention_room"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:divider="@color/gray_divider"
+                android:dividerHeight="1px"
+                android:listSelector="#00000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/shape_lgray1_bwhite_r5"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_title_lgray1_bgray_r5"
+                android:padding="12dp"
+                android:text="提醒方式" />
+
+            <RadioGroup
+                android:id="@+id/rg_attention"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_cancel"
+                    style="@style/AttentionRadioButton"
+                    android:text="取消关注" />
+
+
+                <View style="@style/divider_nomal_horizontal" />
+
+                <RadioButton
+                    android:id="@+id/rb_attention"
+                    style="@style/AttentionRadioButton"
+                    android:text="仅关注" />
+
+                <View style="@style/divider_nomal_horizontal" />
+
+                <RadioButton
+                    android:id="@+id/rb_once"
+                    style="@style/AttentionRadioButton"
+                    android:text="提醒一次" />
+
+                <View style="@style/divider_nomal_horizontal" />
+
+                <RadioButton
+                    android:id="@+id/rb_many"
+                    style="@style/AttentionRadioButton"
+                    android:text="提醒多次" />
+
+            </RadioGroup>
+
+            <View style="@style/divider_nomal_horizontal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    style="@style/font_9_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="提醒手机号" />
+
+                <EditText
+                    android:id="@+id/et_attention_phone"
+                    android:maxLength="11"
+                    android:inputType="number"
+                    android:hint="请输入手机号..."
+                    style="@style/font_edit_3_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                   />
+
+            </LinearLayout>
+            <View style="@style/divider_nomal_horizontal" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    style="@style/font_3_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="日期段" />
+
+                <EditText
+                    android:id="@+id/et_date_from"
+                    android:hint="起始日期"
+                    android:editable="false"
+                    style="@style/font_edit_3_14_b"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    style="@style/font_3_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="到" />
+
+                <EditText
+                    android:id="@+id/et_date_to"
+                    android:editable="false"
+                    android:hint="截止日期"
+                    style="@style/font_edit_3_14_b"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout> <View style="@style/divider_nomal_horizontal" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    style="@style/font_3_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="时间段" />
+
+                <EditText
+                    android:id="@+id/et_time_from"
+                    android:hint="起始时间"
+                    android:editable="false"
+                    style="@style/font_edit_3_14_b"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    style="@style/font_3_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="到" />
+
+                <EditText
+                    android:id="@+id/et_time_to"
+                    android:hint="截止时间"
+                    android:editable="false"
+                    style="@style/font_edit_3_14_b"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+        <TextView
+           android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            style="@style/btn_small_blue"
+            android:text="确定"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>

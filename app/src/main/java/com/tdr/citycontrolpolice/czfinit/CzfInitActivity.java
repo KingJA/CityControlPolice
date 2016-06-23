@@ -58,7 +58,7 @@ import java.util.Map;
  * 创建时间：2016/4/19 16:30
  * 修改备注：
  */
-public class CzfInitActivity extends BackTitleActivity implements View.OnClickListener, DialogAddress.OnSearchListener, CompoundButton.OnCheckedChangeListener, BottomListPop.OnBottemPopSelectListener {
+public class CzfInitActivity extends BackTitleActivity implements View.OnClickListener, DialogAddress.OnSearchListener, BottomListPop.OnBottemPopSelectListener {
     private static final String TAG = "CzfInitActivity";
     private TextView mTvAddress;
     private ImageView mIvSearch;
@@ -69,7 +69,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     private EditText mTvOwnerName;
     private EditText mTvOwnerCard;
     private EditText mEtOwnerPhone;
-    private CheckBox mCbIsOwern;
     private LinearLayout mLlAdmin;
     private EditText mEtAdminName;
     private EditText mEtAdminCard;
@@ -81,40 +80,35 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     private HashMap<String, Object> mParam;
     private Basic_JuWeiHui_Kj juWeiHui;
     private Basic_PaiChuSuo_Kj paiChuSuo;
-    private boolean isChecked;
-    private String ownerName;
-    private String ownerCard;
-    private String ownerPhone;
     private List<Basic_Dictionary_Kj> roomTypeList;
     private BottomListPop houseTypePop;
-    private String houseType;
-    private String houseTypeString;
+    private String houseType = "";
+    private String houseTypeString = "";
     private DialogDouble dialogDouble;
     private int photoType;
     private static final int Camara = 100;
     private File numberFile;
     private File roomFile;
     private File imageFile;
-    private String base64Number;
-    private String base64Room;
+    private String base64Number = "";
+    private String base64Room = "";
     private String mAddress;
-    private String mCzfName;
-    private String mCzfType;
-    private String mOwnerName;
-    private String mPolice;
-    private String mAreaName;
-    private String mOwnerCard;
-    private String mOwnerPhone;
-    private String mAdminName;
-    private String mAdminCard;
-    private String mAdminPhone;
-    private String addressCode;
+    private String mCzfName = "";
+    private String mCzfType = "";
+    private String mOwnerName = "";
+    private String mPolice = "";
+    private String mAreaName = "";
+    private String mOwnerCard = "";
+    private String mOwnerPhone = "";
+    private String mAdminName = "";
+    private String mAdminCard = "";
+    private String mAdminPhone = "";
+    private String addressCode = "";
     private Basic_StandardAddressCodeByKey_Kj.ContentBean standardAddressCodeByKey;
     private ChuZuWu_GetSSYByStandAddressCode.ContentBean content;
     private LinearLayout mLlSearch;
     private TextView mTvAddAdmin;
     private boolean addAdmin;
-    private LinearLayout mLlAddaAdmin;
     private Administrator administrator;
 
 
@@ -129,7 +123,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     }
 
     private void initDevice(String deviceCode) {
-        deivceList = new ArrayList<Deivce>();
+        deivceList = new ArrayList<>();
         Deivce deivce = new Deivce();
         Intent intent = getIntent();
         deivce.setDEVICENAME("二维码门牌");
@@ -144,7 +138,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     @Override
     protected void initView() {
         mLlSearch = (LinearLayout) view.findViewById(R.id.ll_search);
-        mLlAddaAdmin = (LinearLayout) view.findViewById(R.id.ll_addaAdmin);
         mTvAddress = (EditText) view.findViewById(R.id.tv_address);
         mIvSearch = (ImageView) view.findViewById(R.id.iv_search);
         mEtCzfName = (EditText) view.findViewById(R.id.et_czfName);
@@ -154,7 +147,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mTvOwnerName = (EditText) view.findViewById(R.id.tv_ownerName);
         mTvOwnerCard = (EditText) view.findViewById(R.id.tv_ownerCard);
         mEtOwnerPhone = (EditText) view.findViewById(R.id.et_ownerPhone);
-        mCbIsOwern = (CheckBox) view.findViewById(R.id.cb_isOwern);
         mLlAdmin = (LinearLayout) view.findViewById(R.id.ll_admin);
         mEtAdminName = (EditText) view.findViewById(R.id.et_adminName);
         mEtAdminCard = (EditText) view.findViewById(R.id.et_adminCard);
@@ -182,7 +174,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mTvAddAdmin.setOnClickListener(this);
         mLlSearch.setOnClickListener(this);
         dialogAddress.setOnSearchListener(this);
-        mCbIsOwern.setOnCheckedChangeListener(this);
         mTvCzfType.setOnClickListener(this);
         mIvNumber.setOnClickListener(this);
         mIvRoom.setOnClickListener(this);
@@ -284,10 +275,14 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                 break;
             case R.id.tv_addAdmin:
                 addAdmin = !addAdmin;
-                mLlAddaAdmin.setVisibility(addAdmin ? View.VISIBLE : View.GONE);
-                mTvAddAdmin.setText(addAdmin ? "取消" : "添加");
+                setAdmin();
                 break;
         }
+    }
+
+    private void setAdmin() {
+        mLlAdmin.setVisibility(addAdmin ? View.VISIBLE : View.GONE);
+        mTvAddAdmin.setText(addAdmin ? "取消" : "添加");
     }
 
     private void checkData() {
@@ -299,25 +294,26 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mOwnerName = mTvOwnerName.getText().toString().trim();
         mOwnerCard = mTvOwnerCard.getText().toString().trim();
         mOwnerPhone = mEtOwnerPhone.getText().toString().trim();
+
         mAdminName = mEtAdminName.getText().toString().trim();
         mAdminCard = mEtAdminCard.getText().toString().trim();
         mAdminPhone = mEtAdminPhone.getText().toString().trim();
 
         if (CheckUtil.checkEmpty(mAddress, "请选择地址")
                 && CheckUtil.checkEmpty(mCzfName, "请输入出租房名称")
-                &&CheckUtil.checkEmpty(mCzfType, "请选择房屋类型")
+                && CheckUtil.checkEmpty(mCzfType, "请选择房屋类型")
                 && CheckUtil.checkEmpty(mOwnerName, "房东姓名空缺")
-                &&CheckUtil.checkEmpty(mOwnerCard, "房东身份证空缺")
+                && CheckUtil.checkEmpty(mOwnerCard, "房东身份证空缺")
                 && CheckUtil.checkPhoneFormat(mOwnerPhone)
-                &&CheckUtil.checkEmpty(base64Number, "请拍摄号牌")) {
+                && CheckUtil.checkEmpty(base64Number, "请拍摄号牌")) {
 
             if (addAdmin) {
                 if (CheckUtil.checkEmpty(mAdminName, "请输管理员姓名")
-                        && CheckUtil.checkEmpty(mAdminCard, "请输入管理员身份证号码")
-                        &&CheckUtil.checkPhoneFormat(mAdminPhone)) {
+                        && CheckUtil.checkIdCard(mAdminCard, "身份证号码填写错误")
+                        && CheckUtil.checkPhoneFormat(mAdminPhone)) {
                     goCaptureActivity();
                 }
-            }else {
+            } else {
                 goCaptureActivity();
             }
 
@@ -360,14 +356,15 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
             administrator.setPHONE(mAdminPhone);//自动恢复
             administrator.setNAME(mAdminName);//自动恢复
             administrator.setIDENTITYCARD(mAdminCard);//自动恢复
+            List<Administrator> administratorList = new ArrayList<Administrator>();
+            administratorList.add(administrator);
+            chuZuWuAdd.setADMINISTRATOR(administratorList);
         } else {
             chuZuWuAdd.setADMINISTRATORCOUNT("0");//自动恢复
         }
 
 
-        List<Administrator> administratorList = new ArrayList<Administrator>();
-        administratorList.add(administrator);
-        chuZuWuAdd.setADMINISTRATOR(administratorList);
+
         List<Photo> photoList = new ArrayList<Photo>();
         if (dz_photo != null) {
             photoList.add(dz_photo);//自动恢复
@@ -482,7 +479,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mTvOwnerCard.setText("");
         mEtOwnerPhone.setText("");
         mTvPolice.setText("");
-        mCbIsOwern.setChecked(false);
         mParam = new HashMap<>();
         mParam.put("TaskID", "1");
         mParam.put("STANDARDADDRCODE", addressCode);
@@ -516,30 +512,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         PoolManager.getInstance().execute(task);
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            CzfInitActivity.this.isChecked = isChecked;
-            ownerName = mTvOwnerName.getText().toString().trim();
-            ownerCard = mTvOwnerCard.getText().toString().trim();
-            ownerPhone = mEtOwnerPhone.getText().toString().trim();
-            if (CheckUtil.checkEmpty(ownerName, "房东姓名为空") && CheckUtil.checkEmpty(ownerCard, "房东身份证号码为空") && CheckUtil.checkPhoneFormat(ownerPhone)) {
-                mEtAdminName.setText(ownerName);
-                mEtAdminCard.setText(ownerCard);
-                mEtAdminPhone.setText(ownerPhone);
-                mLlAdmin.setVisibility(View.GONE);
-            } else {
-                buttonView.setChecked(false);
-            }
-
-
-        } else {
-            mLlAdmin.setVisibility(View.VISIBLE);
-            mEtAdminName.setText("");
-            mEtAdminCard.setText("");
-            mEtAdminPhone.setText("");
-        }
-    }
 
     @Override
     public void onSelect(int position, Basic_Dictionary_Kj bean) {
@@ -574,6 +546,12 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putBoolean("addAdmin", addAdmin);
+        outState.putString("mAdminName", mAdminName);
+        outState.putString("mAdminCard", mAdminCard);
+        outState.putString("mAdminPhone", mAdminPhone);
+
+
         outState.putString("numberFile", numberFile.getAbsolutePath());
         outState.putString("roomFile", roomFile.getAbsolutePath());
         outState.putString("base64Number", base64Number);
@@ -592,6 +570,12 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        mAdminName = savedInstanceState.getString("mAdminName");
+        mAdminCard = savedInstanceState.getString("mAdminCard");
+        mAdminPhone = savedInstanceState.getString("mAdminPhone");
+        addAdmin = savedInstanceState.getBoolean("addAdmin");
+        setAdmin();
+
         numberFile = new File(savedInstanceState.getString("numberFile"));
         roomFile = new File(savedInstanceState.getString("roomFile"));
         base64Number = savedInstanceState.getString("base64Number");

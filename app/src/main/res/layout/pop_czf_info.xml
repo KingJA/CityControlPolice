@@ -4,15 +4,18 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:background="@drawable/bg_popwindow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_popwindow"
             android:orientation="vertical"
-            android:paddingLeft="18dp">
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            >
 
             <LinearLayout
                 android:id="@+id/ll_edit"
@@ -165,6 +168,33 @@
                     android:text="防控设备管理" />
             </LinearLayout>
 
+
+
+        </LinearLayout>
+        <View style="@style/divider_nomal4dp_horizontal" />
+
+        <LinearLayout
+            android:paddingRight="18dp"
+            android:paddingLeft="18dp"
+            android:id="@+id/ll_attention"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sel_tr2half_kj"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/czf_guanzhu" />
+
+            <TextView
+                style="@style/font_3_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="出租房关注" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

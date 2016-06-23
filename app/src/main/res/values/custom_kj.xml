@@ -22,6 +22,12 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
         <item name="android:background">@color/gray_divider</item>
+
+
+    </style> <style name="divider_nomal4dp_horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">4dp</item>
+        <item name="android:background">@color/bg_gray_kj</item>
     </style>
     <!--普通黄色水平分割线-->
     <style name="divider_yellow_horizontal">
@@ -101,5 +107,14 @@
     <style name="PopupScaleAnimation" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/pop_scale_enter</item>
         <item name="android:windowExitAnimation">@anim/pop_scale_exit</item>
+    </style>
+    <style name="AttentionRadioButton">
+        <item name="android:textColor">@color/font_3</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawableLeft">@drawable/rb_attention</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>

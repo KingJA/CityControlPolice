@@ -1,9 +1,11 @@
 package com.tdr.citycontrolpolice.activity;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,6 +34,8 @@ public abstract class BackTitleActivity extends BaseActivity {
     RelativeLayout rlParent;
     @Bind(R.id.tv_right)
     TextView tvRight;
+    @Bind(R.id.iv_right)
+    ImageView ivRight;
     private OnRightClickListener onRightClickListener;
 
     @Bind(R.id.tv_top_back_title)
@@ -56,7 +60,7 @@ public abstract class BackTitleActivity extends BaseActivity {
     }
 
     @OnClick(R.id.rl_top_back_right)
-    void onRight() {
+    void onRightImage() {
         if (onRightClickListener != null) {
             onRightClickListener.onRightClick();
         }
@@ -92,8 +96,10 @@ public abstract class BackTitleActivity extends BaseActivity {
     /**
      * 设置右侧按钮是否可见
      */
-    public void setRightImageVisibility(int visibility) {
-        rlTopBackRight.setVisibility(visibility);
+    public void setRightImageVisibility(@DrawableRes int resid) {
+        rlTopBackRight.setVisibility(View.VISIBLE);
+        ivRight.setBackgroundResource(resid);
+
     }
 
     public void setRightTextVisibility(String tv) {

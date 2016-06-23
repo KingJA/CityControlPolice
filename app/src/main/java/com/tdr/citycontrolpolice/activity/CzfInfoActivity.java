@@ -219,6 +219,13 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 startActivity(deviceIntent);
                 break;
 
+            case 6:
+                ActivityUtil.goActivity(this,CzfAttentionActivity.class);
+                ToastUtil.showMyToast("出租房关注");
+                break;
+
+
+
             default:
                 break;
         }

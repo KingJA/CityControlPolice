@@ -122,11 +122,16 @@ public class CheckUtil {
      * @param value
      * @return
      */
-    public static boolean isIDCard18(final String value) {
-        if (value == null || value.length() != 18)
+    public static boolean checkIdCard(final String value,String tip) {
+        if (value == null || value.length() != 18){
+            ToastUtil.showMyToast(tip);
             return false;
-        if (!value.matches("[\\d]+[X]?"))
+        }
+
+        if (!value.matches("[\\d]+[X]?")){
+            ToastUtil.showMyToast(tip);
             return false;
+        }
         String code = "10X98765432";
         int weight[] = new int[]{7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1};
         int nSum = 0;
@@ -136,10 +141,14 @@ public class CheckUtil {
         int nCheckNum = nSum % 11;
         char chrValue = value.charAt(17);
         char chrCode = code.charAt(nCheckNum);
-        if (chrValue == chrCode)
+        if (chrValue == chrCode){
             return true;
-        if (nCheckNum == 2 && (chrValue + ('a' - 'A') == chrCode))
+        }
+
+        if (nCheckNum == 2 && (chrValue + ('a' - 'A') == chrCode)){
             return true;
+        }
+        ToastUtil.showMyToast(tip);
         return false;
     }
 }

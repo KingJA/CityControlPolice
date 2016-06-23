@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.activity.BoxActivity;
+import com.tdr.citycontrolpolice.activity.CzfAttentionActivity;
 import com.tdr.citycontrolpolice.activity.CzfInfoActivity;
 import com.tdr.citycontrolpolice.activity.CzfQueryActivity;
 import com.tdr.citycontrolpolice.activity.KjLoginActivity;
@@ -47,7 +48,7 @@ import java.util.Map;
  */
 public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickListener, View.OnClickListener {
     private static final String TAG = "TabHomeFragment";
-    private String[] page1Titles = {"出租房绑定", "出租房信息", "出租房查询", "身份认证", "货品箱开启", "登机牌变更", "出租房关注", "更新字典"};
+    private String[] page1Titles = {"出租房绑定", "出租房信息", "出租房查询", "身份认证", "货品箱开启", "登记牌变更", "出租房关注", "更新字典"};
     private String[] page2Titles = {"工作统计", "", "", "", ""};
     private int[] page1Imgs = {R.drawable.bg_czfbd, R.drawable.bg_saoyisao, R.drawable.bg_czfcx, R.drawable.bg_ryhc, R.drawable.bg_box_on, R.drawable.bg_fdbg, R.drawable.bg_czfgz, R.drawable.bg_gxzd};
     private int[] page2Imgs = {R.drawable.bg_gztj, R.drawable.t, R.drawable.t, R.drawable.t, R.drawable.t};
@@ -166,7 +167,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
     private void setupViewPager(View v) {
         MyViewPager vp_home = (MyViewPager) v.findViewById(R.id.vp_home);
         RelativeLayout rl_vp = (RelativeLayout) v.findViewById(R.id.rl_vp);
-        List<View> viewList=new ArrayList<>();
+        List<View> viewList = new ArrayList<>();
         View pageView1 = View.inflate(getActivity(), R.layout.include_gv1, null);
         View pageView2 = View.inflate(getActivity(), R.layout.include_gv2, null);
         FixedGridView gv_page1 = (FixedGridView) pageView1.findViewById(R.id.gv_page1);
@@ -179,7 +180,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         gv_page2.setOnItemClickListener(page2OnItemClickListener);
         viewList.add(pageView1);
         viewList.add(pageView2);
-        vp_home.setContent(viewList,rl_vp);
+        vp_home.setContent(viewList, rl_vp);
     }
 
 
@@ -200,7 +201,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         }
     }
 
-    private AdapterView.OnItemClickListener page1OnItemClickListener=new AdapterView.OnItemClickListener() {
+    private AdapterView.OnItemClickListener page1OnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             switch (position) {
@@ -225,7 +226,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
                     ToastUtil.showMyToast("亲爱的用户，登机牌变更正在开发中...");
                     break;
                 case 6:
-                    ToastUtil.showMyToast("亲爱的用户，出租房正在开发中...");
+                    ActivityUtil.goActivity(getActivity(), CzfAttentionActivity.class);
                     break;
                 case 7:
                     dialogDouble.show();
@@ -233,7 +234,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
             }
         }
     };
-    private AdapterView.OnItemClickListener page2OnItemClickListener=new AdapterView.OnItemClickListener() {
+    private AdapterView.OnItemClickListener page2OnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             switch (position) {
@@ -254,37 +255,37 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
 
 
         new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    final JSONObject object = new JSONObject();
-                    try {
-                        object.put("TaskID", "1");
-                        object.put("DEVICETYPE", "2");
-                        object.put("DEVICECODE", deviceCode);
-                        Log.e("code", object.toString());
-                        Map<String, Object> param = new HashMap<String, Object>();
-                        param.put("token", UserService.getInstance(mActivity).getToken());
-                        param.put("encryption", 0);
-                        param.put("dataTypeCode", "Common_InquireDevice");
-                        param.put("content", object.toString());
-                        String result = WebService.info(Constants.WEBSERVER_PUBLICSECURITYCONTROLAPP, param);
-                        Log.e("code", result);
-                        JSONObject rootObject = new JSONObject(result);
-                        int error = rootObject.getInt("ResultCode");
-                        Message msg = new Message();
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("error", error);
-                        bundle.putString("content", rootObject.getString("Content"));
-                        bundle.putString("resultText", rootObject.getString("ResultText"));
-                        msg.setData(bundle);
-                        msg.what = requestCode;
-                        mHandler.sendMessage(msg);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.e("code", e.toString());
-                    }
+            @Override
+            public void run() {
+                final JSONObject object = new JSONObject();
+                try {
+                    object.put("TaskID", "1");
+                    object.put("DEVICETYPE", "2");
+                    object.put("DEVICECODE", deviceCode);
+                    Log.e("code", object.toString());
+                    Map<String, Object> param = new HashMap<String, Object>();
+                    param.put("token", UserService.getInstance(mActivity).getToken());
+                    param.put("encryption", 0);
+                    param.put("dataTypeCode", "Common_InquireDevice");
+                    param.put("content", object.toString());
+                    String result = WebService.info(Constants.WEBSERVER_PUBLICSECURITYCONTROLAPP, param);
+                    Log.e("code", result);
+                    JSONObject rootObject = new JSONObject(result);
+                    int error = rootObject.getInt("ResultCode");
+                    Message msg = new Message();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("error", error);
+                    bundle.putString("content", rootObject.getString("Content"));
+                    bundle.putString("resultText", rootObject.getString("ResultText"));
+                    msg.setData(bundle);
+                    msg.what = requestCode;
+                    mHandler.sendMessage(msg);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("code", e.toString());
                 }
-            }).start();
+            }
+        }).start();
 
     }
 

@@ -321,9 +321,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                >
 
-                <RelativeLayout
+              <!--  <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp">
@@ -340,17 +340,17 @@
                         android:text="与房东同人"
                         android:textColor="@color/font_3"
                         android:textSize="12dp" />
-                </RelativeLayout>
+                </RelativeLayout>-->
 
 
 
                 <LinearLayout
-
+android:visibility="gone"
                     android:id="@+id/ll_admin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <View style="@style/divider_light_horizontal" />
+             <!--       <View style="@style/divider_light_horizontal" />-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
