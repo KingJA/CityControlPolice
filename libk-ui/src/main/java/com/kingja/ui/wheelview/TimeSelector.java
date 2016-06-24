@@ -1,7 +1,6 @@
 package com.kingja.ui.wheelview;
 
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +21,7 @@ import java.util.List;
  * 创建时间：2016/6/23 13:46
  * 修改备注：
  */
-public class DialogTimeWheel extends Dialog implements View.OnClickListener {
+public class TimeSelector extends Dialog implements View.OnClickListener {
 
     private Context context;
 
@@ -47,15 +46,15 @@ public class DialogTimeWheel extends Dialog implements View.OnClickListener {
 
     private OnTimeSelectListener onTimeSelectListener;
 
-    public DialogTimeWheel(Context context) {
-        super(context, R.style.CustomAlertDialog);
+    public TimeSelector(Context context) {
+        super(context, R.style.KjAlertDialog);
         this.context = context;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_time);
+        setContentView(R.layout.selector_time);
         wv_hour = (WheelView) findViewById(R.id.wv_hour);
         wv_second = (WheelView) findViewById(R.id.wv_second);
 
@@ -169,7 +168,7 @@ public class DialogTimeWheel extends Dialog implements View.OnClickListener {
                 return;
             }
         }
-        if (v.getId() == R.id.rl_confirm) {
+        if (v.getId() == R.id.rl_cancel) {
             dismiss();
             return;
         }

@@ -36,7 +36,7 @@ public class PersonAccreditAdapter extends BaseSimpleAdapter<ChuZuWu_MenPaiAutho
         viewHolder.tvinfoname.setText(list.get(position).getNAME());
         viewHolder.tvinfophone.setText(list.get(position).getPHONENUM());
         viewHolder.tvinfocard.setText(list.get(position).getIDENTITYCARD());
-        viewHolder.tvinfocardId.setText(list.get(position).getCARDDID());
+        viewHolder.tvinfocardId.setText(list.get(position).getCARDID());
         viewHolder.tvinfocardType.setText(getCarType(list.get(position).getCARDTYPE()));
         return convertView;
     }

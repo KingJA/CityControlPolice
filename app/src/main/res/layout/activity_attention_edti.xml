@@ -8,11 +8,17 @@
     android:padding="12dp"
     android:scrollbarThumbVertical="@color/bg_transparent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
     <LinearLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <LinearLayout
@@ -49,10 +55,11 @@
                     android:textSize="12dp" />
             </RelativeLayout>
 
-            <com.tdr.citycontrolpolice.view.FixedListView
+            <ListView
+                android:padding="1px"
                 android:id="@+id/lv_attention_room"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="130dp"
                 android:cacheColorHint="#00000000"
                 android:divider="@color/gray_divider"
                 android:dividerHeight="1px"
@@ -60,18 +67,27 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_attention"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:background="@drawable/shape_lgray1_bwhite_r5"
             android:orientation="vertical">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_title_lgray1_bgray_r5"
-                android:padding="12dp"
-                android:text="提醒方式" />
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="提醒方式" />
+
+            </RelativeLayout>
 
             <RadioGroup
                 android:id="@+id/rg_attention"
@@ -79,17 +95,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/rb_cancel"
-                    style="@style/AttentionRadioButton"
-                    android:text="取消关注" />
-
-
-                <View style="@style/divider_nomal_horizontal" />
 
                 <RadioButton
-                    android:id="@+id/rb_attention"
+                    android:id="@+id/rb_only"
                     style="@style/AttentionRadioButton"
+                    android:checked="true"
                     android:text="仅关注" />
 
                 <View style="@style/divider_nomal_horizontal" />
@@ -108,125 +118,163 @@
 
             </RadioGroup>
 
-            <View style="@style/divider_nomal_horizontal" />
-
             <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_only"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    style="@style/font_9_14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="提醒手机号" />
+                <View style="@style/divider_nomal_horizontal" />
 
-                <EditText
-                    android:id="@+id/et_attention_phone"
-                    android:maxLength="11"
-                    android:inputType="number"
-                    android:hint="请输入手机号..."
-                    style="@style/font_edit_3_14"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                   />
+                    android:padding="12dp">
+
+                    <TextView
+                        style="@style/font_9_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="提醒手机号" />
+
+                    <EditText
+                        android:id="@+id/et_attention_phone"
+                        style="@style/font_edit_3_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:hint="请输入手机号..."
+                        android:inputType="number"
+                        android:maxLength="11" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_once"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <View style="@style/divider_nomal_horizontal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp">
+
+                        <TextView
+                            style="@style/font_3_14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="日期段" />
+
+                        <EditText
+                            android:id="@+id/et_date_from"
+                            style="@style/font_edit_3_14_b"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="起始日期" />
+                        <TextView
+                            style="@style/font_3_14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="到" />
+
+                        <EditText
+                            android:id="@+id/et_date_to"
+                            style="@style/font_edit_3_14_b"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
+                            android:layout_weight="1"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="截止日期" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <View style="@style/divider_nomal_horizontal" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <TextView
+                        style="@style/font_3_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="时间段" />
+
+                    <EditText
+                        android:id="@+id/et_time_from"
+                        style="@style/font_edit_3_14_b"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:hint="起始时间" />
+
+                    <TextView
+                        style="@style/font_3_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="到" />
+
+                    <EditText
+                        android:id="@+id/et_time_to"
+                        style="@style/font_edit_3_14_b"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:hint="截止时间" />
+
+                </LinearLayout>
 
             </LinearLayout>
-            <View style="@style/divider_nomal_horizontal" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp">
-
-                <TextView
-                    style="@style/font_3_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="日期段" />
-
-                <EditText
-                    android:id="@+id/et_date_from"
-                    android:hint="起始日期"
-                    android:editable="false"
-                    style="@style/font_edit_3_14_b"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    style="@style/font_3_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="到" />
-
-                <EditText
-                    android:id="@+id/et_date_to"
-                    android:editable="false"
-                    android:hint="截止日期"
-                    style="@style/font_edit_3_14_b"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1" />
-
-            </LinearLayout> <View style="@style/divider_nomal_horizontal" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp">
-
-                <TextView
-                    style="@style/font_3_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="时间段" />
-
-                <EditText
-                    android:id="@+id/et_time_from"
-                    android:hint="起始时间"
-                    android:editable="false"
-                    style="@style/font_edit_3_14_b"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    style="@style/font_3_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="到" />
-
-                <EditText
-                    android:id="@+id/et_time_to"
-                    android:hint="截止时间"
-                    android:editable="false"
-                    style="@style/font_edit_3_14_b"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-
-
 
 
         </LinearLayout>
         <TextView
+
+            android:gravity="center"
+            style="@style/btn_small_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
            android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            style="@style/btn_small_blue"
-            android:text="确定"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:text="配置" />
+
     </LinearLayout>
+        <TextView
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            style="@style/btn_small_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:layout_centerHorizontal="true"
+            android:layout_margin="16dp"
+            android:text="提交" />
+    </RelativeLayout>
 </ScrollView>

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.BaseFragmentPagerAdapter;
+import com.tdr.citycontrolpolice.entity.ChuZuWu_Favorites;
 import com.tdr.citycontrolpolice.fragment.InfoInFragment;
 import com.tdr.citycontrolpolice.fragment.InfoLeftFragment;
 import com.tdr.citycontrolpolice.fragment.InfoManagerFragment;
@@ -23,6 +24,7 @@ import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.CustomConstants;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.SimpleIndicatorLayout;
@@ -64,6 +66,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
     private int mIsregister;
     private DialogConfirm mConfirmDialog;
     private DialogProgress mDialogProgress;
+    private int mIsfavorite;
 
 
     @Override
@@ -116,8 +119,10 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                         mDialogProgress.dismiss();
                         mCzfInfo = bean;
                         mIsregister = bean.getContent().getISREGISTER();
+                        mIsfavorite = bean.getContent().getISFAVORITE();
                         Log.i(TAG, "mIsregister: " + mIsregister);
                         mCzfInfoPop.setAppleVisibility(mIsregister);
+//                        mCzfInfoPop.setAttention(mIsfavorite);
                         tv_czf_info_name.setText(bean.getContent().getOWNERNAME());
                         tv_czf_info_phone.setText(bean.getContent().getPHONE());
                         tv_czf_info_address.setText(bean.getContent().getADDRESS());
@@ -169,7 +174,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
     @Override
     public void setData() {
-        setRightImageVisibility(View.VISIBLE);
+        setRightImageVisibility(R.drawable.bg_menu);
         setTitle("出租房管理");
 
     }
@@ -220,8 +225,10 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 break;
 
             case 6:
-                ActivityUtil.goActivity(this,CzfAttentionActivity.class);
-                ToastUtil.showMyToast("出租房关注");
+               AttentionEditActivity.goActivity(this,mHouseId);
+
+//                ToastUtil.showMyToast("出租房关注");
+//                attentionCzf(mHouseId);
                 break;
 
 
@@ -230,6 +237,30 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 break;
         }
         mCzfInfoPop.dismiss();
+    }
+
+    /**
+     * 关注出租房
+     * @param houseId
+     */
+    private void attentionCzf(String houseId) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("TaskID", "1");
+        param.put("HOUSEID", houseId);
+        new ThreadPoolTask.Builder()
+                .setGeneralParam(UserService.getInstance(this).getToken(), 0, CustomConstants.CHUZUWU_FAVORITES, param)
+                .setBeanType(ChuZuWu_Favorites.class)
+                .setCallBack(new WebServiceCallBack<ChuZuWu_Favorites>() {
+                    @Override
+                    public void onSuccess(ChuZuWu_Favorites bean) {
+                        ToastUtil.showMyToast("关注成功");
+                    }
+
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+                        ToastUtil.showMyToast(errorResult.getResultText());
+                    }
+                }).build().execute();
     }
 
     /**

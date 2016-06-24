@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 
@@ -25,6 +26,7 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
     private LinearLayout ll_binding;
     private LinearLayout ll_manager;
     private LinearLayout ll_attention;
+    private TextView tv_attention;
 
     public CzfInfoPopKj(View parentView, Activity activity) {
         super(parentView, activity);
@@ -36,6 +38,10 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
         ll_apply.setVisibility(hasRegistered == 1 ? View.GONE : View.VISIBLE);
     }
 
+    public void setAttention(int hasAttention) {
+        tv_attention.setText(hasAttention==1?"取消关注":"关注出租屋");
+    }
+
     @Override
     public View setPopupView(Activity activity) {
         popupView = View.inflate(activity, R.layout.pop_czf_info, null);
@@ -44,6 +50,7 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
 
     @Override
     public void initChildView() {
+        tv_attention = (TextView) popupView.findViewById(R.id.tv_attention);
         ll_edit = (LinearLayout) popupView.findViewById(R.id.ll_edit);
         ll_apply = (LinearLayout) popupView.findViewById(R.id.ll_apply);
         ll_card = (LinearLayout) popupView.findViewById(R.id.ll_card);

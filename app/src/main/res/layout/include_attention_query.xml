@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/iv_address"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/bg_location" />
+    <TextView
+        android:layout_toRightOf="@id/iv_address"
+        android:singleLine="true"
+        style="@style/font_3_12"
+        android:layout_marginLeft="8dp"
+        android:id="@+id/tv_address"
+        android:text="中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:text="dddddd"
+        android:layout_toRightOf="@id/iv_address"
+        android:layout_below="@id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         />
+</RelativeLayout>

@@ -84,7 +84,7 @@ public class ChuZuWu_MenPaiAuthorizationList {
             private String IDENTITYCARD;
             private String PHONENUM;
             private String ROOMID;
-            private String CARDDID;
+            private String CARDID;
             private int CARDTYPE;
 
             public String getLISTID() {
@@ -127,12 +127,12 @@ public class ChuZuWu_MenPaiAuthorizationList {
                 this.ROOMID = ROOMID;
             }
 
-            public String getCARDDID() {
-                return CARDDID;
+            public String getCARDID() {
+                return CARDID;
             }
 
-            public void setCARDDID(String CARDDID) {
-                this.CARDDID = CARDDID;
+            public void setCARDID(String CARDDID) {
+                this.CARDID = CARDID;
             }
 
             public int getCARDTYPE() {

@@ -1,5 +1,7 @@
 package com.tdr.citycontrolpolice.util;
 
+import android.util.Log;
+
 /**
  * Created by Administrator on 2016/1/20.
  */
@@ -54,6 +56,7 @@ public class Constants {
                 hostUrl = "http://172.18.18.21:8002/RentalEstate.asmx";
                 break;
         }
+        Log.i("hostUrl", hostUrl);
         return hostUrl;
     }
 

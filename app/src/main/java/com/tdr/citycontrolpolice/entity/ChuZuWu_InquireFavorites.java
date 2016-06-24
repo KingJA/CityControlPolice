@@ -1,19 +1,23 @@
 package com.tdr.citycontrolpolice.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/3/8.
+ * 项目名称：
+ * 类描述：TODO
+ * 创建人：KingJA
+ * 创建时间：2016/6/24 16:47
+ * 修改备注：
  */
-public class KjChuZuWuInfo implements Serializable {
+public class ChuZuWu_InquireFavorites {
+
 
     private int ResultCode;
     private String ResultText;
     private String DataTypeCode;
-    private int TaskID;
-    private ContentBean Content;
-    private String StableVersion;
+    private String TaskID;
+
+    private List<ContentBean> Content;
 
     public int getResultCode() {
         return ResultCode;
@@ -39,39 +43,30 @@ public class KjChuZuWuInfo implements Serializable {
         this.DataTypeCode = DataTypeCode;
     }
 
-    public int getTaskID() {
+    public String getTaskID() {
         return TaskID;
     }
 
-    public void setTaskID(int TaskID) {
+    public void setTaskID(String TaskID) {
         this.TaskID = TaskID;
     }
 
-    public ContentBean getContent() {
+    public List<ContentBean> getContent() {
         return Content;
     }
 
-    public void setContent(ContentBean Content) {
+    public void setContent(List<ContentBean> Content) {
         this.Content = Content;
     }
 
-    public String getStableVersion() {
-        return StableVersion;
-    }
-
-    public void setStableVersion(String StableVersion) {
-        this.StableVersion = StableVersion;
-    }
-
-    public static class ContentBean implements Serializable {
+    public static class ContentBean {
         private String HOUSEID;
         private String HOUSENAME;
-        private int ISREGISTER;
-        private int ISFAVORITE;
-        private boolean DianZiMenPai;
+        private String DianZiMenPai;
+        private String ADDRESS;
         private String OWNERNAME;
         private String PHONE;
-        private String ADDRESS;
+        private int ISREGISTER;
         private String STANDARDADDRCODE;
         private String XQCODE;
         private String PCSCODE;
@@ -94,20 +89,20 @@ public class KjChuZuWuInfo implements Serializable {
             this.HOUSENAME = HOUSENAME;
         }
 
-        public int getISREGISTER() {
-            return ISREGISTER;
-        }
-
-        public void setISREGISTER(int ISREGISTER) {
-            this.ISREGISTER = ISREGISTER;
-        }
-
-        public boolean isDianZiMenPai() {
+        public String getDianZiMenPai() {
             return DianZiMenPai;
         }
 
-        public void setDianZiMenPai(boolean DianZiMenPai) {
+        public void setDianZiMenPai(String DianZiMenPai) {
             this.DianZiMenPai = DianZiMenPai;
+        }
+
+        public String getADDRESS() {
+            return ADDRESS;
+        }
+
+        public void setADDRESS(String ADDRESS) {
+            this.ADDRESS = ADDRESS;
         }
 
         public String getOWNERNAME() {
@@ -126,12 +121,12 @@ public class KjChuZuWuInfo implements Serializable {
             this.PHONE = PHONE;
         }
 
-        public String getADDRESS() {
-            return ADDRESS;
+        public int getISREGISTER() {
+            return ISREGISTER;
         }
 
-        public void setADDRESS(String ADDRESS) {
-            this.ADDRESS = ADDRESS;
+        public void setISREGISTER(int ISREGISTER) {
+            this.ISREGISTER = ISREGISTER;
         }
 
         public String getSTANDARDADDRCODE() {
@@ -174,22 +169,12 @@ public class KjChuZuWuInfo implements Serializable {
             this.RoomList = RoomList;
         }
 
-        public int getISFAVORITE() {
-            return ISFAVORITE;
-        }
-
-        public void setISFAVORITE(int ISFAVORITE) {
-            this.ISFAVORITE = ISFAVORITE;
-        }
-
-        public static class RoomListBean implements Serializable {
+        public static class RoomListBean {
             private String ROOMID;
             private int ROOMNO;
             private int DEPLOYSTATUS;
             private int HEADCOUNT;
             private String STATIONNO;
-            private int SHOUQUANCOUNT;
-            private boolean isExpland;
 
             public String getROOMID() {
                 return ROOMID;
@@ -229,22 +214,6 @@ public class KjChuZuWuInfo implements Serializable {
 
             public void setSTATIONNO(String STATIONNO) {
                 this.STATIONNO = STATIONNO;
-            }
-
-            public int getSHOUQUANCOUNT() {
-                return SHOUQUANCOUNT;
-            }
-
-            public void setSHOUQUANCOUNT(int SHOUQUANCOUNT) {
-                this.SHOUQUANCOUNT = SHOUQUANCOUNT;
-            }
-
-            public boolean isExpland() {
-                return isExpland;
-            }
-
-            public void setExpland(boolean expland) {
-                isExpland = expland;
             }
         }
     }

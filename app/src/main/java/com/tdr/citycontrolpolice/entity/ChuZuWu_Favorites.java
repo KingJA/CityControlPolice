@@ -1,18 +1,19 @@
 package com.tdr.citycontrolpolice.entity;
 
 /**
- * 项目名称：物联网城市防控(警用版)
+ * 项目名称：
  * 类描述：TODO
  * 创建人：KingJA
- * 创建时间：2016/4/8 13:08
+ * 创建时间：2016/6/24 14:35
  * 修改备注：
  */
-public class ErrorResult {
-
+public class ChuZuWu_Favorites {
 
     private int ResultCode;
     private String ResultText;
     private String DataTypeCode;
+    private String TaskID;
+    private ContentBean Content;
 
     public int getResultCode() {
         return ResultCode;
@@ -38,12 +39,31 @@ public class ErrorResult {
         this.DataTypeCode = DataTypeCode;
     }
 
-    @Override
-    public String toString() {
-        return "ErrorResult{" +
-                "ResultCode=" + ResultCode +
-                ", ResultText='" + ResultText + '\'' +
-                ", DataTypeCode='" + DataTypeCode + '\'' +
-                '}';
+    public String getTaskID() {
+        return TaskID;
+    }
+
+    public void setTaskID(String TaskID) {
+        this.TaskID = TaskID;
+    }
+
+    public ContentBean getContent() {
+        return Content;
+    }
+
+    public void setContent(ContentBean Content) {
+        this.Content = Content;
+    }
+
+    public static class ContentBean {
+        private String HOUSEID;
+
+        public String getHOUSEID() {
+            return HOUSEID;
+        }
+
+        public void setHOUSEID(String HOUSEID) {
+            this.HOUSEID = HOUSEID;
+        }
     }
 }

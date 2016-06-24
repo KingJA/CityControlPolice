@@ -154,7 +154,6 @@
                 android:gravity="center_vertical"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp">
-
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -171,12 +170,18 @@
 
 
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_attention"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <View style="@style/divider_nomal4dp_horizontal" />
 
         <LinearLayout
             android:paddingRight="18dp"
             android:paddingLeft="18dp"
-            android:id="@+id/ll_attention"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/sel_tr2half_kj"
@@ -190,11 +195,13 @@
                 android:background="@drawable/czf_guanzhu" />
 
             <TextView
+                android:id="@+id/tv_attention"
                 style="@style/font_3_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:text="出租房关注" />
+        </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
