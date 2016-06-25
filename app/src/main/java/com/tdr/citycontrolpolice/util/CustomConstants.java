@@ -10,7 +10,11 @@ package com.tdr.citycontrolpolice.util;
 public class CustomConstants {
     // SharedPreferences文件名称
     public static final String APPLICATION_NAME = "userDetails.xml";
+    /*  关注*/
     public static final String CHUZUWU_FAVORITES = "ChuZuWu_Favorites";
     public static final String CHUZUWU_ROOMLISTOFFAVORITES = "ChuZuWu_RoomListOfFavorites";
     public static final String CHUZUWU_INQUIREFAVORITES = "ChuZuWu_InquireFavorites";
+    public static final String CHUZUWU_SETROOMINFOOFFAVORITES = "ChuZuWu_SetRoomInfoOfFavorites";
+  /*  取消关注*/
+    public static final String CHUZUWU_REMOVEFAVORITES = "ChuZuWu_RemoveFavorites";
 }

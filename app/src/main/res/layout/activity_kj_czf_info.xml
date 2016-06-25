@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -18,57 +18,59 @@
         android:paddingTop="12dp">
 
         <com.tdr.citycontrolpolice.view.CircleImageView
+            android:layout_centerVertical="true"
             android:id="@+id/civ_icon"
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:src="@drawable/icon_userinfo" />
 
+        <ImageView
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_attention"
+            android:layout_alignParentRight="true"
+            android:id="@+id/iv_attention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
+            android:layout_toLeftOf="@id/iv_attention"
+            android:layout_toRightOf="@id/civ_icon"
             android:orientation="vertical">
 
-
-            <TextView
-                android:id="@+id/tv_czf_info_name"
-                style="@style/font_3_14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+
                 <TextView
+                    android:id="@+id/tv_czf_info_name"
+                    style="@style/font_3_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="张三" />
+
+                <TextView
+                    android:layout_marginLeft="8dp"
                     android:id="@+id/tv_czf_info_phone"
                     style="@style/font_9_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp" />
+                    android:text="18888888888" />
 
-                <LinearLayout
-                    android:id="@+id/ll_czf_info_detail"
+                <TextView
+                    android:id="@+id/tv_czf_info_detail"
+                    android:layout_marginLeft="8dp"
+                    style="@style/font_blue_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center_vertical">
+                    android:text="信息/统计" />
 
-                    <TextView
-                        style="@style/font_9_12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="信息/统计" />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
-                        android:background="@drawable/open_right" />
-                </LinearLayout>
-
-            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_czf_info_address"
@@ -76,12 +78,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:ellipsize="marquee" />
+                android:ellipsize="marquee"
+                android:text="地址地址地址地址地址地址地址地址地址地址" />
 
         </LinearLayout>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View style="@style/divider_nomal_horizontal" />
 

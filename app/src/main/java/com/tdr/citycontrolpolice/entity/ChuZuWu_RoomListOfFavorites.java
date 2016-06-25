@@ -80,6 +80,22 @@ public class ChuZuWu_RoomListOfFavorites {
             private String ENDDATE;
             private String STARTTIME;
             private String ENDTIME;
+            private boolean isChecked;
+
+            @Override
+            public String toString() {
+                return "MonitorRoomListBean{" +
+                        "ROOMID='" + ROOMID + '\'' +
+                        ", REMIND_TYPE=" + REMIND_TYPE +
+                        ", ROOMNO='" + ROOMNO + '\'' +
+                        ", TARGET='" + TARGET + '\'' +
+                        ", STARTDATE='" + STARTDATE + '\'' +
+                        ", ENDDATE='" + ENDDATE + '\'' +
+                        ", STARTTIME='" + STARTTIME + '\'' +
+                        ", ENDTIME='" + ENDTIME + '\'' +
+                        ", isChecked=" + isChecked +
+                        '}';
+            }
 
             public String getROOMID() {
                 return ROOMID;
@@ -143,6 +159,14 @@ public class ChuZuWu_RoomListOfFavorites {
 
             public void setENDTIME(String ENDTIME) {
                 this.ENDTIME = ENDTIME;
+            }
+
+            public boolean isChecked() {
+                return isChecked;
+            }
+
+            public void setChecked(boolean checked) {
+                isChecked = checked;
             }
         }
     }

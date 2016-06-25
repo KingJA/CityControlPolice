@@ -7,18 +7,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.BaseFragmentPagerAdapter;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_Favorites;
-import com.tdr.citycontrolpolice.fragment.InfoInFragment;
-import com.tdr.citycontrolpolice.fragment.InfoLeftFragment;
-import com.tdr.citycontrolpolice.fragment.InfoManagerFragment;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_InstallStatus;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
+import com.tdr.citycontrolpolice.fragment.InfoInFragment;
+import com.tdr.citycontrolpolice.fragment.InfoLeftFragment;
+import com.tdr.citycontrolpolice.fragment.InfoManagerFragment;
 import com.tdr.citycontrolpolice.fragment.InfoPopulationFragment;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
@@ -50,7 +50,6 @@ import java.util.Map;
 
 public class CzfInfoActivity extends BackTitleActivity implements BackTitleActivity.OnRightClickListener, CzfInfoPopKj.OnCzfInfoPopClickListener {
     private static final String TAG = "CzfInfoActivity";
-    private LinearLayout ll_czf_info_detail;
     private TextView tv_czf_info_name;
     private TextView tv_czf_info_phone;
     private TextView tv_czf_info_address;
@@ -67,6 +66,10 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
     private DialogConfirm mConfirmDialog;
     private DialogProgress mDialogProgress;
     private int mIsfavorite;
+    private TextView tv_czf_info_detail;
+    private ImageView iv_attention;
+    private String method;
+    private DialogDouble mDoubleDialog;
 
 
     @Override
@@ -92,7 +95,8 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
     @Override
     protected void initView() {
-        ll_czf_info_detail = (LinearLayout) view.findViewById(R.id.ll_czf_info_detail);
+        iv_attention = (ImageView) view.findViewById(R.id.iv_attention);
+        tv_czf_info_detail = (TextView) view.findViewById(R.id.tv_czf_info_detail);
         tv_czf_info_name = (TextView) view.findViewById(R.id.tv_czf_info_name);
         tv_czf_info_phone = (TextView) view.findViewById(R.id.tv_czf_info_phone);
         tv_czf_info_address = (TextView) view.findViewById(R.id.tv_czf_info_address);
@@ -120,9 +124,9 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                         mCzfInfo = bean;
                         mIsregister = bean.getContent().getISREGISTER();
                         mIsfavorite = bean.getContent().getISFAVORITE();
+                        iv_attention.setBackgroundResource(mIsfavorite==1?R.drawable.bg_unattention:R.drawable.bg_attention);
                         Log.i(TAG, "mIsregister: " + mIsregister);
                         mCzfInfoPop.setAppleVisibility(mIsregister);
-//                        mCzfInfoPop.setAttention(mIsfavorite);
                         tv_czf_info_name.setText(bean.getContent().getOWNERNAME());
                         tv_czf_info_phone.setText(bean.getContent().getPHONE());
                         tv_czf_info_address.setText(bean.getContent().getADDRESS());
@@ -164,10 +168,23 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
             public void onRight() {
             }
         });
-        ll_czf_info_detail.setOnClickListener(new View.OnClickListener() {
+        tv_czf_info_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CzfInfoDetailActivity.goActivity(CzfInfoActivity.this, mHouseId);
+            }
+        });
+        iv_attention.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsfavorite == 1) {
+                    method = CustomConstants.CHUZUWU_REMOVEFAVORITES;
+                    //取消关注
+                }else{
+                    method = CustomConstants.CHUZUWU_FAVORITES;
+                    //添加关注
+                }
+                attentionCzf( method);
             }
         });
     }
@@ -225,13 +242,12 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 break;
 
             case 6:
-               AttentionEditActivity.goActivity(this,mHouseId);
-
-//                ToastUtil.showMyToast("出租房关注");
-//                attentionCzf(mHouseId);
+                if (mIsfavorite==1) {
+                    AttentionEditActivity.goActivity(this,mHouseId);
+                }else{
+                    ToastUtil.showMyToast("请先关注出租屋");
+                }
                 break;
-
-
 
             default:
                 break;
@@ -240,25 +256,32 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
     }
 
     /**
-     * 关注出租房
-     * @param houseId
+     * 关注/取消关注出租房
+     * @param method 方法名
      */
-    private void attentionCzf(String houseId) {
+    private void attentionCzf(String method) {
+        setProgressDialog(true);
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
-        param.put("HOUSEID", houseId);
+        param.put("HOUSEID", mHouseId);
         new ThreadPoolTask.Builder()
-                .setGeneralParam(UserService.getInstance(this).getToken(), 0, CustomConstants.CHUZUWU_FAVORITES, param)
+                .setGeneralParam(UserService.getInstance(this).getToken(), 0, method, param)
                 .setBeanType(ChuZuWu_Favorites.class)
                 .setCallBack(new WebServiceCallBack<ChuZuWu_Favorites>() {
                     @Override
                     public void onSuccess(ChuZuWu_Favorites bean) {
-                        ToastUtil.showMyToast("关注成功");
+                        setProgressDialog(false);
+                        if (mIsfavorite == 1) {
+                            mIsfavorite=0;
+                        }else{
+                            mIsfavorite=1;
+                        }
+                        iv_attention.setBackgroundResource(mIsfavorite==1?R.drawable.bg_unattention:R.drawable.bg_attention);
                     }
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-                        ToastUtil.showMyToast(errorResult.getResultText());
+                        setProgressDialog(false);
                     }
                 }).build().execute();
     }
@@ -272,7 +295,6 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
         param.put("TaskID", "1");
         param.put("HOUSEID", mHouseId);
         param.put("ISREGISTER", "1");
-
         ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
         ThreadPoolTask task = builder.setGeneralParam(mToken, 0, "ChuZuWu_InstallStatus", param)
                 .setBeanType(ChuZuWu_InstallStatus.class)
@@ -296,6 +318,6 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
         PoolManager.getInstance().execute(task);
     }
 
-    private DialogDouble mDoubleDialog;
+
 
 }

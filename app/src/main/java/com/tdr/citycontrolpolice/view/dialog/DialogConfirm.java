@@ -56,9 +56,9 @@ public class DialogConfirm extends DialogBaseAlert {
 
     @Override
     public void childClick(View v) {
+        dismiss();
         if (onConfirmClickListener != null) {
             onConfirmClickListener.onConfirm();
-            dismiss();
         }
 
     }

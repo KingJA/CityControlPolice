@@ -4,11 +4,13 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_RoomListOfFavorites;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ public class AttentionAdapter extends BaseSimpleAdapter<ChuZuWu_RoomListOfFavori
 
     @Override
     public View simpleGetView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         if (convertView == null) {
             convertView = View
                     .inflate(context, R.layout.item_attention_room, null);
@@ -36,9 +38,24 @@ public class AttentionAdapter extends BaseSimpleAdapter<ChuZuWu_RoomListOfFavori
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.cbattention.setText(list.get(position).getROOMNO());
+        viewHolder.cbattention.setChecked(list.get(position).isChecked());
         viewHolder.tvattentiontype.setText(getAttentionType(list.get(position).getREMIND_TYPE()));
-
+        if (selectPosition == -1) {
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.bg_transparent));
+        }else{
         convertView.setBackgroundColor(position == selectPosition ? context.getResources().getColor(R.color.bg_gray_kj) : context.getResources().getColor(R.color.bg_transparent));
+        }
+
+
+        viewHolder.cbattention.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!buttonView.isPressed())
+                    return;
+                list.get(position).setChecked(isChecked);
+                notifyDataSetChanged();
+            }
+        });
         return convertView;
     }
 
@@ -74,5 +91,45 @@ public class AttentionAdapter extends BaseSimpleAdapter<ChuZuWu_RoomListOfFavori
                 break;
         }
         return result;
+    }
+
+    public void setAttentionByList(int type, String phone, String fromDate, String toDate, String fromTime, String toTime) {
+        for (ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean : list) {
+            if (bean.isChecked()) {
+                bean.setREMIND_TYPE(type);
+                bean.setTARGET(phone);
+                bean.setSTARTDATE(fromDate);
+                bean.setENDDATE(toDate);
+                bean.setSTARTTIME(fromTime);
+                bean.setENDTIME(toTime);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void setAttentionByPosition(int type, String phone, String fromDate, String toDate, String fromTime, String toTime, int position) {
+        ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean = list.get(position);
+        bean.setREMIND_TYPE(type);
+        bean.setTARGET(phone);
+        bean.setSTARTDATE(fromDate);
+        bean.setENDDATE(toDate);
+        bean.setSTARTTIME(fromTime);
+        bean.setENDTIME(toTime);
+        notifyDataSetChanged();
+    }
+
+    public List<ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean> getAttentionList() {
+        List<ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean> result = new ArrayList<>();
+        for (ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean : list) {
+            if (bean.isChecked()) {
+                result.add(bean);
+            }
+        }
+        return result;
+    }
+
+    public void reset() {
+        selectPosition=-1;
+        notifyDataSetChanged();
     }
 }
