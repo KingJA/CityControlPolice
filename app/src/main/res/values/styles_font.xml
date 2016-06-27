@@ -101,8 +101,8 @@
         <item name="android:textColor">@drawable/sel_text_blue</item>
         <item name="android:background">@drawable/sel_btn_blue_detail</item>
         <item name="android:paddingBottom">4dp</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:clickable">true</item>
     </style>

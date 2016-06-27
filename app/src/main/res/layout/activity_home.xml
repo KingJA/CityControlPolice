@@ -49,6 +49,21 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_main_tongji"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_main_tongji"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/tongji_off" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/ll_main_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

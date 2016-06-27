@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_RoomListOfFavorites;
+import com.tdr.citycontrolpolice.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,10 @@ public class AttentionAdapter extends BaseSimpleAdapter<ChuZuWu_RoomListOfFavori
     }
 
     public void setAttentionByList(int type, String phone, String fromDate, String toDate, String fromTime, String toTime) {
+        if (getAttentionList().size() == 0) {
+            ToastUtil.showMyToast("请先选择需要配置的房间");
+            return;
+        }
         for (ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean : list) {
             if (bean.isChecked()) {
                 bean.setREMIND_TYPE(type);
@@ -108,6 +113,10 @@ public class AttentionAdapter extends BaseSimpleAdapter<ChuZuWu_RoomListOfFavori
     }
 
     public void setAttentionByPosition(int type, String phone, String fromDate, String toDate, String fromTime, String toTime, int position) {
+        if (position == -1) {
+            ToastUtil.showMyToast("请选择需要配置的房间");
+            return;
+        }
         ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean = list.get(position);
         bean.setREMIND_TYPE(type);
         bean.setTARGET(phone);

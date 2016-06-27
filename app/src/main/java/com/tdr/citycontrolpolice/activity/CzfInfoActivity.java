@@ -95,7 +95,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
     @Override
     protected void initView() {
-        iv_attention = (ImageView) view.findViewById(R.id.iv_attention);
+        iv_attention = (ImageView) view.findViewById(R.id.tv_attention);
         tv_czf_info_detail = (TextView) view.findViewById(R.id.tv_czf_info_detail);
         tv_czf_info_name = (TextView) view.findViewById(R.id.tv_czf_info_name);
         tv_czf_info_phone = (TextView) view.findViewById(R.id.tv_czf_info_phone);

@@ -15,6 +15,7 @@ public class CustomConstants {
     public static final String CHUZUWU_ROOMLISTOFFAVORITES = "ChuZuWu_RoomListOfFavorites";
     public static final String CHUZUWU_INQUIREFAVORITES = "ChuZuWu_InquireFavorites";
     public static final String CHUZUWU_SETROOMINFOOFFAVORITES = "ChuZuWu_SetRoomInfoOfFavorites";
+    public static final String CHUZUWU_PUSHINFOOFMONITORROOM = "ChuZuWu_PushInfoOfMonitorRoom";
   /*  取消关注*/
     public static final String CHUZUWU_REMOVEFAVORITES = "ChuZuWu_RemoveFavorites";
 }

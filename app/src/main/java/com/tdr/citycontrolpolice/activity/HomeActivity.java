@@ -34,12 +34,14 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     private LinearLayout mLlMainWork;
     private ImageView mIvMainWork;
     private LinearLayout mLlMainInfo;
+    private LinearLayout mLlMainTongji;
     private ImageView mIvMainInfo;
     private Fragment mCurrentFragment;
     private int nCurrentPosition = -1;
     private int mSelectedPosition = -1;
     private NetChangedReceiver netChangedReceiver;
     public static final String CONNECTIVITY_CHANGE_ACTION = "android.net.conn.CONNECTIVITY_CHANGE";
+    private ImageView mIvMainTongji;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +57,21 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void initView() {
+        mLlMainTongji = (LinearLayout) findViewById(R.id.ll_main_tongji);
         mLlMainCzf = (LinearLayout) findViewById(R.id.ll_main_czf);
         mLlMainWork = (LinearLayout) findViewById(R.id.ll_main_work);
         mLlMainInfo = (LinearLayout) findViewById(R.id.ll_main_info);
         mIvMainCzf = (ImageView) findViewById(R.id.iv_main_czf);
         mIvMainWork = (ImageView) findViewById(R.id.iv_main_work);
         mIvMainInfo = (ImageView) findViewById(R.id.iv_main_info);
+        mIvMainTongji = (ImageView) findViewById(R.id.iv_main_tongji);
     }
 
     private void initEvent() {
         mLlMainCzf.setOnClickListener(this);
         mLlMainWork.setOnClickListener(this);
         mLlMainInfo.setOnClickListener(this);
+        mLlMainTongji.setOnClickListener(this);
     }
 
     private void initData() {
@@ -83,8 +88,11 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
             case R.id.ll_main_work:
                 selectTab(1);
                 break;
-            case R.id.ll_main_info:
+            case R.id.ll_main_tongji:
                 selectTab(2);
+                break;
+            case R.id.ll_main_info:
+                selectTab(3);
                 break;
             default:
                 break;
@@ -104,7 +112,8 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     private void setTabStatus() {
         mIvMainCzf.setBackgroundResource(mSelectedPosition == 0 ? R.drawable.home_on : R.drawable.home_off);
         mIvMainWork.setBackgroundResource(mSelectedPosition == 1 ? R.drawable.police_on : R.drawable.police_off);
-        mIvMainInfo.setBackgroundResource(mSelectedPosition == 2 ? R.drawable.personal_on : R.drawable.personal_off);
+        mIvMainTongji.setBackgroundResource(mSelectedPosition == 2 ? R.drawable.tongji_on : R.drawable.tongji_off);
+        mIvMainInfo.setBackgroundResource(mSelectedPosition == 3 ? R.drawable.personal_on : R.drawable.personal_off);
     }
 
     @Override
@@ -123,19 +132,9 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     }
 
 
-
-    private void registerDateTransReceiver() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(CONNECTIVITY_CHANGE_ACTION);
-        filter.setPriority(1000);
-        netChangedReceiver = new NetChangedReceiver();
-        registerReceiver(netChangedReceiver, filter);
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        unregisterReceiver(netChangedReceiver);
         AppManager.getAppManager().addActivity(this);
     }
 }

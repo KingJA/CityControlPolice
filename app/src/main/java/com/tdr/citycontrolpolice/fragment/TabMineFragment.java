@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.activity.BluetoothChangeActivity;
+import com.tdr.citycontrolpolice.activity.CommonQuestionActivity;
 import com.tdr.citycontrolpolice.activity.MineAboutActivity;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
@@ -54,7 +55,7 @@ public class TabMineFragment extends Fragment implements View.OnClickListener, D
                 ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
                 break;
             case R.id.ll_personal_question:
-                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
+                ActivityUtil.goActivity(getActivity(), CommonQuestionActivity.class);
                 break;
             case R.id.ll_personal_report:
                 ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");

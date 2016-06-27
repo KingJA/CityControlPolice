@@ -42,4 +42,32 @@ public class TimeUtil {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.format(new Date());
     }
+
+    public static boolean compareDate(String startDate,String endDate){
+        if(startDate.compareTo(endDate)>0){
+            ToastUtil.showMyToast("请核对日期先后");
+           return false;
+        }
+        return true;
+    }
+    public static boolean compareTime(String startTime,String endTime){
+        if(startTime.compareTo(endTime)>0){
+            ToastUtil.showMyToast("请核对时间先后");
+           return false;
+        }
+        return true;
+    }
+
+
+    public static String Date2String(Date date) {
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+        return df.format(date);
+    }
+
+    public static Date String2Date(String strDate) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.parse(strDate);
+    }
 }

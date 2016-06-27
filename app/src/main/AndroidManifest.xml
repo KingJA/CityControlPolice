@@ -171,13 +171,15 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.CzfAttentionActivity"
+            android:name=".activity.AttentionQueryActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.RemindActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AttentionEditActivity"
+            android:screenOrientation="portrait" />  <activity
+            android:name=".activity.CommonQuestionActivity"
             android:screenOrientation="portrait" />
 
         <receiver android:name=".receiver.NetChangedReceiver">

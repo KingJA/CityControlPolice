@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.fragment.TabHomeFragment;
 import com.tdr.citycontrolpolice.fragment.TabMineFragment;
+import com.tdr.citycontrolpolice.fragment.TabTongjiFragment;
 import com.tdr.citycontrolpolice.fragment.TabWorkFragment;
 
 import java.util.HashMap;
@@ -46,6 +47,9 @@ public class FragmentUtil {
                     fragment = new TabWorkFragment();
                     break;
                 case 2:
+                    fragment = new TabTongjiFragment();
+                    break;
+                case 3:
                     fragment = new TabMineFragment();
                     break;
             }

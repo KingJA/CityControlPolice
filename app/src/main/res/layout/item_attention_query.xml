@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/iv_address"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/bg_location" />
+    <TextView
+        style="@style/font_blue_sel"
+        android:layout_centerVertical="true"
+        android:text="出租房关注"
+        android:layout_alignParentRight="true"
+        android:id="@+id/tv_attention"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_toRightOf="@id/iv_address"
+        android:layout_toLeftOf="@id/tv_attention"
+        android:singleLine="true"
+        style="@style/font_3_12"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="dddddddddddddddddddddddddddddddddddddddddddddd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        style="@style/font_9_12"
+        android:layout_toLeftOf="@id/tv_attention"
+        android:singleLine="true"
+        android:text="dddddddddddddddddddddddddddddddddddddddddddddd"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_below="@id/tv_address"
+        android:layout_toRightOf="@id/iv_address"
+        android:layout_marginRight="8dp"
+        android:id="@+id/tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

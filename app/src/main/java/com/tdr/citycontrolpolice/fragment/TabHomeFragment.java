@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.activity.BoxActivity;
-import com.tdr.citycontrolpolice.activity.CzfAttentionActivity;
+import com.tdr.citycontrolpolice.activity.AttentionQueryActivity;
 import com.tdr.citycontrolpolice.activity.CzfInfoActivity;
 import com.tdr.citycontrolpolice.activity.CzfQueryActivity;
 import com.tdr.citycontrolpolice.activity.KjLoginActivity;
@@ -179,7 +179,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         gv_page1.setOnItemClickListener(page1OnItemClickListener);
         gv_page2.setOnItemClickListener(page2OnItemClickListener);
         viewList.add(pageView1);
-        viewList.add(pageView2);
+//        viewList.add(pageView2);
         vp_home.setContent(viewList, rl_vp);
     }
 
@@ -226,7 +226,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
                     ToastUtil.showMyToast("亲爱的用户，登机牌变更正在开发中...");
                     break;
                 case 6:
-                    ActivityUtil.goActivity(getActivity(), CzfAttentionActivity.class);
+                    ActivityUtil.goActivity(getActivity(), AttentionQueryActivity.class);
                     break;
                 case 7:
                     dialogDouble.show();

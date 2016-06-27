@@ -1,7 +1,7 @@
 package com.tdr.citycontrolpolice.fragment;
 
+
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,17 +18,17 @@ import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.util.UserService;
 
 /**
- * 项目名称：物联网城市防控(警用版)
- * 类描述：工具预警Fragment
+ * 项目名称：
+ * 类描述：TODO
  * 创建人：KingJA
- * 创建时间：2016/4/26 10:20
+ * 创建时间：2016/6/27 14:35
  * 修改备注：
  */
-public class TabWorkFragment extends KjBaseFragment {
+public class TabTongjiFragment extends KjBaseFragment {
 
 
-    private WebView wb_tongji;
     private ProgressBar pb_tongji;
+    private WebView wb_tongji;
 
     @Override
     public View onFragmentCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,10 +45,9 @@ public class TabWorkFragment extends KjBaseFragment {
     protected void initFragmentView() {
         pb_tongji = (ProgressBar) rootView.findViewById(R.id.pb_tongji);
         wb_tongji = (WebView) rootView.findViewById(R.id.wb_tongji);
-        String url= Constants.WEBVIEW_HOST+Constants.JOB_LARAM+"?token="+ UserService.getInstance(App.getContext()).getToken();
+        String url= Constants.WEBVIEW_HOST+Constants.JOB_TONGJI+"?token="+UserService.getInstance(App.getContext()).getToken();
         wb_tongji.loadUrl(url);
-        Log.e("TabWorkFragment", url);
-
+        Log.e("TabTongjiFragment", url);
     }
 
     @Override

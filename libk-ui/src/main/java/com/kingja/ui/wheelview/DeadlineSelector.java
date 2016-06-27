@@ -56,6 +56,7 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
     private String selectYear;
     private String selectMonth;
     private String selectDay;
+    private boolean all;
 
     private OnDateSelectListener onDateSelectListener;
 
@@ -164,25 +165,26 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
             @Override
             public void onScrollingFinished(WheelView wheel) {
                 // TODO Auto-generated method stub
-                String currentText = (String) mMonthAdapter.getItemText(wheel.getCurrentItem());
-                setTextviewSize(currentText, mMonthAdapter);
+                String currentDayText = (String) mMonthAdapter.getItemText(wheel.getCurrentItem());
+                setTextviewSize(currentDayText, mMonthAdapter);
                 mouthMove = true;
-                if (mouthMove && !dayMove) {
+                if (mouthMove && !dayMove&&all) {
+                    Log.e("selectDay", 1+"");
                     selectDay = 1 + "";
                 }
             }
         });
 
         wvDay.addChangingListener(new OnWheelChangedListener() {
-
             private String currentDayText;
+
 
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
                 dayMove = true;
                 currentDayText = (String) mDaydapter.getItemText(wheel.getCurrentItem());
                 Log.i("addChangingListener", "currentText:" + currentDayText);
-                setTextviewSize((String) mDaydapter.getItemText(wheel.getCurrentItem()), mDaydapter);
+                setTextviewSize(currentDayText, mDaydapter);
                 selectDay = currentDayText;
 
             }
@@ -197,7 +199,8 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
 
             @Override
             public void onScrollingFinished(WheelView wheel) {
-                setTextviewSize((String) mDaydapter.getItemText(wheel.getCurrentItem()), mDaydapter);
+                String currentText = (String) mDaydapter.getItemText(wheel.getCurrentItem());
+                setTextviewSize(currentText, mDaydapter);
             }
         });
 
@@ -219,10 +222,14 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
     public void initDays(int days) {
         arry_days.clear();
         if (days == getDay()) {
+            all=false;
             for (int i = getDay(); i <= getDays(getYear(), getMonth()); i++) {
                 arry_days.add(i + "");
             }
+            selectDay=getDay()+"";
+            Log.e("当前日期", currentDay+"");
         } else {
+            all=true;
             for (int i = 1; i <= day; i++) {
                 arry_days.add(i + "");
             }
@@ -315,9 +322,9 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
     }
 
     public void initData() {
-        setDate(getYear(), getMonth(), getDay());
         this.currentDay = 1;
         this.currentMonth = 1;
+        setDate(getYear(), getMonth(), getDay());
     }
 
     /**
@@ -335,7 +342,7 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
         this.currentYear = year;
         this.currentMonth = month;
         this.currentDay = day;
-        Log.i("setDate2", "currentDay:" + currentDay);
+        Log.i("setDate", "currentDay:" + currentDay);
         if (year == getYear()) {
             this.month = getMonth();
         } else {
