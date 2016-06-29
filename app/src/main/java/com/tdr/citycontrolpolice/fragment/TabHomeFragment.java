@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -252,6 +253,10 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
     private void inquireDevice(Intent data, final int requestCode) {
 
         deviceCode = QRCodeUtil.inquireCzf(data);
+        if (TextUtils.isEmpty(deviceCode)) {
+            progressHUD.dismiss();
+            return;
+        }
 
 
         new Thread(new Runnable() {

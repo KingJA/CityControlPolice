@@ -64,6 +64,7 @@ public class ChuZuWu_GetSSYByStandAddressCode {
         private String OWNERNAME;
         private String PHONE;
         private String JWHCODE;
+        private String ZRQ;
 
         public String getSTANDARDADDRCODE() {
             return STANDARDADDRCODE;
@@ -103,6 +104,14 @@ public class ChuZuWu_GetSSYByStandAddressCode {
 
         public void setJWHCODE(String JWHCODE) {
             this.JWHCODE = JWHCODE;
+        }
+
+        public String getZRQ() {
+            return ZRQ;
+        }
+
+        public void setZRQ(String ZRQ) {
+            this.ZRQ = ZRQ;
         }
     }
 }

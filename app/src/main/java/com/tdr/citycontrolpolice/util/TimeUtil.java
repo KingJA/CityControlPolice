@@ -45,14 +45,14 @@ public class TimeUtil {
 
     public static boolean compareDate(String startDate,String endDate){
         if(startDate.compareTo(endDate)>0){
-            ToastUtil.showMyToast("请核对日期先后");
+            ToastUtil.showMyToast("结束日期不能小于起始日期");
            return false;
         }
         return true;
     }
     public static boolean compareTime(String startTime,String endTime){
         if(startTime.compareTo(endTime)>0){
-            ToastUtil.showMyToast("请核对时间先后");
+            ToastUtil.showMyToast("结束时间不能小于起始时间");
            return false;
         }
         return true;

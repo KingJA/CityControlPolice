@@ -71,6 +71,7 @@ public class ChuZuWu_PushInfoOfMonitorRoom {
         private String REMARK;
         private String ADDRESS;
         private String ROOMNO;
+        private int REMIND_TYPE;
 
         public String getLISTID() {
             return LISTID;
@@ -174,6 +175,15 @@ public class ChuZuWu_PushInfoOfMonitorRoom {
 
         public void setROOMNO(String ROOMNO) {
             this.ROOMNO = ROOMNO;
+        }
+
+
+        public int getREMIND_TYPE() {
+            return REMIND_TYPE;
+        }
+
+        public void setREMIND_TYPE(int REMIND_TYPE) {
+            this.REMIND_TYPE = REMIND_TYPE;
         }
     }
 }

@@ -3,6 +3,7 @@ package com.kingja.ui.wheelview;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -50,6 +51,16 @@ public class TimeSelector extends Dialog implements View.OnClickListener {
         super(context, R.style.KjAlertDialog);
         this.context = context;
     }
+    public TimeSelector(Context context,String time) {
+        super(context, R.style.KjAlertDialog);
+        this.context = context;
+        if (!TextUtils.isEmpty(time)) {
+            String[] split = time.split(":");
+            this.selectHour = split[0];
+            this.selectSecond = split[1];
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,15 +80,15 @@ public class TimeSelector extends Dialog implements View.OnClickListener {
         initSeconds();
 
 
-        mHourAdapter = new TimeAdapter(context, hourList, 9, maxTextSize, minTextSize);
+        mHourAdapter = new TimeAdapter(context, hourList, Integer.valueOf(selectHour), maxTextSize, minTextSize);
         wv_hour.setVisibleItems(5);
         wv_hour.setViewAdapter(mHourAdapter);
-        wv_hour.setCurrentItem(9);
+        wv_hour.setCurrentItem(Integer.valueOf(selectHour));
 
-        mSecondAdapter = new TimeAdapter(context, secondList, 30, maxTextSize, minTextSize);
+        mSecondAdapter = new TimeAdapter(context, secondList, Integer.valueOf(selectSecond), maxTextSize, minTextSize);
         wv_second.setVisibleItems(5);
         wv_second.setViewAdapter(mSecondAdapter);
-        wv_second.setCurrentItem(30);
+        wv_second.setCurrentItem(Integer.valueOf(selectSecond));
 
 
         wv_hour.addChangingListener(new OnWheelChangedListener() {

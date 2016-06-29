@@ -9,8 +9,6 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -110,6 +108,10 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     private TextView mTvAddAdmin;
     private boolean addAdmin;
     private Administrator administrator;
+    private EditText et_roomMark;
+    private ImageView iv_roomMark;
+    private String mRoomMark;
+    private String zrq;
 
 
     @Override
@@ -137,6 +139,8 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
 
     @Override
     protected void initView() {
+        et_roomMark = (EditText) view.findViewById(R.id.et_roomMark);
+        iv_roomMark = (ImageView) view.findViewById(R.id.iv_roomMark);
         mLlSearch = (LinearLayout) view.findViewById(R.id.ll_search);
         mTvAddress = (EditText) view.findViewById(R.id.tv_address);
         mIvSearch = (ImageView) view.findViewById(R.id.iv_search);
@@ -166,11 +170,11 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
 
     @Override
     public void initNet() {
-
     }
 
     @Override
     public void initData() {
+        iv_roomMark.setOnClickListener(this);
         mTvAddAdmin.setOnClickListener(this);
         mLlSearch.setOnClickListener(this);
         dialogAddress.setOnSearchListener(this);
@@ -197,8 +201,8 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     public void setData() {
         setTitle("出租房绑定");
     }
-
     private final static int SCANNIN_CZF_CODE = 2003;
+    private final static int SCANNIN_OLD_CODE = 2004;
 
 
     private String newcode;
@@ -209,9 +213,21 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     private void inquireDevice(Intent data, final int requestCode) {
         Bundle bundle = data.getExtras();
         String result = bundle.getString("result");
-        Log.i(TAG, "Camera result: " + result);
-        result = result.substring(result.indexOf("?") + 1);
-        String type = result.substring(0, 2);
+        Log.e(TAG, "Camera result: " + result);
+        if (requestCode == SCANNIN_CZF_CODE) {
+            inquireNewMark(result);
+        } else {
+            setProgressDialog(false);
+            if (result.length() > 10) {
+                ToastUtil.showMyToast("二维码不符合");
+                return;
+            }
+            et_roomMark.setText(result);
+        }
+    }
+
+    private void inquireNewMark(String result) {
+        String type = result.substring(result.indexOf("?") + 1).substring(0, 2);
         if (type.equals("AD")) {
             String base = result.substring(2);
             byte[] s = TendencyEncrypt.decode(base.getBytes());
@@ -220,42 +236,55 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
             newcode = code.substring(0, 6) + code.substring(9);
             int i = newcode.length();
             newcode = newcode.substring(0, i - 4);
-            Log.e("i", newcode);
+            Log.e("newcode", newcode);
+            requireDevice(newcode);
 
-            Map<String, Object> param = new HashMap<>();
-            param.put("TaskID", "1");
-            param.put("DEVICETYPE", "2");
-            param.put("DEVICECODE", newcode);
-            ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
-            ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "Common_InquireDevice", param)
-                    .setBeanType(Common_InquireDevice.class)
-                    .setActivity(CzfInitActivity.this)
-                    .setCallBack(new WebServiceCallBack<Common_InquireDevice>() {
-                        @Override
-                        public void onSuccess(Common_InquireDevice bean) {
-                            setProgressDialog(false);
-                            initDevice(newcode);
-                            upload();
-                        }
-
-                        @Override
-                        public void onErrorResult(ErrorResult errorResult) {
-                            setProgressDialog(false);
-                        }
-                    }).build();
-            PoolManager.getInstance().execute(task);
+        } else if (result.startsWith("http://xinjumin.ouhai.gov.cn:8060/zzsb")) {
+            Log.e("result.startsWith", result);
+            int length = result.length();
+            result = result.substring(length - 13);
+            StringBuilder sb = new StringBuilder(result);
+            newcode=sb.insert(6, 90).toString();
+            Log.e("newcode", newcode);
+            requireDevice(newcode);
         } else {
             setProgressDialog(false);
             ToastUtil.showMyToast("非指定设备");
         }
     }
 
+    private void requireDevice(String code) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("TaskID", "1");
+        param.put("DEVICETYPE", "2");
+        param.put("DEVICECODE", code);
+        ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
+        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "Common_InquireDevice", param)
+                .setBeanType(Common_InquireDevice.class)
+                .setActivity(CzfInitActivity.this)
+                .setCallBack(new WebServiceCallBack<Common_InquireDevice>() {
+                    @Override
+                    public void onSuccess(Common_InquireDevice bean) {
+                        setProgressDialog(false);
+                        initDevice(newcode);
+                        upload();
+                    }
+
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+                        setProgressDialog(false);
+                    }
+                }).build();
+        PoolManager.getInstance().execute(task);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_roomMark:
+                goCaptureActivity(SCANNIN_OLD_CODE);
+                break;
             case R.id.tv_submit:
-//                二维码
-
                 checkData();
                 break;
             case R.id.ll_search:
@@ -286,6 +315,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     }
 
     private void checkData() {
+        mRoomMark = et_roomMark.getText().toString().trim();
         mAddress = mTvAddress.getText().toString().trim();
         mCzfName = mEtCzfName.getText().toString().trim();
         mCzfType = mTvCzfType.getText().toString().trim();
@@ -294,11 +324,9 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mOwnerName = mTvOwnerName.getText().toString().trim();
         mOwnerCard = mTvOwnerCard.getText().toString().trim();
         mOwnerPhone = mEtOwnerPhone.getText().toString().trim();
-
         mAdminName = mEtAdminName.getText().toString().trim();
         mAdminCard = mEtAdminCard.getText().toString().trim();
         mAdminPhone = mEtAdminPhone.getText().toString().trim();
-
         if (CheckUtil.checkEmpty(mAddress, "请选择地址")
                 && CheckUtil.checkEmpty(mCzfName, "请输入出租房名称")
                 && CheckUtil.checkEmpty(mCzfType, "请选择房屋类型")
@@ -306,24 +334,22 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                 && CheckUtil.checkEmpty(mOwnerCard, "房东身份证空缺")
                 && CheckUtil.checkPhoneFormat(mOwnerPhone)
                 && CheckUtil.checkEmpty(base64Number, "请拍摄号牌")) {
-
             if (addAdmin) {
                 if (CheckUtil.checkEmpty(mAdminName, "请输管理员姓名")
                         && CheckUtil.checkIdCard(mAdminCard, "身份证号码填写错误")
                         && CheckUtil.checkPhoneFormat(mAdminPhone)) {
-                    goCaptureActivity();
+                    goCaptureActivity(SCANNIN_CZF_CODE);
                 }
             } else {
-                goCaptureActivity();
+                goCaptureActivity(SCANNIN_CZF_CODE);
             }
-
         }
     }
 
-    private void goCaptureActivity() {
+    private void goCaptureActivity(int requestCode) {
         Intent intent = new Intent();
         intent.setClass(CzfInitActivity.this, zbar.CaptureActivity.class);
-        startActivityForResult(intent, SCANNIN_CZF_CODE);
+        startActivityForResult(intent, requestCode);
     }
 
     private Photo dz_photo, fw_photo;
@@ -346,6 +372,8 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         chuZuWuAdd.setPCSCO(paiChuSuo.getDMZM());//自动恢复
         chuZuWuAdd.setJWHCODE(juWeiHui.getDMZM());//自动恢复
         chuZuWuAdd.setXQCODE(content.getJWHCODE().substring(0, 6));//自动恢复
+        chuZuWuAdd.setQRCODE(mRoomMark);//自动恢复
+        chuZuWuAdd.setZRQ(zrq);//自动恢复
         chuZuWuAdd.setLNG(standardAddressCodeByKey.getX());//自动恢复
         chuZuWuAdd.setLAT(standardAddressCodeByKey.getY());//自动恢复
 
@@ -362,7 +390,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         } else {
             chuZuWuAdd.setADMINISTRATORCOUNT("0");//自动恢复
         }
-
 
 
         List<Photo> photoList = new ArrayList<Photo>();
@@ -440,6 +467,12 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                     inquireDevice(data, requestCode);
                 }
                 break;
+            case SCANNIN_OLD_CODE:
+                if (resultCode == RESULT_OK) {
+                    setProgressDialog(true);
+                    inquireDevice(data, requestCode);
+                }
+                break;
             case Camara:
                 if (resultCode == RESULT_OK) {
                     if (photoType == 0) {
@@ -500,6 +533,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                         mTvOwnerName.setText(content.getOWNERNAME());
                         mTvOwnerCard.setText(content.getIDENTITYCARD());
                         mEtOwnerPhone.setText(content.getPHONE());
+                        zrq = content.getZRQ();
                         paiChuSuo = (Basic_PaiChuSuo_Kj) DbDaoXutils3.getInstance().sleectFirst(Basic_PaiChuSuo_Kj.class, "DMZM", juWeiHui.getFDMZM());
                         mTvPolice.setText(paiChuSuo.getDMMC());
                     }
@@ -547,11 +581,11 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean("addAdmin", addAdmin);
+        outState.putString("zrq", zrq);
+        outState.putString("mRoomMark", mRoomMark);
         outState.putString("mAdminName", mAdminName);
         outState.putString("mAdminCard", mAdminCard);
         outState.putString("mAdminPhone", mAdminPhone);
-
-
         outState.putString("numberFile", numberFile.getAbsolutePath());
         outState.putString("roomFile", roomFile.getAbsolutePath());
         outState.putString("base64Number", base64Number);
@@ -581,6 +615,8 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         base64Number = savedInstanceState.getString("base64Number");
         base64Room = savedInstanceState.getString("base64Room");
         addressCode = savedInstanceState.getString("addressCode");
+        mRoomMark = savedInstanceState.getString("mRoomMark");
+        zrq = savedInstanceState.getString("zrq");
         houseType = savedInstanceState.getString("houseType");
         photoType = savedInstanceState.getInt("photoType");
         deivceList = (ArrayList<Deivce>) savedInstanceState.getSerializable("deivceList");

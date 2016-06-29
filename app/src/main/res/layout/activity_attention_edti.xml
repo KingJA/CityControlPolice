@@ -7,23 +7,27 @@
     android:orientation="vertical"
     android:padding="12dp"
     android:scrollbarThumbVertical="@color/bg_transparent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical">
+
         <RelativeLayout
             android:id="@+id/rl_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ProgressBar
-                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
         </RelativeLayout>
-        <include layout="@layout/include_empty"/>
+
+        <include layout="@layout/include_empty" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,30 +61,32 @@
                     android:textColor="@color/font_3"
                     android:textSize="12dp" />
             </RelativeLayout>
+
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/single_srl"
                 android:layout_width="match_parent"
                 android:layout_height="130dp">
-            <ListView
-                android:padding="1px"
-                android:id="@+id/lv_attention_room"
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:cacheColorHint="#00000000"
-                android:divider="@color/gray_divider"
-                android:dividerHeight="1px"
-                android:listSelector="#00000000" />
+
+                <ListView
+                    android:id="@+id/lv_attention_room"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:cacheColorHint="#00000000"
+                    android:divider="@color/gray_divider"
+                    android:dividerHeight="1px"
+                    android:listSelector="#00000000"
+                    android:padding="1px" />
             </android.support.v4.widget.SwipeRefreshLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/ll_attention"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="6dp"
             android:background="@drawable/shape_lgray1_bwhite_r5"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -126,11 +132,11 @@
             </RadioGroup>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_only"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <View style="@style/divider_nomal_horizontal" />
 
@@ -182,14 +188,15 @@
                         <EditText
                             android:id="@+id/et_date_from"
                             style="@style/font_edit_3_14_b"
-                            android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="12dp"
                             android:layout_marginRight="12dp"
+                            android:layout_weight="1"
                             android:clickable="false"
                             android:focusable="false"
                             android:hint="起始日期" />
+
                         <TextView
                             style="@style/font_3_14"
                             android:layout_width="wrap_content"
@@ -263,14 +270,15 @@
 
 
         </LinearLayout>
+
         <TextView
-android:id="@+id/tv_setting"
-            android:gravity="center"
+            android:id="@+id/tv_setting"
             style="@style/btn_small_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
             android:text="配置" />
 
     </LinearLayout>

@@ -36,7 +36,7 @@ public class RemindAdapter extends BaseSimpleAdapter<ChuZuWu_PushInfoOfMonitorRo
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvremindaddress.setText(list.get(position).getADDRESS()+list.get(position).getROOMNO()+"室");
-        viewHolder.tvremindinfo.setText(list.get(position).getPUSHTIME()+"("+getAttentionType(list.get(position).getPUSHTYPE())+")");
+        viewHolder.tvremindinfo.setText(list.get(position).getPUSHTIME()+"("+getAttentionType(list.get(position).getREMIND_TYPE())+")");
         viewHolder.tvremindmsg.setText(list.get(position).getMESSAGE());
         return convertView;
     }

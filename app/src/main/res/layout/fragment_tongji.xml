@@ -5,7 +5,7 @@
 
 
     <WebView
-        android:id="@+id/wb_tongji"
+        android:id="@+id/wb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></WebView>
 
@@ -13,7 +13,7 @@
         android:progressDrawable="@drawable/progressbar_color"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:id="@+id/pb_tongji" />
+        android:layout_height="4dp"
+        android:id="@+id/pb" />
 
 </RelativeLayout>

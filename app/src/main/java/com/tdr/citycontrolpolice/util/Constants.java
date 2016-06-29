@@ -43,6 +43,7 @@ public class Constants {
     public static final String WEBSERVER_NAMESPACE = "http://tempuri.org/";
     public static final String WEBSERVER_PUBLICSECURITYCONTROLAPP = "RERequest";// 治安防控APP接口
     public static final String USER_DETAILS = "userDetails.xml";
+    public static final String DOOR_MARK = "http://xinjumin.ouhai.gov.cn:8060/zzsb";
 
     public static String getHostUrl() {
         String hostUrl = "";
@@ -57,6 +58,7 @@ public class Constants {
                 break;
             case SHENGTING:
                 hostUrl = "http://172.18.18.21:8002/RentalEstate.asmx";
+//                hostUrl = "http://192.168.140.13:8801/RentalEstate.asmx";
                 break;
         }
         Log.i("hostUrl", hostUrl);

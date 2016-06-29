@@ -3,6 +3,7 @@ package com.kingja.ui.wheelview;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,9 +35,9 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
     private WheelView wvDay;
 
 
-    private ArrayList<String> arry_years = new ArrayList<String>();
-    private ArrayList<String> arry_months = new ArrayList<String>();
-    private ArrayList<String> arry_days = new ArrayList<String>();
+    private ArrayList<String> arry_years = new ArrayList<>();
+    private ArrayList<String> arry_months = new ArrayList<>();
+    private ArrayList<String> arry_days = new ArrayList<>();
     private CalendarTextAdapter mYearAdapter;
     private CalendarTextAdapter mMonthAdapter;
     private CalendarTextAdapter mDaydapter;
@@ -54,7 +55,7 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
     private boolean issetdata = false;
 
     private String selectYear;
-    private String selectMonth;
+    private String selectMonth="0";
     private String selectDay;
     private boolean all;
 
@@ -63,6 +64,19 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
     public DeadlineSelector(Context context) {
         super(context, R.style.KjAlertDialog);
         this.context = context;
+    }
+
+    public DeadlineSelector(Context context,String date) {
+        super(context, R.style.KjAlertDialog);
+        this.context = context;
+        if (!TextUtils.isEmpty(date)) {
+            String[] split = date.split("-");
+            this.selectYear = split[0];
+            this.selectMonth = split[1];
+            this.selectDay = split[2];
+        }
+        Log.e("DeadlineSelector", "selectYear: "+selectYear+"selectMonth: "+selectMonth+"selectDay: "+selectDay );
+
     }
 
     @Override
@@ -87,6 +101,7 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
         wvYear.setViewAdapter(mYearAdapter);
         wvYear.setCurrentItem(setYear(currentYear));
         initMonths(month);
+        Log.e("Adapter", "selectYear: "+selectYear+"selectMonth: "+selectMonth+"selectDay: "+selectDay );
         mMonthAdapter = new CalendarTextAdapter(context, arry_months, 0, maxTextSize, minTextSize);
         wvMonth.setVisibleItems(5);
         wvMonth.setViewAdapter(mMonthAdapter);
@@ -147,10 +162,10 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
                 setTextviewSize(currentMonthText, mMonthAdapter);
                 setMonth(Integer.parseInt(currentMonthText));
                 initDays(day);
-                mDaydapter = new CalendarTextAdapter(context, arry_days, 0, maxTextSize, minTextSize);
+                mDaydapter = new CalendarTextAdapter(context, arry_days, Integer.valueOf(selectDay), maxTextSize, minTextSize);
                 wvDay.setVisibleItems(5);
                 wvDay.setViewAdapter(mDaydapter);
-                wvDay.setCurrentItem(0);
+                wvDay.setCurrentItem(Integer.valueOf(selectDay));
             }
         });
 

@@ -31,6 +31,8 @@ public class ChuZuWu_Add {
     private String JWHCODE;
     private double LNG;
     private double LAT;
+    private String QRCODE;
+    private String ZRQ;
     private String RoomCount;
     private List<Room> RoomList;
     private String ADMINISTRATORCOUNT;
@@ -223,5 +225,21 @@ public class ChuZuWu_Add {
 
     public void setHOUSETYPE(String HOUSETYPE) {
         this.HOUSETYPE = HOUSETYPE;
+    }
+
+    public String getQRCODE() {
+        return QRCODE;
+    }
+
+    public void setQRCODE(String QRCODE) {
+        this.QRCODE = QRCODE;
+    }
+
+    public String getZRQ() {
+        return ZRQ;
+    }
+
+    public void setZRQ(String ZRQ) {
+        this.ZRQ = ZRQ;
     }
 }

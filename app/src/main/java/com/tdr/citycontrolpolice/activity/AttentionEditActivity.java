@@ -225,22 +225,27 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.et_date_from:
-                DeadlineSelector dateFromSelector = new DeadlineSelector(this);
+                String dateFrom = mEtDateFrom.getText().toString().trim();
+                DeadlineSelector dateFromSelector = new DeadlineSelector(this,dateFrom);
                 dateFromSelector.setOnDateSelectListener(onDateFromListener);
                 dateFromSelector.show();
                 break;
             case R.id.et_date_to:
-                DeadlineSelector dateToSelector = new DeadlineSelector(this);
+                String dateTo = mEtDateTo.getText().toString().trim();
+                DeadlineSelector dateToSelector = new DeadlineSelector(this,dateTo);
                 dateToSelector.setOnDateSelectListener(onDateToListener);
                 dateToSelector.show();
                 break;
             case R.id.et_time_from:
-                timeFromSelector = new TimeSelector(this);
+                String timeFrom = mEtTimeFrom.getText().toString().trim();
+
+                timeFromSelector = new TimeSelector(this,timeFrom);
                 timeFromSelector.setOnTimeSelectListener(onTimeFromListener);
                 timeFromSelector.show();
                 break;
             case R.id.et_time_to:
-                timeToSelector = new TimeSelector(this);
+                String timeTo = mEtTimeTo.getText().toString().trim();
+                timeToSelector = new TimeSelector(this,timeTo);
                 timeToSelector.setOnTimeSelectListener(onTimeToListener);
                 timeToSelector.show();
                 break;
@@ -294,6 +299,7 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
         String mDateTo = mEtDateTo.getText().toString().trim();
         String mTimeFrom = mEtTimeFrom.getText().toString().trim();
         String mTimeTo = mEtTimeTo.getText().toString().trim();
+        Log.e("setAttention", "currentAttentionType"+currentAttentionType+"mDateFrom: "+mDateFrom+ "mDateTo: "+mDateTo+ "mTimeFrom: "+mTimeFrom+ "mTimeTo: "+mTimeTo );
         switch (currentAttentionType) {
             case 0:
                 if (isTogether) {

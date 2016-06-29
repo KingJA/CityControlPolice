@@ -77,7 +77,7 @@
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
-                    android:text="*出租房名:" />
+                    android:text="*出租房名" />
 
                 <EditText
                     android:id="@+id/et_czfName"
@@ -103,7 +103,7 @@
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
-                    android:text="辖区派出所:" />
+                    android:text="辖区派出所" />
 
                 <EditText
                     android:id="@+id/tv_police"
@@ -131,7 +131,7 @@
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
-                    android:text="*房屋类型:" />
+                    android:text="*房屋类型" />
 
                 <EditText
                     android:id="@+id/tv_czfType"
@@ -160,7 +160,7 @@
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
-                    android:text="小区名称:" />
+                    android:text="小区名称" />
 
                 <EditText
                     android:id="@+id/et_areaName"
@@ -171,6 +171,41 @@
                     android:background="@null"
                     android:paddingLeft="5dp"
                     android:singleLine="true" />
+            </LinearLayout>
+            <View style="@style/divider_nomal_horizontal" />
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:gravity="center_vertical|right"
+                    style="@style/font_tip_14"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:text="原号牌" />
+
+                <EditText
+                    android:editable="false"
+                    android:focusable="false"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:id="@+id/et_roomMark"
+                    style="@style/font_content_14"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:singleLine="true" />
+
+                <ImageView
+                    android:id="@+id/iv_roomMark"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/bg_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
@@ -201,7 +236,7 @@
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
-                    android:text="*姓名:" />
+                    android:text="*姓名" />
 
                 <EditText
                     android:id="@+id/tv_ownerName"
@@ -229,7 +264,7 @@
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
-                    android:text="*身份证:" />
+                    android:text="*身份证" />
 
                 <EditText
                     android:id="@+id/tv_ownerCard"
@@ -267,7 +302,7 @@
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
-                    android:text="*手机号:" />
+                    android:text="*手机号" />
 
                 <EditText
                     android:id="@+id/et_ownerPhone"

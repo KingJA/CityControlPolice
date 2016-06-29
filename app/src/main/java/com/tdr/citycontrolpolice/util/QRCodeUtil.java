@@ -18,10 +18,10 @@ public class QRCodeUtil {
         Bundle bundle = data.getExtras();
         String result = bundle.getString("result");
         Log.i(TAG, "Camera result: " + result);
-        result = result.substring(result.indexOf("?") + 1);
-        String type = result.substring(0, 2);
+        String typeStirng = result.substring(result.indexOf("?") + 1);
+        String type = typeStirng.substring(0, 2);
         if (type.equals("AD")) {
-            String base = result.substring(2);
+            String base = typeStirng.substring(2);
             byte[] s = TendencyEncrypt.decode(base.getBytes());
             String code = TendencyEncrypt.bytesToHexString(s);
             Log.i(TAG, "TendencyEncrypt code: " + code);
@@ -30,9 +30,20 @@ public class QRCodeUtil {
             newcode = newcode.substring(0, i - 4);
             Log.e("newcode", newcode);
             return newcode;
-        } else {
-            ToastUtil.showMyToast("非指定设备");
-            return "";
         }
+         if (result.startsWith("http://xinjumin.ouhai.gov.cn:8060/zzsb")) {
+            Log.e("result.startsWith", result);
+            int length = result.length();
+            result = result.substring(length - 13);
+            StringBuilder sb = new StringBuilder(result);
+             String newcode = sb.insert(6, 90).toString();
+            if (!newcode.startsWith("3303")) {
+                ToastUtil.showMyToast("非指定设备");
+                return "";
+            }
+            return newcode;
+        }
+        ToastUtil.showMyToast("非指定设备");
+        return "";
     }
 }

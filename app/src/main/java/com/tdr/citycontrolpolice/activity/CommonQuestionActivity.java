@@ -1,15 +1,20 @@
 package com.tdr.citycontrolpolice.activity;
 
-import android.util.Log;
+import android.app.Activity;
+import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.base.App;
 import com.tdr.citycontrolpolice.util.Constants;
+import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 
 /**
@@ -19,58 +24,59 @@ import com.tdr.citycontrolpolice.util.UserService;
  * 创建时间：2016/6/27 17:25
  * 修改备注：
  */
-public class CommonQuestionActivity extends BackTitleActivity {
+public class CommonQuestionActivity extends Activity {
+
+    private RelativeLayout mRlBack;
+    private TextView mTvTitle;
+    private WebView mWb;
+    private ProgressBar mPb;
+
     @Override
-    public View setContentView() {
-        view=View.inflate(this, R.layout.activity_request,null);
-        return view;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.include_webview);
+        initView();
+        initData();
     }
-    private WebView wb_request;
-    private ProgressBar pb_request;
 
 
-    @Override
-    public void initVariables() {
 
-    }
-
-    @Override
     protected void initView() {
-        wb_request = (WebView) findViewById(R.id.wb_request);
-        pb_request = (ProgressBar) findViewById(R.id.pb_request);
-        String url= Constants.WEBVIEW_HOST+Constants.COMMON_QUESTION+"?token="+ UserService.getInstance(App.getContext()).getToken();
-        Log.e("CommonQuestionActivity", url);
-        wb_request.loadUrl(url);
+        mRlBack = (RelativeLayout) findViewById(R.id.rl_back);
+        mTvTitle = (TextView) findViewById(R.id.tv_title);
+        mWb = (WebView)findViewById(R.id.wb);
+        mPb = (ProgressBar) findViewById(R.id.pb);
+        String url = Constants.WEBVIEW_HOST + Constants.COMMON_QUESTION + "?token=" + UserService.getInstance(App.getContext()).getToken();
+        mWb.loadUrl(url);
     }
 
-    @Override
-    public void initNet() {
-
-    }
-
-    @Override
     public void initData() {
-        wb_request.setWebViewClient(new WebViewClient(){
+        WebSettings settings = mWb.getSettings();
+        settings.setJavaScriptEnabled(true);
+        mWb.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
             }
         });
-        wb_request.setWebChromeClient(new WebChromeClient(){
+        mWb.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                pb_request.setProgress(newProgress);
-                if (newProgress == 100) {
-                    pb_request.setVisibility(View.GONE);
+                mPb.setProgress(newProgress);
+                mPb.setVisibility(newProgress == 100 ? View.GONE : View.VISIBLE);
+            }
+        });
+        mRlBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mWb.canGoBack()) {
+                    mWb.goBack();
+                } else {
+                    ToastUtil.showMyToast("没有可返回的页面了");
                 }
             }
         });
     }
 
-    @Override
-    public void setData() {
-        setTitle("常见问题");
-
-    }
 }
