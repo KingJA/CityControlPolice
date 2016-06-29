@@ -94,7 +94,7 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
     @Override
     protected void initView() {
         rl_root = (RelativeLayout) view.findViewById(R.id.rl_root);
-        single_srl = (SwipeRefreshLayout) view.findViewById(R.id.single_srl);
+//        single_srl = (SwipeRefreshLayout) view.findViewById(R.id.single_srl);
         ll_empty = (LinearLayout) view.findViewById(R.id.ll_empty);
         tv_setting = (TextView) view.findViewById(R.id.tv_setting);
         ll_attention = (LinearLayout) view.findViewById(R.id.ll_attention);
@@ -113,14 +113,20 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
         mEtTimeTo = (EditText) view.findViewById(R.id.et_time_to);
         attentionAdapter = new AttentionAdapter(this, favortyRoomList);
         mLvAttentionRoom.setAdapter(attentionAdapter);
-        single_srl.setColorSchemeResources(R.color.bg_blue_solid);
-        single_srl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
+        initLvHeight();
 
+    }
+
+    private void initLvHeight() {
+        View listItem = View.inflate(AttentionEditActivity.this, R.layout.item_attention_room,null);
+        listItem.measure(0, 0);
+        int totalHeight = (listItem.getMeasuredHeight()+mLvAttentionRoom.getDividerHeight() ) * 3;
+        mLvAttentionRoom.getLayoutParams().height = totalHeight;
     }
 
     @Override
     public void initNet() {
-        single_srl.setRefreshing(true);
+//        single_srl.setRefreshing(true);
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
         param.put("HOUSEID", houseId);
@@ -133,9 +139,14 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
                     @Override
                     public void onSuccess(ChuZuWu_RoomListOfFavorites bean) {
                         rl_root.setVisibility(View.GONE);
-                        single_srl.setRefreshing(false);
+//                        single_srl.setRefreshing(false);
                         favortyRoomList = bean.getContent().getMonitorRoomList();
                         attentionAdapter.setData(favortyRoomList);
+
+
+
+
+
                         ll_empty.setVisibility(favortyRoomList.size()>0?View.GONE:View.VISIBLE);
                         setRightTextVisibility(favortyRoomList.size()>0?"提交":"");
                     }
@@ -143,7 +154,7 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
                         rl_root.setVisibility(View.GONE);
-                        single_srl.setRefreshing(false);
+//                        single_srl.setRefreshing(false);
                     }
                 }).build().execute();
     }
@@ -158,7 +169,7 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
         mEtDateFrom.setOnClickListener(this);
         mEtDateTo.setOnClickListener(this);
         mRgAttention.setOnCheckedChangeListener(this);
-        single_srl.setOnRefreshListener(this);
+//        single_srl.setOnRefreshListener(this);
         setOnRightClickListener(this);
     }
 
@@ -406,6 +417,6 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
 
     @Override
     public void onRefresh() {
-        single_srl.setRefreshing(false);
+//        single_srl.setRefreshing(false);
     }
 }

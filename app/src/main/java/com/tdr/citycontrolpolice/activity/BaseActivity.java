@@ -2,6 +2,7 @@ package com.tdr.citycontrolpolice.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 
 import com.tdr.citycontrolpolice.util.AppManager;
 import com.tdr.citycontrolpolice.util.CrashHandler;
@@ -19,11 +20,11 @@ public abstract class BaseActivity extends FragmentActivity {
 
 
     protected DialogProgress mDialogProgress;
-
+    protected FragmentManager mSupportFragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        CrashHandler.getInstance().init(this);
+        mSupportFragmentManager = getSupportFragmentManager();
         StatusBarCompat.initStatusBar(this);
         AppManager.getAppManager().addActivity(this);
         initConmonView();

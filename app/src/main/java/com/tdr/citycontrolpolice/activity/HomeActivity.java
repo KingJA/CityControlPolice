@@ -26,9 +26,9 @@ import com.tdr.citycontrolpolice.util.ToastUtil;
  * 修改备注：
  */
 
-public class HomeActivity extends FragmentActivity implements View.OnClickListener {
+public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private long firstTime;
-    private FragmentManager mSupportFragmentManager;
+
     private LinearLayout mLlMainCzf;
     private ImageView mIvMainCzf;
     private LinearLayout mLlMainWork;
@@ -39,24 +39,21 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     private Fragment mCurrentFragment;
     private int nCurrentPosition = -1;
     private int mSelectedPosition = -1;
-    private NetChangedReceiver netChangedReceiver;
-    public static final String CONNECTIVITY_CHANGE_ACTION = "android.net.conn.CONNECTIVITY_CHANGE";
     private ImageView mIvMainTongji;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        registerDateTransReceiver();
-        AppManager.getAppManager().addActivity(this);
         setContentView(R.layout.activity_home);
-        StatusBarCompat.initStatusBar(this);
-        mSupportFragmentManager = getSupportFragmentManager();
-        initView();
-        initEvent();
-        initData();
+        super.onCreate(savedInstanceState);
+
     }
 
-    private void initView() {
+    @Override
+    public void initVariables() {
+
+    }
+    @Override
+    public void initView() {
         mLlMainTongji = (LinearLayout) findViewById(R.id.ll_main_tongji);
         mLlMainCzf = (LinearLayout) findViewById(R.id.ll_main_czf);
         mLlMainWork = (LinearLayout) findViewById(R.id.ll_main_work);
@@ -67,16 +64,24 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         mIvMainTongji = (ImageView) findViewById(R.id.iv_main_tongji);
     }
 
-    private void initEvent() {
+    @Override
+    public void initNet() {
+
+    }
+
+    @Override
+    public void initData() {
         mLlMainCzf.setOnClickListener(this);
         mLlMainWork.setOnClickListener(this);
         mLlMainInfo.setOnClickListener(this);
         mLlMainTongji.setOnClickListener(this);
-    }
-
-    private void initData() {
         mCurrentFragment = new TabHomeFragment();
         mSupportFragmentManager.beginTransaction().add(R.id.fl_main, mCurrentFragment).commit();
+    }
+
+    @Override
+    public void setData() {
+
     }
 
     @Override
@@ -132,10 +137,5 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        AppManager.getAppManager().addActivity(this);
-    }
 }
 

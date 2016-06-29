@@ -81,7 +81,7 @@ public class ThreadPoolTask implements Runnable {
                                 Intent intent = new Intent(App.getContext(), KjLoginActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 App.getContext().startActivity(intent);
-                                android.os.Process.killProcess(android.os.Process.myPid());
+//                                android.os.Process.killProcess(android.os.Process.myPid());
                             }
                             ToastUtil.showMyToast(errorResult.getResultText());
                         }
