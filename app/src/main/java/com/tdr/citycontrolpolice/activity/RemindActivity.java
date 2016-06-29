@@ -7,7 +7,6 @@ import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.RemindAdapter;
-import com.tdr.citycontrolpolice.entity.ChuZuWu_InquireFavorites;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_PushInfoOfMonitorRoom;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
@@ -40,7 +39,6 @@ public class RemindActivity extends BackTitleActivity implements SwipeRefreshLay
         view = View.inflate(this, R.layout.single_lv_divider, null);
         return view;
     }
-
 
 
     @Override
@@ -99,6 +97,6 @@ public class RemindActivity extends BackTitleActivity implements SwipeRefreshLay
 
     @Override
     public void onRefresh() {
-        mSingleSrl.setRefreshing(false);
+        initNet();
     }
 }

@@ -101,7 +101,7 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         setContentView(R.layout.activity_login_kj);
         ButterKnife.bind(this);
         checkVersionUpdate();
-        new DownloadDbManager(mInitHandler).startDownloadDb();
+//        new DownloadDbManager(mInitHandler).startDownloadDb();
         initView();
         initData();
     }

@@ -1,7 +1,6 @@
 package com.tdr.citycontrolpolice.activity;
 
-import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,6 +23,9 @@ import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.CustomConstants;
 import com.tdr.citycontrolpolice.util.UserService;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +47,13 @@ public class AttentionQueryActivity extends BackTitleActivity implements BackTit
     private SwipeRefreshLayout mSingleSrl;
     private ListView mSingleLv;
     private LinearLayout mLlEmpty;
+    private String address;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public View setContentView() {
@@ -55,6 +63,7 @@ public class AttentionQueryActivity extends BackTitleActivity implements BackTit
 
     @Override
     public void initVariables() {
+
     }
 
     @Override
@@ -147,7 +156,7 @@ public class AttentionQueryActivity extends BackTitleActivity implements BackTit
                 mEtQuery.setText("");
                 break;
             case R.id.iv_search:
-                String address = mEtQuery.getText().toString().trim();
+                address = mEtQuery.getText().toString().trim();
                 if (CheckUtil.checkEmpty(address, "请输入查询地址")) {
                     queryAttention(address);
                 }
@@ -169,5 +178,16 @@ public class AttentionQueryActivity extends BackTitleActivity implements BackTit
     @Override
     public void afterTextChanged(Editable s) {
         mIvClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onEventMainThread(Object obj) {
+        queryAttention(address);
     }
 }

@@ -33,6 +33,8 @@ import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 import com.tdr.citycontrolpolice.view.popupwindow.CzfInfoPopKj;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -271,6 +273,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                     @Override
                     public void onSuccess(ChuZuWu_Favorites bean) {
                         setProgressDialog(false);
+                        EventBus.getDefault().post(new Object());
                         if (mIsfavorite == 1) {
                             mIsfavorite=0;
                         }else{
