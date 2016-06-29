@@ -89,9 +89,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     private DialogDouble dialogDouble;
     private int photoType;
     private static final int Camara = 100;
-    private File numberFile;
-    private File roomFile;
-    private File imageFile;
     private String base64Number = "";
     private String base64Room = "";
     private String mAddress;
@@ -168,8 +165,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         houseTypePop = new BottomListPop(mTvAddress, CzfInitActivity.this, roomTypeList);
         dialogDouble = new DialogDouble(this, "确定要退出出租房登记页面？", "确定", "取消");
         dialogAddress = new DialogAddress(this);
-//        numberFile = ImageUtil.createImageFile();
-//        roomFile = ImageUtil.createImageFile();
     }
 
     @Override
@@ -415,27 +410,18 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                 Intent intent = new Intent(CzfInitActivity.this,
                         CzfInfoActivity.class);
                 intent.putExtra("HouseID", bean.getContent().getHouseID());
-                Log.i(TAG, "onSuccess: " + bean.getContent().getHouseID());
                 startActivity(intent);
                 finish();
             }
-
             @Override
             public void onRight() {
                 finish();
             }
         });
-
     }
 
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        if (photoType == 0) {
-//            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(numberFile));
-//        } else {
-//            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(roomFile));
-//        }
-
         startActivityForResult(intent, Camara);
     }
 
@@ -467,7 +453,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                     } else {
                         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                         mIvRoom.setImageBitmap(bitmap);
-//                        Bitmap bitmap = ImageUtil.compressScaleFromF2B(roomFile.getAbsolutePath());
                         base64Room = new String(ImageUtil.bitmapToBase64(bitmap));
                         Log.i(TAG, "base64Room: " + base64Room.length());
                         fw_photo = new Photo();
@@ -484,7 +469,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     public void onConfirm(Basic_StandardAddressCodeByKey_Kj.ContentBean standardAddressCodeByKey) {
         this.standardAddressCodeByKey = standardAddressCodeByKey;
         this.addressCode = standardAddressCodeByKey.getGeocode();
-
         setProgressDialog(true);
         mTvAddress.setText(standardAddressCodeByKey.getAddress().substring(6));
         String czfName = MyUtil.getCzfName(standardAddressCodeByKey.getAddressPath());
@@ -510,7 +494,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                             ToastUtil.showMyToast("请更新字典获取最新数据");
                             return;
                         }
-
                         mTvOwnerName.setText(content.getOWNERNAME());
                         mTvOwnerCard.setText(content.getIDENTITYCARD());
                         mEtOwnerPhone.setText(content.getPHONE());
@@ -543,20 +526,8 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "onDestroy: ");
-//        if (numberFile.exists()) {
-//            numberFile.delete();
-//        }
-//        if (roomFile.exists()) {
-//            roomFile.delete();
-//        }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate: ");
-    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -567,8 +538,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         outState.putString("mAdminName", mAdminName);
         outState.putString("mAdminCard", mAdminCard);
         outState.putString("mAdminPhone", mAdminPhone);
-//        outState.putString("numberFile", numberFile.getAbsolutePath());
-//        outState.putString("roomFile", roomFile.getAbsolutePath());
         outState.putString("base64Number", base64Number);
         outState.putString("base64Room", base64Room);
         outState.putString("addressCode", addressCode);
@@ -585,14 +554,12 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        Log.i(TAG, "onRestoreInstanceState: ");
         mAdminName = savedInstanceState.getString("mAdminName");
         mAdminCard = savedInstanceState.getString("mAdminCard");
         mAdminPhone = savedInstanceState.getString("mAdminPhone");
         addAdmin = savedInstanceState.getBoolean("addAdmin");
         setAdmin();
-
-//        numberFile = new File(savedInstanceState.getString("numberFile"));
-//        roomFile = new File(savedInstanceState.getString("roomFile"));
         base64Number = savedInstanceState.getString("base64Number");
         base64Room = savedInstanceState.getString("base64Room");
         addressCode = savedInstanceState.getString("addressCode");
@@ -605,9 +572,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         paiChuSuo = (Basic_PaiChuSuo_Kj) savedInstanceState.getSerializable("paiChuSuo");
         juWeiHui = (Basic_JuWeiHui_Kj) savedInstanceState.getSerializable("juWeiHui");
         content = (ChuZuWu_GetSSYByStandAddressCode.ContentBean) savedInstanceState.getSerializable("content");
-        Log.i(TAG, "onRestoreInstanceState: ");
-
-
         if (!TextUtils.isEmpty(base64Number)) {
             mIvNumber.setImageBitmap(ImageUtil.base64ToBitmap(base64Number));
         }
