@@ -17,14 +17,13 @@ public class QRCodeUtil {
     public static String  inquireCzf(Intent data) {
         Bundle bundle = data.getExtras();
         String result = bundle.getString("result");
-        Log.i(TAG, "Camera result: " + result);
+        Log.i(TAG, "result: " + result);
         String typeStirng = result.substring(result.indexOf("?") + 1);
         String type = typeStirng.substring(0, 2);
         if (type.equals("AD")) {
             String base = typeStirng.substring(2);
             byte[] s = TendencyEncrypt.decode(base.getBytes());
             String code = TendencyEncrypt.bytesToHexString(s);
-            Log.i(TAG, "TendencyEncrypt code: " + code);
             String newcode = code.substring(0, 6) + code.substring(9);
             int i = newcode.length();
             newcode = newcode.substring(0, i - 4);
@@ -32,7 +31,6 @@ public class QRCodeUtil {
             return newcode;
         }
          if (result.startsWith("http://xinjumin.ouhai.gov.cn:8060/zzsb")) {
-            Log.e("result.startsWith", result);
             int length = result.length();
             result = result.substring(length - 13);
             StringBuilder sb = new StringBuilder(result);

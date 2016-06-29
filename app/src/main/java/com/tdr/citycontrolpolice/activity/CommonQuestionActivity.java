@@ -2,6 +2,7 @@ package com.tdr.citycontrolpolice.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -40,11 +41,10 @@ public class CommonQuestionActivity extends Activity {
     }
 
 
-
     protected void initView() {
         mRlBack = (RelativeLayout) findViewById(R.id.rl_back);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
-        mWb = (WebView)findViewById(R.id.wb);
+        mWb = (WebView) findViewById(R.id.wb);
         mPb = (ProgressBar) findViewById(R.id.pb);
         String url = Constants.WEBVIEW_HOST + Constants.COMMON_QUESTION + "?token=" + UserService.getInstance(App.getContext()).getToken();
         mWb.loadUrl(url);
@@ -53,6 +53,7 @@ public class CommonQuestionActivity extends Activity {
     public void initData() {
         WebSettings settings = mWb.getSettings();
         settings.setJavaScriptEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         mWb.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -79,4 +80,11 @@ public class CommonQuestionActivity extends Activity {
         });
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

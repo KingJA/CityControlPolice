@@ -36,6 +36,7 @@ import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.ImageUtil;
 import com.tdr.citycontrolpolice.util.MyUtil;
+import com.tdr.citycontrolpolice.util.QRCodeUtil;
 import com.tdr.citycontrolpolice.util.TendencyEncrypt;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
@@ -44,6 +45,9 @@ import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.popupwindow.BottomListPop;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -164,8 +168,8 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         houseTypePop = new BottomListPop(mTvAddress, CzfInitActivity.this, roomTypeList);
         dialogDouble = new DialogDouble(this, "确定要退出出租房登记页面？", "确定", "取消");
         dialogAddress = new DialogAddress(this);
-        numberFile = ImageUtil.createImageFile();
-        roomFile = ImageUtil.createImageFile();
+//        numberFile = ImageUtil.createImageFile();
+//        roomFile = ImageUtil.createImageFile();
     }
 
     @Override
@@ -215,7 +219,12 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         String result = bundle.getString("result");
         Log.e(TAG, "Camera result: " + result);
         if (requestCode == SCANNIN_CZF_CODE) {
-            inquireNewMark(result);
+            String code = QRCodeUtil.inquireCzf(data);
+            Log.e(TAG, "code: " + code);
+            if (!TextUtils.isEmpty(code)) {
+                requireDevice(code);
+            }
+
         } else {
             setProgressDialog(false);
             if (result.length() > 10) {
@@ -226,34 +235,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         }
     }
 
-    private void inquireNewMark(String result) {
-        String type = result.substring(result.indexOf("?") + 1).substring(0, 2);
-        if (type.equals("AD")) {
-            String base = result.substring(2);
-            byte[] s = TendencyEncrypt.decode(base.getBytes());
-            String code = TendencyEncrypt.bytesToHexString(s);
-            Log.i(TAG, "TendencyEncrypt code: " + code);
-            newcode = code.substring(0, 6) + code.substring(9);
-            int i = newcode.length();
-            newcode = newcode.substring(0, i - 4);
-            Log.e("newcode", newcode);
-            requireDevice(newcode);
-
-        } else if (result.startsWith("http://xinjumin.ouhai.gov.cn:8060/zzsb")) {
-            Log.e("result.startsWith", result);
-            int length = result.length();
-            result = result.substring(length - 13);
-            StringBuilder sb = new StringBuilder(result);
-            newcode=sb.insert(6, 90).toString();
-            Log.e("newcode", newcode);
-            requireDevice(newcode);
-        } else {
-            setProgressDialog(false);
-            ToastUtil.showMyToast("非指定设备");
-        }
-    }
-
-    private void requireDevice(String code) {
+    private void requireDevice(final String code) {
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
         param.put("DEVICETYPE", "2");
@@ -266,7 +248,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                     @Override
                     public void onSuccess(Common_InquireDevice bean) {
                         setProgressDialog(false);
-                        initDevice(newcode);
+                        initDevice(code);
                         upload();
                     }
 
@@ -448,11 +430,11 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
 
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (photoType == 0) {
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(numberFile));
-        } else {
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(roomFile));
-        }
+//        if (photoType == 0) {
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(numberFile));
+//        } else {
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(roomFile));
+//        }
 
         startActivityForResult(intent, Camara);
     }
@@ -462,11 +444,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case SCANNIN_CZF_CODE:
-                if (resultCode == RESULT_OK) {
-                    setProgressDialog(true);
-                    inquireDevice(data, requestCode);
-                }
-                break;
             case SCANNIN_OLD_CODE:
                 if (resultCode == RESULT_OK) {
                     setProgressDialog(true);
@@ -476,19 +453,23 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
             case Camara:
                 if (resultCode == RESULT_OK) {
                     if (photoType == 0) {
-                        Bitmap bitmap = ImageUtil.compressScaleFromF2B(numberFile.getAbsolutePath());
+//                        Bitmap bitmap = ImageUtil.compressScaleFromF2B(numberFile.getAbsolutePath());
+                        // base64Number = new String(ImageUtil.bitmapToBase64(bitmap));
+//                        mIvNumber.setImageBitmap(ImageUtil.base64ToBitmap(base64Number));
+                        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                        mIvNumber.setImageBitmap(bitmap);
                         base64Number = new String(ImageUtil.bitmapToBase64(bitmap));
-                        mIvNumber.setImageBitmap(ImageUtil.base64ToBitmap(base64Number));
-                        Log.i(TAG, "base64String: " + base64Number.length());
+                        Log.i(TAG, "base64Number: " + base64Number.length());
                         dz_photo = new Photo();
                         dz_photo.setLISTID(MyUtil.getUUID());
                         dz_photo.setTAG("电子门牌");
                         dz_photo.setIMAGE(base64Number);
                     } else {
-                        Bitmap bitmap = ImageUtil.compressScaleFromF2B(roomFile.getAbsolutePath());
+                        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                        mIvRoom.setImageBitmap(bitmap);
+//                        Bitmap bitmap = ImageUtil.compressScaleFromF2B(roomFile.getAbsolutePath());
                         base64Room = new String(ImageUtil.bitmapToBase64(bitmap));
-                        mIvRoom.setImageBitmap(ImageUtil.base64ToBitmap(base64Room));
-                        Log.i(TAG, "base64String: " + base64Room.length());
+                        Log.i(TAG, "base64Room: " + base64Room.length());
                         fw_photo = new Photo();
                         fw_photo.setLISTID(MyUtil.getUUID());
                         fw_photo.setTAG("房屋外径");
@@ -563,12 +544,12 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "onDestroy: ");
-        if (numberFile.exists()) {
-            numberFile.delete();
-        }
-        if (roomFile.exists()) {
-            roomFile.delete();
-        }
+//        if (numberFile.exists()) {
+//            numberFile.delete();
+//        }
+//        if (roomFile.exists()) {
+//            roomFile.delete();
+//        }
     }
 
     @Override
@@ -586,8 +567,8 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         outState.putString("mAdminName", mAdminName);
         outState.putString("mAdminCard", mAdminCard);
         outState.putString("mAdminPhone", mAdminPhone);
-        outState.putString("numberFile", numberFile.getAbsolutePath());
-        outState.putString("roomFile", roomFile.getAbsolutePath());
+//        outState.putString("numberFile", numberFile.getAbsolutePath());
+//        outState.putString("roomFile", roomFile.getAbsolutePath());
         outState.putString("base64Number", base64Number);
         outState.putString("base64Room", base64Room);
         outState.putString("addressCode", addressCode);
@@ -610,8 +591,8 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         addAdmin = savedInstanceState.getBoolean("addAdmin");
         setAdmin();
 
-        numberFile = new File(savedInstanceState.getString("numberFile"));
-        roomFile = new File(savedInstanceState.getString("roomFile"));
+//        numberFile = new File(savedInstanceState.getString("numberFile"));
+//        roomFile = new File(savedInstanceState.getString("roomFile"));
         base64Number = savedInstanceState.getString("base64Number");
         base64Room = savedInstanceState.getString("base64Room");
         addressCode = savedInstanceState.getString("addressCode");

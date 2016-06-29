@@ -2,6 +2,7 @@ package com.tdr.citycontrolpolice.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class TabWorkFragment extends KjBaseFragment {
     protected void initFragmentData() {
         WebSettings settings = mWb.getSettings();
         settings.setJavaScriptEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         mWb.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -96,4 +98,6 @@ public class TabWorkFragment extends KjBaseFragment {
     protected void setFragmentData() {
         mTvTitle.setText("工作预警");
     }
+
+
 }

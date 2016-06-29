@@ -65,6 +65,7 @@ public class TabTongjiFragment extends KjBaseFragment {
     protected void initFragmentData() {
         WebSettings settings = mWb.getSettings();
         settings.setJavaScriptEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         mWb.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

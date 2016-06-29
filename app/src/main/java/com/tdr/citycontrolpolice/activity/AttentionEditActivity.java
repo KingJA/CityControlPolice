@@ -165,8 +165,6 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
     @Override
     public void setData() {
         setTitle("提醒设置");
-
-
     }
 
     private TimeSelector.OnTimeSelectListener onTimeFromListener = new TimeSelector.OnTimeSelectListener() {
@@ -225,14 +223,12 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.et_date_from:
-                String dateFrom = mEtDateFrom.getText().toString().trim();
-                DeadlineSelector dateFromSelector = new DeadlineSelector(this,dateFrom);
+                DeadlineSelector dateFromSelector = new DeadlineSelector(this);
                 dateFromSelector.setOnDateSelectListener(onDateFromListener);
                 dateFromSelector.show();
                 break;
             case R.id.et_date_to:
-                String dateTo = mEtDateTo.getText().toString().trim();
-                DeadlineSelector dateToSelector = new DeadlineSelector(this,dateTo);
+                DeadlineSelector dateToSelector = new DeadlineSelector(this);
                 dateToSelector.setOnDateSelectListener(onDateToListener);
                 dateToSelector.show();
                 break;

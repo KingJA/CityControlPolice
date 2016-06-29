@@ -10,34 +10,34 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import com.kingja.ui.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 /**
  * 项目名称：
- * 类描述：TODO
+ * 类描述：截止日期选择器
  * 创建人：KingJA
  * 创建时间：2016/6/23 09:46
  * 修改备注：
  */
 public class DeadlineSelector extends Dialog implements View.OnClickListener {
 
+    private static final String TAG = "DeadlineSelector";
     private Context context;
-    private boolean dayMove;
-    private boolean mouthMove;
-    private boolean yearMove;
+
     private WheelView wvYear;
     private WheelView wvMonth;
     private WheelView wvDay;
 
 
-    private ArrayList<String> arry_years = new ArrayList<>();
-    private ArrayList<String> arry_months = new ArrayList<>();
-    private ArrayList<String> arry_days = new ArrayList<>();
+    private List<String> yearList = new ArrayList<>();
+    private List<String> monthList = new ArrayList<>();
+    private List<String> dayList = new ArrayList<>();
+
     private CalendarTextAdapter mYearAdapter;
     private CalendarTextAdapter mMonthAdapter;
     private CalendarTextAdapter mDaydapter;
@@ -46,36 +46,35 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
     private int day;
 
     private int currentYear = getYear();
-    private int currentMonth = 1;
-    private int currentDay = 1;
 
     private int maxTextSize = 24;
     private int minTextSize = 14;
 
-    private boolean issetdata = false;
 
     private String selectYear;
-    private String selectMonth="0";
+    private String selectMonth;
     private String selectDay;
-    private boolean all;
 
     private OnDateSelectListener onDateSelectListener;
+
+    private boolean defaultDate=true;
 
     public DeadlineSelector(Context context) {
         super(context, R.style.KjAlertDialog);
         this.context = context;
     }
 
-    public DeadlineSelector(Context context,String date) {
+    public DeadlineSelector(Context context, String date) {
         super(context, R.style.KjAlertDialog);
         this.context = context;
         if (!TextUtils.isEmpty(date)) {
+            defaultDate=false;
             String[] split = date.split("-");
             this.selectYear = split[0];
             this.selectMonth = split[1];
             this.selectDay = split[2];
         }
-        Log.e("DeadlineSelector", "selectYear: "+selectYear+"selectMonth: "+selectMonth+"selectDay: "+selectDay );
+        Log.e("DeadlineSelector", "selectYear: " + selectYear + "selectMonth: " + selectMonth + "selectDay: " + selectDay);
 
     }
 
@@ -94,167 +93,85 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
         rl_cancel.setOnClickListener(this);
 
 
-        initData();
-        initYears();
-        mYearAdapter = new CalendarTextAdapter(context, arry_years, setYear(currentYear), maxTextSize, minTextSize);
+        initDate(defaultDate);
+        initYearList();
+        mYearAdapter = new CalendarTextAdapter(context, yearList, getYearIndex(currentYear), maxTextSize, minTextSize);
         wvYear.setVisibleItems(5);
         wvYear.setViewAdapter(mYearAdapter);
-        wvYear.setCurrentItem(setYear(currentYear));
-        initMonths(month);
-        Log.e("Adapter", "selectYear: "+selectYear+"selectMonth: "+selectMonth+"selectDay: "+selectDay );
-        mMonthAdapter = new CalendarTextAdapter(context, arry_months, 0, maxTextSize, minTextSize);
+        wvYear.setCurrentItem(getYearIndex(currentYear));
+
+        initMonthList(Integer.valueOf(selectMonth));
+        mMonthAdapter = new CalendarTextAdapter(context, monthList, 0, maxTextSize, minTextSize);
         wvMonth.setVisibleItems(5);
         wvMonth.setViewAdapter(mMonthAdapter);
         wvMonth.setCurrentItem(0);
-        initDays(day);
-        mDaydapter = new CalendarTextAdapter(context, arry_days, currentDay - 1, maxTextSize, minTextSize);
+        initDayList(Integer.valueOf(selectYear),Integer.valueOf(selectMonth));
+        mDaydapter = new CalendarTextAdapter(context, dayList, 0, maxTextSize, minTextSize);
         wvDay.setVisibleItems(5);
         wvDay.setViewAdapter(mDaydapter);
-        Log.i("currentDay", currentDay + "");
-        wvDay.setCurrentItem(currentDay - 1);
+        wvDay.setCurrentItem(0);
 
-        wvYear.addChangingListener(new OnWheelChangedListener() {
-
-            private String currentYearText;
-
-            @Override
-            public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                currentYearText = (String) mYearAdapter.getItemText(wheel.getCurrentItem());
-                selectYear = currentYearText;
-                setTextviewSize(currentYearText, mYearAdapter);
-                currentYear = Integer.parseInt(currentYearText);
-                setYear(currentYear);
-                initMonths(month);
-                mMonthAdapter = new CalendarTextAdapter(context, arry_months, 0, maxTextSize, minTextSize);
-                wvMonth.setVisibleItems(5);
-                wvMonth.setViewAdapter(mMonthAdapter);
-                wvMonth.setCurrentItem(0);
-            }
-        });
-
-        wvYear.addScrollingListener(new OnWheelScrollListener() {
-
-            @Override
-            public void onScrollingStarted(WheelView wheel) {
-
-            }
-
-            @Override
-            public void onScrollingFinished(WheelView wheel) {
-                String currentText = (String) mYearAdapter.getItemText(wheel.getCurrentItem());
-                setTextviewSize(currentText, mYearAdapter);
-                yearMove = true;
-                if (yearMove && !mouthMove) {
-                    selectMonth = 1 + "";
-                }
-            }
-        });
 
         wvMonth.addChangingListener(new OnWheelChangedListener() {
 
-            private String currentMonthText;
 
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                mouthMove = true;
-                currentMonthText = (String) mMonthAdapter.getItemText(wheel.getCurrentItem());
-                selectMonth = currentMonthText;
-                setTextviewSize(currentMonthText, mMonthAdapter);
-                setMonth(Integer.parseInt(currentMonthText));
-                initDays(day);
-                mDaydapter = new CalendarTextAdapter(context, arry_days, Integer.valueOf(selectDay), maxTextSize, minTextSize);
+                selectMonth = (String) mMonthAdapter.getItemText(wheel.getCurrentItem());
+                setTextviewSize(selectMonth, mMonthAdapter);
+                initDayList(Integer.valueOf(selectYear),Integer.valueOf(selectMonth));
+
+                mDaydapter = new CalendarTextAdapter(context, dayList, 0, maxTextSize, minTextSize);
                 wvDay.setVisibleItems(5);
                 wvDay.setViewAdapter(mDaydapter);
-                wvDay.setCurrentItem(Integer.valueOf(selectDay));
-            }
-        });
-
-        wvMonth.addScrollingListener(new OnWheelScrollListener() {
-
-            @Override
-            public void onScrollingStarted(WheelView wheel) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onScrollingFinished(WheelView wheel) {
-                // TODO Auto-generated method stub
-                String currentDayText = (String) mMonthAdapter.getItemText(wheel.getCurrentItem());
-                setTextviewSize(currentDayText, mMonthAdapter);
-                mouthMove = true;
-                if (mouthMove && !dayMove&&all) {
-                    Log.e("selectDay", 1+"");
-                    selectDay = 1 + "";
+                wvDay.setCurrentItem(0);
+                if (Integer.valueOf(selectMonth) != getMonth()) {
+                    selectDay="1";
+                }else{
+                    selectDay=getDay()+"";
                 }
             }
         });
-
         wvDay.addChangingListener(new OnWheelChangedListener() {
-            private String currentDayText;
-
-
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                dayMove = true;
-                currentDayText = (String) mDaydapter.getItemText(wheel.getCurrentItem());
-                Log.i("addChangingListener", "currentText:" + currentDayText);
-                setTextviewSize(currentDayText, mDaydapter);
-                selectDay = currentDayText;
-
-            }
-        });
-
-        wvDay.addScrollingListener(new OnWheelScrollListener() {
-
-            @Override
-            public void onScrollingStarted(WheelView wheel) {
-
-            }
-
-            @Override
-            public void onScrollingFinished(WheelView wheel) {
-                String currentText = (String) mDaydapter.getItemText(wheel.getCurrentItem());
-                setTextviewSize(currentText, mDaydapter);
+                selectDay = (String) mDaydapter.getItemText(wheel.getCurrentItem());
+                setTextviewSize(selectDay, mDaydapter);
             }
         });
 
     }
 
-    public void initYears() {
+    public void initYearList() {
         for (int i = getYear(); i <= getYear(); i++) {
-            arry_years.add(i + "");
+            yearList.add(i + "");
         }
     }
 
-    public void initMonths(int months) {
-        arry_months.clear();
-        for (int i = months; i <= 12; i++) {
-            arry_months.add(i + "");
+    public void initMonthList(int month) {
+        monthList.clear();
+        for (int i = month; i <= 12; i++) {
+            monthList.add(i + "");
         }
     }
 
-    public void initDays(int days) {
-        arry_days.clear();
-        if (days == getDay()) {
-            all=false;
+    public void initDayList(int year,int month) {
+        dayList.clear();
+        if (month == getMonth()) {
             for (int i = getDay(); i <= getDays(getYear(), getMonth()); i++) {
-                arry_days.add(i + "");
+                dayList.add(i + "");
             }
-            selectDay=getDay()+"";
-            Log.e("当前日期", currentDay+"");
         } else {
-            all=true;
-            for (int i = 1; i <= day; i++) {
-                arry_days.add(i + "");
+            for (int i = 1; i <= getDays(year, month); i++) {
+                dayList.add(i + "");
             }
         }
     }
 
     private class CalendarTextAdapter extends AbstractWheelTextAdapter {
-        ArrayList<String> list;
+        List<String> list;
 
-        protected CalendarTextAdapter(Context context, ArrayList<String> list, int currentItem, int maxsize, int minsize) {
+        protected CalendarTextAdapter(Context context, List<String> list, int currentItem, int maxsize, int minsize) {
             super(context, R.layout.item_birth_year, NO_RESOURCE, currentItem, maxsize, minsize);
             this.list = list;
             setItemTextResource(R.id.tempValue);
@@ -297,7 +214,7 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
     }
 
     public interface OnDateSelectListener {
-         void onClick(String year, String month, String day);
+        void onClick(String year, String month, String day);
     }
 
     /**
@@ -307,7 +224,7 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
      * @param adapter
      */
     public void setTextviewSize(String curriteItemText, CalendarTextAdapter adapter) {
-        ArrayList<View> arrayList = adapter.getTestViews();
+        List<View> arrayList = adapter.getTestViews();
         int size = arrayList.size();
         String currentText;
         for (int i = 0; i < size; i++) {
@@ -336,74 +253,29 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
         return c.get(Calendar.DATE);
     }
 
-    public void initData() {
-        this.currentDay = 1;
-        this.currentMonth = 1;
-        setDate(getYear(), getMonth(), getDay());
+    public void initDate(boolean defaultDate) {
+        if (!defaultDate) {
+            return;
+        }
+        selectYear = getYear() + "";
+        selectMonth = getMonth() + "";
+        selectDay = getDay() + "";
+//        if (Integer.valueOf(selectYear) == getYear()) {
+//            this.month = getMonth();
+//        } else {
+//            this.month = 12;
+//        }
+//        calDays(getYear() , getMonth());
     }
 
-    /**
-     * 设置年月日
-     *
-     * @param year
-     * @param month
-     * @param day
-     */
-    public void setDate(int year, int month, int day) {
-        selectYear = year + "";
-        selectMonth = month + "";
-        selectDay = day + "";
-        issetdata = true;
-        this.currentYear = year;
-        this.currentMonth = month;
-        this.currentDay = day;
-        Log.i("setDate", "currentDay:" + currentDay);
-        if (year == getYear()) {
-            this.month = getMonth();
-        } else {
-            this.month = 12;
-        }
-        calDays(year, month);
-    }
 
     /**
      * 设置年份
      *
      * @param year
      */
-    public int setYear(int year) {
-        int yearIndex = 0;
-        if (year != getYear()) {
-            this.month = 12;
-        } else {
-            this.month = getMonth();
-        }
-        for (int i = getYear(); i <= getYear() + 1; i++) {
-            if (i == year) {
-                return yearIndex;
-            }
-            yearIndex++;
-        }
-        return yearIndex;
-    }
-
-    /**
-     * 设置月份
-     *
-     * @param month
-     * @return
-     */
-    public int setMonth(int month) {
-        int monthIndex = 0;
-        calDays(currentYear, month);
-        for (int i = 1; i < this.month; i++) {
-            if (month == i) {
-                return monthIndex;
-            } else {
-                monthIndex++;
-            }
-        }
-        return monthIndex;
+    public int getYearIndex(int year) {
+        return yearList.indexOf(year + "");
     }
 
     /**
@@ -413,7 +285,7 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
      * @param year
      */
     public void calDays(int year, int month) {
-        boolean leayyear = false;
+        boolean leayyear;
         if (year % 4 == 0 && year % 100 != 0) {
             leayyear = true;
         } else {
@@ -451,7 +323,7 @@ public class DeadlineSelector extends Dialog implements View.OnClickListener {
     }
 
     public int getDays(int year, int month) {
-        boolean leayyear = false;
+        boolean leayyear;
         int days = 0;
         if (year % 4 == 0 && year % 100 != 0) {
             leayyear = true;
