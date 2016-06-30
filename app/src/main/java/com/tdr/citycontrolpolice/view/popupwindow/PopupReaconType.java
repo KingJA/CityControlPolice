@@ -51,10 +51,10 @@ public class PopupReaconType extends PopupWindowBaseDown implements View.OnClick
             return;
         }
         switch (v.getId()) {
-            case R.id.tv_broken:
+            case R.id.tv_lose:
                 onReasonTypeSelectListener.onReasonTypeSelect(1);
                 break;
-            case R.id.tv_lose:
+            case R.id.tv_broken:
                 onReasonTypeSelectListener.onReasonTypeSelect(2);
                 break;
             case R.id.tv_other:

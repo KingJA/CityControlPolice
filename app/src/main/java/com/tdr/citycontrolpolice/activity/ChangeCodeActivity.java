@@ -51,7 +51,7 @@ public class ChangeCodeActivity extends BackTitleActivity implements View.OnClic
     private EditText mEtChangeCodeReason;
     private String houseId;
     private TextView mTvUpload;
-    private int reasonType=9;
+    private int reasonType=-1;
     private DialogConfirm dialogConfirm;
     private PopupReaconType popupReaconType;
 
@@ -122,10 +122,10 @@ public class ChangeCodeActivity extends BackTitleActivity implements View.OnClic
                 reasonType=position;
                 switch (position) {
                     case 1:
-                        mEtChangeCodeReasonType.setText("损坏");
+                        mEtChangeCodeReasonType.setText("丢失");
                         break;
                     case 2:
-                        mEtChangeCodeReasonType.setText("丢失");
+                        mEtChangeCodeReasonType.setText("损坏");
                         break;
                     case 9:
                         mEtChangeCodeReasonType.setText("其他(请填写)");
@@ -159,7 +159,6 @@ public class ChangeCodeActivity extends BackTitleActivity implements View.OnClic
                 goCaptureActivity(NEW_CODE);
                 break;
             case R.id.iv_changeCode_down:
-                ToastUtil.showMyToast("下拉");
                 popupReaconType.showPopupWindowDown();
                 break;
 
@@ -196,6 +195,10 @@ public class ChangeCodeActivity extends BackTitleActivity implements View.OnClic
         String reason = mEtChangeCodeReason.getText().toString().trim();
         String newCode = mEtChangeCodeNew.getText().toString().trim();
         if (!CheckUtil.checkEmpty(newCode, "请提供新的登记牌二维码")) {
+            return;
+        }
+        if (reasonType == -1) {
+            ToastUtil.showMyToast("请选择变更原因");
             return;
         }
         setProgressDialog(true);
