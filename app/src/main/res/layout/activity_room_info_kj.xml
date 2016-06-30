@@ -236,7 +236,7 @@
 
         <TextView
             android:id="@+id/tv_room_submit"
-            style="@style/btn_small_blue"
+            style="@style/btn_nomal_blue"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:enabled="false"

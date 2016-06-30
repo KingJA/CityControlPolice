@@ -46,7 +46,7 @@ public class CommonQuestionActivity extends Activity {
         mTvTitle = (TextView) findViewById(R.id.tv_title);
         mWb = (WebView) findViewById(R.id.wb);
         mPb = (ProgressBar) findViewById(R.id.pb);
-        String url = Constants.WEBVIEW_HOST + Constants.COMMON_QUESTION + "?token=" + UserService.getInstance(App.getContext()).getToken();
+        String url = Constants.getWebViewUrl() + Constants.COMMON_QUESTION + "?token=" + UserService.getInstance(App.getContext()).getToken();
         mWb.loadUrl(url);
     }
 
@@ -74,7 +74,7 @@ public class CommonQuestionActivity extends Activity {
                 if (mWb.canGoBack()) {
                     mWb.goBack();
                 } else {
-                    ToastUtil.showMyToast("没有可返回的页面了");
+                    finish();
                 }
             }
         });

@@ -16,6 +16,9 @@ public class CustomConstants {
     public static final String CHUZUWU_INQUIREFAVORITES = "ChuZuWu_InquireFavorites";
     public static final String CHUZUWU_SETROOMINFOOFFAVORITES = "ChuZuWu_SetRoomInfoOfFavorites";
     public static final String CHUZUWU_PUSHINFOOFMONITORROOM = "ChuZuWu_PushInfoOfMonitorRoom";
+    public static final String CHUZUWU_CHANGEMENPAILIST = "ChuZuWu_ChangeMenPaiList";//3.37.	出租屋更换门牌记录
+    public static final String CHUZUWU_DETAILINFO = "ChuZuWu_DetailInfo";//3.38.	出租屋详细信息
+    public static final String CHUZUWU_CHANGEMENPAI = "ChuZuWu_ChangeMenPai";//3.36.	出租屋更换门牌
   /*  取消关注*/
     public static final String CHUZUWU_REMOVEFAVORITES = "ChuZuWu_RemoveFavorites";
 }

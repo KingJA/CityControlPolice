@@ -12,7 +12,7 @@
 
         <ImageView
             android:layout_centerVertical="true"
-            android:id="@+id/iv_remind"
+            android:id="@+id/iv_record"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/bg_remind" />
@@ -28,7 +28,7 @@
             android:id="@+id/tv_remind_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_remind"
+            android:layout_toRightOf="@id/iv_record"
             android:singleLine="true"
             android:text="标准地址" />
 

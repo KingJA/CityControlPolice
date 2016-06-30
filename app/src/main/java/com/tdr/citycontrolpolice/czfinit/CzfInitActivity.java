@@ -265,7 +265,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                 checkData();
                 break;
             case R.id.ll_search:
-
                 dialogAddress.showAndReset();
                 break;
             case R.id.tv_czfType:

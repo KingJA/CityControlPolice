@@ -165,6 +165,27 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="防控设备管理" />
+            </LinearLayout>  <View style="@style/divider_nomal_horizontal" />
+
+            <LinearLayout
+                android:id="@+id/ll_changeCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sel_tr2half_kj"
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/bg_change_code" />
+
+                <TextView
+                    style="@style/font_3_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="登记牌变更" />
             </LinearLayout>
 
 
@@ -200,8 +221,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:text="出租房关注" />
+                android:text="出租房关注配置" />
         </LinearLayout>
+            <View style="@style/divider_nomal4dp_horizontal" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

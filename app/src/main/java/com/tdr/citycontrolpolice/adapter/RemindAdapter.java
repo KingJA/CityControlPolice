@@ -50,7 +50,7 @@ public class RemindAdapter extends BaseSimpleAdapter<ChuZuWu_PushInfoOfMonitorRo
         public final View root;
 
         public ViewHolder(View root) {
-            ivremind = (ImageView) root.findViewById(R.id.iv_remind);
+            ivremind = (ImageView) root.findViewById(R.id.iv_record);
             tvremindaddress = (TextView) root.findViewById(R.id.tv_remind_address);
             tvremindinfo = (TextView) root.findViewById(R.id.tv_remind_info);
             tvremindmsg = (TextView) root.findViewById(R.id.tv_remind_msg);

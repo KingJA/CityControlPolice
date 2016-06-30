@@ -26,7 +26,6 @@ import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.Param_ChuZuWu_SetRoomInfoOfFavorites;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.CustomConstants;
 import com.tdr.citycontrolpolice.util.TimeUtil;
@@ -46,8 +45,9 @@ import java.util.Map;
  * 创建时间：2016/6/23 15:46
  * 修改备注：
  */
-public class AttentionEditActivity extends BackTitleActivity implements RadioGroup.OnCheckedChangeListener,SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, AdapterView.OnItemClickListener, BackTitleActivity.OnRightClickListener, CompoundButton.OnCheckedChangeListener {
+public class AttentionEditActivity extends BackTitleActivity implements RadioGroup.OnCheckedChangeListener, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, AdapterView.OnItemClickListener,  CompoundButton.OnCheckedChangeListener {
     private CheckBox mCbTogether;
+    private CheckBox cb_checkAll;
     private ListView mLvAttentionRoom;
     private RadioGroup mRgAttention;
     private RadioButton mRbOnly;
@@ -70,7 +70,7 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
     private LinearLayout ll_attention;
 
     private int currentAttentionType = 0;
-    private int currentPosition=-1;
+    private int currentPosition = -1;
     private boolean isTogether;
     private TextView tv_setting;
     private Param_ChuZuWu_SetRoomInfoOfFavorites.ContentBean contentBean;
@@ -78,6 +78,7 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
     private LinearLayout ll_empty;
     private SwipeRefreshLayout single_srl;
     private RelativeLayout rl_root;
+    private TextView tv_save;
 
     @Override
     public View setContentView() {
@@ -97,10 +98,12 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
 //        single_srl = (SwipeRefreshLayout) view.findViewById(R.id.single_srl);
         ll_empty = (LinearLayout) view.findViewById(R.id.ll_empty);
         tv_setting = (TextView) view.findViewById(R.id.tv_setting);
+        tv_save = (TextView) view.findViewById(R.id.tv_save);
         ll_attention = (LinearLayout) view.findViewById(R.id.ll_attention);
         ll_only = (LinearLayout) view.findViewById(R.id.ll_only);
         ll_once = (LinearLayout) view.findViewById(R.id.ll_once);
         mCbTogether = (CheckBox) view.findViewById(R.id.cb_together);
+        cb_checkAll = (CheckBox) view.findViewById(R.id.cb_checkAll);
         mLvAttentionRoom = (ListView) view.findViewById(R.id.lv_attention_room);
         mRgAttention = (RadioGroup) view.findViewById(R.id.rg_attention);
         mRbOnly = (RadioButton) view.findViewById(R.id.rb_only);
@@ -118,9 +121,9 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
     }
 
     private void initLvHeight() {
-        View listItem = View.inflate(AttentionEditActivity.this, R.layout.item_attention_room,null);
+        View listItem = View.inflate(AttentionEditActivity.this, R.layout.item_attention_room, null);
         listItem.measure(0, 0);
-        int totalHeight = (listItem.getMeasuredHeight()+mLvAttentionRoom.getDividerHeight() ) * 3;
+        int totalHeight = (listItem.getMeasuredHeight() + mLvAttentionRoom.getDividerHeight()) * 3;
         mLvAttentionRoom.getLayoutParams().height = totalHeight;
     }
 
@@ -141,14 +144,14 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
                         rl_root.setVisibility(View.GONE);
 //                        single_srl.setRefreshing(false);
                         favortyRoomList = bean.getContent().getMonitorRoomList();
-                        attentionAdapter.setData(favortyRoomList);
-
-
-
-
-
-                        ll_empty.setVisibility(favortyRoomList.size()>0?View.GONE:View.VISIBLE);
-                        setRightTextVisibility(favortyRoomList.size()>0?"提交":"");
+                        if (attentionAdapter.isTogether(favortyRoomList)) {
+                            mCbTogether.setChecked(true);
+                            attentionAdapter.setDefaultChecked(favortyRoomList);
+                        } else {
+                            attentionAdapter.setLastData(favortyRoomList);
+                        }
+                        ll_empty.setVisibility(favortyRoomList.size() > 0 ? View.GONE : View.VISIBLE);
+//                        setRightTextVisibility(favortyRoomList.size() > 0 ? "提交" : "");
                     }
 
                     @Override
@@ -164,13 +167,19 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
         mCbTogether.setOnCheckedChangeListener(this);
         mLvAttentionRoom.setOnItemClickListener(this);
         tv_setting.setOnClickListener(this);
+        tv_save.setOnClickListener(this);
         mEtTimeFrom.setOnClickListener(this);
         mEtTimeTo.setOnClickListener(this);
         mEtDateFrom.setOnClickListener(this);
         mEtDateTo.setOnClickListener(this);
         mRgAttention.setOnCheckedChangeListener(this);
 //        single_srl.setOnRefreshListener(this);
-        setOnRightClickListener(this);
+        cb_checkAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                attentionAdapter.setChecked(isChecked);
+            }
+        });
     }
 
     @Override
@@ -246,21 +255,37 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
             case R.id.et_time_from:
                 String timeFrom = mEtTimeFrom.getText().toString().trim();
 
-                timeFromSelector = new TimeSelector(this,timeFrom);
+                timeFromSelector = new TimeSelector(this, timeFrom);
                 timeFromSelector.setOnTimeSelectListener(onTimeFromListener);
                 timeFromSelector.show();
                 break;
             case R.id.et_time_to:
                 String timeTo = mEtTimeTo.getText().toString().trim();
-                timeToSelector = new TimeSelector(this,timeTo);
+                timeToSelector = new TimeSelector(this, timeTo);
                 timeToSelector.setOnTimeSelectListener(onTimeToListener);
                 timeToSelector.show();
                 break;
             case R.id.tv_setting:
-                setAttention();
+                notifyAttention();
                 break;
+            case R.id.tv_save:
+                if (mCbTogether.isChecked()) {
+                    if (notifyAttention()) {
+                        getAndUpload();
+                    }
+                }else{
+                    getAndUpload();
+                }
+                break;
+        }
+    }
 
-
+    private void getAndUpload() {
+        List<ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean> attentionList = attentionAdapter.getAttentionList();
+        if (attentionList.size() > 0) {
+            upload(attentionList);
+        } else {
+            ToastUtil.showMyToast("请勾选要关注的房间");
         }
     }
 
@@ -300,13 +325,13 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
         }
     }
 
-    public void setAttention() {
+    public boolean notifyAttention() {
         String mAttentionPhone = mEtAttentionPhone.getText().toString().trim();
         String mDateFrom = mEtDateFrom.getText().toString().trim();
         String mDateTo = mEtDateTo.getText().toString().trim();
         String mTimeFrom = mEtTimeFrom.getText().toString().trim();
         String mTimeTo = mEtTimeTo.getText().toString().trim();
-        Log.e("setAttention", "currentAttentionType"+currentAttentionType+"mDateFrom: "+mDateFrom+ "mDateTo: "+mDateTo+ "mTimeFrom: "+mTimeFrom+ "mTimeTo: "+mTimeTo );
+        Log.e("notifyAttention", "currentAttentionType" + currentAttentionType + "mDateFrom: " + mDateFrom + "mDateTo: " + mDateTo + "mTimeFrom: " + mTimeFrom + "mTimeTo: " + mTimeTo);
         switch (currentAttentionType) {
             case 0:
                 if (isTogether) {
@@ -314,51 +339,45 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
                 } else {
                     attentionAdapter.setAttentionByPosition(currentAttentionType, "", "", "", "", "", currentPosition);
                 }
-                break;
+                return true;
             case 1:
                 if (CheckUtil.checkPhoneFormat(mAttentionPhone)
                         && CheckUtil.checkEmpty(mTimeFrom, "请设置开始时间")
                         && CheckUtil.checkEmpty(mTimeTo, "请设置结束时间")
-                        && TimeUtil.compareTime(mTimeFrom,mTimeTo)) {
+                        && TimeUtil.compareTime(mTimeFrom, mTimeTo)) {
                     if (isTogether) {
                         attentionAdapter.setAttentionByList(currentAttentionType, mAttentionPhone, "", "", mTimeFrom, mTimeTo);
                     } else {
                         attentionAdapter.setAttentionByPosition(currentAttentionType, mAttentionPhone, "", "", mTimeFrom, mTimeTo, currentPosition);
                     }
+                    return true;
                 }
-                break;
+                return false;
             case 2:
                 if (CheckUtil.checkPhoneFormat(mAttentionPhone)
                         && CheckUtil.checkEmpty(mDateFrom, "请设置开始日期")
                         && CheckUtil.checkEmpty(mDateTo, "请设置结束日期")
-                        && TimeUtil.compareDate(mDateFrom,mDateTo)
+                        && TimeUtil.compareDate(mDateFrom, mDateTo)
                         && CheckUtil.checkEmpty(mTimeFrom, "请设置开始时间")
                         && CheckUtil.checkEmpty(mTimeTo, "请设置结束时间")
-                        && TimeUtil.compareTime(mTimeFrom,mTimeTo)) {
+                        && TimeUtil.compareTime(mTimeFrom, mTimeTo)) {
                     if (isTogether) {
                         attentionAdapter.setAttentionByList(currentAttentionType, mAttentionPhone, mDateFrom, mDateTo, mTimeFrom, mTimeTo);
                     } else {
                         attentionAdapter.setAttentionByPosition(currentAttentionType, mAttentionPhone, mDateFrom, mDateTo, mTimeFrom, mTimeTo, currentPosition);
                     }
+                    return true;
                 }
-                break;
-            default:
-                break;
+                return false;
+
         }
+        return false;
     }
 
-    @Override
-    public void onRightClick() {
-        List<ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean> attentionList = attentionAdapter.getAttentionList();
-        if (attentionList.size() > 0) {
-            upload(attentionList);
-        } else {
-            ToastUtil.showMyToast("请勾选要关注的房间");
-        }
-    }
 
     /**
      * 上传配置信息
+     *
      * @param attentionList
      */
     private void upload(List<ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean> attentionList) {
@@ -368,7 +387,7 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
         param.setTaskID("1");
         param.setHOUSEID(houseId);
         List<Param_ChuZuWu_SetRoomInfoOfFavorites.ContentBean> contentList = new ArrayList<>();
-        for (ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean:attentionList) {
+        for (ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean : attentionList) {
             contentBean = new Param_ChuZuWu_SetRoomInfoOfFavorites.ContentBean();
             contentBean.setROOMID(bean.getROOMID());
             contentBean.setREMIND_TYPE(bean.getREMIND_TYPE());
@@ -407,9 +426,13 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        attentionAdapter.setCheckAble(isChecked);
+
+        tv_setting.setVisibility(isChecked?View.GONE:View.VISIBLE);
+        cb_checkAll.setChecked(isChecked);
         isTogether = isChecked;
         mRgAttention.check(R.id.rb_only);
-        ll_attention.setVisibility(isChecked?View.VISIBLE:View.GONE);
+        ll_attention.setVisibility(isChecked ? View.VISIBLE : View.GONE);
         if (isChecked) {
             attentionAdapter.reset();
         }

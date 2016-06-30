@@ -53,7 +53,7 @@ public class TabWorkFragment extends KjBaseFragment {
         mTvTitle = (TextView) rootView.findViewById(R.id.tv_title);
         mWb = (WebView) rootView.findViewById(R.id.wb);
         mPb = (ProgressBar) rootView.findViewById(R.id.pb);
-        String url = Constants.WEBVIEW_HOST + Constants.JOB_LARAM + "?token=" + UserService.getInstance(App.getContext()).getToken();
+        String url = Constants.getWebViewUrl() + Constants.JOB_LARAM + "?token=" + UserService.getInstance(App.getContext()).getToken();
         mWb.loadUrl(url);
     }
 

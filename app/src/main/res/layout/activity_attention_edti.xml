@@ -41,12 +41,23 @@
                 android:orientation="horizontal"
                 android:padding="12dp">
 
-                <TextView
+                <CheckBox
+                    android:focusable="false"
+                    android:text="全选"
+                    android:id="@+id/cb_checkAll"
+                    android:drawableLeft="@drawable/sel_cb_attention"
+                    android:drawablePadding="12dp"
+                    android:button="@null"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+               <!-- <TextView
                     style="@style/font_bold_6_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="提醒房间" />
+                    android:text="提醒房间" />-->
 
                 <CheckBox
                     android:id="@+id/cb_together"
@@ -68,6 +79,8 @@
                 android:layout_height="130dp">-->
 
                 <ListView
+                    android:scrollbarFadeDuration="0"
+                    android:fadeScrollbars="false"
                     android:id="@+id/lv_attention_room"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -92,13 +105,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_title_lgray1_bgray_r5"
-                android:padding="12dp">
+                android:paddingRight="12dp"
+                android:paddingLeft="12dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+
+                >
 
                 <TextView
+                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:text="提醒方式" />
+
+                <TextView
+                    android:id="@+id/tv_setting"
+                    android:layout_centerVertical="true"
+                    style="@style/btn_small_blue"
+                    android:text="独立配置"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </RelativeLayout>
 
@@ -272,14 +299,14 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_setting"
-            style="@style/btn_small_blue"
+          android:id="@+id/tv_save"
+            style="@style/btn_nomal_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="6dp"
             android:gravity="center"
-            android:text="配置" />
+            android:text="保存提醒配置" />
 
     </LinearLayout>
 </ScrollView>

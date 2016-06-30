@@ -17,10 +17,10 @@ public class Constants {
 
     public static final int HANDLER_KEY_GETVERSION_SUCCESS = 0;
     public static final int HANDLER_KEY_GETVERSION_FAIL = 1;
-    public static final String WEBVIEW_HOST = "http://test.iotone.cn:12020/"; //WebView测试主机
-    public static final String JOB_LARAM = "info/app/jobalarm.aspx"; //工作预警
-    public static final String JOB_TONGJI = "info/app/jobcount.aspx"; //工作统计
-    public static final String COMMON_QUESTION = "info/app/faq.aspx"; //常见问题
+
+    public static final String JOB_LARAM = "app/jobalarm.aspx"; //工作预警
+    public static final String JOB_TONGJI = "app/jobcount.aspx"; //工作统计
+    public static final String COMMON_QUESTION = "app/faq.aspx"; //常见问题
 
     /*测试接口*/
 //    public static final String WEBSERVER_URL = "http://zafkapp.test.iotone.cn/rentalestate.asmx"; //正式接口
@@ -63,6 +63,23 @@ public class Constants {
         }
         Log.i("hostUrl", hostUrl);
         return hostUrl;
+    }
+    public static String getWebViewUrl() {
+        String webViewUrl = "";
+        switch (RELEASE_SERVICE) {
+            case TEST:
+                webViewUrl = "http://zafkapp.test.iotone.cn/";
+                break;
+            case PSTORE:
+            case LIUGUANTONG:
+                webViewUrl = "http://127.0.0.1:8002/";
+                break;
+            case SHENGTING:
+                webViewUrl = "http://172.18.18.21:8002/";
+                break;
+        }
+        Log.i("webViewUrl", webViewUrl);
+        return webViewUrl;
     }
 
     public static String getNFCUrl() {

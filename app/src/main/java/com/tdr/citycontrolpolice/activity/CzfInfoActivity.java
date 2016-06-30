@@ -244,6 +244,9 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 break;
 
             case 6:
+                ChangeRecordActivity.goActivity(this,mHouseId);
+                break;
+            case 7:
                 if (mIsfavorite==1) {
                     AttentionEditActivity.goActivity(this,mHouseId);
                 }else{

@@ -181,10 +181,10 @@
 
                 <TextView
                     android:gravity="center_vertical|right"
-                    style="@style/font_tip_14"
+                    style="@style/font_blue_14"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
-                    android:text="原号牌" />
+                    android:text="原二维码" />
 
                 <EditText
                     android:editable="false"
@@ -203,9 +203,9 @@
                     android:id="@+id/iv_roomMark"
                     android:layout_marginRight="12dp"
                     android:layout_marginLeft="12dp"
-                    android:background="@drawable/bg_camera"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:background="@drawable/sel_code"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -527,7 +527,7 @@ android:visibility="gone"
 
             <TextView
                 android:id="@+id/tv_submit"
-                style="@style/btn_small_blue"
+                style="@style/btn_nomal_blue"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="12dp"
                 android:text="提交" />

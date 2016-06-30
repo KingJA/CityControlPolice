@@ -21,6 +21,7 @@ import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.CustomConstants;
+import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 
 import org.greenrobot.eventbus.EventBus;
@@ -129,6 +130,10 @@ public class AttentionQueryActivity extends BackTitleActivity implements BackTit
                         attentionQueryList = bean.getContent();
                         attentionQueryAdapter.setData(attentionQueryList);
                         mLlEmpty.setVisibility(attentionQueryList.size() > 0 ? View.GONE : View.VISIBLE);
+                        if (attentionQueryList.size() == 0) {
+                            ToastUtil.showMyToast("无搜索结果");
+                        }
+
                     }
 
                     @Override
