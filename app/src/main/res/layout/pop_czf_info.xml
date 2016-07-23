@@ -4,9 +4,9 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:background="@drawable/bg_popwindow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_popwindow"
         android:orientation="vertical">
 
         <LinearLayout
@@ -14,8 +14,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="18dp"
-            android:paddingRight="18dp"
-            >
+            android:paddingRight="18dp">
 
             <LinearLayout
                 android:id="@+id/ll_edit"
@@ -41,11 +40,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_apply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <View style="@style/divider_nomal_horizontal" />
 
@@ -154,6 +153,7 @@
                 android:gravity="center_vertical"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp">
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -165,7 +165,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="防控设备管理" />
-            </LinearLayout>  <View style="@style/divider_nomal_horizontal" />
+            </LinearLayout>
+
+            <View style="@style/divider_nomal_horizontal" />
 
             <LinearLayout
                 android:id="@+id/ll_changeCode"
@@ -175,6 +177,7 @@
                 android:gravity="center_vertical"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp">
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -187,42 +190,73 @@
                     android:layout_marginLeft="16dp"
                     android:text="登记牌变更" />
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_bind_access"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
 
+            <View style="@style/divider_nomal_horizontal" />
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sel_tr2half_kj"
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/bg_bind_access" />
+
+                <TextView
+                    style="@style/font_3_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="绑定门禁设备" />
+            </LinearLayout>  </LinearLayout>
 
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_attention"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <View style="@style/divider_nomal4dp_horizontal" />
-
-        <LinearLayout
-            android:paddingRight="18dp"
-            android:paddingLeft="18dp"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/sel_tr2half_kj"
-            android:gravity="center_vertical"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp">
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/czf_guanzhu" />
+            <View style="@style/divider_nomal4dp_horizontal" />
 
-            <TextView
-                android:id="@+id/tv_attention"
-                style="@style/font_3_12"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="出租房关注配置" />
-        </LinearLayout>
+
+                android:background="@drawable/sel_tr2half_kj"
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/czf_guanzhu" />
+
+                <TextView
+                    android:id="@+id/tv_attention"
+                    style="@style/font_3_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="出租房关注配置" />
+            </LinearLayout>
+
             <View style="@style/divider_nomal4dp_horizontal" />
         </LinearLayout>
     </LinearLayout>

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true">
+
     <RelativeLayout
-        android:background="@color/bg_blue"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="48dp"
+        android:background="@color/bg_blue">
+
         <RelativeLayout
             android:id="@+id/rl_back"
             android:layout_width="48dp"
@@ -19,31 +24,47 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/bg_fanhui" />
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_refresh"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/sel_tr2half_kj">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_refresh" />
+        </RelativeLayout>
         <TextView
             android:id="@+id/tv_title"
             style="@style/font_white_18"
-            android:layout_centerInParent="true"
-            android:text="常见问题"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="常见问题" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
 
-    <WebView
-        android:id="@+id/wb"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <WebView
+            android:id="@+id/wb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <ProgressBar
-        android:progressDrawable="@drawable/progressbar_color"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:id="@+id/pb" />
+       <include layout="@layout/include_network_error" />
+
+        <ProgressBar
+            android:id="@+id/pb"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:progressDrawable="@drawable/progressbar_color" />
+
     </RelativeLayout>
 </LinearLayout>

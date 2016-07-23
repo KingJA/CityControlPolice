@@ -47,11 +47,10 @@ public class NetChangedReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         this.context = context;
         if (NetUtil.netAvailable()) {
-            ToastUtil.showMyToast("当前网络:" + NetUtil.getNetworkStringType());
+//            ToastUtil.showMyToast("当前网络:" + NetUtil.getNetworkStringType());
             uploadData();
         } else {
             ToastUtil.showMyToast("没有网络");
-            Log.e("onReceive", "没有网络");
         }
     }
 

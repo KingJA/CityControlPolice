@@ -224,7 +224,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
                     ActivityUtil.goActivity(mActivity, BoxActivity.class);
                     break;
                 case 5:
-                    ToastUtil.showMyToast("亲爱的用户，登机牌变更正在开发中...");
+                    ToastUtil.showMyToast("请进入出租房信息模块进行变更操作...");
                     break;
                 case 6:
                     ActivityUtil.goActivity(getActivity(), AttentionQueryActivity.class);

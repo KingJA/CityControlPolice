@@ -75,6 +75,7 @@ public class ThreadPoolTask implements Runnable {
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
+                            ToastUtil.showMyToast(errorResult.getResultText());
                             callBack.onErrorResult(errorResult);
                             if (resultCode == 2) {
                                 AppManager.getAppManager().finishAllActivity();

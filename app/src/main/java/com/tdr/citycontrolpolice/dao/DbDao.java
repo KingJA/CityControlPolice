@@ -18,9 +18,13 @@ public interface DbDao<T> {
 
     public List<T> selectAll(Class<T> clazz);
 
+    public List<T> selectAllAndOrder(Class<T> clazz, String order);
+
     public void saveOrUpdate(T t);
 
     public void deleteById(Class<T> clazz, String id);
+
+    public void deleteAll(Class<T> clazz);
 
 
 }

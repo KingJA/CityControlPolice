@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.BaseFragmentPagerAdapter;
+import com.tdr.citycontrolpolice.entity.ChuZuWu_BoundMenjinYiTiJiByQRCode;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_Favorites;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_InstallStatus;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
@@ -25,6 +26,8 @@ import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.CustomConstants;
+import com.tdr.citycontrolpolice.util.TendencyEncrypt;
+import com.tdr.citycontrolpolice.util.TimeUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.SimpleIndicatorLayout;
@@ -52,6 +55,7 @@ import java.util.Map;
 
 public class CzfInfoActivity extends BackTitleActivity implements BackTitleActivity.OnRightClickListener, CzfInfoPopKj.OnCzfInfoPopClickListener {
     private static final String TAG = "CzfInfoActivity";
+    private static final int SCANNIN_ACCESS = 0x001;
     private TextView tv_czf_info_name;
     private TextView tv_czf_info_phone;
     private TextView tv_czf_info_address;
@@ -126,9 +130,10 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                         mCzfInfo = bean;
                         mIsregister = bean.getContent().getISREGISTER();
                         mIsfavorite = bean.getContent().getISFAVORITE();
-                        iv_attention.setBackgroundResource(mIsfavorite==1?R.drawable.bg_unattention:R.drawable.bg_attention);
+                        iv_attention.setBackgroundResource(mIsfavorite == 1 ? R.drawable.bg_unattention : R.drawable.bg_attention);
                         Log.i(TAG, "mIsregister: " + mIsregister);
                         mCzfInfoPop.setAppleVisibility(mIsregister);
+                        mCzfInfoPop.setAccess(bean.getContent().getHAS(),"1023");
                         tv_czf_info_name.setText(bean.getContent().getOWNERNAME());
                         tv_czf_info_phone.setText(bean.getContent().getPHONE());
                         tv_czf_info_address.setText(bean.getContent().getADDRESS());
@@ -182,11 +187,11 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 if (mIsfavorite == 1) {
                     method = CustomConstants.CHUZUWU_REMOVEFAVORITES;
                     //取消关注
-                }else{
+                } else {
                     method = CustomConstants.CHUZUWU_FAVORITES;
                     //添加关注
                 }
-                attentionCzf( method);
+                attentionCzf(method);
             }
         });
     }
@@ -208,9 +213,10 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
     @Override
     public void onCzfInfoPop(int position) {
+        Intent intent;
         switch (position) {
             case 0:
-                Intent intent = new Intent(this, ModifyCzfActivity.class);
+                intent = new Intent(this, ModifyCzfActivity.class);
                 intent.putExtra("CZF_INFO", mCzfInfo);
                 startActivity(intent);
                 break;
@@ -223,10 +229,10 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
                 break;
             case 2:
-                CzfCardActivity.goActivity(this, mHouseId,mCzfInfo);
+                CzfCardActivity.goActivity(this, mHouseId, mCzfInfo);
                 break;
             case 3:
-                CzfOutInActivity.goActivity(this, mHouseId,mCzfInfo);
+                CzfOutInActivity.goActivity(this, mHouseId, mCzfInfo);
                 break;
             case 4:
                 if (mIsregister != 1) {
@@ -244,12 +250,17 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 break;
 
             case 6:
-                ChangeRecordActivity.goActivity(this,mHouseId);
+                ChangeRecordActivity.goActivity(this, mHouseId);
                 break;
             case 7:
-                if (mIsfavorite==1) {
-                    AttentionEditActivity.goActivity(this,mHouseId);
-                }else{
+                intent = new Intent();
+                intent.setClass(this, zbar.CaptureActivity.class);
+                startActivityForResult(intent, SCANNIN_ACCESS);
+                break;
+            case 8:
+                if (mIsfavorite == 1) {
+                    AttentionEditActivity.goActivity(this, mHouseId);
+                } else {
                     ToastUtil.showMyToast("请先关注出租屋");
                 }
                 break;
@@ -262,6 +273,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
     /**
      * 关注/取消关注出租房
+     *
      * @param method 方法名
      */
     private void attentionCzf(String method) {
@@ -278,11 +290,11 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                         setProgressDialog(false);
                         EventBus.getDefault().post(new Object());
                         if (mIsfavorite == 1) {
-                            mIsfavorite=0;
-                        }else{
-                            mIsfavorite=1;
+                            mIsfavorite = 0;
+                        } else {
+                            mIsfavorite = 1;
                         }
-                        iv_attention.setBackgroundResource(mIsfavorite==1?R.drawable.bg_unattention:R.drawable.bg_attention);
+                        iv_attention.setBackgroundResource(mIsfavorite == 1 ? R.drawable.bg_unattention : R.drawable.bg_attention);
                     }
 
                     @Override
@@ -324,6 +336,96 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
         PoolManager.getInstance().execute(task);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
+        decodeDevice(data);
+    }
 
+    /**
+     * 解析门禁二维码
+     * @param data
+     */
+    private void decodeDevice(Intent data) {
+        String result = data.getExtras().getString("result");
+        result = result.substring(result.indexOf("?") + 1);
+        String type = result.substring(0, 2);
+        if ("M1".equals(type)) {
+            result = result.substring(2);
+            byte[] b = TendencyEncrypt.decode(result.getBytes());
+            result = TendencyEncrypt.bytesToHexString(b);
+            Log.e(TAG, result);
+            final long deviceType = Long.valueOf(result.substring(0, 4), 16);
+            final long deviceNO = Long.valueOf(result.substring(4,12), 16);
+            final long ownerNO = Long.valueOf(result.substring(12,14), 16);
+            final long ownerType = Long.valueOf(result.substring(14,16), 16);
+            final long cardType = Long.valueOf(result.substring(16,18), 16);
+            final String cardNO = result.substring(18,34);
+            final long date = Long.valueOf(result.substring(34,40), 16);
+            Long checkCode = Long.valueOf(result.substring(40,44), 16);
+            Log.i(TAG, "设备类型: " + deviceType);
+            Log.i(TAG, "设备编号: " + deviceNO);
+            Log.i(TAG, "ownerNO: " + ownerNO);
+            Log.i(TAG, "ownerType: " + ownerType);
+            Log.i(TAG, "cardType: " + cardType);
+            Log.i(TAG, "cardNO: " + cardNO);
+            Log.i(TAG, "date: " + date);
+            DialogDouble dialogDouble = new DialogDouble(this, "确定要绑定编号"+deviceNO+"的门禁？", "确定", "取消");
+            dialogDouble.show();
+            dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
+                @Override
+                public void onLeft() {
+                    bindAccess(deviceType,deviceNO,ownerNO,ownerType,cardType,cardNO, TimeUtil.get2015Date(date));
+                }
+                @Override
+                public void onRight() {
 
+                }
+            });
+        } else {
+            ToastUtil.showMyToast("不是要求的二维码对象");
+        }
+    }
+
+    /**
+     * 绑定门禁
+     * @param deviceType
+     * @param deviceNO
+     * @param ownerNO
+     * @param ownerType
+     * @param cardType
+     * @param cardNO
+     * @param date
+     */
+    private void bindAccess(long deviceType, long deviceNO, long ownerNO, long ownerType, long cardType, String cardNO, String date) {
+        setProgressDialog(true);
+        Map<String, Object> param = new HashMap<>();
+        param.put("TaskID", "1");
+        param.put("HOUSEID", mHouseId);
+        param.put("DEVICETYPE", deviceType);
+        param.put("DEVICECODE", deviceNO);
+        param.put("HOUSENO", ownerNO);
+        param.put("LANDLORDLEVEL", ownerType);
+        param.put("CARDTYPE", cardType);
+        param.put("CARDID", cardNO);
+        param.put("CREATEDTIME", date);
+        new ThreadPoolTask.Builder()
+                .setGeneralParam(UserService.getInstance(this).getToken(), 0, "ChuZuWu_BoundMenjinYiTiJiByQRCode", param)
+                .setBeanType(ChuZuWu_BoundMenjinYiTiJiByQRCode.class)
+                .setCallBack(new WebServiceCallBack<ChuZuWu_BoundMenjinYiTiJiByQRCode>() {
+                    @Override
+                    public void onSuccess(ChuZuWu_BoundMenjinYiTiJiByQRCode bean) {
+                        setProgressDialog(false);
+                        ToastUtil.showMyToast("门禁绑定成功");
+                    }
+
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+                        setProgressDialog(false);
+                    }
+                }).build().execute();
+    }
 }

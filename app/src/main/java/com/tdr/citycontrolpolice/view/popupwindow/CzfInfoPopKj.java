@@ -28,12 +28,12 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
     private LinearLayout ll_attention;
     private TextView tv_attention;
     private LinearLayout ll_changeCode;
+    private LinearLayout ll_bind_access;
 
     public CzfInfoPopKj(View parentView, Activity activity) {
         super(parentView, activity);
         this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
     }
-
 
     public void setAppleVisibility(int hasRegistered) {
         ll_apply.setVisibility(hasRegistered == 1 ? View.GONE : View.VISIBLE);
@@ -41,6 +41,9 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
 
     public void setAttention(int hasAttention) {
         tv_attention.setText(hasAttention==1?"取消关注":"关注出租屋");
+    }
+    public void setAccess(String result,String contain) {
+        ll_bind_access.setVisibility(result.contains(contain)? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -59,14 +62,16 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
         ll_binding = (LinearLayout) popupView.findViewById(R.id.ll_binding);
         ll_manager = (LinearLayout) popupView.findViewById(R.id.ll_manager);
         ll_changeCode = (LinearLayout) popupView.findViewById(R.id.ll_changeCode);
+        ll_bind_access = (LinearLayout) popupView.findViewById(R.id.ll_bind_access);
         ll_attention = (LinearLayout) popupView.findViewById(R.id.ll_attention);
-        ll_changeCode.setOnClickListener(this);
         ll_edit.setOnClickListener(this);
         ll_apply.setOnClickListener(this);
         ll_card.setOnClickListener(this);
         ll_register.setOnClickListener(this);
         ll_binding.setOnClickListener(this);
         ll_manager.setOnClickListener(this);
+        ll_changeCode.setOnClickListener(this);
+        ll_bind_access.setOnClickListener(this);
         ll_attention.setOnClickListener(this);
 
     }
@@ -98,8 +103,11 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
             case R.id.ll_changeCode:
                 onCzfInfoPopClickListener.onCzfInfoPop(6);
                 break;
-            case R.id.ll_attention:
+            case R.id.ll_bind_access:
                 onCzfInfoPopClickListener.onCzfInfoPop(7);
+                break;
+            case R.id.ll_attention:
+                onCzfInfoPopClickListener.onCzfInfoPop(8);
                 break;
             default:
                 break;

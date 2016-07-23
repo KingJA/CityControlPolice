@@ -65,6 +65,7 @@ public class KjChuZuWuInfo implements Serializable {
 
     public static class ContentBean implements Serializable {
         private String HOUSEID;
+        private String HAS;
         private String HOUSENAME;
         private int ISREGISTER;
         private int ISFAVORITE;
@@ -180,6 +181,14 @@ public class KjChuZuWuInfo implements Serializable {
 
         public void setISFAVORITE(int ISFAVORITE) {
             this.ISFAVORITE = ISFAVORITE;
+        }
+
+        public String getHAS() {
+            return HAS;
+        }
+
+        public void setHAS(String HAS) {
+            this.HAS = HAS;
         }
 
         public static class RoomListBean implements Serializable {

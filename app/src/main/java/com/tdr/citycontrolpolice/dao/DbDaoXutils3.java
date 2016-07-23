@@ -102,7 +102,19 @@ public class DbDaoXutils3<T> implements DbDao<T> {
         }
         return list;
     }
-
+    @Override
+    public  List<T> selectAllAndOrder(Class<T> clazz,String order) {
+        List<T> list = new ArrayList<>();
+        try {
+            list=dbManager.selector(clazz).orderBy(order,true).findAll();
+            if (list == null) {
+                list=new ArrayList<>();
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
     @Override
     public void saveOrUpdate(final T t) {
         x.task().run(new Runnable() {
@@ -121,6 +133,15 @@ public class DbDaoXutils3<T> implements DbDao<T> {
     public void deleteById(Class<T> clazz,String id) {
         try {
             dbManager.deleteById(clazz, id);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteAll(Class<T> clazz) {
+        try {
+            dbManager.delete(clazz);
         } catch (DbException e) {
             e.printStackTrace();
         }

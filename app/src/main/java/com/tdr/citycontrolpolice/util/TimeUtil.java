@@ -70,4 +70,17 @@ public class TimeUtil {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.parse(strDate);
     }
+
+    public static String get2015Date(long minutes) {
+        String result="";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            long baseSeconds = formatter.parse("2015-01-01 00:00:00").getTime();
+            Date newDate = new Date(baseSeconds + minutes*60*1000);
+            result= formatter.format(newDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

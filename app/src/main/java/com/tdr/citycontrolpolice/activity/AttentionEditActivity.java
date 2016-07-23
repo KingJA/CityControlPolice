@@ -427,7 +427,6 @@ public class AttentionEditActivity extends BackTitleActivity implements RadioGro
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         attentionAdapter.setCheckAble(isChecked);
-
         tv_setting.setVisibility(isChecked?View.GONE:View.VISIBLE);
         cb_checkAll.setChecked(isChecked);
         isTogether = isChecked;

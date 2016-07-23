@@ -18,12 +18,13 @@ import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
  */
 public abstract class BaseActivity extends FragmentActivity {
 
-
+    protected   String TAG ;
     protected DialogProgress mDialogProgress;
     protected FragmentManager mSupportFragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TAG=getClass().getSimpleName();
         mSupportFragmentManager = getSupportFragmentManager();
         StatusBarCompat.initStatusBar(this);
         AppManager.getAppManager().addActivity(this);
