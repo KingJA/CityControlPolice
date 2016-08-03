@@ -16,8 +16,6 @@ import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.Param_User_LoginByPolice;
 import com.tdr.citycontrolpolice.entity.User_LoginByPolice;
-import com.tdr.citycontrolpolice.net.DownloadDbManager;
-import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.update.GetVersionCodeAsynckTask;
@@ -25,7 +23,7 @@ import com.tdr.citycontrolpolice.update.UpdateManager;
 import com.tdr.citycontrolpolice.util.ActivityUtil;
 import com.tdr.citycontrolpolice.util.AesEncoder;
 import com.tdr.citycontrolpolice.util.AppInfoUtil;
-import com.tdr.citycontrolpolice.util.AppManager;
+import com.tdr.citycontrolpolice.util.ActivityManager;
 import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.util.PhoneUtil;
@@ -97,7 +95,7 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppManager.getAppManager().addActivity(this);
+        ActivityManager.getAppManager().addActivity(this);
         setContentView(R.layout.activity_login_kj);
         ButterKnife.bind(this);
         checkVersionUpdate();
@@ -222,6 +220,6 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppManager.getAppManager().finishActivity(this);
+        ActivityManager.getAppManager().finishActivity(this);
     }
 }

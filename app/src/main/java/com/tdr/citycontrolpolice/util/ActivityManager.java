@@ -9,24 +9,23 @@ package com.tdr.citycontrolpolice.util;
  */
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 
 import java.util.Stack;
 
-public class AppManager {
+public class ActivityManager {
 
     private static Stack<Activity> activityStack;
-    private static AppManager instance;
+    private static ActivityManager instance;
 
-    private AppManager() {
+    private ActivityManager() {
     }
 
-    public static AppManager getAppManager() {
+    public static ActivityManager getAppManager() {
         if (instance == null) {
-            synchronized (AppManager.class) {
+            synchronized (ActivityManager.class) {
                 if (instance == null) {
-                    instance = new AppManager();
+                    instance = new ActivityManager();
                 }
             }
         }
@@ -99,7 +98,7 @@ public class AppManager {
     public void AppExit(Context context) {
         try {
             finishAllActivity();
-            ActivityManager activityMgr = (ActivityManager) context
+            android.app.ActivityManager activityMgr = (android.app.ActivityManager) context
                     .getSystemService(Context.ACTIVITY_SERVICE);
             activityMgr.killBackgroundProcesses(context.getPackageName());
             System.exit(0);

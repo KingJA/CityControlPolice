@@ -133,7 +133,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                         iv_attention.setBackgroundResource(mIsfavorite == 1 ? R.drawable.bg_unattention : R.drawable.bg_attention);
                         Log.i(TAG, "mIsregister: " + mIsregister);
                         mCzfInfoPop.setAppleVisibility(mIsregister);
-                        mCzfInfoPop.setAccess(bean.getContent().getHAS(),"1023");
+                        mCzfInfoPop.setAccess(bean.getContent().getHAS(), "1023");
                         tv_czf_info_name.setText(bean.getContent().getOWNERNAME());
                         tv_czf_info_phone.setText(bean.getContent().getPHONE());
                         tv_czf_info_address.setText(bean.getContent().getADDRESS());
@@ -347,6 +347,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
     /**
      * 解析门禁二维码
+     *
      * @param data
      */
     private void decodeDevice(Intent data) {
@@ -359,13 +360,13 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
             result = TendencyEncrypt.bytesToHexString(b);
             Log.e(TAG, result);
             final long deviceType = Long.valueOf(result.substring(0, 4), 16);
-            final long deviceNO = Long.valueOf(result.substring(4,12), 16);
-            final long ownerNO = Long.valueOf(result.substring(12,14), 16);
-            final long ownerType = Long.valueOf(result.substring(14,16), 16);
-            final long cardType = Long.valueOf(result.substring(16,18), 16);
-            final String cardNO = result.substring(18,34);
-            final long date = Long.valueOf(result.substring(34,40), 16);
-            Long checkCode = Long.valueOf(result.substring(40,44), 16);
+            final long deviceNO = Long.valueOf(result.substring(4, 12), 16);
+            final long ownerNO = Long.valueOf(result.substring(12, 14), 16);
+            final long ownerType = Long.valueOf(result.substring(14, 16), 16);
+            final long cardType = Long.valueOf(result.substring(16, 18), 16);
+            final String cardNO = result.substring(18, 34);
+            final long date = Long.valueOf(result.substring(34, 40), 16);
+            Long checkCode = Long.valueOf(result.substring(40, 44), 16);
             Log.i(TAG, "设备类型: " + deviceType);
             Log.i(TAG, "设备编号: " + deviceNO);
             Log.i(TAG, "ownerNO: " + ownerNO);
@@ -373,13 +374,14 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
             Log.i(TAG, "cardType: " + cardType);
             Log.i(TAG, "cardNO: " + cardNO);
             Log.i(TAG, "date: " + date);
-            DialogDouble dialogDouble = new DialogDouble(this, "确定要绑定编号"+deviceNO+"的门禁？", "确定", "取消");
+            DialogDouble dialogDouble = new DialogDouble(this, "确定要绑定编号" + deviceNO + "的门禁？", "确定", "取消");
             dialogDouble.show();
             dialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
                 @Override
                 public void onLeft() {
-                    bindAccess(deviceType,deviceNO,ownerNO,ownerType,cardType,cardNO, TimeUtil.get2015Date(date));
+                    bindAccess(deviceType, deviceNO, ownerNO, ownerType, cardType, cardNO, TimeUtil.get2015Date(date));
                 }
+
                 @Override
                 public void onRight() {
 
@@ -392,6 +394,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
 
     /**
      * 绑定门禁
+     *
      * @param deviceType
      * @param deviceNO
      * @param ownerNO
@@ -419,6 +422,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                     @Override
                     public void onSuccess(ChuZuWu_BoundMenjinYiTiJiByQRCode bean) {
                         setProgressDialog(false);
+                        mCzfInfoPop.setAccess(View.GONE);
                         ToastUtil.showMyToast("门禁绑定成功");
                     }
 

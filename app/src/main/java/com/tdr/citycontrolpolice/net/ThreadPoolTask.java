@@ -11,7 +11,7 @@ import com.orhanobut.logger.Logger;
 import com.tdr.citycontrolpolice.activity.KjLoginActivity;
 import com.tdr.citycontrolpolice.base.App;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
-import com.tdr.citycontrolpolice.util.AppManager;
+import com.tdr.citycontrolpolice.util.ActivityManager;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 
 import org.json.JSONObject;
@@ -78,7 +78,7 @@ public class ThreadPoolTask implements Runnable {
                             ToastUtil.showMyToast(errorResult.getResultText());
                             callBack.onErrorResult(errorResult);
                             if (resultCode == 2) {
-                                AppManager.getAppManager().finishAllActivity();
+                                ActivityManager.getAppManager().finishAllActivity();
                                 Intent intent = new Intent(App.getContext(), KjLoginActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 App.getContext().startActivity(intent);

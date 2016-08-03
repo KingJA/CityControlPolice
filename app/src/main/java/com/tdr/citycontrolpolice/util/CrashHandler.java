@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -68,7 +67,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             e.printStackTrace();
         }
 
-        AppManager.getAppManager().finishAllActivity();//避免前台的其他APP被关闭
+        ActivityManager.getAppManager().finishAllActivity();//避免前台的其他APP被关闭
         Intent intent = new Intent(context, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

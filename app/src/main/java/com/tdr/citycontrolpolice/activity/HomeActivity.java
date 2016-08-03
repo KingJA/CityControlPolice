@@ -1,21 +1,15 @@
 package com.tdr.citycontrolpolice.activity;
 
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.fragment.TabHomeFragment;
-import com.tdr.citycontrolpolice.receiver.NetChangedReceiver;
-import com.tdr.citycontrolpolice.util.AppManager;
 import com.tdr.citycontrolpolice.util.FragmentUtil;
 import com.tdr.citycontrolpolice.util.ResourcesUtil;
-import com.tdr.citycontrolpolice.util.StatusBarCompat;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 
 /**

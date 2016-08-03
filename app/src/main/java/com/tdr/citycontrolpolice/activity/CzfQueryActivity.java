@@ -29,10 +29,9 @@ import com.tdr.citycontrolpolice.entity.SQL_Query;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.AppManager;
+import com.tdr.citycontrolpolice.util.ActivityManager;
 import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
-import com.tdr.citycontrolpolice.util.TimeUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
@@ -296,6 +295,6 @@ public class CzfQueryActivity extends BaseActivity implements TextWatcher, View.
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppManager.getAppManager().finishActivity(this);
+        ActivityManager.getAppManager().finishActivity(this);
     }
 }

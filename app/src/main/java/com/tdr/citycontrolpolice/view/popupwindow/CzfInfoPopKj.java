@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 
+import java.util.Arrays;
+
 /**
  * 项目名称：物联网城市防控(警用版)
  * 类描述：TODO
@@ -43,7 +45,12 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
         tv_attention.setText(hasAttention==1?"取消关注":"关注出租屋");
     }
     public void setAccess(String result,String contain) {
-        ll_bind_access.setVisibility(result.contains(contain)? View.GONE : View.VISIBLE);
+        String[] deviceArr = result.split(",");
+        ll_bind_access.setVisibility(Arrays.asList(deviceArr).contains(contain)? View.GONE : View.VISIBLE);
+    }
+
+    public void setAccess(int  visibility) {
+        ll_bind_access.setVisibility(visibility);
     }
 
     @Override
