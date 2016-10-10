@@ -223,6 +223,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         } else {
             setProgressDialog(false);
             if (result.length() > 10) {
+                Log.e(TAG, "result: "+result );
                 ToastUtil.showMyToast("二维码不符合");
                 return;
             }

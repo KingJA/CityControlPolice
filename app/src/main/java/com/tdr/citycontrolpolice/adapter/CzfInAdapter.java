@@ -22,6 +22,8 @@ import java.util.List;
  */
 public class CzfInAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingList.ContentBean.PERSONNELINFOLISTBean> {
 
+    private OnItemDeleteListener onItemDeleteListener;
+
     public CzfInAdapter(Context context, List<ChuZuWu_LKSelfReportingList.ContentBean.PERSONNELINFOLISTBean> list) {
         super(context, list);
     }
@@ -46,6 +48,7 @@ public class CzfInAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingList.
             viewHolder.ivapplyarrow.setBackgroundResource(R.drawable.bg_arrow_down);
         }
         viewHolder.tvinfoname.setText(list.get(position).getNAME());
+        setCheckStatus(viewHolder.iv_checkStatus,list.get(position).getSTATUS());
         viewHolder.tvinfophone.setText(list.get(position).getPHONENUM());
         viewHolder.tvinfocard.setText(list.get(position).getIDENTITYCARD());
         viewHolder.tvinfotime.setText(list.get(position).getINTIME().substring(0, 10));
@@ -57,7 +60,21 @@ public class CzfInAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingList.
                 notifyDataSetChanged();
             }
         });
+        viewHolder.iv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemDeleteListener != null) {
+                    onItemDeleteListener.onDelete(position, list.get(position).getLISTID());
+                }
+            }
+        });
+
         return convertView;
+    }
+
+    public void deleteItem(int position) {
+        list.remove(position);
+        notifyDataSetChanged();
     }
 
 
@@ -65,6 +82,8 @@ public class CzfInAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingList.
         public final TextView tvinfoname;
         public final TextView tvinfotime;
         public final ImageView ivapplyarrow;
+        public final ImageView iv_checkStatus;
+        public final ImageView iv_delete;
         public final RelativeLayout rltop;
         public final TextView tvinfophone;
         public final TextView tvinfocard;
@@ -75,11 +94,39 @@ public class CzfInAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingList.
             tvinfoname = (TextView) root.findViewById(R.id.tv_outin_name);
             tvinfotime = (TextView) root.findViewById(R.id.tv_info_time);
             ivapplyarrow = (ImageView) root.findViewById(R.id.iv_apply_arrow);
+            iv_delete = (ImageView) root.findViewById(R.id.iv_delete);
+            iv_checkStatus = (ImageView) root.findViewById(R.id.iv_checkStatus);
             rltop = (RelativeLayout) root.findViewById(R.id.rl_top);
             tvinfophone = (TextView) root.findViewById(R.id.tv_info_phone);
             tvinfocard = (TextView) root.findViewById(R.id.tv_info_card);
             llexpand = (LinearLayout) root.findViewById(R.id.ll_expand);
             this.root = root;
+        }
+    }
+
+    public interface OnItemDeleteListener {
+        void onDelete(int position, String LISTID);
+    }
+
+    public void setonItemDeleteListener(OnItemDeleteListener onItemDeleteListener) {
+        this.onItemDeleteListener = onItemDeleteListener;
+    }
+//    审核状态（0未审核，1审核通过，2审核不通过）
+
+    public void setCheckStatus(ImageView imageView,String checkStatus) {
+        switch (checkStatus) {
+            case "0":
+                imageView.setBackgroundResource(R.drawable.bg_unchecked);
+                break;
+            case "1":
+                imageView.setBackgroundResource(R.drawable.bg_checked);
+                break;
+            case "2":
+                imageView.setBackgroundResource(R.drawable.bg_refused);
+                break;
+            default:
+                break;
+
         }
     }
 }

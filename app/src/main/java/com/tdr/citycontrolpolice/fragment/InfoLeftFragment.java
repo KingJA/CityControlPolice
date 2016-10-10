@@ -14,11 +14,16 @@ import com.tdr.citycontrolpolice.adapter.CzfLeftAdapter;
 import com.tdr.citycontrolpolice.base.KjBaseFragment;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_LKSelfReportingOutList;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
+import com.tdr.citycontrolpolice.event.InfoLeftFragmetnEvent;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.UserService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,6 +79,7 @@ public class InfoLeftFragment extends KjBaseFragment implements SwipeRefreshLayo
 
     @Override
     protected void initFragmentView() {
+        EventBus.getDefault().register(this);
         leftAdapter = new CzfLeftAdapter(mActivity, leftList);
         singleSrl.setColorSchemeResources(R.color.bg_blue_solid);
         singleSrl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
@@ -132,6 +138,15 @@ public class InfoLeftFragment extends KjBaseFragment implements SwipeRefreshLayo
 
     @Override
     public void onRefresh() {
+        initFragmentNet();
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN )
+    public void onMessageEvent(InfoLeftFragmetnEvent messageEvent) {
         initFragmentNet();
     }
 }

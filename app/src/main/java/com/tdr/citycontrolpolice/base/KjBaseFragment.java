@@ -45,7 +45,6 @@ public abstract class KjBaseFragment extends Fragment {
 
         initFragmentVariables();
         initFragmentView();
-        initFragmentView();
         initFragmentNet();
         initFragmentData();
         setFragmentData();

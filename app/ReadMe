@@ -1,0 +1,13 @@
+==========NFC==========
+libnfcjni.so
+libwltdecode.so
+ysidcard.jar
+
+==========OCR==========
+idcard_engine_20160322.jar
+libIDCardengine.so
+libimageengine.so
+
+==========ZBar==========
+libiconv.so
+libZBarDecoder.so

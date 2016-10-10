@@ -53,6 +53,7 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <!--android:name="com.tdr.citycontrolpolice.activity.SplashActivity"-->
         <activity
             android:name="com.tdr.citycontrolpolice.activity.SplashActivity"
             android:screenOrientation="portrait">
@@ -187,6 +188,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ChangeCodeActivity"
+            android:screenOrientation="portrait" />
+    <activity
+            android:name=".activity.ApplyEditActivity"
             android:screenOrientation="portrait" />
 
         <receiver android:name=".receiver.NetChangedReceiver">

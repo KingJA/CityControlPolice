@@ -80,6 +80,7 @@ public class ChuZuWu_LKSelfReportingList {
         public static class PERSONNELINFOLISTBean {
             private String LISTID;
             private String NAME;
+            private String STATUS;
             private String IDENTITYCARD;
             private String PHONENUM;
             private String ROOMID;
@@ -140,6 +141,14 @@ public class ChuZuWu_LKSelfReportingList {
 
             public void setExplend(boolean explend) {
                 this.explend = explend;
+            }
+
+            public String getSTATUS() {
+                return STATUS;
+            }
+
+            public void setSTATUS(String STATUS) {
+                this.STATUS = STATUS;
             }
         }
     }

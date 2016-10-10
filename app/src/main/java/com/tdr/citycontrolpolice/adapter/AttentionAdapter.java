@@ -45,11 +45,9 @@ public class AttentionAdapter extends BaseSimpleAdapter<ChuZuWu_RoomListOfFavori
         viewHolder.tvattentiontype.setText(getAttentionType(list.get(position).getREMIND_TYPE()));
         if (selectPosition == -1) {
             convertView.setBackgroundColor(context.getResources().getColor(R.color.bg_transparent));
-        }else{
-        convertView.setBackgroundColor(position == selectPosition ? context.getResources().getColor(R.color.bg_gray_kj) : context.getResources().getColor(R.color.bg_transparent));
+        } else {
+            convertView.setBackgroundColor(position == selectPosition ? context.getResources().getColor(R.color.bg_gray_kj) : context.getResources().getColor(R.color.bg_transparent));
         }
-
-
 
         viewHolder.cbattention.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -80,13 +78,14 @@ public class AttentionAdapter extends BaseSimpleAdapter<ChuZuWu_RoomListOfFavori
         this.checkAble = checkAble;
         notifyDataSetChanged();
     }
+
     @Override
     public void setData(List<ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean> list) {
         super.setData(list);
     }
 
     public void setLastData(List<ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean> list) {
-        for (ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean :list) {
+        for (ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean : list) {
             if (bean.getREMIND_TYPE() != 0) {
                 bean.setChecked(true);
             }
@@ -95,18 +94,18 @@ public class AttentionAdapter extends BaseSimpleAdapter<ChuZuWu_RoomListOfFavori
     }
 
     public void setDefaultChecked(List<ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean> list) {
-        for (ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean :list) {
+        for (ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean : list) {
             bean.setChecked(true);
         }
         setData(list);
     }
+
     public void setChecked(boolean isChecked) {
-        for (ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean :list) {
+        for (ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean : list) {
             bean.setChecked(isChecked);
         }
         setData(list);
     }
-
 
     public boolean isTogether(List<ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean> list) {
         if (list.size() == 0) {
@@ -114,12 +113,12 @@ public class AttentionAdapter extends BaseSimpleAdapter<ChuZuWu_RoomListOfFavori
         }
         int lastType = list.get(0).getREMIND_TYPE();
         int currentType;
-        for (ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean :list) {
-            currentType=bean.getREMIND_TYPE();
+        for (ChuZuWu_RoomListOfFavorites.ContentBean.MonitorRoomListBean bean : list) {
+            currentType = bean.getREMIND_TYPE();
             if (currentType == lastType) {
-                lastType=currentType;
+                lastType = currentType;
                 continue;
-            }else{
+            } else {
                 return false;
             }
         }
@@ -193,7 +192,7 @@ public class AttentionAdapter extends BaseSimpleAdapter<ChuZuWu_RoomListOfFavori
     }
 
     public void reset() {
-        selectPosition=-1;
+        selectPosition = -1;
         notifyDataSetChanged();
     }
 }

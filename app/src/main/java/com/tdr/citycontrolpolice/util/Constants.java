@@ -50,7 +50,9 @@ public class Constants {
         switch (RELEASE_SERVICE) {
             case TEST:
 //                hostUrl = "http://192.168.168.161:8888/RentalEstate.asmx";
-                hostUrl = "http://zafkapp.test.iotone.cn/rentalestate.asmx";
+//                hostUrl = "http://zafkapp.test.iotone.cn/rentalestate.asmx";
+                hostUrl = "http://zafkapp.test.iotone.cn:12026/rentalestate.asmx";
+
                 break;
             case PSTORE:
             case LIUGUANTONG:
@@ -68,7 +70,7 @@ public class Constants {
         String webViewUrl = "";
         switch (RELEASE_SERVICE) {
             case TEST:
-                webViewUrl = "http://zafkapp.test.iotone.cn/";
+                webViewUrl = "http://zafkapp.test.iotone.cn:12026/";
                 break;
             case PSTORE:
             case LIUGUANTONG:

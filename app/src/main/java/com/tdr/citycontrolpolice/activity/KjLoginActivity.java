@@ -16,6 +16,7 @@ import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.Param_User_LoginByPolice;
 import com.tdr.citycontrolpolice.entity.User_LoginByPolice;
+import com.tdr.citycontrolpolice.net.DownloadDbManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.update.GetVersionCodeAsynckTask;
@@ -98,8 +99,10 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         ActivityManager.getAppManager().addActivity(this);
         setContentView(R.layout.activity_login_kj);
         ButterKnife.bind(this);
-        checkVersionUpdate();
-//        new DownloadDbManager(mInitHandler).startDownloadDb();
+        if (Constants.RELEASE_SERVICE != 1) {//PSTORE不更新
+            checkVersionUpdate();
+        }
+        new DownloadDbManager(mInitHandler).startDownloadDb();
         initView();
         initData();
     }

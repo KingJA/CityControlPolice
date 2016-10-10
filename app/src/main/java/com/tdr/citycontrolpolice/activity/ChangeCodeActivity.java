@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.dao.DbDaoXutils3;
+import com.tdr.citycontrolpolice.entity.Basic_XingZhengQuHua_Kj;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_ChangeMenPai;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_DetailInfo;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
@@ -28,6 +30,7 @@ import com.tdr.citycontrolpolice.view.popupwindow.PopupReaconType;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,6 +57,10 @@ public class ChangeCodeActivity extends BackTitleActivity implements View.OnClic
     private int reasonType=-1;
     private DialogConfirm dialogConfirm;
     private PopupReaconType popupReaconType;
+    private List<Basic_XingZhengQuHua_Kj> cityList;
+    private Map<String, String> cityMap;
+    private String newCode;
+    private String oldCode;
 
     @Override
     public View setContentView() {
@@ -64,6 +71,7 @@ public class ChangeCodeActivity extends BackTitleActivity implements View.OnClic
     @Override
     public void initVariables() {
         houseId = getIntent().getStringExtra(HOUSE_ID);
+
     }
 
     @Override
@@ -95,7 +103,8 @@ public class ChangeCodeActivity extends BackTitleActivity implements View.OnClic
                     @Override
                     public void onSuccess(ChuZuWu_DetailInfo bean) {
                         setProgressDialog(false);
-                        mTvChangeCodeOld.setText(bean.getContent().getQRMENPAI());
+                        oldCode = bean.getContent().getQRMENPAI();
+                        mTvChangeCodeOld.setText(getCityRCode(bean.getContent().getQRMENPAI()));
                     }
 
                     @Override
@@ -141,6 +150,16 @@ public class ChangeCodeActivity extends BackTitleActivity implements View.OnClic
         setTitle("登记牌变更");
         mTvChangeCodeDate.setText(TimeUtil.getFormatDate());
         mTvChangeCodeUser.setText((String) SharedPreferencesUtils.get("login_name", ""));
+        cityMap = new HashMap<>();
+        cityList = DbDaoXutils3.getInstance().selectAll(Basic_XingZhengQuHua_Kj.class);
+        for (Basic_XingZhengQuHua_Kj bean : cityList) {
+            if ("开发区".equals(bean.getDMMC())) {
+                cityMap.put(bean.getDMZM(),"经开");
+            }else{
+                cityMap.put(bean.getDMZM(),bean.getDMMC().substring(0,2));
+            }
+
+        }
     }
 
     public static void goActivity(Context context, String houseId) {
@@ -186,14 +205,20 @@ public class ChangeCodeActivity extends BackTitleActivity implements View.OnClic
     private void inquireDevice(Intent data) {
         String code = QRCodeUtil.inquireCzf(data);
         Log.e(TAG, "code: " + code);
-        if (!TextUtils.isEmpty(code)) {
-            mEtChangeCodeNew.setText(code);
-        }
+        newCode = code;
+        mEtChangeCodeNew.setText(getCityRCode(newCode));
+    }
+
+    private String getCityRCode(String code) {
+        String cityCode = code.substring(0, 6);
+        String num = code.substring(6, 7);
+       return cityMap.get(cityCode)+code.substring("0".equals(num)?7:6);
     }
 
     public void upload() {
-        String reason = mEtChangeCodeReason.getText().toString().trim();
-        String newCode = mEtChangeCodeNew.getText().toString().trim();
+//        String reason = mEtChangeCodeReason.getText().toString().trim();
+//        String newCode = mEtChangeCodeNew.getText().toString().trim();
+        String reason  =  mEtChangeCodeReason.getText().toString().trim();
         if (!CheckUtil.checkEmpty(newCode, "请提供新的登记牌二维码")) {
             return;
         }
