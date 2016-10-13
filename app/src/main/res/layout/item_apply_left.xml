@@ -15,7 +15,7 @@
         android:paddingTop="12dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
 
@@ -25,40 +25,42 @@
                 android:layout_height="16dp"
                 android:background="@drawable/bg_left" />
 
-
             <TextView
+                android:singleLine="true"
+                android:layout_weight="1"
                 android:id="@+id/tv_outin_name"
                 style="@style/font_6_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="周磊" />
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical">
 
+
+                <TextView
+                    android:id="@+id/tv_info_time"
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="2015-05-15" />
+
+                <ImageView
+                    android:id="@+id/iv_apply_arrow"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/bg_arrow_down" />
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical">
 
-
-            <TextView
-                android:id="@+id/tv_info_time"
-                style="@style/font_9_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:text="2015-05-15" />
-
-            <ImageView
-                android:id="@+id/iv_apply_arrow"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:background="@drawable/bg_arrow_down" />
-
-        </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout

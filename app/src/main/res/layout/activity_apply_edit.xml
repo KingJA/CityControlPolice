@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_gray_kj"
-    android:orientation="vertical"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
     <RelativeLayout
-        android:background="@color/bg_white"
         android:id="@+id/rl_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bg_white"
         android:padding="12dp">
 
         <TextView
@@ -22,7 +23,6 @@
             android:text="选择房间" />
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/iv_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,12 +31,13 @@
             android:background="@drawable/bg_arrow_down" />
 
     </RelativeLayout>
-    <View style="@style/divider_nomal_horizontal"/>
+
+    <View style="@style/divider_nomal_horizontal" />
 
     <LinearLayout
-        android:layout_margin="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="12dp"
         android:background="@drawable/shape_lgray1_bwhite_r5"
         android:orientation="vertical">
 
@@ -56,26 +57,27 @@
             android:padding="12dp">
 
             <TextView
-                android:gravity="end"
                 style="@style/font_9_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="end"
                 android:text="姓名" />
 
-                <EditText
-                    android:layout_marginLeft="8dp"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
-                    android:id="@+id/et_apply_edit_name"
-                    style="@style/font_edit_3_14"
-                />
+            <EditText
+                android:id="@+id/et_apply_edit_name"
+                style="@style/font_edit_3_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="3.5"
+                android:maxLength="15" />
 
 
         </LinearLayout>
 
         <View style="@style/divider_nomal_horizontal" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,19 +86,19 @@
             android:padding="12dp">
 
             <TextView
-                android:gravity="end"
                 style="@style/font_9_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="end"
                 android:text="手机号码" />
 
             <TextView
-                android:layout_marginLeft="8dp"
                 android:id="@+id/tv_apply_edit_phone"
                 style="@style/font_9_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="3.5" />
 
         </LinearLayout>
@@ -111,21 +113,36 @@
             android:padding="12dp">
 
             <TextView
-                android:gravity="end"
                 style="@style/font_9_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="end"
                 android:text="身份证号码" />
 
-            <EditText
-                android:layout_marginLeft="8dp"
-                android:id="@+id/et_apply_edit_cardId"
-                style="@style/font_edit_3_14"
+            <LinearLayout
+                android:layout_weight="3.5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3.5"
-               />
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/et_apply_edit_cardId"
+                    style="@style/font_edit_3_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/iv_camera"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/sel_camera" />
+            </LinearLayout>
 
         </LinearLayout>
 

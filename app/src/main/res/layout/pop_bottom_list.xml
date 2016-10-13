@@ -10,6 +10,7 @@
         android:layout_height="wrap_content">
 
         <ListView
+            android:fadeScrollbars="false"
             android:id="@+id/lv_pop_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

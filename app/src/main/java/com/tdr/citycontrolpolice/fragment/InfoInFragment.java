@@ -126,7 +126,7 @@ public class InfoInFragment extends KjBaseFragment implements SwipeRefreshLayout
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ChuZuWu_LKSelfReportingList.ContentBean.PERSONNELINFOLISTBean bean = (ChuZuWu_LKSelfReportingList.ContentBean.PERSONNELINFOLISTBean) parent.getItemAtPosition(position);
-                ApplyEditActivity.goActivity(getActivity(),bean.getLISTID(),mHouseId,bean.getNAME(),bean.getPHONENUM(),bean.getIDENTITYCARD());
+                ApplyEditActivity.goActivity(getActivity(),bean.getLISTID(),mHouseId,bean.getROOMID(),bean.getNAME(),bean.getPHONENUM(),bean.getIDENTITYCARD());
             }
         });
     }

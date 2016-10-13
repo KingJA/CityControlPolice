@@ -29,6 +29,7 @@ public class CheckUtil {
 
     /**
      * 验证是否以0开始
+     *
      * @param s
      * @return
      */
@@ -43,6 +44,7 @@ public class CheckUtil {
 
     /**
      * 手机号码验证
+     *
      * @param phone
      * @return
      */
@@ -64,6 +66,7 @@ public class CheckUtil {
 
     /**
      * 密码格式验证
+     *
      * @param password
      * @return
      */
@@ -109,7 +112,7 @@ public class CheckUtil {
 
     public static boolean checkBirthday(String input, String tip) {
 
-        if (input.length()!=11) {
+        if (input.length() != 11) {
             ToastUtil.showMyToast(tip);
             return false;
         }
@@ -122,13 +125,13 @@ public class CheckUtil {
      * @param value
      * @return
      */
-    public static boolean checkIdCard(final String value,String tip) {
-        if (value == null || value.length() != 18){
+    public static boolean checkIdCard(final String value, String tip) {
+        if (value == null || value.length() != 18) {
             ToastUtil.showMyToast(tip);
             return false;
         }
 
-        if (!value.matches("[\\d]+[X]?")){
+        if (!value.matches("[\\d]+[X]?")) {
             ToastUtil.showMyToast(tip);
             return false;
         }
@@ -141,11 +144,11 @@ public class CheckUtil {
         int nCheckNum = nSum % 11;
         char chrValue = value.charAt(17);
         char chrCode = code.charAt(nCheckNum);
-        if (chrValue == chrCode){
+        if (chrValue == chrCode) {
             return true;
         }
 
-        if (nCheckNum == 2 && (chrValue + ('a' - 'A') == chrCode)){
+        if (nCheckNum == 2 && (chrValue + ('a' - 'A') == chrCode)) {
             return true;
         }
         ToastUtil.showMyToast(tip);
