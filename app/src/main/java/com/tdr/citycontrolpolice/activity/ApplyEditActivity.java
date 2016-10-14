@@ -212,7 +212,7 @@ public class ApplyEditActivity extends BackTitleActivity implements View.OnClick
                 }
                 break;
             case R.id.tv_apply_edit_confirm:
-                String name = mEvApplyEditName.getText().toString().trim();
+                String name = mEvApplyEditName.getText().toString().trim().toUpperCase();
                 String cardId = mEtApplyEditCardId.getText().toString().trim();
                 if (CheckUtil.checkIdCard(cardId, "身份证号码格式有误") && CheckUtil.checkEmpty(name,"姓名不能为空")&&CheckUtil.checkEmpty(selectRoomId,"请选择房间")) {
                     upload(name,cardId);

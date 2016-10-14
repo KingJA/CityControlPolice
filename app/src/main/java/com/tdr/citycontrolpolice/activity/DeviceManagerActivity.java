@@ -100,7 +100,7 @@ public class DeviceManagerActivity extends BackTitleActivity implements SwipeRef
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-
+                        srl.setRefreshing(false);
                     }
                 }).build();
         PoolManager.getInstance().execute(task);

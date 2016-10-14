@@ -110,7 +110,7 @@ public class AttentionQueryActivity extends BackTitleActivity implements BackTit
     }
 
 
-    private void queryAttention(String address) {
+    private void queryAttention(final String address) {
         mSingleSrl.setRefreshing(true);
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
@@ -130,7 +130,7 @@ public class AttentionQueryActivity extends BackTitleActivity implements BackTit
                         attentionQueryList = bean.getContent();
                         attentionQueryAdapter.setData(attentionQueryList);
                         mLlEmpty.setVisibility(attentionQueryList.size() > 0 ? View.GONE : View.VISIBLE);
-                        if (attentionQueryList.size() == 0) {
+                        if (attentionQueryList.size() == 0&&!"".equals(address)) {
                             ToastUtil.showMyToast("无搜索结果");
                         }
 
