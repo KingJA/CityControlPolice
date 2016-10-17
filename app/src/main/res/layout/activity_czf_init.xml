@@ -228,6 +228,12 @@
                 android:padding="12dp"
                 android:text="房东信息" />
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/ll_owner_root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -292,7 +298,7 @@
 
             </LinearLayout>
 
-            <View style="@style/divider_light_horizontal" />
+          <!--  <View style="@style/divider_light_horizontal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -317,8 +323,36 @@
                     android:paddingLeft="5dp"
                     android:singleLine="true"
                     android:textCursorDrawable="@drawable/et_cursor" />
-            </LinearLayout>
+            </LinearLayout>-->
 
+                <com.tdr.citycontrolpolice.view.MultieEditText
+                    android:id="@+id/met_ownerPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+            <View style="@style/divider_light_horizontal" />
+            <RelativeLayout
+                android:padding="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/tv_addPhone"
+                    style="@style/font_blue_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="添加手机号码" />
+                <ImageView
+                    android:id="@+id/iv_removePhone"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/bg_reduce_circle"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp" />
+
+            </RelativeLayout>
         </LinearLayout>
 
 
@@ -361,11 +395,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
 
                     <!--  <RelativeLayout
                           android:layout_width="match_parent"
@@ -387,13 +416,6 @@
                       </RelativeLayout>-->
 
 
-                    <LinearLayout
-                        android:id="@+id/ll_admin_root"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <!--       <View style="@style/divider_light_horizontal" />-->
-
                         <LinearLayout
 
                             android:layout_width="match_parent"
@@ -401,13 +423,13 @@
                             android:orientation="horizontal"
                             android:padding="12dp">
 
-                            <TextView
+                            <com.tdr.citycontrolpolice.view.RequiredTextView
                                 style="@style/font_tip_14"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical|right"
-                                android:text="姓名" />
+                                android:text="*姓名" />
 
                             <EditText
                                 android:id="@+id/et_adminName"
@@ -429,13 +451,13 @@
                             android:orientation="horizontal"
                             android:padding="12dp">
 
-                            <TextView
+                            <com.tdr.citycontrolpolice.view.RequiredTextView
                                 style="@style/font_tip_14"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical|right"
-                                android:text="身份证" />
+                                android:text="*身份证" />
 
                             <EditText
                                 android:id="@+id/et_adminCard"
@@ -459,70 +481,37 @@
 
                         </LinearLayout>
 
-                        <com.tdr.citycontrolpolice.view.MultieEditText
-                            android:id="@+id/met_phone"
+
+                        <View style="@style/divider_light_horizontal" />
+
+                        <LinearLayout
+                            android:padding="12dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.tdr.citycontrolpolice.view.RequiredTextView
+                                style="@style/font_tip_14"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical|right"
+                                android:text="*手机号" />
+
+                            <EditText
+                                android:id="@+id/et_adminPhone"
+                                style="@style/font_edit_3_14"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="3.5"
+                                android:background="@null"
+                                android:paddingLeft="5dp"
+                                android:singleLine="true"
+                                android:textCursorDrawable="@drawable/et_cursor" />
+                        </LinearLayout>
 
 
                     </LinearLayout>
-
-                    <View style="@style/divider_light_horizontal" />
-                    <RelativeLayout
-                        android:padding="12dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_centerInParent="true"
-                            android:id="@+id/tv_addPhone"
-                            style="@style/font_blue_12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="添加手机号码" />
-                        <ImageView
-                            android:id="@+id/iv_removePhone"
-                            android:layout_alignParentRight="true"
-                            android:background="@drawable/bg_reduce_circle"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp" />
-
-                    </RelativeLayout>
-
-
-
-                    <!--     <View style="@style/divider_light_horizontal" />
-
-                         <LinearLayout
-                             android:padding="12dp"
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:orientation="horizontal">
-
-                             <TextView
-                                 style="@style/font_tip_14"
-                                 android:layout_weight="1"
-                                 android:layout_width="0dp"
-                                 android:layout_height="match_parent"
-                                 android:gravity="center_vertical|right"
-                                 android:text="手机号" />
-
-                             <EditText
-                                 android:id="@+id/et_adminPhone"
-                                 style="@style/font_edit_3_14"
-                                 android:layout_width="0dp"
-                                 android:layout_height="match_parent"
-                                 android:layout_weight="3.5"
-                                 android:background="@null"
-                                 android:paddingLeft="5dp"
-                                 android:singleLine="true"
-                                 android:textCursorDrawable="@drawable/et_cursor" />
-                         </LinearLayout>-->
-
-
-                </LinearLayout>
-
-            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout

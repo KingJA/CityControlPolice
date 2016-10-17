@@ -51,6 +51,10 @@ public class CzfManagerAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.ContentBe
         return String.valueOf(count);
     }
 
+    public void deleteItem(int position) {
+        list.remove(position);
+        notifyDataSetChanged();
+    }
 
     public class ViewHolder {
         public final TextView tvinforoom;

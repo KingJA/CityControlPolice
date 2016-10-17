@@ -20,10 +20,10 @@
 
         <ImageView
             android:id="@+id/iv_delete"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/bg_delete"
             android:layout_width="15dp"
-            android:layout_height="15dp" />
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_delete" />
     </RelativeLayout>
 
 
@@ -31,7 +31,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:padding="12dp">
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+
+        >
 
         <TextView
             style="@style/font_9_14"
@@ -43,20 +48,24 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="6">  <TextView
-            android:id="@+id/tv_admin_name"
-            style="@style/font_3_14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="周磊" />
+            android:layout_weight="6"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_admin_name"
+                style="@style/font_3_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="周磊" />
 
             <ImageView
                 android:id="@+id/iv_checkBy"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginLeft="12dp"
-                android:background="@drawable/bg_police"
-                android:layout_width="15dp"
-                android:layout_height="15dp" /></LinearLayout>
+                android:background="@drawable/bg_police" />
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -1,6 +1,8 @@
 package com.tdr.citycontrolpolice.view;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -52,19 +54,42 @@ public class MultieEditText extends LinearLayout {
         return text;
     }
 
+    public void setText(String text) {
+        et_single.setText(text);
+    }
+
     public boolean checkFormat() {
         String text = et_single.getText().toString().trim();
         if (TextUtils.isEmpty(text)) {
-            ToastUtil.showMyToast("手机号码不能为空");
+            ToastUtil.showMyToast("房东手机号码不能为空");
             return false;
         }
 
         // 判断手机号格式
         if (!Pattern.matches(
                 "^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\\d{8}$", text)) {
-            ToastUtil.showMyToast("手机号码格式不对");
+            ToastUtil.showMyToast("房东手机号码格式不对");
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("View", super.onSaveInstanceState());
+        bundle.putString("et_single", et_single.getText().toString().trim());
+        return bundle;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+            et_single.setText(bundle.getString("et_single"));
+            super.onRestoreInstanceState(bundle.getParcelable("View"));
+        } else {
+            super.onRestoreInstanceState(state);
+        }
     }
 }

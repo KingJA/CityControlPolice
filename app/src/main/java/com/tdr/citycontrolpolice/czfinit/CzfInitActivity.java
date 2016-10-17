@@ -109,9 +109,9 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     private String mRoomMark;
     private String zrq;
     private TextView mTvAddPhone;
-    private LinearLayout mLlAdmin_root;
+    private LinearLayout mLlOwner_root;
     private List<MultieEditText> mMultieEditTextList = new ArrayList<>();
-    private MultieEditText mMetPhone;
+    private MultieEditText mMetOwnerPhone;
     private ImageView mIvRemovePhone;
 
 
@@ -140,12 +140,12 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
 
     @Override
     protected void initView() {
-        mMetPhone = (MultieEditText) view.findViewById(R.id.met_phone);
+        mMetOwnerPhone = (MultieEditText) view.findViewById(R.id.met_ownerPhone);
         et_roomMark = (EditText) view.findViewById(R.id.et_roomMark);
         iv_roomMark = (ImageView) view.findViewById(R.id.iv_roomMark);
         mIvRemovePhone = (ImageView) view.findViewById(R.id.iv_removePhone);
         mLlSearch = (LinearLayout) view.findViewById(R.id.ll_search);
-        mLlAdmin_root = (LinearLayout) view.findViewById(R.id.ll_admin_root);
+        mLlOwner_root = (LinearLayout) view.findViewById(R.id.ll_owner_root);
         mTvAddress = (EditText) view.findViewById(R.id.tv_address);
         mIvSearch = (ImageView) view.findViewById(R.id.iv_search);
         mEtCzfName = (EditText) view.findViewById(R.id.et_czfName);
@@ -154,11 +154,11 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mTvPolice = (EditText) view.findViewById(R.id.tv_police);
         mTvOwnerName = (EditText) view.findViewById(R.id.tv_ownerName);
         mTvOwnerCard = (EditText) view.findViewById(R.id.tv_ownerCard);
-        mEtOwnerPhone = (EditText) view.findViewById(R.id.et_ownerPhone);
+//        mEtOwnerPhone = (EditText) view.findViewById(R.id.et_ownerPhone);
         mLlAdmin = (LinearLayout) view.findViewById(R.id.ll_admin);
         mEtAdminName = (EditText) view.findViewById(R.id.et_adminName);
         mEtAdminCard = (EditText) view.findViewById(R.id.et_adminCard);
-//        mEtAdminPhone = (EditText) view.findViewById(R.id.et_adminPhone);
+        mEtAdminPhone = (EditText) view.findViewById(R.id.et_adminPhone);
         mIvNumber = (ImageView) view.findViewById(R.id.iv_number);
         mIvRoom = (ImageView) view.findViewById(R.id.iv_room);
         mTvSubmit = (TextView) view.findViewById(R.id.tv_submit);
@@ -177,7 +177,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
 
     @Override
     public void initData() {
-        mMultieEditTextList.add(mMetPhone);
+        mMultieEditTextList.add(mMetOwnerPhone);
         mIvRemovePhone.setOnClickListener(this);
         iv_roomMark.setOnClickListener(this);
         mTvAddAdmin.setOnClickListener(this);
@@ -293,12 +293,12 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                 break;
             case R.id.tv_addPhone:
                 MultieEditText multieEditText = new MultieEditText(this);
-                mLlAdmin_root.addView(multieEditText);
+                mLlOwner_root.addView(multieEditText);
                 mMultieEditTextList.add(multieEditText);
                 break;
             case R.id.iv_removePhone:
                 if (mMultieEditTextList.size() > 1) {
-                    mLlAdmin_root.removeView(mMultieEditTextList.remove(mMultieEditTextList.size() - 1));
+                    mLlOwner_root.removeView(mMultieEditTextList.remove(mMultieEditTextList.size() - 1));
                 }
                 break;
 
@@ -328,12 +328,13 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                 && CheckUtil.checkEmpty(mCzfType, "请选择房屋类型")
                 && CheckUtil.checkEmpty(mOwnerName, "房东姓名空缺")
                 && CheckUtil.checkEmpty(mOwnerCard, "房东身份证空缺")
-                && checkAndGetPhone()
+                &&  checkAndGetPhone()
                 && CheckUtil.checkEmpty(base64Number, "请拍摄号牌")) {
             if (addAdmin) {
                 if (CheckUtil.checkEmpty(mAdminName, "请输管理员姓名")
                         && CheckUtil.checkIdCard(mAdminCard, "身份证号码填写错误")
-                        && CheckUtil.checkPhoneFormat(mAdminPhone)) {
+                        && CheckUtil.checkPhoneFormat(mAdminPhone)
+                        ) {
                     goCaptureActivity(SCANNIN_CZF_CODE);
                 }
             } else {
@@ -379,6 +380,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         chuZuWuAdd.setOWNERNEWUSERID(MyUtil.getUUID());//自动恢复
         chuZuWuAdd.setHOUSETYPE(houseType);//自动恢复
 //        chuZuWuAdd.setPHONE(mOwnerPhone);//自动恢复
+        chuZuWuAdd.setPHONELIST(mOwnerPhone);//自动恢复
         chuZuWuAdd.setPCSCO(paiChuSuo.getDMZM());//自动恢复
         chuZuWuAdd.setJWHCODE(juWeiHui.getDMZM());//自动恢复
         chuZuWuAdd.setXQCODE(content.getJWHCODE().substring(0, 6));//自动恢复
@@ -509,7 +511,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mEtCzfName.setText(czfName);
         mTvOwnerName.setText("");
         mTvOwnerCard.setText("");
-        mEtOwnerPhone.setText("");
+        mMetOwnerPhone.setText("");
         mTvPolice.setText("");
         mParam = new HashMap<>();
         mParam.put("TaskID", "1");
@@ -530,7 +532,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                         }
                         mTvOwnerName.setText(content.getOWNERNAME());
                         mTvOwnerCard.setText(content.getIDENTITYCARD());
-                        mEtOwnerPhone.setText(content.getPHONE());
+                        mMetOwnerPhone.setText(content.getPHONE());
                         zrq = content.getZRQ();
                         paiChuSuo = (Basic_PaiChuSuo_Kj) DbDaoXutils3.getInstance().sleectFirst(Basic_PaiChuSuo_Kj.class, "DMZM", juWeiHui.getFDMZM());
                         mTvPolice.setText(paiChuSuo.getDMMC());

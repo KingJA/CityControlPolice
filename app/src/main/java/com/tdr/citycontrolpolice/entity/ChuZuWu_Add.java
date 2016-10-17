@@ -40,6 +40,16 @@ public class ChuZuWu_Add {
     private String DEVICECOUNT;
     private List<Deivce> DEVICELIST;
     private String PHOTOCOUNT;
+
+    public String getPHONELIST() {
+        return PHONELIST;
+    }
+
+    public void setPHONELIST(String PHONELIST) {
+        this.PHONELIST = PHONELIST;
+    }
+
+    private String PHONELIST;
     private List<Photo> PHOTOLIST;
 
     public String getTaskID() {

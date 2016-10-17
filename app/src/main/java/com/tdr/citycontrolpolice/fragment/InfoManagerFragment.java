@@ -19,10 +19,13 @@ import com.tdr.citycontrolpolice.activity.PersonInfoActivity;
 import com.tdr.citycontrolpolice.adapter.CzfManagerAdapter;
 import com.tdr.citycontrolpolice.base.KjBaseFragment;
 import com.tdr.citycontrolpolice.entity.ChuZuWuInfo;
+import com.tdr.citycontrolpolice.entity.ChuZuWu_AddAdminByPolice;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_AddRoomList;
+import com.tdr.citycontrolpolice.entity.ChuZuWu_DeleteRoom;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
 import com.tdr.citycontrolpolice.entity.Param_ChuZuWu_AddRoomList;
+import com.tdr.citycontrolpolice.event.AdminListRefreshEvent;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
@@ -36,9 +39,12 @@ import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 import com.tdr.citycontrolpolice.view.popupwindow.KingJA_AddNextRoom;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -171,17 +177,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
     @Override
     protected void initFragmentData() {
-        addDialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
-            @Override
-            public void onLeft() {
-                ToastUtil.showMyToast("亲爱的用户，该用户正在发开发中...");
-            }
 
-            @Override
-            public void onRight() {
-
-            }
-        });
 
     }
 
@@ -386,8 +382,43 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+        final KjChuZuWuInfo.ContentBean.RoomListBean roomBean = (KjChuZuWuInfo.ContentBean.RoomListBean) parent.getItemAtPosition(position);
+        addDialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
+            @Override
+            public void onLeft() {
+              onDeleteRoom(roomBean.getROOMID(),position);
+            }
+
+            @Override
+            public void onRight() {
+
+            }
+        });
         addDialogDouble.show();
         return true;
+    }
+
+    private void onDeleteRoom(String roomid, final int position) {
+        srlCzfManager.setRefreshing(true);
+        Map<String, Object> param = new HashMap<>();
+        param.put("TaskID", "1");
+        param.put("ROOMID", roomid);
+        new ThreadPoolTask.Builder()
+                .setGeneralParam(UserService.getInstance(getActivity()).getToken(), 0, "ChuZuWu_DeleteRoom", param)
+                .setBeanType(ChuZuWu_DeleteRoom.class)
+                .setCallBack(new WebServiceCallBack<ChuZuWu_DeleteRoom>() {
+                    @Override
+                    public void onSuccess(ChuZuWu_DeleteRoom bean) {
+                        srlCzfManager.setRefreshing(false);
+                        czfManagerAdapter.deleteItem(position);
+                        ToastUtil.showMyToast("房间删除成功");
+                    }
+
+                    @Override
+                    public void onErrorResult(ErrorResult errorResult) {
+                        srlCzfManager.setRefreshing(false);
+                    }
+                }).build().execute();
     }
 }
