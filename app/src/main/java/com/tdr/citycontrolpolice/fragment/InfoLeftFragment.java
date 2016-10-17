@@ -72,7 +72,7 @@ public class InfoLeftFragment extends KjBaseFragment implements SwipeRefreshLayo
 
     @Override
     public View onFragmentCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.single_lv, container, false);
+        rootView = inflater.inflate(R.layout.single_lv_sl, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }

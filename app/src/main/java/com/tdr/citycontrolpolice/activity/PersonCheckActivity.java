@@ -33,7 +33,7 @@ import com.tdr.citycontrolpolice.net.ConnectThread;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.NetUtil;
 import com.tdr.citycontrolpolice.util.SharedPreferencesUtils;
@@ -466,7 +466,7 @@ public class PersonCheckActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.rl_queue:
-                ActivityUtil.goActivity(this, QueueActivity.class);
+                GoUtil.goActivity(this, QueueActivity.class);
                 break;
             case R.id.iv_nfc:
                 break;
@@ -474,7 +474,7 @@ public class PersonCheckActivity extends BaseActivity implements View.OnClickLis
                 submit();
                 break;
             case R.id.iv_camera:
-                ActivityUtil.goActivityForResult(PersonCheckActivity.this, ACamera.class, 100);
+                GoUtil.goActivityForResult(PersonCheckActivity.this, ACamera.class, 100);
                 break;
             case R.id.iv_bluetooth:
                 bluetoothAddress = (String) SharedPreferencesUtils.get("BLUETOOTH", "");

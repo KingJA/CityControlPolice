@@ -10,7 +10,6 @@ import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.PersonAccreditAdapter;
-import com.tdr.citycontrolpolice.adapter.PersonInfoAdapter;
 import com.tdr.citycontrolpolice.base.KjBaseFragment;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_MenPaiAuthorizationList;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
@@ -57,7 +56,7 @@ public class PersonAccreditFragment extends KjBaseFragment implements SwipeRefre
 
     @Override
     public View onFragmentCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.single_lv, container, false);
+        rootView = inflater.inflate(R.layout.single_lv_sl, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }

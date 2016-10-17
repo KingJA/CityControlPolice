@@ -19,7 +19,7 @@ import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.ImageUtil;
 import com.tdr.citycontrolpolice.util.MyUtil;
@@ -127,7 +127,7 @@ public class BoxActivity extends BackTitleActivity implements View.OnClickListen
     }
 
     private void scanBox() {
-        ActivityUtil.goActivityForResult(this, zbar.CaptureActivity.class, REQ_SCAN);
+        GoUtil.goActivityForResult(this, zbar.CaptureActivity.class, REQ_SCAN);
     }
 
     @Override

@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.view.FixedGridView;
 
@@ -80,13 +80,13 @@ public class GmActivity extends BackTitleActivity implements View.OnClickListene
         }
         switch (v.getId()) {
             case R.id.btn_database:
-                ActivityUtil.goActivity(this, DownloadDbActivity.class);
+                GoUtil.goActivity(this, DownloadDbActivity.class);
                 break;
             case R.id.btn_bluetooth:
-                ActivityUtil.goActivity(this, BluetoothChangeActivity.class);
+                GoUtil.goActivity(this, BluetoothChangeActivity.class);
                 break;
             case R.id.btn_exception:
-                ActivityUtil.goActivity(this, ExceptionActivity.class);
+                GoUtil.goActivity(this, ExceptionActivity.class);
                 break;
             default:
                 break;

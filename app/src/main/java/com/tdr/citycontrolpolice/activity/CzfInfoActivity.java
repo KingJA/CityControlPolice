@@ -17,6 +17,7 @@ import com.tdr.citycontrolpolice.entity.ChuZuWu_Favorites;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_InstallStatus;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
+import com.tdr.citycontrolpolice.enums.CzfOperation;
 import com.tdr.citycontrolpolice.fragment.InfoInFragment;
 import com.tdr.citycontrolpolice.fragment.InfoLeftFragment;
 import com.tdr.citycontrolpolice.fragment.InfoManagerFragment;
@@ -24,7 +25,7 @@ import com.tdr.citycontrolpolice.fragment.InfoPopulationFragment;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.CustomConstants;
 import com.tdr.citycontrolpolice.util.TendencyEncrypt;
 import com.tdr.citycontrolpolice.util.TimeUtil;
@@ -210,17 +211,17 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
         }
 
     }
-
+//    HouseEdit, DeviceApply, CardRecord, Attention,Admins,DeviceManager,OutInRecord,MenjinBind,CodeChange;
     @Override
-    public void onCzfInfoPop(int position) {
+    public void onCzfInfoPop(CzfOperation operation) {
         Intent intent;
-        switch (position) {
-            case 0:
+        switch (operation) {
+            case HouseEdit:
                 intent = new Intent(this, ModifyCzfActivity.class);
                 intent.putExtra("CZF_INFO", mCzfInfo);
                 startActivity(intent);
                 break;
-            case 1:
+            case DeviceApply:
                 if (mIsregister == 1) {
                     mConfirmDialog.show();
                     break;
@@ -228,41 +229,44 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 mDoubleDialog.show();
 
                 break;
-            case 2:
+            case CardRecord:
                 CzfCardActivity.goActivity(this, mHouseId, mCzfInfo);
                 break;
-            case 3:
+            case OutInRecord:
                 CzfOutInActivity.goActivity(this, mHouseId, mCzfInfo);
                 break;
-            case 4:
+            case FangkongBind:
                 if (mIsregister != 1) {
                     ToastUtil.showMyToast("请先进行设备安装申报");
                     return;
                 }
                 Bundle bundle = new Bundle();
                 bundle.putString("HOUSE_ID", mHouseId);
-                ActivityUtil.goActivityWithBundle(this, DeviceBindingActivity.class, bundle);
+                GoUtil.goActivityWithBundle(this, DeviceBindingActivity.class, bundle);
                 break;
-            case 5:
+            case DeviceManager:
                 Intent deviceIntent = new Intent(this, DeviceManagerActivity.class);
                 deviceIntent.putExtra("HOUSE_ID", mHouseId);
                 startActivity(deviceIntent);
                 break;
 
-            case 6:
+            case CodeChange:
                 ChangeRecordActivity.goActivity(this, mHouseId);
                 break;
-            case 7:
+            case MenjinBind:
                 intent = new Intent();
                 intent.setClass(this, zbar.CaptureActivity.class);
                 startActivityForResult(intent, SCANNIN_ACCESS);
                 break;
-            case 8:
+            case Attention:
                 if (mIsfavorite == 1) {
                     AttentionEditActivity.goActivity(this, mHouseId);
                 } else {
                     ToastUtil.showMyToast("请先关注出租屋");
                 }
+                break;
+            case Admins:
+             AdminListActivity.goActivity(this,mHouseId);
                 break;
 
             default:

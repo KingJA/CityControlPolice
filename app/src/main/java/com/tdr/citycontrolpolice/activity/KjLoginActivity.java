@@ -21,7 +21,7 @@ import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.update.GetVersionCodeAsynckTask;
 import com.tdr.citycontrolpolice.update.UpdateManager;
-import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.AesEncoder;
 import com.tdr.citycontrolpolice.util.AppInfoUtil;
 import com.tdr.citycontrolpolice.util.ActivityManager;
@@ -164,7 +164,7 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
                     public void onSuccess(User_LoginByPolice bean) {
                         dialogProgress.dismiss();
                         savaDateToLocal(bean);
-                        ActivityUtil.goActivityAndFinish(KjLoginActivity.this, HomeActivity.class);
+                        GoUtil.goActivityAndFinish(KjLoginActivity.this, HomeActivity.class);
 
                     }
 
@@ -213,7 +213,7 @@ public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnS
         mHits[mHits.length - 1] = SystemClock.uptimeMillis();
         if (mHits[0] >= (SystemClock.uptimeMillis() - 1000)) {
             if (keyPandora) {
-                ActivityUtil.goActivity(KjLoginActivity.this, GmActivity.class);
+                GoUtil.goActivity(KjLoginActivity.this, GmActivity.class);
                 keyPandora = false;
                 vSomething.setClickable(false);
             }

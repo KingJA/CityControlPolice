@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.net.PoolManager;
-import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.AppInfoUtil;
 import com.tdr.citycontrolpolice.util.DatebaseManager;
 
@@ -69,7 +69,7 @@ public class SplashActivity extends BaseActivity {
     private Runnable skipRunnable = new Runnable() {
         @Override
         public void run() {
-            ActivityUtil.goActivityAndFinish(SplashActivity.this, KjLoginActivity.class);
+            GoUtil.goActivityAndFinish(SplashActivity.this, KjLoginActivity.class);
         }
     };
 

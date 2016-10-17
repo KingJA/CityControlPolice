@@ -9,10 +9,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.activity.BluetoothChangeActivity;
 import com.tdr.citycontrolpolice.activity.CommonQuestionActivity;
 import com.tdr.citycontrolpolice.activity.MineAboutActivity;
-import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 
@@ -55,13 +54,13 @@ public class TabMineFragment extends Fragment implements View.OnClickListener, D
                 ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
                 break;
             case R.id.ll_personal_question:
-                ActivityUtil.goActivity(getActivity(), CommonQuestionActivity.class);
+                GoUtil.goActivity(getActivity(), CommonQuestionActivity.class);
                 break;
             case R.id.ll_personal_report:
                 ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
                 break;
             case R.id.ll_personal_about:
-                ActivityUtil.goActivity(getActivity(), MineAboutActivity.class);
+                GoUtil.goActivity(getActivity(), MineAboutActivity.class);
                 break;
             case R.id.ll_personal_quit:
                 DialogDouble dialogDouble = new DialogDouble(getActivity(), "您确定要退出应用？", "确定", "取消");

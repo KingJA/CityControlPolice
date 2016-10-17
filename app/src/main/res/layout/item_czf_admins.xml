@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_lgray1_bwhite_r5"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_title_lgray1_bgray_r5"
+        android:padding="12dp">
+
+        <TextView
+            style="@style/font_bold_6_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="人员信息" />
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_delete"
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <TextView
+            style="@style/font_9_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="姓名" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6">  <TextView
+            android:id="@+id/tv_admin_name"
+            style="@style/font_3_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="周磊" />
+
+            <ImageView
+                android:id="@+id/iv_checkBy"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/bg_police"
+                android:layout_width="15dp"
+                android:layout_height="15dp" /></LinearLayout>
+
+    </LinearLayout>
+
+    <View style="@style/divider_nomal_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <TextView
+            style="@style/font_9_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="身份证号" />
+
+        <TextView
+            android:id="@+id/tv_admin_card"
+            style="@style/font_3_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:text="336512228821548744" />
+    </LinearLayout>
+
+</LinearLayout>

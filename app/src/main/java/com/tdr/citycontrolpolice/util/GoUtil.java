@@ -11,7 +11,7 @@ import android.os.Bundle;
  * 创建时间：2016/3/25 14:04
  * 修改备注：
  */
-public class ActivityUtil {
+public class GoUtil {
     public static void goActivity(Activity activity, Class clazz) {
         Intent intent = new Intent(activity,
                 clazz);

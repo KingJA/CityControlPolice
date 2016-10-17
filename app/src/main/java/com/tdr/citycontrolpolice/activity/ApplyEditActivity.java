@@ -19,7 +19,7 @@ import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
 import com.tdr.citycontrolpolice.event.InfoInFragmetnEvent;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
@@ -202,7 +202,7 @@ public class ApplyEditActivity extends BackTitleActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_camera:
-                ActivityUtil.goActivityForResult(ApplyEditActivity.this, ACamera.class, 100);
+                GoUtil.goActivityForResult(ApplyEditActivity.this, ACamera.class, 100);
                 break;
             case R.id.rl_select:
                 if (doNetSuccess) {

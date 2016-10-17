@@ -189,8 +189,14 @@
         <activity
             android:name=".activity.ChangeCodeActivity"
             android:screenOrientation="portrait" />
-    <activity
+        <activity
             android:name=".activity.ApplyEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AdminListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddAdminActivity"
             android:screenOrientation="portrait" />
 
         <receiver android:name=".receiver.NetChangedReceiver">

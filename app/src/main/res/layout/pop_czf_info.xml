@@ -258,6 +258,32 @@
             </LinearLayout>
 
             <View style="@style/divider_nomal4dp_horizontal" />
+
+            <LinearLayout
+                android:id="@+id/llv_admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sel_tr2half_kj"
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/czf_admin" />
+
+                <TextView
+                    style="@style/font_3_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="管理员列表" />
+            </LinearLayout>
+
+            <View style="@style/divider_nomal4dp_horizontal" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

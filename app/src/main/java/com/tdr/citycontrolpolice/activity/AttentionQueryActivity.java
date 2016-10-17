@@ -17,7 +17,7 @@ import com.tdr.citycontrolpolice.entity.ChuZuWu_InquireFavorites;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.CustomConstants;
@@ -106,7 +106,7 @@ public class AttentionQueryActivity extends BackTitleActivity implements BackTit
 
     @Override
     public void onRightClick() {
-        ActivityUtil.goActivity(this, RemindActivity.class);
+        GoUtil.goActivity(this, RemindActivity.class);
     }
 
 

@@ -24,7 +24,7 @@ import com.tdr.citycontrolpolice.base.BaseFragment;
 import com.tdr.citycontrolpolice.czfinit.CzfInitActivity;
 import com.tdr.citycontrolpolice.net.DownloadDbManager;
 import com.tdr.citycontrolpolice.net.NfcUtil;
-import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.Constants;
 import com.tdr.citycontrolpolice.util.QRCodeUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
@@ -190,11 +190,11 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         switch (position) {
             case 0:
                 if (NfcUtil.isEnable()) {
-                    ActivityUtil.goActivity(getActivity(), NfcActivity.class);
+                    GoUtil.goActivity(getActivity(), NfcActivity.class);
                 }
                 break;
             case 1:
-                ActivityUtil.goActivity(getActivity(), PersonCheckActivity.class);
+                GoUtil.goActivity(getActivity(), PersonCheckActivity.class);
                 break;
             default:
                 break;
@@ -207,7 +207,7 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             switch (position) {
                 case 0:
-                    ActivityUtil.goActivity(getActivity(), CzfInitActivity.class);
+                    GoUtil.goActivity(getActivity(), CzfInitActivity.class);
                     break;
                 case 1:
                     Intent intent = new Intent();
@@ -215,19 +215,19 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
                     startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
                     break;
                 case 2:
-                    ActivityUtil.goActivity(mActivity, CzfQueryActivity.class);
+                    GoUtil.goActivity(mActivity, CzfQueryActivity.class);
                     break;
                 case 3:
                     dialogNFC.show();
                     break;
                 case 4:
-                    ActivityUtil.goActivity(mActivity, BoxActivity.class);
+                    GoUtil.goActivity(mActivity, BoxActivity.class);
                     break;
                 case 5:
                     ToastUtil.showMyToast("请进入出租房信息模块进行变更操作...");
                     break;
                 case 6:
-                    ActivityUtil.goActivity(getActivity(), AttentionQueryActivity.class);
+                    GoUtil.goActivity(getActivity(), AttentionQueryActivity.class);
                     break;
                 case 7:
                     dialogDouble.show();

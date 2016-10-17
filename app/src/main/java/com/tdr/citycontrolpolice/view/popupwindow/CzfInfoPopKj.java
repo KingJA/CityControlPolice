@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.enums.CzfOperation;
 
 import java.util.Arrays;
 
@@ -28,6 +29,7 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
     private LinearLayout ll_binding;
     private LinearLayout ll_manager;
     private LinearLayout ll_attention;
+    private LinearLayout llv_admin;
     private TextView tv_attention;
     private LinearLayout ll_changeCode;
     private LinearLayout ll_bind_access;
@@ -42,14 +44,15 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
     }
 
     public void setAttention(int hasAttention) {
-        tv_attention.setText(hasAttention==1?"取消关注":"关注出租屋");
-    }
-    public void setAccess(String result,String contain) {
-        String[] deviceArr = result.split(",");
-        ll_bind_access.setVisibility(Arrays.asList(deviceArr).contains(contain)? View.GONE : View.VISIBLE);
+        tv_attention.setText(hasAttention == 1 ? "取消关注" : "关注出租屋");
     }
 
-    public void setAccess(int  visibility) {
+    public void setAccess(String result, String contain) {
+        String[] deviceArr = result.split(",");
+        ll_bind_access.setVisibility(Arrays.asList(deviceArr).contains(contain) ? View.GONE : View.VISIBLE);
+    }
+
+    public void setAccess(int visibility) {
         ll_bind_access.setVisibility(visibility);
     }
 
@@ -71,6 +74,7 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
         ll_changeCode = (LinearLayout) popupView.findViewById(R.id.ll_changeCode);
         ll_bind_access = (LinearLayout) popupView.findViewById(R.id.ll_bind_access);
         ll_attention = (LinearLayout) popupView.findViewById(R.id.ll_attention);
+        llv_admin = (LinearLayout) popupView.findViewById(R.id.llv_admin);
         ll_edit.setOnClickListener(this);
         ll_apply.setOnClickListener(this);
         ll_card.setOnClickListener(this);
@@ -80,6 +84,7 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
         ll_changeCode.setOnClickListener(this);
         ll_bind_access.setOnClickListener(this);
         ll_attention.setOnClickListener(this);
+        llv_admin.setOnClickListener(this);
 
     }
 
@@ -90,31 +95,34 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
         }
         switch (v.getId()) {
             case R.id.ll_edit:
-                onCzfInfoPopClickListener.onCzfInfoPop(0);
+                onCzfInfoPopClickListener.onCzfInfoPop(CzfOperation.HouseEdit);
                 break;
             case R.id.ll_apply:
-                onCzfInfoPopClickListener.onCzfInfoPop(1);
+                onCzfInfoPopClickListener.onCzfInfoPop(CzfOperation.DeviceApply);
                 break;
             case R.id.ll_card:
-                onCzfInfoPopClickListener.onCzfInfoPop(2);
+                onCzfInfoPopClickListener.onCzfInfoPop(CzfOperation.CardRecord);
                 break;
             case R.id.ll_register:
-                onCzfInfoPopClickListener.onCzfInfoPop(3);
+                onCzfInfoPopClickListener.onCzfInfoPop(CzfOperation.OutInRecord);
                 break;
             case R.id.ll_binding:
-                onCzfInfoPopClickListener.onCzfInfoPop(4);
+                onCzfInfoPopClickListener.onCzfInfoPop(CzfOperation.FangkongBind);
                 break;
             case R.id.ll_manager:
-                onCzfInfoPopClickListener.onCzfInfoPop(5);
+                onCzfInfoPopClickListener.onCzfInfoPop(CzfOperation.DeviceManager);
                 break;
             case R.id.ll_changeCode:
-                onCzfInfoPopClickListener.onCzfInfoPop(6);
+                onCzfInfoPopClickListener.onCzfInfoPop(CzfOperation.CodeChange);
                 break;
             case R.id.ll_bind_access:
-                onCzfInfoPopClickListener.onCzfInfoPop(7);
+                onCzfInfoPopClickListener.onCzfInfoPop(CzfOperation.MenjinBind);
                 break;
             case R.id.ll_attention:
-                onCzfInfoPopClickListener.onCzfInfoPop(8);
+                onCzfInfoPopClickListener.onCzfInfoPop(CzfOperation.Attention);
+                break;
+            case R.id.llv_admin:
+                onCzfInfoPopClickListener.onCzfInfoPop(CzfOperation.Admins);
                 break;
             default:
                 break;
@@ -123,7 +131,7 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
     }
 
     public interface OnCzfInfoPopClickListener {
-        void onCzfInfoPop(int position);
+        void onCzfInfoPop(CzfOperation operation);
     }
 
     private OnCzfInfoPopClickListener onCzfInfoPopClickListener;
@@ -131,5 +139,7 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
     public void setOnCzfInfoPopClickListener(OnCzfInfoPopClickListener onCzfInfoPopClickListener) {
         this.onCzfInfoPopClickListener = onCzfInfoPopClickListener;
     }
+
+
 
 }

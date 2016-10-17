@@ -1,6 +1,5 @@
 package com.tdr.citycontrolpolice.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -27,7 +26,7 @@ import com.tdr.citycontrolpolice.entity.Param_ChuZuWu_AddRoomList;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.ActivityUtil;
+import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.MyUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
@@ -207,7 +206,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
         bundle.putString("HOUSE_ID", mHouseId);
         bundle.putString("ROOM_ID", roomid);
         bundle.putString("ROOM_NO", roomno + "");
-        ActivityUtil.goActivityWithBundle(mActivity, PersonInfoActivity.class, bundle);
+        GoUtil.goActivityWithBundle(mActivity, PersonInfoActivity.class, bundle);
 
     }
 
