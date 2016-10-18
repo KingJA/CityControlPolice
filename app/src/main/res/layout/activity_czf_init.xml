@@ -229,128 +229,132 @@
                 android:text="房东信息" />
 
             <LinearLayout
-                android:orientation="vertical"
                 android:id="@+id/ll_owner_root"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
 
-                <com.tdr.citycontrolpolice.view.RequiredTextView
-                    style="@style/font_tip_14"
-                    android:layout_width="80dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical|right"
-                    android:text="*姓名" />
+                    <com.tdr.citycontrolpolice.view.RequiredTextView
+                        style="@style/font_tip_14"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|right"
+                        android:text="*姓名" />
 
-                <EditText
-                    android:id="@+id/tv_ownerName"
-                    style="@style/font_edit_3_14"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:enabled="false"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="5dp"
-                    android:singleLine="true" />
-            </LinearLayout>
+                    <EditText
+                        android:id="@+id/tv_ownerName"
+                        style="@style/font_edit_3_14"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:enabled="false"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="5dp"
+                        android:singleLine="true" />
+                </LinearLayout>
 
-            <View style="@style/divider_light_horizontal" />
+                <View style="@style/divider_light_horizontal" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="1dp"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
 
-                <com.tdr.citycontrolpolice.view.RequiredTextView
-                    style="@style/font_tip_14"
-                    android:layout_width="80dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical|right"
-                    android:text="*身份证" />
+                    <com.tdr.citycontrolpolice.view.RequiredTextView
+                        style="@style/font_tip_14"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|right"
+                        android:text="*身份证" />
 
-                <EditText
-                    android:id="@+id/tv_ownerCard"
-                    style="@style/font_edit_3_14"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:enabled="false"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="5dp"
-                    android:singleLine="true" />
+                    <EditText
+                        android:id="@+id/tv_ownerCard"
+                        style="@style/font_edit_3_14"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:enabled="false"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="5dp"
+                        android:singleLine="true" />
 
-                <ImageView
-                    android:id="@+id/iv_ownerNfc"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="10dp"
-                    android:src="@mipmap/nfc_on"
-                    android:visibility="gone" />
+                    <ImageView
+                        android:id="@+id/iv_ownerNfc"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:src="@mipmap/nfc_on"
+                        android:visibility="gone" />
 
-            </LinearLayout>
+                </LinearLayout>
 
-          <!--  <View style="@style/divider_light_horizontal" />
+                <!--  <View style="@style/divider_light_horizontal" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="1dp"
-                android:orientation="horizontal">
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:layout_marginTop="1dp"
+                      android:orientation="horizontal">
 
-                <com.tdr.citycontrolpolice.view.RequiredTextView
-                    style="@style/font_tip_14"
-                    android:layout_width="80dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical|right"
-                    android:text="*手机号" />
+                      <com.tdr.citycontrolpolice.view.RequiredTextView
+                          style="@style/font_tip_14"
+                          android:layout_width="80dp"
+                          android:layout_height="match_parent"
+                          android:gravity="center_vertical|right"
+                          android:text="*手机号" />
 
-                <EditText
-                    android:id="@+id/et_ownerPhone"
-                    style="@style/font_edit_3_14"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:paddingLeft="5dp"
-                    android:singleLine="true"
-                    android:textCursorDrawable="@drawable/et_cursor" />
-            </LinearLayout>-->
+                      <EditText
+                          android:id="@+id/et_ownerPhone"
+                          style="@style/font_edit_3_14"
+                          android:layout_width="0dp"
+                          android:layout_height="match_parent"
+                          android:layout_weight="1"
+                          android:background="@null"
+                          android:paddingLeft="5dp"
+                          android:singleLine="true"
+                          android:textCursorDrawable="@drawable/et_cursor" />
+                  </LinearLayout>-->
 
                 <com.tdr.citycontrolpolice.view.MultieEditText
                     android:id="@+id/met_ownerPhone"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
 
             </LinearLayout>
+
             <View style="@style/divider_light_horizontal" />
+
             <RelativeLayout
-                android:padding="12dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
                 <TextView
-                    android:layout_centerInParent="true"
                     android:id="@+id/tv_addPhone"
                     style="@style/font_blue_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="添加手机号码" />
+
                 <ImageView
                     android:id="@+id/iv_removePhone"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/bg_reduce_circle"
                     android:layout_width="15dp"
-                    android:layout_height="15dp" />
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/bg_reduce_circle" />
 
             </RelativeLayout>
         </LinearLayout>
@@ -387,131 +391,131 @@
                     android:text="添加" />
 
             </RelativeLayout>
-           <!-- android:visibility="gone"-->
+            <!-- android:visibility="gone"-->
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_admin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
 
-                    <!--  <RelativeLayout
-                          android:layout_width="match_parent"
+                <!--  <RelativeLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:padding="10dp">
+
+                      <CheckBox
+                          android:id="@+id/cb_isOwern"
+                          android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          android:padding="10dp">
-
-                          <CheckBox
-                              android:id="@+id/cb_isOwern"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:layout_alignParentRight="true"
-                              android:button="@null"
-                              android:drawablePadding="5dp"
-                              android:drawableRight="@drawable/checkbox"
-                              android:gravity="center_vertical"
-                              android:text="与房东同人"
-                              android:textColor="@color/font_3"
-                              android:textSize="12dp" />
-                      </RelativeLayout>-->
+                          android:layout_alignParentRight="true"
+                          android:button="@null"
+                          android:drawablePadding="5dp"
+                          android:drawableRight="@drawable/checkbox"
+                          android:gravity="center_vertical"
+                          android:text="与房东同人"
+                          android:textColor="@color/font_3"
+                          android:textSize="12dp" />
+                  </RelativeLayout>-->
 
 
-                        <LinearLayout
+                <LinearLayout
 
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="12dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
-                            <com.tdr.citycontrolpolice.view.RequiredTextView
-                                style="@style/font_tip_14"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical|right"
-                                android:text="*姓名" />
+                    <com.tdr.citycontrolpolice.view.RequiredTextView
+                        style="@style/font_tip_14"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
+                        android:text="*姓名" />
 
-                            <EditText
-                                android:id="@+id/et_adminName"
-                                style="@style/font_edit_3_14"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="3.5"
-                                android:background="@null"
-                                android:paddingLeft="5dp"
-                                android:singleLine="true"
-                                android:textCursorDrawable="@drawable/et_cursor" />
-                        </LinearLayout>
+                    <EditText
+                        android:id="@+id/et_adminName"
+                        style="@style/font_edit_3_14"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.5"
+                        android:background="@null"
+                        android:paddingLeft="5dp"
+                        android:singleLine="true"
+                        android:textCursorDrawable="@drawable/et_cursor" />
+                </LinearLayout>
 
-                        <View style="@style/divider_light_horizontal" />
+                <View style="@style/divider_light_horizontal" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="12dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
-                            <com.tdr.citycontrolpolice.view.RequiredTextView
-                                style="@style/font_tip_14"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical|right"
-                                android:text="*身份证" />
+                    <com.tdr.citycontrolpolice.view.RequiredTextView
+                        style="@style/font_tip_14"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
+                        android:text="*身份证" />
 
-                            <EditText
-                                android:id="@+id/et_adminCard"
-                                style="@style/font_edit_3_14"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="3.5"
-                                android:background="@null"
-                                android:paddingLeft="5dp"
-                                android:singleLine="true"
-                                android:textCursorDrawable="@drawable/et_cursor" />
+                    <EditText
+                        android:id="@+id/et_adminCard"
+                        style="@style/font_edit_3_14"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.5"
+                        android:background="@null"
+                        android:paddingLeft="5dp"
+                        android:singleLine="true"
+                        android:textCursorDrawable="@drawable/et_cursor" />
 
-                            <ImageView
-                                android:id="@+id/iv_adminNfc"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginRight="10dp"
-                                android:src="@mipmap/nfc_on"
-                                android:visibility="gone" />
+                    <ImageView
+                        android:id="@+id/iv_adminNfc"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:src="@mipmap/nfc_on"
+                        android:visibility="gone" />
 
-                        </LinearLayout>
-
-
-                        <View style="@style/divider_light_horizontal" />
-
-                        <LinearLayout
-                            android:padding="12dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <com.tdr.citycontrolpolice.view.RequiredTextView
-                                style="@style/font_tip_14"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical|right"
-                                android:text="*手机号" />
-
-                            <EditText
-                                android:id="@+id/et_adminPhone"
-                                style="@style/font_edit_3_14"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="3.5"
-                                android:background="@null"
-                                android:paddingLeft="5dp"
-                                android:singleLine="true"
-                                android:textCursorDrawable="@drawable/et_cursor" />
-                        </LinearLayout>
+                </LinearLayout>
 
 
-                    </LinearLayout>
+                <View style="@style/divider_light_horizontal" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <com.tdr.citycontrolpolice.view.RequiredTextView
+                        style="@style/font_tip_14"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
+                        android:text="*手机号" />
+
+                    <EditText
+                        android:id="@+id/et_adminPhone"
+                        style="@style/font_edit_3_14"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.5"
+                        android:background="@null"
+                        android:paddingLeft="5dp"
+                        android:singleLine="true"
+                        android:textCursorDrawable="@drawable/et_cursor" />
+                </LinearLayout>
+
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
