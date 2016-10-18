@@ -141,10 +141,12 @@
 
         <activity
             android:name="com.tdr.citycontrolpolice.activity.DownloadDbActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name="com.tdr.citycontrolpolice.czfinit.CzfInitActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
          />
         <activity
             android:name="zbar.CaptureActivity"
