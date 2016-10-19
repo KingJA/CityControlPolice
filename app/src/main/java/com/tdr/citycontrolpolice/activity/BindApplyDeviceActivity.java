@@ -1,5 +1,6 @@
 package com.tdr.citycontrolpolice.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import com.tdr.citycontrolpolice.dao.DbDaoXutils3;
 import com.tdr.citycontrolpolice.entity.Basic_Dictionary_Kj;
 import com.tdr.citycontrolpolice.entity.Common_AddDevice;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
+import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
 import com.tdr.citycontrolpolice.entity.Param_Common_AddDevice;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
@@ -39,11 +41,10 @@ import java.util.List;
  * 创建时间：2016/4/7 16:42
  * 修改备注：
  */
-public class BindingDeviceActivity extends BackTitleActivity {
+public class BindApplyDeviceActivity extends BackTitleActivity {
 
-    private static final String TAG = "BindingDeviceActivity";
+    private static final String TAG = "BindDeviceActivity";
     private static final int Camara = 100;
-    private static final int SCALE = 200;
     private int deviceType;
     private long deviceNO;
     private String houseId;
@@ -59,18 +60,15 @@ public class BindingDeviceActivity extends BackTitleActivity {
 
     @Override
     public View setContentView() {
-        view = View.inflate(this, R.layout.activity_binding_device, null);
+        view = View.inflate(this, R.layout.activity_bind_apply_device, null);
         return view;
     }
 
     @Override
     public void initVariables() {
         deviceType = getIntent().getIntExtra("DEVICE_TYPE", 888);
-        Log.i(TAG, "initVariables: " + deviceType);
         deviceNO = getIntent().getLongExtra("DEVICE_NO", 888);
         houseId = getIntent().getStringExtra("HOUSE_ID");
-        roomId = getIntent().getStringExtra("ROOM_ID");
-        roomNo = getIntent().getIntExtra("ROOM_NO", 888);
     }
 
     @Override
@@ -100,7 +98,7 @@ public class BindingDeviceActivity extends BackTitleActivity {
             param.setDEVICENAME(deviceName);
             param.setOTHERTYPE(2);
             param.setOTHERID(houseId);
-            param.setROOMID(roomId);
+            param.setROOMID("");
             param.setPHOTOCOUNT(1);
             List<Param_Common_AddDevice.PHOTOLISTBean> photolist = new ArrayList<>();
             Param_Common_AddDevice.PHOTOLISTBean photolistBean = new Param_Common_AddDevice.PHOTOLISTBean();
@@ -112,12 +110,12 @@ public class BindingDeviceActivity extends BackTitleActivity {
             ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
             ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "Common_AddDevice", param)
                     .setBeanType(Common_AddDevice.class)
-                    .setActivity(BindingDeviceActivity.this)
+                    .setActivity(BindApplyDeviceActivity.this)
                     .setCallBack(new WebServiceCallBack<Common_AddDevice>() {
                         @Override
                         public void onSuccess(Common_AddDevice bean) {
                             setProgressDialog(false);
-                            ToastUtil.showMyToast("绑定设备成功！");
+                            ToastUtil.showMyToast("绑定自主申报一体机成功");
                             finish();
                         }
 
@@ -134,7 +132,6 @@ public class BindingDeviceActivity extends BackTitleActivity {
     @Override
     public void initData() {
         boxFile = ImageUtil.createImageFile();
-        Log.i(TAG, "openCamera: " + boxFile.getAbsolutePath());
         iv_device_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,11 +155,10 @@ public class BindingDeviceActivity extends BackTitleActivity {
 
     @Override
     public void setData() {
-        setTitle("设备绑定");
-        tv_device_room.setText(roomNo + "");
+        setTitle("自主申报一体机绑定");
         Basic_Dictionary_Kj bean = (Basic_Dictionary_Kj) DbDaoXutils3.getInstance().sleectFirst(Basic_Dictionary_Kj.class, "COLUMNCODE", "DEVICETYPE", "COLUMNVALUE", deviceType + "");
         if (bean == null) {
-            ToastUtil.showMyToast("未识别设备类型");
+            ToastUtil.showMyToast("未找到匹配的设备类型");
             finish();
         }else{
             tv_device_type.setText(bean.getCOLUMNCOMMENT());
@@ -176,8 +172,6 @@ public class BindingDeviceActivity extends BackTitleActivity {
         switch (requestCode) {
             case Camara:
                 if (resultCode == RESULT_OK) {
-//                    Bundle bundle = data.getExtras();
-//                    Bitmap bitmap = (Bitmap) bundle.get("data");
                     Bitmap bitmap = ImageUtil.compressScaleFromF2B(boxFile.getAbsolutePath());
                     base64Box = new String(ImageUtil.bitmapToBase64(bitmap));
                     iv_device_icon.setImageBitmap(ImageUtil.base64ToBitmap(base64Box));
@@ -218,5 +212,11 @@ public class BindingDeviceActivity extends BackTitleActivity {
         boxFile = new File(savedInstanceState.getString("boxFile"));
         base64Box = savedInstanceState.getString("base64Box");
     }
-
+    public static void goActivity(Context context, String houseId, int deviceType,long deviceNO) {
+        Intent intent = new Intent(context, BindApplyDeviceActivity.class);
+        intent.putExtra("HOUSE_ID",houseId);
+        intent.putExtra("DEVICE_TYPE", deviceType);
+        intent.putExtra("DEVICE_NO", deviceNO);
+        context.startActivity(intent);
+    }
 }

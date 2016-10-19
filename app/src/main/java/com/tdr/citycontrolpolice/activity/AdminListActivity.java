@@ -143,7 +143,7 @@ public class AdminListActivity extends BackTitleActivity implements SwipeRefresh
 
     @Override
     public void onRefresh() {
-
+        mSingleSrl.setRefreshing(false);
     }
 
     private static final String HOUSE_ID = "HOUSE_ID";

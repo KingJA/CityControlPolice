@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import com.tdr.citycontrolpolice.util.TendencyEncrypt;
 import com.tdr.citycontrolpolice.util.TimeUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
+import com.tdr.citycontrolpolice.util.VerifyCode;
 import com.tdr.citycontrolpolice.view.SimpleIndicatorLayout;
 import com.tdr.citycontrolpolice.view.dialog.DialogConfirm;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
@@ -57,6 +59,7 @@ import java.util.Map;
 public class CzfInfoActivity extends BackTitleActivity implements BackTitleActivity.OnRightClickListener, CzfInfoPopKj.OnCzfInfoPopClickListener {
     private static final String TAG = "CzfInfoActivity";
     private static final int SCANNIN_ACCESS = 0x001;
+    private static final int SCANNIN_APPLY = 0x002;
     private TextView tv_czf_info_name;
     private TextView tv_czf_info_phone;
     private TextView tv_czf_info_address;
@@ -135,6 +138,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                         Log.i(TAG, "mIsregister: " + mIsregister);
                         mCzfInfoPop.setAppleVisibility(mIsregister);
                         mCzfInfoPop.setAccess(bean.getContent().getHAS(), "1023");
+                        mCzfInfoPop.setApplyBind(bean.getContent().getHAS(), "1061");
                         tv_czf_info_name.setText(bean.getContent().getOWNERNAME());
                         tv_czf_info_phone.setText(bean.getContent().getPHONE());
                         tv_czf_info_address.setText(bean.getContent().getADDRESS());
@@ -208,10 +212,13 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
     public void onRightClick() {
         if (isFinished) {
             mCzfInfoPop.showPopupWindowDownOffset();
+        } else {
+            ToastUtil.showMyToast("数据加载中");
         }
 
     }
-//    HouseEdit, DeviceApply, CardRecord, Attention,Admins,DeviceManager,OutInRecord,MenjinBind,CodeChange;
+
+    //    HouseEdit, DeviceApply, CardRecord, Attention,Admins,DeviceManager,OutInRecord,MenjinBind,CodeChange;
     @Override
     public void onCzfInfoPop(CzfOperation operation) {
         Intent intent;
@@ -251,7 +258,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 break;
 
             case CodeChange:
-                ChangeRecordActivity.goActivity(this, mHouseId);
+                ChangeRecordListActivity.goActivity(this, mHouseId);
                 break;
             case MenjinBind:
                 intent = new Intent();
@@ -266,7 +273,12 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 }
                 break;
             case Admins:
-             AdminListActivity.goActivity(this,mHouseId);
+                AdminListActivity.goActivity(this, mHouseId);
+                break;
+            case ApplyBind:
+                intent = new Intent();
+                intent.setClass(this, zbar.CaptureActivity.class);
+                startActivityForResult(intent, SCANNIN_APPLY);
                 break;
 
             default:
@@ -346,7 +358,35 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
         if (data == null) {
             return;
         }
-        decodeDevice(data);
+        if (requestCode == SCANNIN_ACCESS) {
+            decodeDevice(data);
+        } else {
+            decodeApplyDevice(data);
+        }
+    }
+
+    private void decodeApplyDevice(Intent data) {
+        String result = data.getExtras().getString("result");
+        Log.i(TAG, "decodeApplyDevice: " + result);
+        result = result.substring(result.indexOf("?") + 1);
+        String type = result.substring(0, 2);
+        if ("AB".equals(type)) {
+            result = result.substring(2);
+            result = VerifyCode.checkDeviceCode(result);
+            Log.e(TAG, "checkDeviceCode: "+result );
+            if (TextUtils.isEmpty(result)) {
+                ToastUtil.showMyToast("可疑数据！");
+                return;
+            }
+            long deviceType = Long.valueOf(result.substring(0, 4), 16);
+            long deviceNO = Long.valueOf(result.substring(4), 16);
+            Log.i(TAG, "设备类型: " + deviceType);
+            Log.i(TAG, "设备编号: " + deviceNO);
+            BindApplyDeviceActivity.goActivity(this,mHouseId, (int)deviceType, deviceNO);
+
+        } else {
+            ToastUtil.showMyToast("不是要求的二维码对象");
+        }
     }
 
     /**

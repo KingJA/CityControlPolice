@@ -126,7 +126,12 @@ public class CheckUtil {
      * @return
      */
     public static boolean checkIdCard(final String value, String tip) {
-        if (value == null || value.length() != 18) {
+
+        if (TextUtils.isEmpty(value)) {
+            ToastUtil.showMyToast("身份证号码不能为空");
+            return false;
+        }
+        if (value.length() != 18) {
             ToastUtil.showMyToast(tip);
             return false;
         }

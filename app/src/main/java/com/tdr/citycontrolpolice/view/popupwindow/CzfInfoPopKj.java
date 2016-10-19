@@ -33,6 +33,7 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
     private TextView tv_attention;
     private LinearLayout ll_changeCode;
     private LinearLayout ll_bind_access;
+    private LinearLayout ll_bind_apply;
 
     public CzfInfoPopKj(View parentView, Activity activity) {
         super(parentView, activity);
@@ -50,6 +51,11 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
     public void setAccess(String result, String contain) {
         String[] deviceArr = result.split(",");
         ll_bind_access.setVisibility(Arrays.asList(deviceArr).contains(contain) ? View.GONE : View.VISIBLE);
+    }
+
+    public void setApplyBind(String result, String contain) {
+        String[] deviceArr = result.split(",");
+        ll_bind_apply.setVisibility(Arrays.asList(deviceArr).contains(contain) ? View.GONE : View.VISIBLE);
     }
 
     public void setAccess(int visibility) {
@@ -75,7 +81,9 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
         ll_bind_access = (LinearLayout) popupView.findViewById(R.id.ll_bind_access);
         ll_attention = (LinearLayout) popupView.findViewById(R.id.ll_attention);
         llv_admin = (LinearLayout) popupView.findViewById(R.id.llv_admin);
+        ll_bind_apply = (LinearLayout) popupView.findViewById(R.id.ll_bind_apply);
         ll_edit.setOnClickListener(this);
+        ll_bind_apply.setOnClickListener(this);
         ll_apply.setOnClickListener(this);
         ll_card.setOnClickListener(this);
         ll_register.setOnClickListener(this);
@@ -124,6 +132,9 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
             case R.id.llv_admin:
                 onCzfInfoPopClickListener.onCzfInfoPop(CzfOperation.Admins);
                 break;
+            case R.id.ll_bind_apply:
+                onCzfInfoPopClickListener.onCzfInfoPop(CzfOperation.ApplyBind);
+                break;
             default:
                 break;
         }
@@ -139,7 +150,6 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
     public void setOnCzfInfoPopClickListener(OnCzfInfoPopClickListener onCzfInfoPopClickListener) {
         this.onCzfInfoPopClickListener = onCzfInfoPopClickListener;
     }
-
 
 
 }

@@ -244,7 +244,7 @@ public class DeviceBindingActivity extends BackTitleActivity implements DeviceBi
      * @param roomNo
      */
     private void goBindDevice(long deviceNO, int deviceType, String houseId, String roomId, int roomNo) {
-        Intent intent = new Intent(this, BindingDeviceActivity.class);
+        Intent intent = new Intent(this, BindDeviceActivity.class);
         intent.putExtra("DEVICE_TYPE", deviceType);
         intent.putExtra("DEVICE_NO", deviceNO);
         intent.putExtra("HOUSE_ID", houseId);

@@ -7,5 +7,5 @@ package com.tdr.citycontrolpolice.enums;
  * Email:kingjavip@gmail.com
  */
 public enum CzfOperation {
-    HouseEdit, DeviceApply, CardRecord, Attention,Admins,DeviceManager,OutInRecord, MenjinBind, FangkongBind,CodeChange;
+    HouseEdit, DeviceApply, CardRecord, Attention,Admins,DeviceManager,OutInRecord, MenjinBind, FangkongBind,CodeChange,ApplyBind;
 }

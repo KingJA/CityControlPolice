@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:paddingTop="16dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp">
+
+    <LinearLayout
+        android:background="@drawable/shape_lgray1_bwhite_r5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/font_bold_6_12"
+            android:padding="12dp"
+            android:background="@drawable/shape_title_lgray1_bgray_r5"
+            android:text="出租房信息"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <LinearLayout
+
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/font_9_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="设备类型" />
+
+        <TextView
+            android:id="@+id/tv_device_type"
+            style="@style/font_3_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:text="自主申报一体机" />
+    </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal" />
+
+        <LinearLayout
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <com.tdr.citycontrolpolice.view.RequiredTextView
+                style="@style/font_9_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="*设备点位" />
+
+            <EditText
+                android:text="自主申报一体机"
+                android:id="@+id/et_device_name"
+                style="@style/font_3_14"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请输入设备名称"
+                android:maxLength="15"
+                android:singleLine="true"
+                android:textColorHint="@color/font_edit"
+                android:textCursorDrawable="@drawable/et_cursor" />
+    </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_lgray1_bwhite_r5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/font_bold_6_12"
+            android:padding="12dp"
+            android:background="@drawable/shape_title_lgray1_bgray_r5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="设备照片" />
+
+        <ImageView
+            android:id="@+id/iv_device_icon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="1px"
+            android:layout_marginBottom="1px"
+            android:background="@drawable/shape_lgray1px_bwhite_r0"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_device" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_device_submit"
+        style="@style/btn_nomal_blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="提交" />
+</LinearLayout>

@@ -120,7 +120,7 @@
                 android:resource="@xml/filter_nfc" />
         </activity>
         <activity
-            android:name="com.tdr.citycontrolpolice.activity.BindingDeviceActivity"
+            android:name=".activity.BindDeviceActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
@@ -141,13 +141,11 @@
 
         <activity
             android:name="com.tdr.citycontrolpolice.activity.DownloadDbActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.tdr.citycontrolpolice.czfinit.CzfInitActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-         />
+            android:screenOrientation="portrait" />
         <activity
             android:name="zbar.CaptureActivity"
             android:screenOrientation="portrait" />
@@ -186,7 +184,7 @@
             android:name=".activity.CommonQuestionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ChangeRecordActivity"
+            android:name=".activity.ChangeRecordListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ChangeCodeActivity"
@@ -199,6 +197,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AddAdminActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BindApplyDeviceActivity"
             android:screenOrientation="portrait" />
 
         <receiver android:name=".receiver.NetChangedReceiver">

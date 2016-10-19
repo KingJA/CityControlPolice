@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.ChangeRecordAdapter;
-import com.tdr.citycontrolpolice.adapter.CzfOutInAdapter;
+import com.tdr.citycontrolpolice.dao.DbDaoXutils3;
+import com.tdr.citycontrolpolice.entity.Basic_XingZhengQuHua_Kj;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_ChangeMenPaiList;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
@@ -30,12 +30,12 @@ import java.util.Map;
 
 /**
  * 项目名称：
- * 类描述：TODO
+ * 类描述：登记牌变更记录
  * 创建人：KingJA
  * 创建时间：2016/6/30 15:08
  * 修改备注：
  */
-public class ChangeRecordActivity extends BackTitleActivity implements BackTitleActivity.OnRightClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class ChangeRecordListActivity extends BackTitleActivity implements BackTitleActivity.OnRightClickListener, SwipeRefreshLayout.OnRefreshListener {
     private static final String HOUSE_ID = "HOUSE_ID";
     private String houseId;
     private List<ChuZuWu_ChangeMenPaiList.ContentBean> chagngeRecordList = new ArrayList<>();
@@ -43,6 +43,8 @@ public class ChangeRecordActivity extends BackTitleActivity implements BackTitle
     private ListView mSingleLv;
     private LinearLayout ll_empty;
     private ChangeRecordAdapter changeRecordAdapter;
+    private Map<String, String> cityMap;
+    private List<Basic_XingZhengQuHua_Kj> cityList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,19 @@ public class ChangeRecordActivity extends BackTitleActivity implements BackTitle
     @Override
     public void initVariables() {
         houseId = getIntent().getStringExtra(HOUSE_ID);
+        initCitys();
+    }
+
+    private void initCitys() {
+        cityMap = new HashMap<>();
+        cityList = DbDaoXutils3.getInstance().selectAll(Basic_XingZhengQuHua_Kj.class);
+        for (Basic_XingZhengQuHua_Kj bean : cityList) {
+            if ("开发区".equals(bean.getDMMC())) {
+                cityMap.put(bean.getDMZM(), "经开");
+            } else {
+                cityMap.put(bean.getDMZM(), bean.getDMMC().substring(0, 2));
+            }
+        }
     }
 
     @Override
@@ -70,7 +85,7 @@ public class ChangeRecordActivity extends BackTitleActivity implements BackTitle
         mSingleSrl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
         mSingleSrl.setOnRefreshListener(this);
 
-        changeRecordAdapter = new ChangeRecordAdapter(this, chagngeRecordList);
+        changeRecordAdapter = new ChangeRecordAdapter(this, chagngeRecordList,cityMap);
         mSingleLv.setAdapter(changeRecordAdapter);
     }
 
@@ -108,10 +123,12 @@ public class ChangeRecordActivity extends BackTitleActivity implements BackTitle
 
     }
 
+
     @Override
     public void setData() {
         setTitle("变更记录");
         setRightTextVisibility("变更");
+
     }
 
     @Override
@@ -120,7 +137,7 @@ public class ChangeRecordActivity extends BackTitleActivity implements BackTitle
     }
 
     public static void goActivity(Context context, String houseId) {
-        Intent intent = new Intent(context, ChangeRecordActivity.class);
+        Intent intent = new Intent(context, ChangeRecordListActivity.class);
         intent.putExtra(HOUSE_ID, houseId);
         context.startActivity(intent);
     }

@@ -172,13 +172,16 @@
         <item name="android:textCursorDrawable">@drawable/et_cursor</item>
         <item name="android:background">@null</item>
     </style>
-<style name="font_edit_3_14_blue">
+
+    <style name="font_edit_3_14_blue">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/bg_blue</item>
         <item name="android:textColorHint">@color/font_9</item>
         <item name="android:textCursorDrawable">@drawable/et_cursor</item>
         <item name="android:background">@null</item>
-    </style><style name="font_edit_3_14_gray">
+    </style>
+
+    <style name="font_edit_3_14_gray">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/font_9</item>
         <item name="android:textColorHint">@color/font_9</item>

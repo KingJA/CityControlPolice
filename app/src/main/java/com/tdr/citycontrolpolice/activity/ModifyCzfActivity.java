@@ -93,7 +93,7 @@ public class ModifyCzfActivity extends BackTitleActivity implements View.OnClick
                     public void onSuccess(KjChuZuWuInfo bean) {
                         setProgressDialog(false);
                         tv_owner_name.setText(bean.getContent().getOWNERNAME());
-                        tv_owner_phone.setText(bean.getContent().getPHONE());
+                        tv_owner_phone.setText(bean.getContent().getPHONELIST().replace(",","  "));
                         tv_owner_address.setText(bean.getContent().getADDRESS());
                         et_czf_name.setText(bean.getContent().getHOUSENAME());
                         mEtext = et_czf_name.getText();

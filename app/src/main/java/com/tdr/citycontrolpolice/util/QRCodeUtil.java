@@ -31,10 +31,11 @@ public class QRCodeUtil {
             return newcode;
         }
          if (result.startsWith("http://xinjumin.ouhai.gov.cn:8060/zzsb")) {
-            int length = result.length();
-            result = result.substring(length - 13);
+             result=  result.replace("\t","");
+             result = result.substring(result.length() - 13);
             StringBuilder sb = new StringBuilder(result);
              String newcode = sb.insert(6, 90).toString();
+             Log.e(TAG, "newcode: "+newcode );
             if (!newcode.startsWith("3303")) {
                 ToastUtil.showMyToast("非指定设备");
                 return "";

@@ -72,6 +72,16 @@ public class KjChuZuWuInfo implements Serializable {
         private boolean DianZiMenPai;
         private String OWNERNAME;
         private String PHONE;
+
+        public String getPHONELIST() {
+            return PHONELIST;
+        }
+
+        public void setPHONELIST(String PHONELIST) {
+            this.PHONELIST = PHONELIST;
+        }
+
+        private String PHONELIST;
         private String ADDRESS;
         private String STANDARDADDRCODE;
         private String XQCODE;
