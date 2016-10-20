@@ -49,6 +49,7 @@ public class DownloadDbManager {
     public static final int Done_Basic_JuWeiHui = -2;
     public static final int Done_Basic_PaiChuSuo = -3;
     public static final int Done_Basic_XingZhengQuHua = -4;
+    public static final int LASTEST_VERSION = -5;
     private static int totelDictionary;
     private static int totelPaiChuSuo;
     private static int totelXingZhengQuHua;
@@ -116,7 +117,9 @@ public class DownloadDbManager {
      *
      * @param page
      */
-    public void downloadDictionary(final int page) {
+
+    private boolean hasUpdated;
+    public void downloadDictionary(final int page ) {
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
         param.put("UpdateTime", SharedPreferencesUtils.get(Basic_Dictionary, DEFAULT_TIME));
@@ -129,17 +132,21 @@ public class DownloadDbManager {
                     @Override
                     public void onSuccess(Basic_Dictionary_Return bean) {
                         List<Basic_Dictionary_Kj> content = bean.getContent();
-                        Log.i(TAG, "Dictionary onSuccess: " + content.size());
+                        Log.i(TAG, "Dictionary 数据库下载: " + content.size());
                         totelDictionary += content.size();
                         if (content.size() > 0) {
+                            hasUpdated=true;
                             saveDate(content);
                             int currentPage = page + 1;
                             downloadDictionary(currentPage);
                         } else {
-                            SharedPreferencesUtils.put(Basic_Dictionary, TimeUtil.getFormatTime());
-                            Log.i(TAG, "Dictionary 数据库下载: " + totelDictionary);
-                            sendMessage(totelDictionary, Done_Basic_Dictionary);
-
+                            if (hasUpdated) {
+                                sendMessage(totelDictionary, Done_Basic_Dictionary);
+                                SharedPreferencesUtils.put(Basic_Dictionary,TimeUtil.getFormatTime());
+                            }else{//已经是最新版本
+                                sendMessage(0, LASTEST_VERSION);
+                                Log.e(TAG, "已经是最新版本: " );
+                            }
                         }
                     }
 

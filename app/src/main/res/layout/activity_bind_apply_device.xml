@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            android:text="自主申报一体机" />
+            android:text="" />
     </LinearLayout>
 
         <View style="@style/divider_nomal_horizontal" />
@@ -62,7 +62,7 @@
                 android:text="*设备点位" />
 
             <EditText
-                android:text="自主申报一体机"
+                android:text="出租房服务终端"
                 android:id="@+id/et_device_name"
                 style="@style/font_3_14"
                 android:layout_width="0dp"

@@ -103,6 +103,10 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
                 case DownloadDbManager.Done_Basic_JuWeiHui:
                     ToastUtil.showMyToast("数据库更新成功");
                     break;
+                case DownloadDbManager.LASTEST_VERSION:
+                    ToastUtil.showMyToast("已经是最新版本");
+
+                    break;
             }
         }
     };

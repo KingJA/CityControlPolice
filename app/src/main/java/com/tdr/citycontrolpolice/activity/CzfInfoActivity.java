@@ -60,6 +60,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
     private static final String TAG = "CzfInfoActivity";
     private static final int SCANNIN_ACCESS = 0x001;
     private static final int SCANNIN_APPLY = 0x002;
+    private static final int BIND_RESULT = 0x003;
     private TextView tv_czf_info_name;
     private TextView tv_czf_info_phone;
     private TextView tv_czf_info_address;
@@ -360,8 +361,12 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
         }
         if (requestCode == SCANNIN_ACCESS) {
             decodeDevice(data);
-        } else {
+        } else if (requestCode == SCANNIN_APPLY){
             decodeApplyDevice(data);
+        } else if (requestCode == BIND_RESULT) {
+            if (data.getBooleanExtra("BIND_RESULT",false)) {
+                mCzfInfoPop.setApplyBind(View.GONE);
+            }
         }
     }
 
@@ -382,7 +387,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
             long deviceNO = Long.valueOf(result.substring(4), 16);
             Log.i(TAG, "设备类型: " + deviceType);
             Log.i(TAG, "设备编号: " + deviceNO);
-            BindApplyDeviceActivity.goActivity(this,mHouseId, (int)deviceType, deviceNO);
+            BindApplyDeviceActivity.goActivityForResult(this,mHouseId, (int)deviceType, deviceNO,BIND_RESULT);
 
         } else {
             ToastUtil.showMyToast("不是要求的二维码对象");
@@ -468,6 +473,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                         setProgressDialog(false);
                         mCzfInfoPop.setAccess(View.GONE);
                         ToastUtil.showMyToast("门禁绑定成功");
+
                     }
 
                     @Override

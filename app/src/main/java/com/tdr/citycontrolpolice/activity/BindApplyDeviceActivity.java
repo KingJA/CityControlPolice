@@ -1,5 +1,6 @@
 package com.tdr.citycontrolpolice.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -115,7 +116,10 @@ public class BindApplyDeviceActivity extends BackTitleActivity {
                         @Override
                         public void onSuccess(Common_AddDevice bean) {
                             setProgressDialog(false);
-                            ToastUtil.showMyToast("绑定自主申报一体机成功");
+                            ToastUtil.showMyToast("绑定服务终端成功");
+                            Intent intent = new Intent();
+                            intent.putExtra("BIND_RESULT",true);
+                            setResult(RESULT_OK,intent);
                             finish();
                         }
 
@@ -155,7 +159,7 @@ public class BindApplyDeviceActivity extends BackTitleActivity {
 
     @Override
     public void setData() {
-        setTitle("自主申报一体机绑定");
+        setTitle("出租房服务终端绑定");
         Basic_Dictionary_Kj bean = (Basic_Dictionary_Kj) DbDaoXutils3.getInstance().sleectFirst(Basic_Dictionary_Kj.class, "COLUMNCODE", "DEVICETYPE", "COLUMNVALUE", deviceType + "");
         if (bean == null) {
             ToastUtil.showMyToast("未找到匹配的设备类型");
@@ -212,11 +216,11 @@ public class BindApplyDeviceActivity extends BackTitleActivity {
         boxFile = new File(savedInstanceState.getString("boxFile"));
         base64Box = savedInstanceState.getString("base64Box");
     }
-    public static void goActivity(Context context, String houseId, int deviceType,long deviceNO) {
+    public static void goActivityForResult(Activity context, String houseId, int deviceType, long deviceNO, int request) {
         Intent intent = new Intent(context, BindApplyDeviceActivity.class);
         intent.putExtra("HOUSE_ID",houseId);
         intent.putExtra("DEVICE_TYPE", deviceType);
         intent.putExtra("DEVICE_NO", deviceNO);
-        context.startActivity(intent);
+        context.startActivityForResult(intent,request);
     }
 }

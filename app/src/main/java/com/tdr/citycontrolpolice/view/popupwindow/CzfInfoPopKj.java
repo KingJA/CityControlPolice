@@ -49,17 +49,33 @@ public class CzfInfoPopKj extends PopupWindowBaseDown implements View.OnClickLis
     }
 
     public void setAccess(String result, String contain) {
-        String[] deviceArr = result.split(",");
-        ll_bind_access.setVisibility(Arrays.asList(deviceArr).contains(contain) ? View.GONE : View.VISIBLE);
+        if (!result.contains(",")) {
+            ll_bind_access.setVisibility(result.contains(contain) ? View.GONE : View.VISIBLE);
+        } else {
+            String[] deviceArr = result.split(",");
+            ll_bind_access.setVisibility(Arrays.asList(deviceArr).contains(contain) ? View.GONE : View.VISIBLE);
+        }
+
     }
 
+
+
+
+
     public void setApplyBind(String result, String contain) {
-        String[] deviceArr = result.split(",");
-        ll_bind_apply.setVisibility(Arrays.asList(deviceArr).contains(contain) ? View.GONE : View.VISIBLE);
+        if (!result.contains(",")) {
+            ll_bind_apply.setVisibility(result.contains(contain) ? View.GONE : View.VISIBLE);
+        } else {
+            String[] deviceArr = result.split(",");
+            ll_bind_apply.setVisibility(Arrays.asList(deviceArr).contains(contain) ? View.GONE : View.VISIBLE);
+        }
     }
 
     public void setAccess(int visibility) {
         ll_bind_access.setVisibility(visibility);
+    }
+    public void setApplyBind(int visible) {
+        ll_bind_apply.setVisibility(visible);
     }
 
     @Override
