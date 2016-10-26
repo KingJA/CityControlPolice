@@ -7,8 +7,8 @@ android {
         applicationId "com.tdr.wlwj.wz"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 20161008
-        versionName "1.3.5 "
+        versionCode 20161021
+        versionName "1.3.8"
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
         }
@@ -33,15 +33,15 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        def fileName = "物联网防控V${defaultConfig.versionName}_${releaseTime()}_debug.apk"
-                        output.outputFile = new File(outputFile.parent, fileName)
-                    }
-                }
-            }
+//            applicationVariants.all { variant ->
+//                variant.outputs.each { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        def fileName = "物联网防控V${defaultConfig.versionName}_${releaseTime()}_debug.apk"
+//                        output.outputFile = new File(outputFile.parent, fileName)
+//                    }
+//                }
+//            }
         }
     }
 

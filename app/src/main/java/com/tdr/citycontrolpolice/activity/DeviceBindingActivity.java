@@ -222,7 +222,7 @@ public class DeviceBindingActivity extends BackTitleActivity implements DeviceBi
             }
             deviceType = Long.valueOf(result.substring(0, 4), 16);
             deviceNO = Long.valueOf(result.substring(4), 16);
-            if (deviceType != 1072) {
+            if (!(deviceType == 1072||deviceType == 1041)) {
                 ToastUtil.showMyToast("设备不是门戒类型");
                 return;
             }

@@ -8,6 +8,8 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,7 +57,7 @@ import java.util.Map;
  * 创建时间：2016/4/19 16:30
  * 修改备注：
  */
-public class CzfInitActivity extends BackTitleActivity implements View.OnClickListener, DialogAddress.OnSearchListener, BottomListPop.OnBottemPopSelectListener {
+public class CzfInitActivity extends BackTitleActivity implements View.OnClickListener, DialogAddress.OnSearchListener, BottomListPop.OnBottemPopSelectListener ,CompoundButton.OnCheckedChangeListener{
     private static final String TAG = "CzfInitActivity";
     private TextView mTvAddress;
     private ImageView mIvSearch;
@@ -113,6 +115,8 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     private List<MultieEditText> mMultieEditTextList = new ArrayList<>();
     private MultieEditText mMetOwnerPhone;
     private ImageView mIvRemovePhone;
+    private CheckBox cb_ten_up;
+    private int isMoreThenTen;
 
 
     @Override
@@ -141,6 +145,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     @Override
     protected void initView() {
         mMetOwnerPhone = (MultieEditText) view.findViewById(R.id.met_ownerPhone);
+        cb_ten_up = (CheckBox) view.findViewById(R.id.cb_ten_up);
         et_roomMark = (EditText) view.findViewById(R.id.et_roomMark);
         iv_roomMark = (ImageView) view.findViewById(R.id.iv_roomMark);
         mIvRemovePhone = (ImageView) view.findViewById(R.id.iv_removePhone);
@@ -178,6 +183,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     @Override
     public void initData() {
         mMultieEditTextList.add(mMetOwnerPhone);
+        cb_ten_up.setOnCheckedChangeListener(this);
         mIvRemovePhone.setOnClickListener(this);
         iv_roomMark.setOnClickListener(this);
         mTvAddAdmin.setOnClickListener(this);
@@ -618,5 +624,11 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
 
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        Log.e(TAG, "onCheckedChanged: "+isChecked );
+       isMoreThenTen=isChecked?1:0;
     }
 }
