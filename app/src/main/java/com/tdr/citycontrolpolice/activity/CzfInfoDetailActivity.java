@@ -101,7 +101,7 @@ public class CzfInfoDetailActivity extends BackTitleActivity {
             mShouQuanCount += bean.getSHOUQUANCOUNT();
         }
         mTvOwnerName.setText(mContent.getOWNERNAME());
-        mTvOwnerPhone.setText(mContent.getPHONE());
+        mTvOwnerPhone.setText(mContent.getPHONELIST().replace(",","  "));
         mTvCzfName.setText(mContent.getHOUSENAME());
         mTvCzfAddress.setText(mContent.getADDRESS());
         mTvRoomCount.setText(String.valueOf(mRoomCount));

@@ -116,7 +116,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     private MultieEditText mMetOwnerPhone;
     private ImageView mIvRemovePhone;
     private CheckBox cb_ten_up;
-    private int isMoreThenTen;
+    private boolean moreThenTen;
 
 
     @Override
@@ -377,6 +377,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         ChuZuWu_Add chuZuWuAdd = new ChuZuWu_Add();
         chuZuWuAdd.setTaskID("1");//自动恢复
         chuZuWuAdd.setHOUSENAME(mCzfName);//自动恢复
+        chuZuWuAdd.setHouseProperty(moreThenTen?1:0);//自动恢复
         chuZuWuAdd.setHOUSEID(MyUtil.getUUID());//自动恢复
         chuZuWuAdd.setADDRESS(mAddress);//自动恢复
         chuZuWuAdd.setSTANDARDADDRCODE(addressCode);//自动恢复
@@ -575,6 +576,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean("addAdmin", addAdmin);
+        outState.putBoolean("moreThenTen", moreThenTen);
         outState.putString("zrq", zrq);
         outState.putString("mRoomMark", mRoomMark);
         outState.putString("mAdminName", mAdminName);
@@ -601,6 +603,8 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
         mAdminCard = savedInstanceState.getString("mAdminCard");
         mAdminPhone = savedInstanceState.getString("mAdminPhone");
         addAdmin = savedInstanceState.getBoolean("addAdmin");
+        moreThenTen = savedInstanceState.getBoolean("moreThenTen");
+        cb_ten_up.setChecked(moreThenTen);
         setAdmin();
         base64Number = savedInstanceState.getString("base64Number");
         base64Room = savedInstanceState.getString("base64Room");
@@ -629,6 +633,6 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         Log.e(TAG, "onCheckedChanged: "+isChecked );
-       isMoreThenTen=isChecked?1:0;
+        moreThenTen = isChecked;
     }
 }

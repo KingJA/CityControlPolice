@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 
 import java.util.regex.Pattern;
@@ -25,14 +24,14 @@ import java.util.regex.Pattern;
 public class MultieEditText extends LinearLayout {
     private Context context;
     private EditText et_single;
-    private TextView tv_single;
+    private TextView tv_label;
 
     public MultieEditText(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public MultieEditText(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public MultieEditText(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -44,7 +43,7 @@ public class MultieEditText extends LinearLayout {
     private void init() {
         View view = View.inflate(context, R.layout.single_edittext, null);
         et_single = (EditText) view.findViewById(R.id.et_single);
-        tv_single = (TextView) view.findViewById(R.id.tv_single);
+        tv_label = (TextView) view.findViewById(R.id.tv_label);
         LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         this.addView(view, layoutParams);
     }
@@ -58,17 +57,25 @@ public class MultieEditText extends LinearLayout {
         et_single.setText(text);
     }
 
+    public void setLabel(String text) {
+        tv_label.setText(text);
+    }
+
+    public String getLabel() {
+        return tv_label.getText().toString().trim();
+    }
+
     public boolean checkFormat() {
         String text = et_single.getText().toString().trim();
         if (TextUtils.isEmpty(text)) {
-            ToastUtil.showMyToast("房东手机号码不能为空");
+            ToastUtil.showMyToast(getLabel()+"不能为空");
             return false;
         }
 
         // 判断手机号格式
         if (!Pattern.matches(
                 "^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\\d{8}$", text)) {
-            ToastUtil.showMyToast("房东手机号码格式不对");
+            ToastUtil.showMyToast(getLabel()+"格式不对");
             return false;
         }
         return true;

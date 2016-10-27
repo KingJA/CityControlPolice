@@ -7,7 +7,7 @@ import android.util.Log;
  */
 public class Constants {
 
-    public static final int RELEASE_SERVICE = 0;
+    public static final int RELEASE_SERVICE = 3;
 /* =================================================================================================================   */
 
     public static final int TEST = 0;

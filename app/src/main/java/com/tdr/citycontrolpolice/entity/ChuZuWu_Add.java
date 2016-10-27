@@ -9,6 +9,7 @@ public class ChuZuWu_Add {
     private String TaskID;
     private String HOUSEID;
     private String HOUSENAME;
+    private int HouseProperty;
     private String STANDARDADDRCODE;
     private String ADDRESS;
     private String HOUSINGESTATE;
@@ -251,5 +252,13 @@ public class ChuZuWu_Add {
 
     public void setZRQ(String ZRQ) {
         this.ZRQ = ZRQ;
+    }
+
+    public int getHouseProperty() {
+        return HouseProperty;
+    }
+
+    public void setHouseProperty(int houseProperty) {
+        HouseProperty = houseProperty;
     }
 }

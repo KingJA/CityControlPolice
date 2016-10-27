@@ -58,7 +58,7 @@ public class CzfInitAdapter extends BaseSimpleAdapter<Basic_StandardAddressCodeB
         public final View root;
 
         public ViewHolder(View root) {
-            tvsingle = (TextView) root.findViewById(R.id.tv_single);
+            tvsingle = (TextView) root.findViewById(R.id.tv_label);
             ivaddress = (ImageView) root.findViewById(R.id.iv_address);
             this.root = root;
         }

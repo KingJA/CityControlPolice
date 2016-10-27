@@ -12,7 +12,7 @@
         android:orientation="horizontal">
 
         <com.tdr.citycontrolpolice.view.RequiredTextView
-            android:id="@+id/tv_single"
+            android:id="@+id/tv_label"
             style="@style/font_tip_14"
             android:layout_weight="1"
             android:layout_width="0dp"

@@ -42,7 +42,7 @@ public class SingleTextAdapter extends BaseSimpleAdapter<Basic_Dictionary_Kj> {
         public final View root;
 
         public ViewHolder(View root) {
-            tvsingle = (TextView) root.findViewById(R.id.tv_single);
+            tvsingle = (TextView) root.findViewById(R.id.tv_label);
             this.root = root;
         }
     }

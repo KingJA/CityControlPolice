@@ -3,7 +3,6 @@ package com.tdr.citycontrolpolice.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
@@ -43,7 +42,7 @@ public class RoomSelectDirectAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.Con
         public final View root;
 
         public ViewHolder(View root) {
-            tvsingle = (TextView) root.findViewById(R.id.tv_single);
+            tvsingle = (TextView) root.findViewById(R.id.tv_label);
             this.root = root;
         }
     }

@@ -89,7 +89,7 @@ public class ModifyRoomActivity extends BackTitleActivity implements BottomListP
 
     @Override
     protected void initView() {
-        ll_root = (LinearLayout) view.findViewById(R.id.ll_root);
+        ll_root = (LinearLayout) view.findViewById(R.id.ll_edit_root);
         tv_room_number = (TextView) view.findViewById(R.id.tv_room_number);
         tv_room_renovation = (TextView) view.findViewById(R.id.tv_room_renovation);
         tv_room_payment = (TextView) view.findViewById(R.id.tv_room_payment);

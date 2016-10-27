@@ -83,6 +83,7 @@ public class KjChuZuWuInfo implements Serializable {
 
         private String PHONELIST;
         private String ADDRESS;
+        private int HOUSEPROPERTY;
         private String STANDARDADDRCODE;
         private String XQCODE;
         private String PCSCODE;
@@ -199,6 +200,14 @@ public class KjChuZuWuInfo implements Serializable {
 
         public void setHAS(String HAS) {
             this.HAS = HAS;
+        }
+
+        public int getHOUSEPROPERTY() {
+            return HOUSEPROPERTY;
+        }
+
+        public void setHOUSEPROPERTY(int HOUSEPROPERTY) {
+            this.HOUSEPROPERTY = HOUSEPROPERTY;
         }
 
         public static class RoomListBean implements Serializable {

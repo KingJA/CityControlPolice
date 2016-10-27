@@ -10,6 +10,17 @@ package com.tdr.citycontrolpolice.entity;
 public class Param_ChuZuWu_Modify {
 
     private String TaskID;
+
+
+    public int getHOUSEPROPERTY() {
+        return HOUSEPROPERTY;
+    }
+
+    public void setHOUSEPROPERTY(int HOUSEPROPERTY) {
+        this.HOUSEPROPERTY = HOUSEPROPERTY;
+    }
+
+    private int HOUSEPROPERTY;
     private String HOUSEID;
     private String HOUSENAME;
     private String STANDARDADDRCODE;
@@ -18,6 +29,16 @@ public class Param_ChuZuWu_Modify {
     private String IDENTITYCARD;
     private String OWNERNAME;
     private String PHONE;
+
+    public String getPHONELIST() {
+        return PHONELIST;
+    }
+
+    public void setPHONELIST(String PHONELIST) {
+        this.PHONELIST = PHONELIST;
+    }
+
+    private String PHONELIST;
     private String XQCODE;
     private String PCSCO;
     private String JWHCODE;
