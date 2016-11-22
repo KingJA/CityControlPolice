@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * 项目名称：物联网城市防控(警用版)
- * 类描述：设备绑定界面
+ * 类描述：服务终端绑定界面
  * 创建人：KingJA
  * 创建时间：2016/4/7 16:42
  * 修改备注：
@@ -105,7 +105,7 @@ public class BindApplyDeviceActivity extends BackTitleActivity {
             Param_Common_AddDevice.PHOTOLISTBean photolistBean = new Param_Common_AddDevice.PHOTOLISTBean();
             photolistBean.setIMAGE(base64Box);
             photolistBean.setLISTID(MyUtil.getUUID());
-            photolistBean.setTAG("设备");
+            photolistBean.setTAG("服务终端设备");
             photolist.add(photolistBean);
             param.setPHOTOLIST(photolist);
             ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();

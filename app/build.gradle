@@ -7,8 +7,8 @@ android {
         applicationId "com.tdr.wlwj.wz"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 20161027
-        versionName "1.5.0"
+        versionCode 20161114
+        versionName "1.5.1"
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
         }
@@ -27,21 +27,11 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            buildApkByType("release")
         }
         debug {
             minifyEnabled false
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
-//            applicationVariants.all { variant ->
-//                variant.outputs.each { output ->
-//                    def outputFile = output.outputFile
-//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-//                        def fileName = "物联网防控V${defaultConfig.versionName}_${releaseTime()}_debug.apk"
-//                        output.outputFile = new File(outputFile.parent, fileName)
-//                    }
-//                }
-//            }
+            buildApkByType("debug")
         }
     }
 
@@ -77,4 +67,16 @@ dependencies {
 
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+def buildApkByType(type) {
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && variant.buildType.name.equals(type)) {
+                def fileName = rootProject.ext.android.appName + "V${android.defaultConfig.versionName}-${releaseTime()}-" + type + ".apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
 }

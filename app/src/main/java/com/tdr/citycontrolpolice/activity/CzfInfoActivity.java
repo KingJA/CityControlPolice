@@ -387,6 +387,10 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
             long deviceNO = Long.valueOf(result.substring(4), 16);
             Log.i(TAG, "设备类型: " + deviceType);
             Log.i(TAG, "设备编号: " + deviceNO);
+            if (deviceType != 1061) {
+                ToastUtil.showMyToast("不是服务终端设备");
+                return;
+            }
             BindApplyDeviceActivity.goActivityForResult(this,mHouseId, (int)deviceType, deviceNO,BIND_RESULT);
 
         } else {

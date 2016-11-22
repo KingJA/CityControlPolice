@@ -1,3 +1,4 @@
+apply from:"config.gradle"
 ext {
     libraries = [
             supportVersion: "23.4.0"

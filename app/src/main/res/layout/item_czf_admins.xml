@@ -65,14 +65,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:text="周磊" />
+                android:text="" />
 
-            <ImageView
-                android:id="@+id/iv_checkBy"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+            <TextView
+                style="@style/font_white_12"
+                android:paddingRight="4dp"
+                android:paddingLeft="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:text="未知类型"
+                android:id="@+id/tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
-                android:background="@drawable/bg_police" />
+                android:background="@drawable/shape_lblue_bblue_r2" />
 
         </LinearLayout>
 
@@ -99,7 +105,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="336512228821548744" />
+            android:text="" />
     </LinearLayout>
 
 </LinearLayout>

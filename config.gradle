@@ -1,0 +1,9 @@
+ext {
+    android = [compileSdkVersion: 23,
+               appName          : "物联网防控(警用)"
+
+    ]
+    dependencies = [
+                    "supportVersion"          : '24.2.0',
+                 ]
+}

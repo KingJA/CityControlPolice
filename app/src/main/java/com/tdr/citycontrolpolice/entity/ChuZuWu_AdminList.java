@@ -100,6 +100,7 @@ public class ChuZuWu_AdminList {
             private String IDENTITYCARD;
             private String NAME;
             private int SOURCE;
+            private int ADMINTYPE;
 
             public String getIDENTITYCARD() {
                 return IDENTITYCARD;
@@ -123,6 +124,14 @@ public class ChuZuWu_AdminList {
 
             public void setSOURCE(int SOURCE) {
                 this.SOURCE = SOURCE;
+            }
+
+            public int getADMINTYPE() {
+                return ADMINTYPE;
+            }
+
+            public void setADMINTYPE(int ADMINTYPE) {
+                this.ADMINTYPE = ADMINTYPE;
             }
         }
     }

@@ -491,7 +491,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                         Log.i(TAG, "base64Number: " + base64Number.length());
                         dz_photo = new Photo();
                         dz_photo.setLISTID(MyUtil.getUUID());
-                        dz_photo.setTAG("电子门牌");
+                        dz_photo.setTAG("二维码门牌");
                         dz_photo.setIMAGE(base64Number);
                     } else {
                         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
@@ -500,7 +500,7 @@ public class CzfInitActivity extends BackTitleActivity implements View.OnClickLi
                         Log.i(TAG, "base64Room: " + base64Room.length());
                         fw_photo = new Photo();
                         fw_photo.setLISTID(MyUtil.getUUID());
-                        fw_photo.setTAG("房屋外径");
+                        fw_photo.setTAG("房屋外景");
                         fw_photo.setIMAGE(base64Room);
                     }
                 }

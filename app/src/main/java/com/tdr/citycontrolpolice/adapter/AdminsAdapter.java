@@ -1,16 +1,21 @@
 package com.tdr.citycontrolpolice.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.dao.DbDaoXutils3;
+import com.tdr.citycontrolpolice.entity.Basic_Dictionary_Kj;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_AdminList;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_ComprehensiveInfo;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 
@@ -29,9 +34,15 @@ public class AdminsAdapter extends BaseSimpleAdapter<ChuZuWu_AdminList.ContentBe
     @Bind(R.id.tv_admin_card)
     TextView tvAdminCard;
     private OnAdminDeleteListener onAdminDeleteListener;
+    private Map<String,String> typeMap=new HashMap<>();
 
     public AdminsAdapter(Context context, List<ChuZuWu_AdminList.ContentBean.AdminListBean> list) {
         super(context, list);
+        List<Basic_Dictionary_Kj> adminTypeList = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().selectAllWhere(Basic_Dictionary_Kj.class, "COLUMNCODE", "ADMINTYPE");
+        Log.e("AdminsAdapter", "adminTypeList: "+adminTypeList.size());
+        for (Basic_Dictionary_Kj bean : adminTypeList) {
+            typeMap.put(bean.getCOLUMNVALUE(),bean.getCOLUMNCOMMENT());
+        }
     }
 
     @Override
@@ -47,7 +58,7 @@ public class AdminsAdapter extends BaseSimpleAdapter<ChuZuWu_AdminList.ContentBe
         }
         viewHolder.tvadminname.setText(list.get(position).getNAME());
         viewHolder.tvadmincard.setText(list.get(position).getIDENTITYCARD());
-        viewHolder.ivcheckBy.setBackgroundResource(list.get(position).getSOURCE()==1?R.drawable.bg_police:R.drawable.transparency_full);
+        viewHolder.tv_type.setText(typeMap.get(list.get(position).getADMINTYPE()+""));
         viewHolder.ivdelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,16 +78,16 @@ public class AdminsAdapter extends BaseSimpleAdapter<ChuZuWu_AdminList.ContentBe
 
     public class ViewHolder {
         public final ImageView ivdelete;
-        public final ImageView ivcheckBy;
         public final TextView tvadminname;
         public final TextView tvadmincard;
+        public final TextView tv_type;
         public final View root;
 
         public ViewHolder(View root) {
             ivdelete = (ImageView) root.findViewById(R.id.iv_delete);
-            ivcheckBy = (ImageView) root.findViewById(R.id.iv_checkBy);
             tvadminname = (TextView) root.findViewById(R.id.tv_admin_name);
             tvadmincard = (TextView) root.findViewById(R.id.tv_admin_card);
+            tv_type = (TextView) root.findViewById(R.id.tv_type);
             this.root = root;
         }
     }
