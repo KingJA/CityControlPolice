@@ -18,24 +18,24 @@
         android:paddingTop="12dp">
 
         <com.tdr.citycontrolpolice.view.CircleImageView
-            android:layout_centerVertical="true"
             android:id="@+id/civ_icon"
             android:layout_width="42dp"
             android:layout_height="42dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/icon_userinfo" />
 
         <ImageView
-            android:layout_centerVertical="true"
-            android:background="@drawable/bg_attention"
-            android:layout_alignParentRight="true"
             android:id="@+id/tv_attention"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_attention" />
 
         <LinearLayout
-            android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:layout_toLeftOf="@id/tv_attention"
             android:layout_toRightOf="@id/civ_icon"
@@ -54,19 +54,19 @@
                     android:text="" />
 
                 <TextView
-                    android:layout_marginLeft="8dp"
                     android:id="@+id/tv_czf_info_phone"
                     style="@style/font_9_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:text="" />
 
                 <TextView
                     android:id="@+id/tv_czf_info_detail"
-                    android:layout_marginLeft="8dp"
                     style="@style/font_blue_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:text="信息/统计" />
 
             </LinearLayout>
@@ -88,15 +88,23 @@
 
     <View style="@style/divider_nomal_horizontal" />
 
-    <com.tdr.citycontrolpolice.view.SimpleIndicatorLayout
-        android:id="@+id/sil_czf_info"
+ <!--   <HorizontalScrollView
+        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:orientation="horizontal"
-        app:kjTabBgColor="@color/font_blue"
-        app:kjTabTextColor="@color/font_9"
-        app:kjTabTextSelColor="@color/font_blue"
-        app:kjVisibleCount="3" />
+        android:layout_height="wrap_content">-->
+        <com.tdr.citycontrolpolice.view.SimpleIndicatorLayout
+            android:id="@+id/sil_czf_info"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            app:kjTabBgColor="@color/font_blue"
+            app:kjTabTextColor="@color/font_9"
+            app:kjTabTextSelColor="@color/font_blue"
+            app:kjVisibleCount="5" />
+<!--
+    </HorizontalScrollView>-->
+
+
 
     <View style="@style/divider_nomal_horizontal" />
 

@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.AttentionQueryAdapter;
+import com.tdr.citycontrolpolice.entity.Attention;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_InquireFavorites;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
@@ -192,7 +193,7 @@ public class AttentionQueryActivity extends BackTitleActivity implements BackTit
     }
 
     @Subscribe
-    public void onEventMainThread(Object obj) {
+    public void onEventMainThread(Attention obj) {
         queryAttention(address);
     }
 }

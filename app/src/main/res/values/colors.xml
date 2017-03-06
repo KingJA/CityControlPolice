@@ -46,6 +46,7 @@
     <!--分割线颜色-->
     <color name="divider_light">#E1E1E1</color>
     <color name="divider_title">#B9B9B9</color>
+    <color name="border_gray">#dedede</color>
     <color name="divider_yellow">#E8D0A5</color>
 
 
@@ -76,6 +77,8 @@
 
 
     <color name="test">#CFCFCF</color>
-
+    <color name="bg_divider">#CFCFCF</color>
+    <color name="bg_press">#ededed</color>
+    <color name="bg_light">#f9f9f9</color>
 
 </resources>

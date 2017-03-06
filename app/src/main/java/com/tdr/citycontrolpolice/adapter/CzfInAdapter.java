@@ -49,6 +49,7 @@ public class CzfInAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingList.
         }
         viewHolder.tvinfoname.setText(list.get(position).getNAME());
         setCheckStatus(viewHolder.iv_checkStatus,list.get(position).getSTATUS());
+        viewHolder.tvinfomac.setText(getMultiMacs(list.get(position).getMACLIST()));
         viewHolder.tvinfophone.setText(list.get(position).getPHONENUM());
         viewHolder.tvinfocard.setText(list.get(position).getIDENTITYCARD());
         viewHolder.tvinfotime.setText(list.get(position).getINTIME().substring(0, 10));
@@ -87,6 +88,7 @@ public class CzfInAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingList.
         public final RelativeLayout rltop;
         public final TextView tvinfophone;
         public final TextView tvinfocard;
+        public final TextView tvinfomac;
         public final LinearLayout llexpand;
         public final View root;
 
@@ -99,6 +101,7 @@ public class CzfInAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingList.
             rltop = (RelativeLayout) root.findViewById(R.id.rl_top);
             tvinfophone = (TextView) root.findViewById(R.id.tv_info_phone);
             tvinfocard = (TextView) root.findViewById(R.id.tv_info_card);
+            tvinfomac = (TextView) root.findViewById(R.id.tv_info_mac);
             llexpand = (LinearLayout) root.findViewById(R.id.ll_expand);
             this.root = root;
         }
@@ -128,5 +131,18 @@ public class CzfInAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingList.
                 break;
 
         }
+    }
+
+    public String getMultiMacs(String macList) {
+        String[] macs = macList.split(",");
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < macs.length; i++) {
+            if (i == macs.length - 1) {
+                sb.append(macs[i]);
+            }else{
+                sb.append(macs[i]+"\n");
+            }
+        }
+        return sb.toString();
     }
 }

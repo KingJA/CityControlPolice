@@ -136,10 +136,17 @@
     <style name="font_9_14">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/font_9</item>
+    </style>    <style name="font_9_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/font_9</item>
     </style>
 
     <style name="font_3_12">
         <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/font_3</item>
+    </style>
+    <style name="font_3_15">
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/font_3</item>
     </style>
 
@@ -254,6 +261,13 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
     </style>
-
+    <!--蓝色光标输入框-->
+    <style name="edit_cursor_blue">
+        <item name="android:textCursorDrawable">@drawable/et_cursor</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/font_9</item>
+        <item name="android:singleLine">true</item>
+    </style>
 
 </resources>

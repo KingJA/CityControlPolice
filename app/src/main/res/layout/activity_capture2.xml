@@ -74,7 +74,7 @@
             android:layout_below="@id/capture_crop_view"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="将二维码图片对准扫描框即可自动扫描"
+            android:text="将取景框对准主控标签的二维码进行车辆绑定"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
     </RelativeLayout>

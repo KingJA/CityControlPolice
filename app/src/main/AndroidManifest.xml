@@ -201,6 +201,18 @@
         <activity
             android:name=".activity.BindApplyDeviceActivity"
             android:screenOrientation="portrait" />
+        <!--添加申报人员-->
+        <activity
+            android:name=".activity.AddApplyActivity"
+            android:screenOrientation="portrait" />
+        <!--OCR-->
+        <activity
+            android:name=".activity.KCamera"
+            android:screenOrientation="landscape" />
+        <!--设备认证-->
+        <activity
+            android:name=".activity.DeviceCertActivity"
+            android:screenOrientation="portrait" />
 
         <receiver android:name=".receiver.NetChangedReceiver">
             <intent-filter>

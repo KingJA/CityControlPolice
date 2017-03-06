@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_lgray_bwhite_r8"
+    android:background="@drawable/shape_lgray_bwhite_r4"
     android:orientation="vertical"
     android:paddingLeft="12dp"
     android:paddingRight="12dp">
@@ -27,20 +27,21 @@
 
 
             <TextView
-                android:singleLine="true"
-                android:layout_weight="1"
                 android:id="@+id/tv_outin_name"
                 style="@style/font_6_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:singleLine="true"
                 android:text="" />
+
             <ImageView
-                android:layout_marginLeft="8dp"
                 android:id="@+id/iv_checkStatus"
                 android:layout_width="39dp"
                 android:layout_height="16dp"
-                />
+                android:layout_marginLeft="8dp" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,12 +71,11 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:visibility="gone"
+
         android:id="@+id/ll_expand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <View style="@style/divider_nomal_horizontal" />
 
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_weight="6"
-                android:text="18888888888" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -124,13 +124,39 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_weight="6"
-                android:text="336512228821548744" />
+                android:text="" />
+
             <ImageView
                 android:id="@+id/iv_delete"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/delete"
                 android:layout_width="15dp"
-                android:layout_height="15dp" />
+                android:layout_height="15dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/delete" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp"
+            >
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MAC地址" />
+
+            <TextView
+                android:id="@+id/tv_info_mac"
+                style="@style/font_3_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="6"
+                android:text="" />
+
 
         </LinearLayout>
 

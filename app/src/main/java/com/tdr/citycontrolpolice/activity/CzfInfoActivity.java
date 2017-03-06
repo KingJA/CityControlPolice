@@ -9,16 +9,19 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.BaseFragmentPagerAdapter;
+import com.tdr.citycontrolpolice.entity.Attention;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_BoundMenjinYiTiJiByQRCode;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_Favorites;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_InstallStatus;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
 import com.tdr.citycontrolpolice.enums.CzfOperation;
+import com.tdr.citycontrolpolice.fragment.InfoDeviceFragment;
 import com.tdr.citycontrolpolice.fragment.InfoInFragment;
 import com.tdr.citycontrolpolice.fragment.InfoLeftFragment;
 import com.tdr.citycontrolpolice.fragment.InfoManagerFragment;
@@ -69,7 +72,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
     private ViewPager vp_czf_info;
     private SimpleIndicatorLayout sil_czf_info;
     private HashMap<String, Object> mParam = new HashMap<>();
-    private List<String> mTitleList = Arrays.asList("出租房管理", "入住申报", "离开申报", "流动系统");
+    private List<String> mTitleList = Arrays.asList("出租房管理", "入住申报", "离开申报", "流动系统", "设备认证");
     private List<Fragment> mFragmentList = new ArrayList<>();
     private CzfInfoPopKj mCzfInfoPop;
     private KjChuZuWuInfo mCzfInfo = new KjChuZuWuInfo();
@@ -107,6 +110,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
     @Override
     protected void initView() {
         iv_attention = (ImageView) view.findViewById(R.id.tv_attention);
+
         tv_czf_info_detail = (TextView) view.findViewById(R.id.tv_czf_info_detail);
         tv_czf_info_name = (TextView) view.findViewById(R.id.tv_czf_info_name);
         tv_czf_info_phone = (TextView) view.findViewById(R.id.tv_czf_info_phone);
@@ -159,6 +163,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
         mFragmentList.add(InfoInFragment.newInstance(mHouseId));
         mFragmentList.add(InfoLeftFragment.newInstance(mHouseId));
         mFragmentList.add(InfoPopulationFragment.newInstance(mHouseId));
+        mFragmentList.add(InfoDeviceFragment.newInstance(mHouseId));
         mCzfInfoPop.setOnCzfInfoPopClickListener(CzfInfoActivity.this);
         setOnRightClickListener(this);
         vp_czf_info.setOffscreenPageLimit(mTitleList.size() - 1);
@@ -305,7 +310,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                     @Override
                     public void onSuccess(ChuZuWu_Favorites bean) {
                         setProgressDialog(false);
-                        EventBus.getDefault().post(new Object());
+                        EventBus.getDefault().post(new Attention());
                         if (mIsfavorite == 1) {
                             mIsfavorite = 0;
                         } else {

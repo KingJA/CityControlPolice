@@ -9,10 +9,15 @@ import android.graphics.Path;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
@@ -29,7 +34,7 @@ import java.util.List;
  */
 public class SimpleIndicatorLayout extends LinearLayout {
     private static final float RATIO = 1.0f / 15.0f;
-    private static final int COUNT_DEFAULT_VISIBLE = 3;
+    private static final int COUNT_DEFAULT_VISIBLE = 4;
     private static final String TAG = "SimpleIndicatorLayout";
     private Paint mPaint;
     private Path mPath;
@@ -46,6 +51,7 @@ public class SimpleIndicatorLayout extends LinearLayout {
     private List<String> mTitleList = new ArrayList<>();
     private List<TextView> mTextViewList = new ArrayList<>();
     private ViewPager mViewPager;
+    private int lastX;
 
     public SimpleIndicatorLayout(Context context) {
         this(context, null);
@@ -134,6 +140,27 @@ public class SimpleIndicatorLayout extends LinearLayout {
 
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                lastX = (int) getX();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int currentX =  (int) getX();
+                int distance = lastX - currentX;
+                this.scrollTo(distance, 0);
+                Log.e(TAG, "distance: "+distance );
+                invalidate();
+                lastX = (int) getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+
+        }
+        return true;
+    }
+
+    @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         int childCount = getChildCount();
@@ -167,7 +194,7 @@ public class SimpleIndicatorLayout extends LinearLayout {
     public void setTitles(List<String> list) {
         TextView titleView;
         if (list != null && list.size() > 0) {
-            mVisibleCount = list.size();
+//            mVisibleCount = list.size();
             this.removeAllViews();
             this.mTitleList = list;
             for (String title : mTitleList) {
@@ -202,6 +229,7 @@ public class SimpleIndicatorLayout extends LinearLayout {
      */
     private TextView getTitleView(String title) {
         TextView tv = new TextView(getContext());
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12);
         tv.setText(title);
         tv.setGravity(Gravity.CENTER);
         tv.setTextColor(mTextColor);

@@ -58,6 +58,7 @@ public class ThreadPoolTask implements Runnable {
     @Override
     public void run() {
         Map<String, Object> generalParam = getGeneralParam(token, encryption, dataTypeCode, privateParam);
+        Logger.json(new Gson().toJson(generalParam));
         try {
             final String json = WebServiceManager.getInstance().load(generalParam);
             JSONObject rootObject = new JSONObject(json);
@@ -117,7 +118,7 @@ public class ThreadPoolTask implements Runnable {
         Gson gson = new Gson();
         String json = gson.toJson(privateParam);
         Log.i("PARAM_JSON", json);
-        Logger.json(json);
+
         Map<String, Object> generalParam = new HashMap<>();
         generalParam.put("token", token);
         generalParam.put("encryption", encryption);

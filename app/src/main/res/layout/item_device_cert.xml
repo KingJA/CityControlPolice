@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_lgray1_bwhite_r5"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_expland"
+        android:background="@drawable/shape_title_lgray1_bgray_r5"
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_room_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="房间" />
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_arrow_down"
+            android:layout_width="10dp"
+            android:layout_height="10dp" />
+
+    </RelativeLayout>
+
+
+
+    <com.tdr.citycontrolpolice.view.FixedListView
+        android:visibility="gone"
+        android:id="@+id/flv_person"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_device_cert_person">
+
+    </com.tdr.citycontrolpolice.view.FixedListView>
+
+
+</LinearLayout>

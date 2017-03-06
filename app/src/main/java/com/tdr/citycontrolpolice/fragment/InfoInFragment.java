@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.activity.AddApplyActivity;
 import com.tdr.citycontrolpolice.activity.ApplyEditActivity;
 import com.tdr.citycontrolpolice.adapter.CzfInAdapter;
 import com.tdr.citycontrolpolice.base.KjBaseFragment;
@@ -38,6 +39,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -54,6 +56,9 @@ public class InfoInFragment extends KjBaseFragment implements SwipeRefreshLayout
     ListView singleLv;
     @Bind(R.id.single_srl)
     SwipeRefreshLayout singleSrl;
+
+    @Bind(R.id.ll_add_person)
+    LinearLayout llAddPerson;
     private HashMap<String, Object> mParam = new HashMap<>();
     private CzfInAdapter inAdapter;
     private List<ChuZuWu_LKSelfReportingList.ContentBean.PERSONNELINFOLISTBean> inLef = new ArrayList<>();
@@ -78,14 +83,14 @@ public class InfoInFragment extends KjBaseFragment implements SwipeRefreshLayout
 
     @Override
     public View onFragmentCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.single_lv_sl, container, false);
+        EventBus.getDefault().register(this);
+        rootView = inflater.inflate(R.layout.fragment_in, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
 
     @Override
     protected void initFragmentView() {
-        EventBus.getDefault().register(this);
         inAdapter = new CzfInAdapter(mActivity, inLef);
         singleSrl.setColorSchemeResources(R.color.bg_blue_solid);
         singleSrl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
@@ -211,5 +216,10 @@ public class InfoInFragment extends KjBaseFragment implements SwipeRefreshLayout
     @Subscribe(threadMode = ThreadMode.MAIN )
     public void onMessageEvent(InfoInFragmetnEvent messageEvent) {
         initFragmentNet();
+    }
+
+    @OnClick(R.id.ll_add_person)
+    void addPerson() {
+        AddApplyActivity.goActivity(getActivity(),mHouseId);
     }
 }

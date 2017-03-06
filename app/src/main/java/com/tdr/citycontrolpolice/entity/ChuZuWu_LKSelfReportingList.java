@@ -85,6 +85,7 @@ public class ChuZuWu_LKSelfReportingList {
             private String PHONENUM;
             private String ROOMID;
             private String INTIME;
+            private String MACLIST;
             private boolean explend;
 
             public String getLISTID() {
@@ -149,6 +150,14 @@ public class ChuZuWu_LKSelfReportingList {
 
             public void setSTATUS(String STATUS) {
                 this.STATUS = STATUS;
+            }
+
+            public String getMACLIST() {
+                return MACLIST;
+            }
+
+            public void setMACLIST(String MACLIST) {
+                this.MACLIST = MACLIST;
             }
         }
     }
