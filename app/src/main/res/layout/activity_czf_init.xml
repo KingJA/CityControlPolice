@@ -43,7 +43,7 @@
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
-                    android:text="*地        址:" />
+                    android:text="地        址:" />
 
                 <EditText
                     android:id="@+id/tv_address"
@@ -77,7 +77,7 @@
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
-                    android:text="*出租房名" />
+                    android:text="出租房名" />
 
                 <EditText
                     android:id="@+id/et_czfName"
@@ -131,7 +131,7 @@
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
-                    android:text="*房屋类型" />
+                    android:text="房屋类型" />
 
                 <EditText
                     android:id="@+id/tv_czfType"
@@ -275,7 +275,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical|right"
-                        android:text="*姓名" />
+                        android:text="姓名" />
 
                     <EditText
                         android:id="@+id/tv_ownerName"
@@ -303,7 +303,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical|right"
-                        android:text="*身份证" />
+                        android:text="身份证" />
 
                     <EditText
                         android:id="@+id/tv_ownerCard"
@@ -491,7 +491,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
-                        android:text="*身份证" />
+                        android:text="身份证" />
 
                     <EditText
                         android:id="@+id/et_adminCard"
@@ -530,7 +530,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
-                        android:text="*手机号" />
+                        android:text="手机号" />
 
                     <EditText
                         android:id="@+id/et_adminPhone"

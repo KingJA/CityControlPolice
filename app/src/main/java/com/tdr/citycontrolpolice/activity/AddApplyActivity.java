@@ -54,7 +54,7 @@ public class AddApplyActivity extends BackTitleActivity implements View.OnClickL
     private EditText mEtApplyCardId;
     private EditText mEtApplyPhone;
     private ImageView mIvIdcard;
-    private List<KjChuZuWuInfo.ContentBean.RoomListBean>  mRoomList=new ArrayList<>();
+    private List<KjChuZuWuInfo.ContentBean.RoomListBean> mRoomList = new ArrayList<>();
     private NormalListDialog mNormalListDialog;
     private TextView mTvConfirm;
     private String mRoomId;
@@ -64,6 +64,8 @@ public class AddApplyActivity extends BackTitleActivity implements View.OnClickL
     private String imgBase64;
     private String houseId;
     private KjChuZuWuInfo.ContentBean czfInfo;
+    private EditText mEtApplyHeight;
+    private String height;
 
     @Override
     public View setContentView() {
@@ -87,6 +89,7 @@ public class AddApplyActivity extends BackTitleActivity implements View.OnClickL
         mIvApplyCamera = (ImageView) view.findViewById(R.id.iv_apply_camera);
         mEtApplyCardId = (EditText) view.findViewById(R.id.et_apply_cardId);
         mEtApplyPhone = (EditText) view.findViewById(R.id.et_apply_phone);
+        mEtApplyHeight = (EditText) view.findViewById(R.id.et_apply_height);
         mIvIdcard = (ImageView) view.findViewById(R.id.iv_idcard);
     }
 
@@ -105,7 +108,7 @@ public class AddApplyActivity extends BackTitleActivity implements View.OnClickL
                     @Override
                     public void onSuccess(KjChuZuWuInfo bean) {
                         czfInfo = bean.getContent();
-                        mRoomList= czfInfo.getRoomList();
+                        mRoomList = czfInfo.getRoomList();
                         setProgressDialog(false);
                     }
 
@@ -130,7 +133,7 @@ public class AddApplyActivity extends BackTitleActivity implements View.OnClickL
     }
 
 
-    public static void goActivity(Context context,String houseId) {
+    public static void goActivity(Context context, String houseId) {
         Intent intent = new Intent(context, AddApplyActivity.class);
         intent.putExtra("houseId", houseId);
         context.startActivity(intent);
@@ -155,9 +158,11 @@ public class AddApplyActivity extends BackTitleActivity implements View.OnClickL
                 name = mEtApplyName.getText().toString().trim();
                 cardId = mEtApplyCardId.getText().toString().trim().toUpperCase();
                 phone = mEtApplyPhone.getText().toString().trim();
+                height = mEtApplyHeight.getText().toString().trim();
                 if (CheckUtil.checkEmpty(mTvApplyRoomNum.getText().toString(), "请选择房间号")
                         && CheckUtil.checkEmpty(name, "请通过相机获取姓名")
                         && CheckUtil.checkIdCard(cardId, "身份证号格式错误")
+                        && CheckUtil.checkHeight(height, 80, 210)
                         && CheckUtil.checkPhoneFormat(phone)) {
                     onApply();
                 }
@@ -176,12 +181,13 @@ public class AddApplyActivity extends BackTitleActivity implements View.OnClickL
         bean.setIDENTITYCARD(cardId);
         bean.setPHONE(phone);
         bean.setREPORTERROLE(3);
-        bean.setOPERATOR((String)SharedPreferencesUtils.get("uid",""));
+        bean.setOPERATOR((String) SharedPreferencesUtils.get("uid", ""));
         bean.setSTANDARDADDRCODE(czfInfo.getSTANDARDADDRCODE());
         bean.setTERMINAL(3);
-        bean.setXQCODE( czfInfo.getXQCODE());
+        bean.setXQCODE(czfInfo.getXQCODE());
         bean.setPCSCODE(czfInfo.getPCSCODE());
         bean.setJWHCODE(czfInfo.getJWHCODE());
+        bean.setHEIGHT(Integer.valueOf(height));
         bean.setOPERATORPHONE(phone);
         if (!TextUtils.isEmpty(imgBase64)) {
             bean.setPHOTOCOUNT(1);

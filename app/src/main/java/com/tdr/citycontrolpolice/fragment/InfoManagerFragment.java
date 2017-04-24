@@ -1,5 +1,6 @@
 package com.tdr.citycontrolpolice.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -19,18 +20,16 @@ import com.tdr.citycontrolpolice.activity.PersonInfoActivity;
 import com.tdr.citycontrolpolice.adapter.CzfManagerAdapter;
 import com.tdr.citycontrolpolice.base.KjBaseFragment;
 import com.tdr.citycontrolpolice.entity.ChuZuWuInfo;
-import com.tdr.citycontrolpolice.entity.ChuZuWu_AddAdminByPolice;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_AddRoomList;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_DeleteRoom;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
 import com.tdr.citycontrolpolice.entity.Param_ChuZuWu_AddRoomList;
-import com.tdr.citycontrolpolice.event.AdminListRefreshEvent;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.AppUtil;
+import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.MyUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
@@ -38,8 +37,6 @@ import com.tdr.citycontrolpolice.view.KingJA_AddNextLine;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 import com.tdr.citycontrolpolice.view.popupwindow.KingJA_AddNextRoom;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;

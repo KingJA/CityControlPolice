@@ -31,6 +31,7 @@ public class CzfInfoDetailActivity extends BackTitleActivity {
     private TextView mTvCzfAddress;
     private TextView mTvRoomCount;
     private TextView mTvPersonCount;
+    private TextView mTvLocalCount;
     private KjChuZuWuInfo.ContentBean mContent;
     private HashMap<String, Object> mParam = new HashMap<>();
 
@@ -57,6 +58,7 @@ public class CzfInfoDetailActivity extends BackTitleActivity {
         mTvCzfAddress = (TextView) view.findViewById(R.id.tv_czfAddress);
         mTvRoomCount = (TextView) view.findViewById(R.id.tv_roomCount);
         mTvPersonCount = (TextView) view.findViewById(R.id.tv_personCount);
+        mTvLocalCount = (TextView) view.findViewById(R.id.tv_applyCount);
     }
 
     @Override
@@ -97,8 +99,10 @@ public class CzfInfoDetailActivity extends BackTitleActivity {
         List<KjChuZuWuInfo.ContentBean.RoomListBean> mRoomList = mContent.getRoomList();
         int mRoomCount = mContent.getRoomList().size();
         int mShouQuanCount=0;
+        int mApplyCount=0;
         for (KjChuZuWuInfo.ContentBean.RoomListBean bean : mRoomList) {
             mShouQuanCount += bean.getSHOUQUANCOUNT();
+            mApplyCount += bean.getREPORTCOUNT();
         }
         mTvOwnerName.setText(mContent.getOWNERNAME());
         mTvOwnerPhone.setText(mContent.getPHONELIST().replace(",","  "));
@@ -106,6 +110,7 @@ public class CzfInfoDetailActivity extends BackTitleActivity {
         mTvCzfAddress.setText(mContent.getADDRESS());
         mTvRoomCount.setText(String.valueOf(mRoomCount));
         mTvPersonCount.setText(String.valueOf(mShouQuanCount));
+        mTvLocalCount.setText(mApplyCount+"");
     }
 
     public static void goActivity(Context context, String houseId) {

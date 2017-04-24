@@ -24,6 +24,7 @@ import com.tdr.citycontrolpolice.view.popupwindow.PopListAdminType;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,6 @@ public class AddAdminActivity extends BackTitleActivity {
 
     @Override
     public void initVariables() {
-
         houseId = getIntent().getStringExtra(HOUSE_ID);
         adminTypeList1 = (List<Basic_Dictionary_Kj>) DbDaoXutils3.getInstance().selectAllWhere(Basic_Dictionary_Kj.class, "COLUMNCODE", "ADMINTYPE");
 

@@ -1,15 +1,16 @@
 package com.tdr.citycontrolpolice.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.adapter.BaseFragmentPagerAdapter;
-import com.tdr.citycontrolpolice.fragment.InfoInFragment;
-import com.tdr.citycontrolpolice.fragment.InfoManagerFragment;
+import com.tdr.citycontrolpolice.adapter.BaseFragmentPagerTitleAdapter;
 import com.tdr.citycontrolpolice.fragment.PersonAccreditFragment;
+import com.tdr.citycontrolpolice.fragment.PersonHistoryFragment;
+import com.tdr.citycontrolpolice.fragment.PersonInOutFragment;
 import com.tdr.citycontrolpolice.fragment.PersonInfoFragment;
 import com.tdr.citycontrolpolice.view.SimpleIndicatorLayout;
 
@@ -31,8 +32,9 @@ public class PersonInfoActivity extends BackTitleActivity {
     private String mRoomId;
     private SimpleIndicatorLayout mSilPersonInfo;
     private ViewPager mVpPersonInfo;
-    private List<String> mTitleList = Arrays.asList("综合人员信息", "门戒授权");
+    private List<String> mTitleList = Arrays.asList("综合信息", "门戒授权", "进出记录", "历史人数");
     private List<Fragment> mFragmentList = new ArrayList<>();
+    private TabLayout mTlPerson;
 
     @Override
     public void initVariables() {
@@ -49,8 +51,9 @@ public class PersonInfoActivity extends BackTitleActivity {
 
     @Override
     protected void initView() {
-        mSilPersonInfo = (SimpleIndicatorLayout) view.findViewById(R.id.sil_person_info);
+//        mSilPersonInfo = (SimpleIndicatorLayout) view.findViewById(R.id.sil_person_info);
         mVpPersonInfo = (ViewPager) view.findViewById(R.id.vp_person_info);
+        mTlPerson = (TabLayout) view.findViewById(R.id.tl_person);
     }
 
     @Override
@@ -61,10 +64,18 @@ public class PersonInfoActivity extends BackTitleActivity {
     public void initData() {
         mFragmentList.add(PersonInfoFragment.newInstance(mHouseId,mRoomId));
         mFragmentList.add(PersonAccreditFragment.newInstance(mHouseId,mRoomId));
-        mVpPersonInfo.setOffscreenPageLimit(mTitleList.size() - 1);
-        mVpPersonInfo.setAdapter(new BaseFragmentPagerAdapter(getSupportFragmentManager(), mFragmentList));
-        mSilPersonInfo.setTitles(mTitleList);
-        mSilPersonInfo.setUpWithViewPager(mVpPersonInfo, 0);
+        mFragmentList.add(PersonInOutFragment.newInstance(mHouseId,mRoomId));
+        mFragmentList.add(PersonHistoryFragment.newInstance(mHouseId,mRoomId));
+
+        mTlPerson.setTabMode(TabLayout.MODE_FIXED);
+        mTlPerson.addTab(mTlPerson.newTab().setText(mTitleList.get(0)));
+        mTlPerson.addTab(mTlPerson.newTab().setText(mTitleList.get(1)));
+        mTlPerson.addTab(mTlPerson.newTab().setText(mTitleList.get(2)));
+        mTlPerson.addTab(mTlPerson.newTab().setText(mTitleList.get(3)));
+
+        mVpPersonInfo.setAdapter(new BaseFragmentPagerTitleAdapter(getSupportFragmentManager(), mFragmentList,mTitleList));
+        mVpPersonInfo.setOffscreenPageLimit(3);
+        mTlPerson.setupWithViewPager(mVpPersonInfo);
     }
 
     @Override
@@ -72,4 +83,8 @@ public class PersonInfoActivity extends BackTitleActivity {
         setTitle("人员信息");
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

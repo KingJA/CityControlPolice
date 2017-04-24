@@ -138,7 +138,8 @@ public class ThreadPoolTask implements Runnable {
         private WebServiceCallBack callBack;
         private Activity activity;
 
-        public ThreadPoolTask.Builder setGeneralParam(String token, int encryption, String dataTypeCode, Object privateParam) {
+        public ThreadPoolTask.Builder setGeneralParam(String token, int encryption, String dataTypeCode, Object
+                privateParam) {
             this.token = token;
             this.encryption = encryption;
             this.dataTypeCode = dataTypeCode;

@@ -42,6 +42,7 @@ public class AdminsAdapter extends BaseSimpleAdapter<ChuZuWu_AdminList.ContentBe
         Log.e("AdminsAdapter", "adminTypeList: "+adminTypeList.size());
         for (Basic_Dictionary_Kj bean : adminTypeList) {
             typeMap.put(bean.getCOLUMNVALUE(),bean.getCOLUMNCOMMENT());
+            Log.e("AdminsAdapter", "bean.getCOLUMNCOMMENT(): "+bean.getCOLUMNCOMMENT() );
         }
     }
 
@@ -59,6 +60,7 @@ public class AdminsAdapter extends BaseSimpleAdapter<ChuZuWu_AdminList.ContentBe
         viewHolder.tvadminname.setText(list.get(position).getNAME());
         viewHolder.tvadmincard.setText(list.get(position).getIDENTITYCARD());
         viewHolder.tv_type.setText(typeMap.get(list.get(position).getADMINTYPE()+""));
+
         viewHolder.ivdelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class BaseFragmentPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> list;
+    private List<String> titleList;
 
     public BaseFragmentPagerAdapter(FragmentManager fm, List<Fragment> list) {
         super(fm);
@@ -30,4 +31,5 @@ public class BaseFragmentPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return list.size();
     }
+
 }

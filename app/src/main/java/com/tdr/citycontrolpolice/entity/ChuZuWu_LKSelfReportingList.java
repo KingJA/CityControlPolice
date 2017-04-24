@@ -86,6 +86,7 @@ public class ChuZuWu_LKSelfReportingList {
             private String ROOMID;
             private String INTIME;
             private String MACLIST;
+            private int HEIGHT ;
             private boolean explend;
 
             public String getLISTID() {
@@ -158,6 +159,14 @@ public class ChuZuWu_LKSelfReportingList {
 
             public void setMACLIST(String MACLIST) {
                 this.MACLIST = MACLIST;
+            }
+
+            public int getHEIGHT() {
+                return HEIGHT;
+            }
+
+            public void setHEIGHT(int HEIGHT) {
+                this.HEIGHT = HEIGHT;
             }
         }
     }

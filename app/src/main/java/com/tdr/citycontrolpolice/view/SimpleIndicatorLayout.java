@@ -1,6 +1,7 @@
 package com.tdr.citycontrolpolice.view;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -146,10 +147,10 @@ public class SimpleIndicatorLayout extends LinearLayout {
                 lastX = (int) getX();
                 break;
             case MotionEvent.ACTION_MOVE:
-                int currentX =  (int) getX();
+                int currentX = (int) getX();
                 int distance = lastX - currentX;
                 this.scrollTo(distance, 0);
-                Log.e(TAG, "distance: "+distance );
+                Log.e(TAG, "distance: " + distance);
                 invalidate();
                 lastX = (int) getX();
                 break;
@@ -183,7 +184,7 @@ public class SimpleIndicatorLayout extends LinearLayout {
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         wm.getDefaultDisplay().getMetrics(dm);
-        return dm.widthPixels;
+        return isScreenLandscape()?dm.heightPixels:dm.widthPixels;
     }
 
     /**
@@ -229,7 +230,7 @@ public class SimpleIndicatorLayout extends LinearLayout {
      */
     private TextView getTitleView(String title) {
         TextView tv = new TextView(getContext());
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
         tv.setText(title);
         tv.setGravity(Gravity.CENTER);
         tv.setTextColor(mTextColor);
@@ -306,5 +307,18 @@ public class SimpleIndicatorLayout extends LinearLayout {
     }
 
     private OnIndictatorChangeListener onIndictatorChangeListener;
+
+    private boolean isScreenLandscape() {
+        Configuration mConfiguration = getResources().getConfiguration(); //获取设置的配置信息
+        int ori = mConfiguration.orientation; //获取屏幕方向
+        if (ori == mConfiguration.ORIENTATION_LANDSCAPE) {
+            //横屏
+            return true;
+        } else if (ori == mConfiguration.ORIENTATION_PORTRAIT) {
+            //竖屏
+            return false;
+        }
+        return false;
+    }
 }
 

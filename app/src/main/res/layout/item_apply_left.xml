@@ -64,7 +64,6 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/ll_expand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,6 +85,28 @@
 
             <TextView
                 android:id="@+id/tv_info_phone"
+                style="@style/font_3_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="6"
+                android:text="18888888888" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingTop="12dp">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="        身高" />
+
+            <TextView
+                android:id="@+id/tv_info_height"
                 style="@style/font_3_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -59,7 +59,8 @@ import java.util.Map;
  * 修改备注：
  */
 
-public class CzfInfoActivity extends BackTitleActivity implements BackTitleActivity.OnRightClickListener, CzfInfoPopKj.OnCzfInfoPopClickListener {
+public class CzfInfoActivity extends BackTitleActivity implements BackTitleActivity.OnRightClickListener,
+        CzfInfoPopKj.OnCzfInfoPopClickListener {
     private static final String TAG = "CzfInfoActivity";
     private static final int SCANNIN_ACCESS = 0x001;
     private static final int SCANNIN_APPLY = 0x002;
@@ -139,7 +140,8 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                         mCzfInfo = bean;
                         mIsregister = bean.getContent().getISREGISTER();
                         mIsfavorite = bean.getContent().getISFAVORITE();
-                        iv_attention.setBackgroundResource(mIsfavorite == 1 ? R.drawable.bg_unattention : R.drawable.bg_attention);
+                        iv_attention.setBackgroundResource(mIsfavorite == 1 ? R.drawable.bg_unattention : R.drawable
+                                .bg_attention);
                         Log.i(TAG, "mIsregister: " + mIsregister);
                         mCzfInfoPop.setAppleVisibility(mIsregister);
                         mCzfInfoPop.setAccess(bean.getContent().getHAS(), "1023");
@@ -152,6 +154,9 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
                         mDialogProgress.dismiss();
+                        if (errorResult.getResultCode() == 30) {
+                            finish();
+                        }
                     }
                 }).build();
         PoolManager.getInstance().execute(task);
@@ -316,12 +321,16 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                         } else {
                             mIsfavorite = 1;
                         }
-                        iv_attention.setBackgroundResource(mIsfavorite == 1 ? R.drawable.bg_unattention : R.drawable.bg_attention);
+                        iv_attention.setBackgroundResource(mIsfavorite == 1 ? R.drawable.bg_unattention : R.drawable
+                                .bg_attention);
                     }
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
                         setProgressDialog(false);
+                        if (errorResult.getResultCode() == 30) {
+                            finish();
+                        }
                     }
                 }).build().execute();
     }
@@ -366,10 +375,10 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
         }
         if (requestCode == SCANNIN_ACCESS) {
             decodeDevice(data);
-        } else if (requestCode == SCANNIN_APPLY){
+        } else if (requestCode == SCANNIN_APPLY) {
             decodeApplyDevice(data);
         } else if (requestCode == BIND_RESULT) {
-            if (data.getBooleanExtra("BIND_RESULT",false)) {
+            if (data.getBooleanExtra("BIND_RESULT", false)) {
                 mCzfInfoPop.setApplyBind(View.GONE);
             }
         }
@@ -383,7 +392,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
         if ("AB".equals(type)) {
             result = result.substring(2);
             result = VerifyCode.checkDeviceCode(result);
-            Log.e(TAG, "checkDeviceCode: "+result );
+            Log.e(TAG, "checkDeviceCode: " + result);
             if (TextUtils.isEmpty(result)) {
                 ToastUtil.showMyToast("可疑数据！");
                 return;
@@ -396,7 +405,7 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                 ToastUtil.showMyToast("不是服务终端设备");
                 return;
             }
-            BindApplyDeviceActivity.goActivityForResult(this,mHouseId, (int)deviceType, deviceNO,BIND_RESULT);
+            BindApplyDeviceActivity.goActivityForResult(this, mHouseId, (int) deviceType, deviceNO, BIND_RESULT);
 
         } else {
             ToastUtil.showMyToast("不是要求的二维码对象");
@@ -461,7 +470,8 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
      * @param cardNO
      * @param date
      */
-    private void bindAccess(long deviceType, long deviceNO, long ownerNO, long ownerType, long cardType, String cardNO, String date) {
+    private void bindAccess(long deviceType, long deviceNO, long ownerNO, long ownerType, long cardType, String
+            cardNO, String date) {
         setProgressDialog(true);
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
@@ -474,7 +484,8 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
         param.put("CARDID", cardNO);
         param.put("CREATEDTIME", date);
         new ThreadPoolTask.Builder()
-                .setGeneralParam(UserService.getInstance(this).getToken(), 0, "ChuZuWu_BoundMenjinYiTiJiByQRCode", param)
+                .setGeneralParam(UserService.getInstance(this).getToken(), 0, "ChuZuWu_BoundMenjinYiTiJiByQRCode",
+                        param)
                 .setBeanType(ChuZuWu_BoundMenjinYiTiJiByQRCode.class)
                 .setCallBack(new WebServiceCallBack<ChuZuWu_BoundMenjinYiTiJiByQRCode>() {
                     @Override

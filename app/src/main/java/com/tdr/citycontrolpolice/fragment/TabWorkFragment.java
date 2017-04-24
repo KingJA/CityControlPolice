@@ -86,17 +86,18 @@ public class TabWorkFragment extends KjBaseFragment implements View.OnClickListe
                 return true;
             }
 
-            @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                ll_network_root.setVisibility(View.VISIBLE);
-                super.onReceivedError(view, errorCode, description, failingUrl);
-            }
+//            @Override
+//            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+//                ll_network_root.setVisibility(View.VISIBLE);
+//                super.onReceivedError(view, errorCode, description, failingUrl);
+//            }
 
-            @Override
-            public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
-                super.onReceivedHttpError(view, request, errorResponse);
-                ll_network_root.setVisibility(View.VISIBLE);
-            }
+//            @Override
+//            public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+//                super.onReceivedHttpError(view, request, errorResponse);
+//                Log.e(TAG, "onReceivedHttpError: "+errorResponse.toString() );
+//                ll_network_root.setVisibility(View.VISIBLE);
+//            }
         });
         mWb.setWebChromeClient(new WebChromeClient() {
             @Override

@@ -4,6 +4,7 @@ package com.tdr.citycontrolpolice.update;
 import android.util.Log;
 
 import com.tdr.citycontrolpolice.util.Constants;
+import com.tdr.citycontrolpolice.util.ToastUtil;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,6 +12,9 @@ import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 
 /**
  * Created by Linus_Xie on 2016/3/12.
@@ -26,11 +30,10 @@ public class WebserviceRequest {
      * @return
      * @throws Exception
      */
-    public VersionInfo getVersionCode(String fileName) throws Exception {
+    public VersionInfo getVersionCode(String fileName) {
 
         SoapObject request = new SoapObject(WEBSERVER_NAMESPACE,
                 "GetCode");
-        Log.e("CityControlPolice.apk", "更新参数：" + fileName);
         request.addProperty("FileName", fileName);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
@@ -39,8 +42,14 @@ public class WebserviceRequest {
 
         MyHttpTransportSE ht = new MyHttpTransportSE(
                 Constants.getUpdataUrl());
-        ht.call(WEBSERVER_NAMESPACE + "GetCode", envelope);
-        String result = ((SoapPrimitive) envelope.getResponse()).toString();
+        String result="";
+        try {
+            ht.call(WEBSERVER_NAMESPACE + "GetCode", envelope);
+             result = ((SoapPrimitive) envelope.getResponse()).toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            ToastUtil.showMyToast("服务器升级请求存在异常");
+        }
         Log.e("CityControlPolice.apk", result);
         return initVersionInfo(result);
     }

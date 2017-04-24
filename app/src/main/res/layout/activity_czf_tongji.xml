@@ -123,6 +123,30 @@
         </LinearLayout>
 
         <View style="@style/divider_light_horizontal" />
+  <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:text="自主申报人数" />
+
+            <TextView
+                android:id="@+id/tv_applyCount"
+                style="@style/font_3_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7" />
+
+
+        </LinearLayout>
+
+        <View style="@style/divider_light_horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"

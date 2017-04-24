@@ -46,6 +46,7 @@ public class CzfLeftAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingOut
             viewHolder.ivapplyarrow.setBackgroundResource(R.drawable.bg_arrow_down);
         }
 
+        viewHolder.tv_info_height.setText(list.get(position).getHEIGHT()+" cm");
         viewHolder.tvinfoname.setText(list.get(position).getNAME());
         viewHolder.tvinfophone.setText(list.get(position).getPHONENUM());
         viewHolder.tvinfocard.setText(list.get(position).getIDENTITYCARD());
@@ -69,6 +70,7 @@ public class CzfLeftAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingOut
         public final RelativeLayout rltop;
         public final TextView tvinfophone;
         public final TextView tvinfocard;
+        public final TextView tv_info_height;
         public final LinearLayout llexpand;
         public final View root;
 
@@ -79,6 +81,7 @@ public class CzfLeftAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingOut
             rltop = (RelativeLayout) root.findViewById(R.id.rl_top);
             tvinfophone = (TextView) root.findViewById(R.id.tv_info_phone);
             tvinfocard = (TextView) root.findViewById(R.id.tv_info_card);
+            tv_info_height = (TextView) root.findViewById(R.id.tv_info_height);
             llexpand = (LinearLayout) root.findViewById(R.id.ll_expand);
             this.root = root;
         }

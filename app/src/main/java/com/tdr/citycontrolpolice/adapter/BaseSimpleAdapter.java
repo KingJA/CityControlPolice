@@ -35,7 +35,9 @@ public abstract class BaseSimpleAdapter<T> extends BaseAdapter {
         this.list.addAll(list);
         this.notifyDataSetChanged();
     }
-
+    public void reset() {
+        this.list.clear();
+    }
     @Override
     public int getCount() {
         return list.size();

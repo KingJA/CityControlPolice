@@ -1,12 +1,15 @@
 package com.tdr.citycontrolpolice.base;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import butterknife.ButterKnife;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -16,11 +19,12 @@ import android.view.ViewGroup;
  * 修改备注：
  */
 public abstract class KjBaseFragment extends Fragment {
-
+    protected String TAG = getClass().getSimpleName();
     protected String mHouseId;
     protected View rootView;
     protected Context mContext;
     protected Activity mActivity;
+    private ProgressDialog mProgressDialog;
 
     @Override
     public void onAttach(Context context) {
@@ -33,6 +37,7 @@ public abstract class KjBaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = onFragmentCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -42,12 +47,27 @@ public abstract class KjBaseFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        initConmonView();
         initFragmentVariables();
         initFragmentView();
         initFragmentNet();
         initFragmentData();
         setFragmentData();
+    }
+    private void initConmonView() {
+        mProgressDialog = new ProgressDialog(getActivity());
+    }
+    protected void setProgressDialog(boolean show) {
+        if (show) {
+            mProgressDialog.show();
+        } else {
+            mProgressDialog.dismiss();
+        }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     protected abstract void initFragmentVariables();

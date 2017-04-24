@@ -85,7 +85,16 @@ public class ChuZuWu_LKSelfReportingOutList {
             private String ROOMID;
             private String INTIME;
             private String OUTTIME;
+            private int HEIGHT;
             private boolean isExplend;
+
+            public int getHEIGHT() {
+                return HEIGHT;
+            }
+
+            public void setHEIGHT(int HEIGHT) {
+                this.HEIGHT = HEIGHT;
+            }
 
             public String getLISTID() {
                 return LISTID;

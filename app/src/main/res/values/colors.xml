@@ -52,6 +52,7 @@
 
     <color name="switch_sel">#6F9BE6</color>
     <color name="bg_blue">#3B5999</color>
+    <color name="bg_blue_light">#5890FF</color>
     <color name="blue_deep_kj">#1869a6</color>
     <color name="gray_kj">#707070</color>
 

@@ -53,6 +53,7 @@ public class CzfInAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingList.
         viewHolder.tvinfophone.setText(list.get(position).getPHONENUM());
         viewHolder.tvinfocard.setText(list.get(position).getIDENTITYCARD());
         viewHolder.tvinfotime.setText(list.get(position).getINTIME().substring(0, 10));
+        viewHolder.tv_info_height.setText(list.get(position).getHEIGHT()+" cm");
 
         viewHolder.rltop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,10 +90,12 @@ public class CzfInAdapter extends BaseSimpleAdapter<ChuZuWu_LKSelfReportingList.
         public final TextView tvinfophone;
         public final TextView tvinfocard;
         public final TextView tvinfomac;
+        public final TextView tv_info_height;
         public final LinearLayout llexpand;
         public final View root;
 
         public ViewHolder(View root) {
+            tv_info_height = (TextView) root.findViewById(R.id.tv_info_height);
             tvinfoname = (TextView) root.findViewById(R.id.tv_outin_name);
             tvinfotime = (TextView) root.findViewById(R.id.tv_info_time);
             ivapplyarrow = (ImageView) root.findViewById(R.id.iv_apply_arrow);

@@ -3,15 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.tdr.citycontrolpolice.view.SimpleIndicatorLayout
-        android:id="@+id/sil_person_info"
+    <!--<com.tdr.citycontrolpolice.view.SimpleIndicatorLayout-->
+        <!--android:id="@+id/sil_person_info"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:orientation="horizontal"-->
+        <!--app:kjTabBgColor="@color/font_blue"-->
+        <!--app:kjTabTextColor="@color/font_9"-->
+        <!--app:kjTabTextSelColor="@color/font_blue"-->
+        <!--app:kjVisibleCount="4" />-->
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_person"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:orientation="horizontal"
-        app:kjTabBgColor="@color/font_blue"
-        app:kjTabTextColor="@color/font_9"
-        app:kjTabTextSelColor="@color/font_blue"
-        app:kjVisibleCount="2" />
+        app:tabIndicatorHeight="2dp"
+        app:tabIndicatorColor="@color/font_blue"
+        app:tabSelectedTextColor="@color/font_blue"
+        app:tabTextColor="@color/font_9"
+        />
+
 
     <View style="@style/divider_nomal_horizontal" />
 

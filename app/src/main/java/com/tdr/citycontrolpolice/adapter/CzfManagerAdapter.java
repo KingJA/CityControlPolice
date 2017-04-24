@@ -40,6 +40,7 @@ public class CzfManagerAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.ContentBe
         viewHolder.tvinfoshouquan.setText(list.get(position).getSHOUQUANCOUNT() + "");
         Log.i(TAG, "person: " + list.get(position).getHEADCOUNT());
         viewHolder.tvinfoperson.setText(list.get(position).getHEADCOUNT() == -1 ? "未知" : getPersonCount(list.get(position).getHEADCOUNT()));
+        viewHolder.tvapplyperson.setText(list.get(position).getREPORTCOUNT()+"");
 
         return convertView;
     }
@@ -60,12 +61,14 @@ public class CzfManagerAdapter extends BaseSimpleAdapter<KjChuZuWuInfo.ContentBe
         public final TextView tvinforoom;
         public final TextView tvinfoshouquan;
         public final TextView tvinfoperson;
+        public final TextView tvapplyperson;
         public final View root;
 
         public ViewHolder(View root) {
             tvinforoom = (TextView) root.findViewById(R.id.tv_info_room);
             tvinfoshouquan = (TextView) root.findViewById(R.id.tv_info_shouquan);
             tvinfoperson = (TextView) root.findViewById(R.id.tv_info_person);
+            tvapplyperson = (TextView) root.findViewById(R.id.tv_apply_person);
             this.root = root;
         }
     }

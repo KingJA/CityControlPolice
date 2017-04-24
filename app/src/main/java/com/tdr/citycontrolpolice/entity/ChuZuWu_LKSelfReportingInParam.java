@@ -41,6 +41,7 @@ public class ChuZuWu_LKSelfReportingInParam {
     private String OPERATOR;
     private String STANDARDADDRCODE;
     private int TERMINAL;
+    private int HEIGHT;
     private String XQCODE;
     private String PCSCODE;
     private String JWHCODE;
@@ -51,7 +52,13 @@ public class ChuZuWu_LKSelfReportingInParam {
      * TAG : 门
      * IMAGE : base64
      */
+    public int getHEIGHT() {
+        return HEIGHT;
+    }
 
+    public void setHEIGHT(int HEIGHT) {
+        this.HEIGHT = HEIGHT;
+    }
     private List<PHOTOLISTBean> PHOTOLIST;
 
     public String getTaskID() {

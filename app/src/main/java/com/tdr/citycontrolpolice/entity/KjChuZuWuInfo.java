@@ -72,6 +72,18 @@ public class KjChuZuWuInfo implements Serializable {
         private boolean DianZiMenPai;
         private String OWNERNAME;
         private String PHONE;
+        private String PHONELIST;
+        private String ADDRESS;
+        private int HOUSEPROPERTY;
+
+
+
+
+        private String STANDARDADDRCODE;
+        private String XQCODE;
+        private String PCSCODE;
+        private String JWHCODE;
+        private List<RoomListBean> RoomList;
 
         public String getPHONELIST() {
             return PHONELIST;
@@ -80,15 +92,6 @@ public class KjChuZuWuInfo implements Serializable {
         public void setPHONELIST(String PHONELIST) {
             this.PHONELIST = PHONELIST;
         }
-
-        private String PHONELIST;
-        private String ADDRESS;
-        private int HOUSEPROPERTY;
-        private String STANDARDADDRCODE;
-        private String XQCODE;
-        private String PCSCODE;
-        private String JWHCODE;
-        private List<RoomListBean> RoomList;
 
         public String getHOUSEID() {
             return HOUSEID;
@@ -211,6 +214,15 @@ public class KjChuZuWuInfo implements Serializable {
         }
 
         public static class RoomListBean implements Serializable {
+            public int getREPORTCOUNT() {
+                return REPORTCOUNT;
+            }
+
+            public void setREPORTCOUNT(int REPORTCOUNT) {
+                this.REPORTCOUNT = REPORTCOUNT;
+            }
+
+            private int REPORTCOUNT ;
             private String ROOMID;
             private int ROOMNO;
             private int DEPLOYSTATUS;
@@ -218,7 +230,6 @@ public class KjChuZuWuInfo implements Serializable {
             private String STATIONNO;
             private int SHOUQUANCOUNT;
             private boolean isExpland;
-
             public String getROOMID() {
                 return ROOMID;
             }
