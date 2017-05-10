@@ -105,7 +105,9 @@ public class InfoLeftFragment extends KjBaseFragment implements SwipeRefreshLayo
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-                        singleSrl.setRefreshing(false);
+                        if (errorResult.getResultCode() != 30) {
+                            singleSrl.setRefreshing(false);
+                        }
                     }
                 }).build();
         PoolManager.getInstance().execute(task);

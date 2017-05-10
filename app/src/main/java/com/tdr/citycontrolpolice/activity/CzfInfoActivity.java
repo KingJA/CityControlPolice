@@ -328,9 +328,6 @@ public class CzfInfoActivity extends BackTitleActivity implements BackTitleActiv
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
                         setProgressDialog(false);
-                        if (errorResult.getResultCode() == 30) {
-                            finish();
-                        }
                     }
                 }).build().execute();
     }

@@ -3,7 +3,9 @@ package com.tdr.citycontrolpolice.base;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
+import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.CrashHandler;
 import com.tdr.citycontrolpolice.util.CustomConstants;
 
@@ -28,6 +30,7 @@ public class App extends Application {
         super.onCreate();
         CrashHandler.getInstance().init(this);
         mAppContext = getApplicationContext();
+
         mSharedPreferences = getSharedPreferences(CustomConstants.APPLICATION_NAME,
                 MODE_PRIVATE);
 //        CrashReport.initCrashReport(mAppContext, "900026215", false);

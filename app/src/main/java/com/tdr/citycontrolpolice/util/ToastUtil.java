@@ -41,7 +41,8 @@ public class ToastUtil {
     }
 
     public static void showMyToast(String message) {
-        showToast(AppUtil.getContext(), message, Toast.LENGTH_SHORT);
+//        showToast(AppUtil.getContext(), message, Toast.LENGTH_SHORT);
+        Toast.makeText(AppUtil.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -69,5 +70,13 @@ public class ToastUtil {
                 Looper.loop();
             }
         }).start();
+    }
+
+    public static void showToast(String msg) {
+        if (mToast == null) {
+            mToast = Toast.makeText(AppUtil.getContext(), "", Toast.LENGTH_LONG);
+        }
+        mToast.setText(msg);
+        mToast.show();
     }
 }

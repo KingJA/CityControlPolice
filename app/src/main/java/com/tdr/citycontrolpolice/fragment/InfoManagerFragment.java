@@ -165,7 +165,9 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
                     @Override
                     public void onErrorResult(ErrorResult errorResult) {
-                        srlCzfManager.setRefreshing(false);
+                        if (errorResult.getResultCode() != 30) {
+                            srlCzfManager.setRefreshing(false);
+                        }
                     }
                 }).build();
         PoolManager.getInstance().execute(task);

@@ -85,7 +85,7 @@ public class ThreadPoolTask implements Runnable {
                                 App.getContext().startActivity(intent);
 //                                android.os.Process.killProcess(android.os.Process.myPid());
                             }
-                            ToastUtil.showMyToast(errorResult.getResultText());
+//                            ToastUtil.showMyToast(errorResult.getResultText());
                         }
                     });
                 }
