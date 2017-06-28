@@ -9,5 +9,6 @@ package com.tdr.citycontrolpolice.util;
  */
 public class WebServiceMethod {
     public static final String User_LoginByPolice = "User_LoginByPolice";
-    public static final String User_LoginByAccount = "User_LoginByAccount";
+    public static final String USER_LOGIN_BY_ACCOUNT = "User_LoginByAccount";
+    public static final String User_LoginByAccount = USER_LOGIN_BY_ACCOUNT;
 }

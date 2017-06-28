@@ -29,8 +29,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -41,15 +42,16 @@ import butterknife.ButterKnife;
  */
 public class InfoLeftFragment extends KjBaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    @Bind(R.id.ll_empty)
+    @BindView(R.id.ll_empty)
     LinearLayout llEmpty;
-    @Bind(R.id.single_lv)
+    @BindView(R.id.single_lv)
     ListView singleLv;
-    @Bind(R.id.single_srl)
+    @BindView(R.id.single_srl)
     SwipeRefreshLayout singleSrl;
     private HashMap<String, Object> mParam = new HashMap<>();
     private CzfLeftAdapter leftAdapter;
     private List<ChuZuWu_LKSelfReportingOutList.ContentBean.PERSONNELINFOLISTBean> leftList = new ArrayList<>();
+    private Unbinder bind;
 
     public static InfoLeftFragment newInstance(String houseId) {
         InfoLeftFragment applyFragment = new InfoLeftFragment();
@@ -73,7 +75,7 @@ public class InfoLeftFragment extends KjBaseFragment implements SwipeRefreshLayo
     @Override
     public View onFragmentCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.single_lv_sl, container, false);
-        ButterKnife.bind(this, rootView);
+        bind = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -127,16 +129,10 @@ public class InfoLeftFragment extends KjBaseFragment implements SwipeRefreshLayo
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+       bind.unbind();
     }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 
     @Override
     public void onRefresh() {

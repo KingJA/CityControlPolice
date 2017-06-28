@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -26,21 +26,21 @@ import butterknife.OnClick;
 public abstract class BackTitleActivity extends BaseActivity {
     protected View view;
     protected boolean isFinished;
-    @Bind(R.id.rl_top_back_left)
+    @BindView(R.id.rl_top_back_left)
     RelativeLayout rlTopBackLeft;
-    @Bind(R.id.rl_top_back_right)
+    @BindView(R.id.rl_top_back_right)
     RelativeLayout rlTopBackRight;
-    @Bind(R.id.rl_parent)
+    @BindView(R.id.rl_parent)
     RelativeLayout rlParent;
-    @Bind(R.id.tv_right)
+    @BindView(R.id.tv_right)
     TextView tvRight;
-    @Bind(R.id.iv_right)
+    @BindView(R.id.iv_right)
     ImageView ivRight;
     private OnRightClickListener onRightClickListener;
 
-    @Bind(R.id.tv_top_back_title)
+    @BindView(R.id.tv_top_back_title)
     TextView tvTopBackTitle;
-    @Bind(R.id.fl_top_back_content)
+    @BindView(R.id.fl_top_back_content)
     FrameLayout flTopBackContent;
 
     @Override

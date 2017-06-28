@@ -11,7 +11,7 @@ import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.AppInfoUtil;
 import com.tdr.citycontrolpolice.util.DatebaseManager;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 public class SplashActivity extends BaseActivity {
     private static final String TAG = "SplashActivity";
     private final long DELAYED_MILLS = 2000;
-    @Bind(R.id.tv_version)
+    @BindView(R.id.tv_version)
     TextView tvVersion;
     private Handler handler=new Handler();
 

@@ -33,7 +33,7 @@ import com.tdr.citycontrolpolice.util.WebServiceMethod;
 import com.tdr.citycontrolpolice.view.KingJA_SwtichButton;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -49,19 +49,19 @@ import butterknife.OnClick;
  */
 public class KjLoginActivity extends Activity implements KingJA_SwtichButton.OnSwitchListener {
     private static final String TAG = "KjLoginActivity";
-    @Bind(R.id.et_login_name)
+    @BindView(R.id.et_login_name)
     EditText etLoginName;
-    @Bind(R.id.et_login_password)
+    @BindView(R.id.et_login_password)
     EditText etLoginPassword;
-    @Bind(R.id.cb_remmber)
+    @BindView(R.id.cb_remmber)
     CheckBox cbRemmber;
-    @Bind(R.id.btn_login)
+    @BindView(R.id.btn_login)
     Button btnLogin;
-    @Bind(R.id.kj_switchbutton)
+    @BindView(R.id.kj_switchbutton)
     KingJA_SwtichButton kjSwitchbutton;
-    @Bind(R.id.tv_version)
+    @BindView(R.id.tv_version)
     TextView tvVersion;
-    @Bind(R.id.v_something)
+    @BindView(R.id.v_something)
     View vSomething;
 
     private String userName;

@@ -1,12 +1,11 @@
 apply plugin: 'com.android.application'
-def libs = rootProject.ext.libraries
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    compileSdkVersion rootProject.ext.compileSdkVersion//必须
+    buildToolsVersion rootProject.ext.buildToolsVersion//必须
     defaultConfig {
         applicationId "com.tdr.wlwj.wz"
-        minSdkVersion 14
-        targetSdkVersion 22
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 20161114
         versionName "1.5.1"
         ndk {
@@ -38,15 +37,16 @@ android {
     dependencies {
         compile fileTree(dir: 'libs', include: ['*.jar'])
         testCompile 'junit:junit:4.12'
-        compile "com.android.support:design:${libs.supportVersion}"
-        compile "com.android.support:appcompat-v7:${libs.supportVersion}"
-        compile 'com.android.support:cardview-v7:23.2.1'
+        compile "com.android.support:design:$rootProject.ext.supportVersion"
+        compile "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+        compile "com.android.support:cardview-v7:$rootProject.ext.supportVersion"
         compile files('libs/afinal_0.5.1_bin.jar')
         compile files('libs/ysidcard.jar')
         compile 'com.orhanobut:logger:1.11'
         compile 'com.nineoldandroids:library:2.4.0'
         compile 'com.tencent.bugly:crashreport:1.2.9'
-        compile 'com.jakewharton:butterknife:7.0.1'
+        compile 'com.jakewharton:butterknife:8.6.0'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
         compile 'org.xutils:xutils:3.3.26'
         compile files('libs/gson-2.3.1.jar')
         compile files('libs/core-2.2.jar')
@@ -76,8 +76,8 @@ def buildApkByType(type) {
     android.applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def outputFile = output.packageApplication.outputFile
-            if (outputFile != null && variant.buildType.name.equals(type)) {
-                def fileName = rootProject.ext.android.appName + "V${android.defaultConfig.versionName}-${releaseTime()}-" + type + ".apk"
+            if (outputFile != null && variant.buildType.name==(type)) {
+                def fileName = rootProject.ext.appName + "V${android.defaultConfig.versionName}-${releaseTime()}-" + type + ".apk"
                 output.packageApplication.outputFile = new File(outputFile.parent, fileName)
             }
         }

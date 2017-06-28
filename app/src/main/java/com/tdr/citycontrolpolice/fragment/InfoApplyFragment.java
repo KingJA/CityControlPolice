@@ -26,8 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -37,11 +38,11 @@ import butterknife.ButterKnife;
  * 修改备注：
  */
 public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnItemClickListener, KingJA_SwtichButton_Kj.OnSwitchListener {
-    @Bind(R.id.lv_exist)
+    @BindView(R.id.lv_exist)
     ListView lv_exist;
-    @Bind(R.id.ll_empty)
+    @BindView(R.id.ll_empty)
     LinearLayout llEmpty;
-    @Bind(R.id.kj_switchbutton)
+    @BindView(R.id.kj_switchbutton)
     KingJA_SwtichButton_Kj kjSwitchbutton;
     private HashMap<String, Object> mParam = new HashMap<>();
     private boolean isInList = true;
@@ -49,6 +50,7 @@ public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnI
     private List<ChuZuWu_LKSelfReportingList.ContentBean.PERSONNELINFOLISTBean> applyList = new ArrayList<>();
     private Map<Boolean, CzfInAdapter> adapterMap = new HashMap<>();
     private DialogProgress dialogProgress;
+    private Unbinder bind;
 
     public static InfoApplyFragment newInstance(String houseId) {
         InfoApplyFragment applyFragment = new InfoApplyFragment();
@@ -72,7 +74,7 @@ public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnI
     @Override
     public View onFragmentCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_lv_apply, container, false);
-        ButterKnife.bind(this, rootView);
+        bind = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -130,7 +132,7 @@ public class InfoApplyFragment extends KjBaseFragment implements AdapterView.OnI
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        bind.unbind();
     }
 
     @Override

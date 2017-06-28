@@ -28,8 +28,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * 项目名称：进出记录
@@ -39,11 +40,11 @@ import butterknife.ButterKnife;
  * 修改备注：
  */
 public class PersonInOutFragment extends KjBaseFragment implements SwipeRefreshLayout.OnRefreshListener {
-    @Bind(R.id.ll_empty)
+    @BindView(R.id.ll_empty)
     LinearLayout llEmpty;
-    @Bind(R.id.single_lv)
+    @BindView(R.id.single_lv)
     ListView singleLv;
-    @Bind(R.id.single_srl)
+    @BindView(R.id.single_srl)
     SwipeRefreshLayout singleSrl;
     private int loadIndex = 0;
     private boolean hasMore;
@@ -51,6 +52,7 @@ public class PersonInOutFragment extends KjBaseFragment implements SwipeRefreshL
     private PersonInoutAdapter mPersonInoutAdapter;
     private int LOADSIZE = 20;
     private List<ChuZuWu_DeviceInOutList.ContentBean.PERSONNELINFOLISTBean> personnelInfoList = new ArrayList<>();
+    private Unbinder bind;
 
     public static PersonInOutFragment newInstance(String houseId, String roomId) {
         PersonInOutFragment personAccreditFragment = new PersonInOutFragment();
@@ -65,7 +67,7 @@ public class PersonInOutFragment extends KjBaseFragment implements SwipeRefreshL
     @Override
     public View onFragmentCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.single_lv_sl, container, false);
-        ButterKnife.bind(this, rootView);
+        bind = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -139,16 +141,10 @@ public class PersonInOutFragment extends KjBaseFragment implements SwipeRefreshL
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        bind.unbind();
     }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 
     @Override
     public void onRefresh() {

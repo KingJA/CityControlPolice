@@ -41,8 +41,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -53,16 +54,17 @@ import butterknife.ButterKnife;
  */
 public class InfoDeviceFragment extends KjBaseFragment implements SwipeRefreshLayout.OnRefreshListener{
 
-    @Bind(R.id.ll_empty)
+    @BindView(R.id.ll_empty)
     LinearLayout llEmpty;
-    @Bind(R.id.single_lv)
+    @BindView(R.id.single_lv)
     ListView singleLv;
-    @Bind(R.id.single_srl)
+    @BindView(R.id.single_srl)
     SwipeRefreshLayout singleSrl;
 
     private HashMap<String, Object> mParam = new HashMap<>();
     private CzfDeviceAdapter deviceAdapter;
     private  List<ChuZuWu_LkSelfReportingMacList.ContentBean> deviceList = new ArrayList<>();
+    private Unbinder bind;
 
     public static InfoDeviceFragment newInstance(String houseId) {
         InfoDeviceFragment applyFragment = new InfoDeviceFragment();
@@ -84,7 +86,7 @@ public class InfoDeviceFragment extends KjBaseFragment implements SwipeRefreshLa
     @Override
     public View onFragmentCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.single_lv_sl, container, false);
-        ButterKnife.bind(this, rootView);
+        bind = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -137,7 +139,7 @@ public class InfoDeviceFragment extends KjBaseFragment implements SwipeRefreshLa
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+      bind.unbind();
     }
 
 

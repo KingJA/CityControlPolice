@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import lecho.lib.hellocharts.gesture.ZoomType;
 import lecho.lib.hellocharts.model.Axis;
@@ -47,9 +47,9 @@ import lib.kingja.switchbutton.SwitchMultiButton;
  * 修改备注：
  */
 public class PersonHistoryFragment extends KjBaseFragment {
-    @Bind(R.id.smb)
+    @BindView(R.id.smb)
     SwitchMultiButton smb;
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     LineChartView chart;
     private String mRoomId;
     private List<PointValue> mPointValuesList = new ArrayList<>();

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -27,11 +27,11 @@ import butterknife.Bind;
  * 修改备注：
  */
 public class AdminsAdapter extends BaseSimpleAdapter<ChuZuWu_AdminList.ContentBean.AdminListBean> {
-    @Bind(R.id.iv_delete)
+    @BindView(R.id.iv_delete)
     ImageView ivDelete;
-    @Bind(R.id.tv_admin_name)
+    @BindView(R.id.tv_admin_name)
     TextView tvAdminName;
-    @Bind(R.id.tv_admin_card)
+    @BindView(R.id.tv_admin_card)
     TextView tvAdminCard;
     private OnAdminDeleteListener onAdminDeleteListener;
     private Map<String,String> typeMap=new HashMap<>();

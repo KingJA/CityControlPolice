@@ -1,6 +1,5 @@
 package com.tdr.citycontrolpolice.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -43,9 +42,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -56,25 +56,25 @@ import butterknife.OnClick;
  */
 public class InfoManagerFragment extends KjBaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemLongClickListener {
     private static final String TAG = "InfoManagerFragment";
-    @Bind(R.id.tv_back)
+    @BindView(R.id.tv_back)
     TextView tvBack;
-    @Bind(R.id.ll_init_root)
+    @BindView(R.id.ll_init_root)
     LinearLayout llInitRoot;
-    @Bind(R.id.iv_init_add)
+    @BindView(R.id.iv_init_add)
     ImageView ivInitAdd;
-    @Bind(R.id.iv_init_delete)
+    @BindView(R.id.iv_init_delete)
     ImageView ivInitDelete;
-    @Bind(R.id.tv_init_submit)
+    @BindView(R.id.tv_init_submit)
     TextView tvInitSubmit;
-    @Bind(R.id.ll_initRoom)
+    @BindView(R.id.ll_initRoom)
     LinearLayout llInitRoom;
-    @Bind(R.id.lv_init)
+    @BindView(R.id.lv_init)
     ListView lvInit;
-    @Bind(R.id.srl_czf_manager)
+    @BindView(R.id.srl_czf_manager)
     SwipeRefreshLayout srlCzfManager;
-    @Bind(R.id.btn_add)
+    @BindView(R.id.btn_add)
     ImageView btnAdd;
-    @Bind(R.id.tv_tip)
+    @BindView(R.id.tv_tip)
     TextView tvTip;
 
     private ChuZuWuInfo chuZuWuInfo;
@@ -96,6 +96,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     private boolean hasInitRoom;
     private KingJA_AddNextLine kingJA_addNextLine;
     private KingJA_AddNextRoom kingJA_addNextroom;
+    private Unbinder bind;
 
     public static InfoManagerFragment newInstance(String houseId) {
         InfoManagerFragment managerFragment = new InfoManagerFragment();
@@ -117,7 +118,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     @Override
     public View onFragmentCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_czf_manager, container, false);
-        ButterKnife.bind(this, rootView);
+        bind = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -189,7 +190,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        bind.unbind();
     }
 
     @Override
@@ -205,13 +206,6 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 
     @Override
     public void onRefresh() {

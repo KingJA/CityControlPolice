@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -25,6 +26,7 @@ public abstract class KjBaseFragment extends Fragment {
     protected Context mContext;
     protected Activity mActivity;
     private ProgressDialog mProgressDialog;
+    private Unbinder bind;
 
     @Override
     public void onAttach(Context context) {
@@ -37,7 +39,7 @@ public abstract class KjBaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = onFragmentCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
+        bind = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -67,7 +69,7 @@ public abstract class KjBaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+       bind.unbind();
     }
 
     protected abstract void initFragmentVariables();
