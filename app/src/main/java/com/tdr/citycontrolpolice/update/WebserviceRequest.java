@@ -48,7 +48,7 @@ public class WebserviceRequest {
              result = ((SoapPrimitive) envelope.getResponse()).toString();
         } catch (Exception e) {
             e.printStackTrace();
-            ToastUtil.showMyToast("服务器升级请求存在异常");
+            ToastUtil.showThreadToast("服务器升级请求存在异常");
         }
         Log.e("CityControlPolice.apk", result);
         return initVersionInfo(result);

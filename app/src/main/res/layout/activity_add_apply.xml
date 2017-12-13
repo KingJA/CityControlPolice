@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:padding="12dp">
+
+
+
 
 
     <LinearLayout
@@ -196,6 +204,60 @@
 
         <View style="@style/divider_nomal_horizontal" />
 
+
+
+        <LinearLayout
+            android:id="@+id/ll_apply_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            >
+
+            <TextView
+                style="@style/font_3_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:text="头像:"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="9">
+                <TextView
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:hint="请拍摄头像"/>
+                <ImageView
+                    android:id="@+id/iv_arrow_avatar"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/arrow_right"/>
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/iv_apply_avatar"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_toLeftOf="@id/iv_arrow_avatar"
+                    android:clickable="false"
+                    android:scaleType="centerCrop"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+        <View style="@style/divider_nomal_horizontal" />
         <ImageView
             android:id="@+id/iv_idcard"
             android:layout_width="match_parent"
@@ -214,3 +276,10 @@
         android:text="提交" />
 
 </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_big_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
+</RelativeLayout>

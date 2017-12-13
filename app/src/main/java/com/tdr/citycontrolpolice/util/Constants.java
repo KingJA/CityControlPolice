@@ -52,7 +52,8 @@ public class Constants {
 //                hostUrl = "http://192.168.168.161:8888/RentalEstate.asmx";
 //                hostUrl = "http://zafkapp.test.iotone.cn/rentalestate.asmx";
 //                hostUrl = "http://zafkapp.test.iotone.cn:12026/rentalestate.asmx";
-                hostUrl = "http://122.228.188.212:12026/rentalestate.asmx";
+//                hostUrl = "http://183.129.130.116:51003/RentalEstate.asmx ";//演示
+                hostUrl = "http://122.228.188.212:13100/rentalestate.asmx";
 
                 break;
             case PSTORE:

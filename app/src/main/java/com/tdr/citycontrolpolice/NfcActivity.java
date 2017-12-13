@@ -115,7 +115,8 @@ public class NfcActivity extends BackTitleActivity {
     /**
      * 在布局显示身份证信息
      */
-    private void setCardInfo(String tagId, String name, String sex, String nation, String birthday, String address, String identity, String police, String validity, String dncode) {
+    private void setCardInfo(String tagId, String name, String sex, String nation, String birthday, String address,
+                             String identity, String police, String validity, String dncode) {
         tv_name.setText(name);
         tv_card.setText(identity);
         tv_nation.setText(nation);
@@ -150,7 +151,8 @@ public class NfcActivity extends BackTitleActivity {
             param.put("IDENTITYCARD", cardNO);
             param.put("IDENTITYCARDID", cardID);
             ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
-            ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(NfcActivity.this).getToken(), 0, "Common_IdentityCardAuthentication", param)
+            ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(NfcActivity.this).getToken(), 0,
+                    "Common_IdentityCardAuthentication", param)
                     .setBeanType(Common_IdentityCardAuthentication.class)
                     .setActivity(NfcActivity.this)
                     .setCallBack(new WebServiceCallBack<Common_IdentityCardAuthentication>() {
@@ -190,8 +192,9 @@ public class NfcActivity extends BackTitleActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mAdapter != null)
+        if (mAdapter != null) {
             startNfcListener();
+        }
     }
 
     private void startNfcListener() {
@@ -257,7 +260,8 @@ public class NfcActivity extends BackTitleActivity {
                     String validity = bundle.getString(NfcConstants.VALIDITY, "unknown");
                     String dncode = bundle.getString(NfcConstants.DNCODE, "unknown");
                     setCardInfo(tagId, name, sex, nation, birthday, address, identity, police, validity, dncode);
-                    Log.i(TAG, "身份证: " + "身份证卡片ID：" + tagId + "\r\n" + "姓名：" + name + "\r\n" + "性别：" + sex + "\r\n" + "民族：" + nation
+                    Log.i(TAG, "身份证: " + "身份证卡片ID：" + tagId + "\r\n" + "姓名：" + name + "\r\n" + "性别：" + sex + "\r\n" +
+                            "民族：" + nation
                             + "\r\n" + "出生年月：" + birthday + "\r\n" + "地址：" + address + "\r\n" + "身份证号码：" + identity
                             + "\r\n" + "派出所：" + police + "\r\n" + "有效期：" + validity + "\r\n" + "DN码：" + dncode);
                 }
