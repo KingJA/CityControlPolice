@@ -100,6 +100,30 @@
             </LinearLayout>
 
             <View style="@style/divider_light_horizontal" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="12dp">
+
+                <TextView
+                    style="@style/font_9_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:text="状态" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    style="@style/font_3_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7" />
+
+
+            </LinearLayout>
+
+            <View style="@style/divider_light_horizontal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -125,6 +149,7 @@
             <View style="@style/divider_light_horizontal" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -147,7 +172,7 @@
 
             </LinearLayout>
 
-            <View style="@style/divider_light_horizontal" />
+            <View style="@style/divider_light_horizontal"   android:visibility="gone" />
 
             <LinearLayout
                 android:visibility="gone"
@@ -222,6 +247,7 @@
          <!--   <View style="@style/divider_light_horizontal" />-->
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -256,7 +282,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
-                    android:text="检测身高" />
+                    android:text="检测身高(cm)" />
 
                 <TextView
                     android:id="@+id/tv_maxHeight"

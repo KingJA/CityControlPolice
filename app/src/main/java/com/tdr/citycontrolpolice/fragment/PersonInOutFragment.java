@@ -15,6 +15,7 @@ import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.adapter.PersonAccreditAdapter;
 import com.tdr.citycontrolpolice.adapter.PersonInoutAdapter;
 import com.tdr.citycontrolpolice.base.KjBaseFragment;
+import com.tdr.citycontrolpolice.entity.ChuZuWu_DZDeviceInOutList;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_DeviceInOutList;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
@@ -51,7 +52,7 @@ public class PersonInOutFragment extends KjBaseFragment implements SwipeRefreshL
     private String mRoomId;
     private PersonInoutAdapter mPersonInoutAdapter;
     private int LOADSIZE = 20;
-    private List<ChuZuWu_DeviceInOutList.ContentBean.PERSONNELINFOLISTBean> personnelInfoList = new ArrayList<>();
+    private List<ChuZuWu_DZDeviceInOutList.ContentBean.PERSONNELINFOLISTBean> personnelInfoList = new ArrayList<>();
     private Unbinder bind;
 
     public static PersonInOutFragment newInstance(String houseId, String roomId) {
@@ -66,7 +67,7 @@ public class PersonInOutFragment extends KjBaseFragment implements SwipeRefreshL
 
     @Override
     public View onFragmentCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.single_lv_sl, container, false);
+        rootView = inflater.inflate(R.layout.frag_person_inout, container, false);
         bind = ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -104,18 +105,21 @@ public class PersonInOutFragment extends KjBaseFragment implements SwipeRefreshL
         mParam.put("PageSize", LOADSIZE);
         mParam.put("PageIndex", index);
         new ThreadPoolTask.Builder()
-                .setGeneralParam(UserService.getInstance(getActivity()).getToken(), 0, "ChuZuWu_DeviceInOutList", mParam)
-                .setBeanType(ChuZuWu_DeviceInOutList.class)
-                .setCallBack(new WebServiceCallBack<ChuZuWu_DeviceInOutList>() {
+                .setGeneralParam(UserService.getInstance(getActivity()).getToken(), 0, "ChuZuWu_DZDeviceInOutList",
+                        mParam)
+                .setBeanType(ChuZuWu_DZDeviceInOutList.class)
+                .setCallBack(new WebServiceCallBack<ChuZuWu_DZDeviceInOutList>() {
                     @Override
-                    public void onSuccess(ChuZuWu_DeviceInOutList bean) {
+                    public void onSuccess(ChuZuWu_DZDeviceInOutList bean) {
                         singleSrl.setRefreshing(false);
                         personnelInfoList = bean.getContent().getPERSONNELINFOLIST();
+                        String devicecode = bean.getContent().getDEVICECODE();
+                        mPersonInoutAdapter.setDeviceCode(devicecode);
                         if (index == 0) {
                             mPersonInoutAdapter.reset();
                         }
                         hasMore = personnelInfoList.size() == LOADSIZE;
-                        Log.e(TAG, "hasMore" +hasMore);
+                        Log.e(TAG, "hasMore" + hasMore);
                         Log.e(TAG, "加载数据条数" + personnelInfoList.size());
                         llEmpty.setVisibility(personnelInfoList.size() > 0 ? View.GONE : View.VISIBLE);
                         mPersonInoutAdapter.addData(personnelInfoList);
@@ -143,7 +147,6 @@ public class PersonInOutFragment extends KjBaseFragment implements SwipeRefreshL
         super.onDestroyView();
         bind.unbind();
     }
-
 
 
     @Override

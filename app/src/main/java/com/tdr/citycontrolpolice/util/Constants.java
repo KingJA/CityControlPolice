@@ -7,8 +7,9 @@ import android.util.Log;
  */
 public class Constants {
 
-    public static final int RELEASE_SERVICE = 0;
-/* =================================================================================================================   */
+    public static final int RELEASE_SERVICE = 2;
+/* =================================================================================================================
+  *  */
 
     public static final int TEST = 0;
     public static final int PSTORE = 1;
@@ -54,11 +55,13 @@ public class Constants {
 //                hostUrl = "http://zafkapp.test.iotone.cn:12026/rentalestate.asmx";
 //                hostUrl = "http://183.129.130.116:51003/RentalEstate.asmx ";//演示
                 hostUrl = "http://122.228.188.212:13100/rentalestate.asmx";
+//                hostUrl = "http://10.1.6.6:13100/RentalEstate.asmx";//临时测试状态值
 
                 break;
             case PSTORE:
             case LIUGUANTONG:
                 hostUrl = "http://127.0.0.1:8002/rentalestate.asmx";
+//                hostUrl = "http://122.228.188.212:13100/rentalestate.asmx ";
                 break;
             case SHENGTING:
                 hostUrl = "http://172.18.18.21:8002/RentalEstate.asmx";
@@ -68,6 +71,7 @@ public class Constants {
         Log.i("hostUrl", hostUrl);
         return hostUrl;
     }
+
     public static String getWebViewUrl() {
         String webViewUrl = "";
         switch (RELEASE_SERVICE) {

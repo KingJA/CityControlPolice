@@ -2,35 +2,23 @@ package com.tdr.citycontrolpolice.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.activity.ApplyEditActivity;
-import com.tdr.citycontrolpolice.activity.DeviceCertActivity;
 import com.tdr.citycontrolpolice.adapter.CzfDeviceAdapter;
-import com.tdr.citycontrolpolice.adapter.CzfInAdapter;
 import com.tdr.citycontrolpolice.base.KjBaseFragment;
-import com.tdr.citycontrolpolice.entity.CHUZUWU_ROOMLKSELFREPORTINGLIST;
-import com.tdr.citycontrolpolice.entity.ChuZuWu_DeleteReportInfo;
-import com.tdr.citycontrolpolice.entity.ChuZuWu_LKSelfReportingList;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_LkSelfReportingMacList;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.InfoDeviceFragmentEvent;
-import com.tdr.citycontrolpolice.event.InfoInFragmetnEvent;
-import com.tdr.citycontrolpolice.event.InfoLeftFragmetnEvent;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
 import com.tdr.citycontrolpolice.util.AppUtil;
-import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
-import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,7 +27,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

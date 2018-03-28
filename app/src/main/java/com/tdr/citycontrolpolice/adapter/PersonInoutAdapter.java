@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.entity.ChuZuWu_DZDeviceInOutList;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_DeviceInOutList;
 
 import java.util.List;
@@ -17,11 +18,16 @@ import java.util.List;
  * 创建时间：2016/3/24 16:07
  * 修改备注：
  */
-public class PersonInoutAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceInOutList.ContentBean.PERSONNELINFOLISTBean> {
+public class PersonInoutAdapter extends BaseSimpleAdapter<ChuZuWu_DZDeviceInOutList.ContentBean.PERSONNELINFOLISTBean> {
     private final String[] typeArr = {};
+    private  String deviceCode;
 
-    public PersonInoutAdapter(Context context, List<ChuZuWu_DeviceInOutList.ContentBean.PERSONNELINFOLISTBean> list) {
+    public PersonInoutAdapter(Context context, List<ChuZuWu_DZDeviceInOutList.ContentBean.PERSONNELINFOLISTBean> list) {
         super(context, list);
+    }
+
+    public void setDeviceCode(String deviceCode) {
+        this.deviceCode = deviceCode;
     }
 
     @Override
@@ -35,16 +41,17 @@ public class PersonInoutAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceInOutLis
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tvdeviceId.setText(list.get(position).getDEVICECODE());//设备编号
-        viewHolder.tvmaxHeight.setText(list.get(position).getMAXHEIGHT()+" cm");//最大身高
+        viewHolder.tvdeviceId.setText(deviceCode);//设备编号
+        viewHolder.tvmaxHeight.setText(list.get(position).getMAXHEIGHT());//最大身高
         viewHolder.tvinoutCount.setText(list.get(position).getPEOPLENUMBER());//进出人数
         viewHolder.tvinoutStatus.setText(list.get(position).getINOROUT());//进出状态
-
-        viewHolder.tvpassSpeed.setText(getPassSpeedStatus(list.get(position).getPASSTIME()));//过门速度
-        viewHolder.tvalarmLevel.setText(list.get(position).getSHOCKRANGE()+" °");//震动幅度
-        viewHolder.tvmaxAlarmTime.setText(list.get(position).getMAXSHOCKTIME()+" s");//最大震动时刻
-        viewHolder.tvpassTime.setText(list.get(position).getPASSTIME()+" s");//经过时间
         viewHolder.tvcheckTime.setText(list.get(position).getDEVICETIME());//检测时间
+        viewHolder.tv_status.setText(list.get(position).getSTATE());//状态
+
+//        viewHolder.tvpassSpeed.setText(getPassSpeedStatus(list.get(position).getPASSTIME()));//过门速度
+//        viewHolder.tvalarmLevel.setText(list.get(position).getSHOCKRANGE()+" °");//震动幅度
+//        viewHolder.tvmaxAlarmTime.setText(list.get(position).getMAXSHOCKTIME()+" s");//最大震动时刻
+//        viewHolder.tvpassTime.setText(list.get(position).getPASSTIME()+" s");//经过时间
         return convertView;
     }
 
@@ -60,6 +67,7 @@ public class PersonInoutAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceInOutLis
         public final TextView tvmaxAlarmTime;
         public final TextView tvpassTime;
         public final TextView tvcheckTime;
+        public final TextView tv_status;
         public final View root;
 
         public ViewHolder(View root) {
@@ -73,6 +81,7 @@ public class PersonInoutAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceInOutLis
             tvmaxAlarmTime = (TextView) root.findViewById(R.id.tv_maxAlarmTime);
             tvpassTime = (TextView) root.findViewById(R.id.tv_passTime);
             tvcheckTime = (TextView) root.findViewById(R.id.tv_checkTime);
+            tv_status = (TextView) root.findViewById(R.id.tv_status);
             this.root = root;
         }
     }
