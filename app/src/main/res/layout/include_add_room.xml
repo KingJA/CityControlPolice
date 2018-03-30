@@ -23,7 +23,13 @@
             android:layout_height="wrap_content"
             android:text="请添加楼层及房间" />
 
-
+        <TextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_add_roomDetail"
+            style="@style/font_blue_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加单个房间" />
 
     </RelativeLayout>
 

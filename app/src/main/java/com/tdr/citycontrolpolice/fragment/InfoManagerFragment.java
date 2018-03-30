@@ -15,15 +15,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.activity.AddRoomActivity;
 import com.tdr.citycontrolpolice.activity.PersonInfoActivity;
 import com.tdr.citycontrolpolice.adapter.CzfManagerAdapter;
 import com.tdr.citycontrolpolice.base.KjBaseFragment;
 import com.tdr.citycontrolpolice.entity.ChuZuWuInfo;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_AddRoomList;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_DeleteRoom;
+import com.tdr.citycontrolpolice.entity.ChuZuWu_RoomInfo;
 import com.tdr.citycontrolpolice.entity.ErrorResult;
 import com.tdr.citycontrolpolice.entity.KjChuZuWuInfo;
 import com.tdr.citycontrolpolice.entity.Param_ChuZuWu_AddRoomList;
+import com.tdr.citycontrolpolice.event.RefreshInfoManagerFragment;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
@@ -36,6 +39,10 @@ import com.tdr.citycontrolpolice.view.KingJA_AddNextLine;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
 import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 import com.tdr.citycontrolpolice.view.popupwindow.KingJA_AddNextRoom;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +61,8 @@ import butterknife.Unbinder;
  * 创建时间：2016/4/13 9:58
  * 修改备注：
  */
-public class InfoManagerFragment extends KjBaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemLongClickListener {
+public class InfoManagerFragment extends KjBaseFragment implements AdapterView.OnItemClickListener,
+        SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemLongClickListener {
     private static final String TAG = "InfoManagerFragment";
     @BindView(R.id.tv_back)
     TextView tvBack;
@@ -76,6 +84,8 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     ImageView btnAdd;
     @BindView(R.id.tv_tip)
     TextView tvTip;
+    @BindView(R.id.tv_add_roomDetail)
+    TextView tvAddRoomDetail;
 
     private ChuZuWuInfo chuZuWuInfo;
     private View rootView;
@@ -113,6 +123,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
         mHouseId = getArguments().getString("mHouseId");
         mParam.put("TaskID", "1");
         mParam.put("HouseID", mHouseId);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -132,7 +143,8 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
         srlCzfManager.setOnRefreshListener(this);
         srlCzfManager.setColorSchemeResources(R.color.bg_blue_solid);
         srlCzfManager.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
-        layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout
+                .LayoutParams.WRAP_CONTENT);
         dialogProgress = new DialogProgress(mActivity);
 
     }
@@ -141,7 +153,8 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     protected void initFragmentNet() {
         srlCzfManager.setRefreshing(true);
         ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
-        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0, "ChuZuWu_Info", mParam)
+        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0,
+                "ChuZuWu_Info", mParam)
                 .setBeanType(KjChuZuWuInfo.class)
                 .setActivity(getActivity())
                 .setCallBack(new WebServiceCallBack<KjChuZuWuInfo>() {
@@ -154,7 +167,7 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
                         llInitRoom.setVisibility(roomList.size() == 0 ? View.VISIBLE : View.GONE);
                         btnAdd.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
                         hasInitRoom = (roomList.size() == 0 ? false : true);
-                        tvTip.setText(roomList.size() == 0 ? "请输入楼层号和房间数进行初始化" : "请输入房间号进行房间添加");
+                        tvTip.setText(roomList.size() == 0 ? "请输入楼层号和房间数进行初始化" : "请输入房间号进行批量添加");
                         czfManagerAdapter.setData(roomList);
                         dialogProgress.dismiss();
                         currentRoomList.clear();
@@ -259,11 +272,17 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
     @OnClick(R.id.tv_back)
     void back() {
 //        inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+//        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager
+// .HIDE_NOT_ALWAYS);
 //        llInitRoom.setVisibility(roomList.size() == 0 ? View.VISIBLE : View.GONE);
 //        btnAdd.setVisibility(roomList.size() == 0 ? View.GONE : View.VISIBLE);
         llInitRoom.setVisibility(View.GONE);
         btnAdd.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.tv_add_roomDetail)
+    void addRoomDetail() {
+        AddRoomActivity.goActivity(getActivity(),mHouseId);
     }
 
     @OnClick(R.id.tv_init_submit)
@@ -351,7 +370,8 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
         }
         param.setROOMLIST(roomlist);
         ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
-        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0, "ChuZuWu_AddRoomList", param)
+        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(mActivity).getToken(), 0,
+                "ChuZuWu_AddRoomList", param)
                 .setBeanType(ChuZuWu_AddRoomList.class)
                 .setActivity(getActivity())
                 .setCallBack(new WebServiceCallBack<ChuZuWu_AddRoomList>() {
@@ -376,11 +396,12 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-        final KjChuZuWuInfo.ContentBean.RoomListBean roomBean = (KjChuZuWuInfo.ContentBean.RoomListBean) parent.getItemAtPosition(position);
+        final KjChuZuWuInfo.ContentBean.RoomListBean roomBean = (KjChuZuWuInfo.ContentBean.RoomListBean) parent
+                .getItemAtPosition(position);
         addDialogDouble.setOnDoubleClickListener(new DialogDouble.OnDoubleClickListener() {
             @Override
             public void onLeft() {
-              onDeleteRoom(roomBean.getROOMID(),position);
+                onDeleteRoom(roomBean.getROOMID(), position);
             }
 
             @Override
@@ -414,4 +435,10 @@ public class InfoManagerFragment extends KjBaseFragment implements AdapterView.O
                     }
                 }).build().execute();
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreh(RefreshInfoManagerFragment bean) {
+        initFragmentNet();
+    }
+
 }

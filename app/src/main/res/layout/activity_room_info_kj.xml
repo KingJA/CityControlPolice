@@ -144,7 +144,7 @@
 
             <TextView
                 style="@style/font_head_2"
-                android:text="面积" />
+                android:text="面积(平米)" />
 
             <EditText
                 android:gravity="center"
@@ -156,6 +156,21 @@
 
         <View style="@style/divider_nomal_horizontal" />
 
+        <LinearLayout style="@style/ll_padding12_orientation">
+
+            <TextView
+                style="@style/font_head_2"
+                android:text="租金(元/月)" />
+
+            <EditText
+                android:gravity="center"
+                android:id="@+id/et_room_price"
+                style="@style/font_content_6"
+                android:inputType="number"
+                android:maxLength="5" />
+        </LinearLayout>
+
+        <View style="@style/divider_nomal_horizontal" />
         <LinearLayout style="@style/ll_padding12_orientation">
 
             <TextView
@@ -239,7 +254,6 @@
             style="@style/btn_nomal_blue"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
-            android:enabled="false"
             android:text="提交" />
 
     </LinearLayout>

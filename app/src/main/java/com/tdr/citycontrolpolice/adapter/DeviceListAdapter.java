@@ -76,6 +76,7 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
                 }
             }
         });
+        viewHolder.tv_device_time.setText("最后在线时间:"+list.get(position).getDEVICETIME());
 
         return convertView;
     }
@@ -84,6 +85,7 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
         public final ImageView ivdevicestate;
         public final ImageView ivisbund;
         public final TextView tvdevicename;
+        public final TextView tv_device_time;
         public final ImageView ivdevice_more;
         public final RelativeLayout rlroom;
         public final View root;
@@ -92,6 +94,7 @@ public class DeviceListAdapter extends BaseSimpleAdapter<ChuZuWu_DeviceLists.Con
             ivdevicestate = (ImageView) root.findViewById(R.id.iv_device_state);
             ivisbund = (ImageView) root.findViewById(R.id.iv_isbund);
             tvdevicename = (TextView) root.findViewById(R.id.tv_device_name);
+            tv_device_time = (TextView) root.findViewById(R.id.tv_device_time);
             ivdevice_more = (ImageView) root.findViewById(R.id.iv_device_more);
             rlroom = (RelativeLayout) root.findViewById(R.id.rl_room);
             this.root = root;

@@ -121,5 +121,4 @@ public abstract class BackTitleActivity extends BaseActivity {
     public void setOnRightClickListener(OnRightClickListener onRightClickListener) {
         this.onRightClickListener = onRightClickListener;
     }
-
 }

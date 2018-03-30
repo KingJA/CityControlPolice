@@ -1,5 +1,7 @@
 package com.tdr.citycontrolpolice.entity;
 
+import java.io.Serializable;
+
 /**
  * 项目名称：物联网城市防控(警用版)
  * 类描述：TODO
@@ -7,7 +9,7 @@ package com.tdr.citycontrolpolice.entity;
  * 创建时间：2016/3/30 21:23
  * 修改备注：
  */
-public class ChuZuWu_RoomInfo {
+public class ChuZuWu_RoomInfo implements Serializable{
 
 
     private int ResultCode;
@@ -57,7 +59,7 @@ public class ChuZuWu_RoomInfo {
         this.Content = Content;
     }
 
-    public static class ContentBean {
+    public static class ContentBean implements Serializable {
         private String HOUSEID;
         private String ROOMID;
         private int FIXTURE;
@@ -71,6 +73,16 @@ public class ChuZuWu_RoomInfo {
         private int DEPOSIT;
         private int ISAUTOPUBLISH;
         private String TITLE;
+
+        public String getROOMNO() {
+            return ROOMNO;
+        }
+
+        public void setROOMNO(String ROOMNO) {
+            this.ROOMNO = ROOMNO;
+        }
+
+        private String ROOMNO;
 
         public String getHOUSEID() {
             return HOUSEID;

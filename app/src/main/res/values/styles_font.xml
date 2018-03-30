@@ -241,7 +241,28 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-
+    <style name="font_content_6">
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/font_3</item>
+        <item name="android:textColorHint">@color/font_edit</item>
+        <item name="android:textCursorDrawable">@drawable/et_cursor</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_weight">6</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="font_content_4">
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/font_3</item>
+        <item name="android:textColorHint">@color/font_edit</item>
+        <item name="android:textCursorDrawable">@drawable/et_cursor</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_weight">4</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
     <style name="font_content_8">
         <item name="android:singleLine">true</item>
         <item name="android:textSize">14sp</item>

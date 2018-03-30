@@ -7,9 +7,8 @@ import android.util.Log;
  */
 public class Constants {
 
-    public static final int RELEASE_SERVICE = 2;
-/* =================================================================================================================
-  *  */
+    public static final int RELEASE_SERVICE = 0;
+/* =================================================================================================================**/
 
     public static final int TEST = 0;
     public static final int PSTORE = 1;
@@ -54,8 +53,8 @@ public class Constants {
 //                hostUrl = "http://zafkapp.test.iotone.cn/rentalestate.asmx";
 //                hostUrl = "http://zafkapp.test.iotone.cn:12026/rentalestate.asmx";
 //                hostUrl = "http://183.129.130.116:51003/RentalEstate.asmx ";//演示
-                hostUrl = "http://122.228.188.212:13100/rentalestate.asmx";
-//                hostUrl = "http://10.1.6.6:13100/RentalEstate.asmx";//临时测试状态值
+//                hostUrl = "http://122.228.188.212:13100/rentalestate.asmx";
+                hostUrl = "http://10.1.6.6:13100/RentalEstate.asmx";//临时测试状态值
 
                 break;
             case PSTORE:
@@ -66,6 +65,8 @@ public class Constants {
             case SHENGTING:
                 hostUrl = "http://172.18.18.21:8002/RentalEstate.asmx";
 //                hostUrl = "http://192.168.140.13:8801/RentalEstate.asmx";
+                break;
+            default:
                 break;
         }
         Log.i("hostUrl", hostUrl);
@@ -85,6 +86,8 @@ public class Constants {
             case SHENGTING:
                 webViewUrl = "http://172.18.18.21:8002/";
                 break;
+            default:
+                break;
         }
         Log.i("webViewUrl", webViewUrl);
         return webViewUrl;
@@ -103,6 +106,8 @@ public class Constants {
             case SHENGTING:
                 nfcUrl = "http://172.18.18.38:8891/AppHandler.ashx";
                 break;
+            default:
+                break;
         }
         return nfcUrl;
     }
@@ -119,6 +124,8 @@ public class Constants {
                 break;
             case SHENGTING:
                 nfcIp = "172.18.18.38";
+                break;
+            default:
                 break;
         }
         return nfcIp;
@@ -137,6 +144,8 @@ public class Constants {
             case SHENGTING:
                 updataUrl = "http://172.18.18.21:8892/WebServiceAPKRead.asmx";
                 break;
+            default:
+                break;
         }
         return updataUrl;
     }
@@ -153,6 +162,8 @@ public class Constants {
                 break;
             case SHENGTING:
                 updataService = "http://172.18.18.21:8892/newestapk/";
+                break;
+            default:
                 break;
         }
         return updataService;

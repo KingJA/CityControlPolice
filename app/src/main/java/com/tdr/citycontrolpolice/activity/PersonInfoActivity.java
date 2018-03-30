@@ -12,6 +12,7 @@ import com.tdr.citycontrolpolice.fragment.PersonAccreditFragment;
 import com.tdr.citycontrolpolice.fragment.PersonHistoryFragment;
 import com.tdr.citycontrolpolice.fragment.PersonInOutFragment;
 import com.tdr.citycontrolpolice.fragment.PersonInfoFragment;
+import com.tdr.citycontrolpolice.fragment.RoomInfoFragment;
 import com.tdr.citycontrolpolice.view.SimpleIndicatorLayout;
 
 import java.util.ArrayList;
@@ -32,15 +33,17 @@ public class PersonInfoActivity extends BackTitleActivity {
     private String mRoomId;
     private SimpleIndicatorLayout mSilPersonInfo;
     private ViewPager mVpPersonInfo;
-    private List<String> mTitleList = Arrays.asList("综合信息", "门戒授权", "进出记录", "历史人数");
+    private List<String> mTitleList = Arrays.asList("房间信息", "综合信息", "门戒授权", "进出记录", "历史人数");
     private List<Fragment> mFragmentList = new ArrayList<>();
     private TabLayout mTlPerson;
+    private String mRoomNo;
 
     @Override
     public void initVariables() {
         Bundle bundle = getIntent().getExtras();
         mHouseId = bundle.getString("HOUSE_ID");
         mRoomId = bundle.getString("ROOM_ID");
+        mRoomNo = bundle.getString("ROOM_NO");
     }
 
     @Override
@@ -62,17 +65,16 @@ public class PersonInfoActivity extends BackTitleActivity {
 
     @Override
     public void initData() {
+        mFragmentList.add(RoomInfoFragment.newInstance(mRoomId,mRoomNo));
         mFragmentList.add(PersonInfoFragment.newInstance(mHouseId,mRoomId));
         mFragmentList.add(PersonAccreditFragment.newInstance(mHouseId,mRoomId));
         mFragmentList.add(PersonInOutFragment.newInstance(mHouseId,mRoomId));
         mFragmentList.add(PersonHistoryFragment.newInstance(mHouseId,mRoomId));
 
         mTlPerson.setTabMode(TabLayout.MODE_FIXED);
-        mTlPerson.addTab(mTlPerson.newTab().setText(mTitleList.get(0)));
-        mTlPerson.addTab(mTlPerson.newTab().setText(mTitleList.get(1)));
-        mTlPerson.addTab(mTlPerson.newTab().setText(mTitleList.get(2)));
-        mTlPerson.addTab(mTlPerson.newTab().setText(mTitleList.get(3)));
-
+        for (int i = 0; i < mTitleList.size(); i++) {
+            mTlPerson.addTab(mTlPerson.newTab().setText(mTitleList.get(i)));
+        }
         mVpPersonInfo.setAdapter(new BaseFragmentPagerTitleAdapter(getSupportFragmentManager(), mFragmentList,mTitleList));
         mVpPersonInfo.setOffscreenPageLimit(3);
         mTlPerson.setupWithViewPager(mVpPersonInfo);
