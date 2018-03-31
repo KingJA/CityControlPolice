@@ -76,7 +76,7 @@ public class DbDaoXutils3<T> implements DbDao<T> {
         return t;
     }
 
-
+    @Override
     public List<T> selectAllWhere(Class<T> clazz, String key, String value) {
         List<T> list = null;
         try {
@@ -87,7 +87,17 @@ public class DbDaoXutils3<T> implements DbDao<T> {
         }
         return list;
     }
-
+    @Override
+    public <T> List<T> selectAllWhereLike(Class<T> clazz, String key, String value) {
+        List<T> list = null;
+        try {
+            list = dbManager.selector(clazz).where(key, "like", value).findAll();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    @Override
     public List<T> selectAll(Class<T> clazz) {
         List<T> list = new ArrayList<>();
         try {

@@ -7,4 +7,6 @@
     <color name="bg_transparent">#00000000</color>
     <color name="gray_divider">#CFCFCF</color>
     <color name="font_blue">#5890FF</color>
+    <color name="bg_white">#33FFFFFF</color>
+    <color name="font_3">#333333</color>
 </resources>

@@ -102,6 +102,9 @@
             android:name="com.tdr.citycontrolpolice.activity.AddRoomActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name="com.tdr.citycontrolpolice.activity.QueryActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".activity.DeviceBindingActivity"
             android:screenOrientation="portrait"/>
         <activity

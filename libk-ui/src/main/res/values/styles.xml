@@ -18,7 +18,10 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/gray_divider</item>
     </style>
-
+    <style name="PopupTopRightAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pop_enter</item>
+        <!--<item name="android:windowExitAnimation">@anim/pop_exit</item>-->
+    </style>
     <!--普通水平分割线-->
     <style name="divider_nomal_horizontal">
         <item name="android:layout_width">match_parent</item>
@@ -30,4 +33,13 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/font_blue</item>
     </style>
+    <style name="font_3_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/font_3</item>
+    </style>
+    <style name="PopupTop2BottomAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/spaner_enter</item>
+        <item name="android:windowExitAnimation">@anim/spaner_exit</item>
+    </style>
+
 </resources>

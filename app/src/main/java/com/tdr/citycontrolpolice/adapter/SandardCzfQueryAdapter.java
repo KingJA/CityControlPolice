@@ -6,8 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.entity.HistoryCzfAddress;
-import com.tdr.citycontrolpolice.entity.SQL_Query;
+import com.tdr.citycontrolpolice.entity.Basic_StandardAddressCodeByKey_Kj;
 
 import java.util.List;
 
@@ -15,37 +14,38 @@ import java.util.List;
  * 项目名称：物联网城市防控(警用版)
  * 类描述：TODO
  * 创建人：KingJA
- * 创建时间：2016/3/24 16:07
+ * 创建时间：2016/4/13 13:45
  * 修改备注：
  */
-public class CzfHistoryAdapter extends BaseSimpleAdapter<HistoryCzfAddress> {
+public class SandardCzfQueryAdapter extends BaseSimpleAdapter<Basic_StandardAddressCodeByKey_Kj.ContentBean> {
 
-    public CzfHistoryAdapter(Context context, List<HistoryCzfAddress> list) {
+    public SandardCzfQueryAdapter(Context context, List<Basic_StandardAddressCodeByKey_Kj.ContentBean> list) {
         super(context, list);
     }
 
     @Override
-    public View simpleGetView(final int position, View convertView, ViewGroup parent) {
+    public View simpleGetView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = View
-                    .inflate(context, R.layout.item_history, null);
+                    .inflate(context, R.layout.item_single_address, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tvhistory.setText(list.get(position).getKeyWord());
+        viewHolder.tvaddress.setText(list.get(position).getAddress());
         return convertView;
     }
 
 
+
     public class ViewHolder {
-        public final TextView tvhistory;
+        public final TextView tvaddress;
         public final View root;
 
         public ViewHolder(View root) {
-            tvhistory = (TextView) root.findViewById(R.id.tv_history);
+            tvaddress = (TextView) root.findViewById(R.id.tv_address);
             this.root = root;
         }
     }

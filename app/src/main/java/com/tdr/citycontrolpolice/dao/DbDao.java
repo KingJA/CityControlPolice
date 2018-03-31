@@ -16,6 +16,8 @@ public interface DbDao<T> {
 
     public List<T> selectAllWhere(Class<T> clazz, String key, String value);
 
+    <T> List<T> selectAllWhereLike(Class<T> clazz, String key, String value);
+
     public List<T> selectAll(Class<T> clazz);
 
     public List<T> selectAllAndOrder(Class<T> clazz, String order);

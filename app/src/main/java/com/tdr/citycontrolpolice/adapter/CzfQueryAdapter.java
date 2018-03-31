@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.entity.Basic_StandardAddressCodeByKey_Kj;
+import com.tdr.citycontrolpolice.entity.ChuZuWu_HaveDeviceInquire;
 
 import java.util.List;
 
@@ -17,9 +18,9 @@ import java.util.List;
  * 创建时间：2016/4/13 13:45
  * 修改备注：
  */
-public class CzfQueryAdapter extends BaseSimpleAdapter<Basic_StandardAddressCodeByKey_Kj.ContentBean> {
+public class CzfQueryAdapter extends BaseSimpleAdapter<ChuZuWu_HaveDeviceInquire.ContentBean> {
 
-    public CzfQueryAdapter(Context context, List<Basic_StandardAddressCodeByKey_Kj.ContentBean> list) {
+    public CzfQueryAdapter(Context context, List<ChuZuWu_HaveDeviceInquire.ContentBean> list) {
         super(context, list);
     }
 
@@ -34,7 +35,7 @@ public class CzfQueryAdapter extends BaseSimpleAdapter<Basic_StandardAddressCode
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tvaddress.setText(list.get(position).getAddress());
+        viewHolder.tvaddress.setText(list.get(position).getADDRESS());
         return convertView;
     }
 

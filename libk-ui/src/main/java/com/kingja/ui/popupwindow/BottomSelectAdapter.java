@@ -1,26 +1,23 @@
-package com.tdr.citycontrolpolice.adapter;
+package com.kingja.ui.popupwindow;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.entity.HistoryCzfAddress;
-import com.tdr.citycontrolpolice.entity.SQL_Query;
+import com.kingja.ui.R;
 
 import java.util.List;
 
 /**
- * 项目名称：物联网城市防控(警用版)
- * 类描述：TODO
- * 创建人：KingJA
- * 创建时间：2016/3/24 16:07
- * 修改备注：
+ * Description：TODO
+ * Create Time：2016/8/18 10:32
+ * Author:KingJA
+ * Email:kingjavip@gmail.com
  */
-public class CzfHistoryAdapter extends BaseSimpleAdapter<HistoryCzfAddress> {
+public abstract class BottomSelectAdapter<T> extends BaseLvAdapter<T> {
 
-    public CzfHistoryAdapter(Context context, List<HistoryCzfAddress> list) {
+    public BottomSelectAdapter(Context context, List<T> list) {
         super(context, list);
     }
 
@@ -29,23 +26,25 @@ public class CzfHistoryAdapter extends BaseSimpleAdapter<HistoryCzfAddress> {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = View
-                    .inflate(context, R.layout.item_history, null);
+                    .inflate(context, R.layout.item_tv_center, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tvhistory.setText(list.get(position).getKeyWord());
+       fillData(list,position,viewHolder.tvroomnumber);
         return convertView;
     }
 
+    protected abstract void fillData(List<T> list, int position, TextView tvroomnumber);
+
 
     public class ViewHolder {
-        public final TextView tvhistory;
+        public final TextView tvroomnumber;
         public final View root;
 
         public ViewHolder(View root) {
-            tvhistory = (TextView) root.findViewById(R.id.tv_history);
+            tvroomnumber = (TextView) root.findViewById(R.id.tv_room_number);
             this.root = root;
         }
     }

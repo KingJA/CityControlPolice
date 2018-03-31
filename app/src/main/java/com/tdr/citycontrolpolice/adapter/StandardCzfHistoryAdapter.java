@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.entity.HistoryCzfAddress;
+import com.tdr.citycontrolpolice.entity.ChuZuWu_LKSelfReportingList;
 import com.tdr.citycontrolpolice.entity.SQL_Query;
 
 import java.util.List;
@@ -18,9 +18,9 @@ import java.util.List;
  * 创建时间：2016/3/24 16:07
  * 修改备注：
  */
-public class CzfHistoryAdapter extends BaseSimpleAdapter<HistoryCzfAddress> {
+public class StandardCzfHistoryAdapter extends BaseSimpleAdapter<SQL_Query> {
 
-    public CzfHistoryAdapter(Context context, List<HistoryCzfAddress> list) {
+    public StandardCzfHistoryAdapter(Context context, List<SQL_Query> list) {
         super(context, list);
     }
 

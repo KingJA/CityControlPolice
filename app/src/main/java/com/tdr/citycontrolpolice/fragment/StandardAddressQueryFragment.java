@@ -1,4 +1,4 @@
-package com.tdr.citycontrolpolice.activity;
+package com.tdr.citycontrolpolice.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,8 +7,10 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -19,8 +21,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.tdr.citycontrolpolice.R;
+import com.tdr.citycontrolpolice.activity.CzfInfoActivity;
 import com.tdr.citycontrolpolice.adapter.StandardCzfHistoryAdapter;
 import com.tdr.citycontrolpolice.adapter.SandardCzfQueryAdapter;
+import com.tdr.citycontrolpolice.base.KjBaseFragment;
 import com.tdr.citycontrolpolice.dao.DbDaoXutils3;
 import com.tdr.citycontrolpolice.entity.Basic_StandardAddressCodeByKey_Kj;
 import com.tdr.citycontrolpolice.entity.ChuZuWu_SearchInfoByStandardAddr;
@@ -29,88 +33,83 @@ import com.tdr.citycontrolpolice.entity.SQL_Query;
 import com.tdr.citycontrolpolice.net.PoolManager;
 import com.tdr.citycontrolpolice.net.ThreadPoolTask;
 import com.tdr.citycontrolpolice.net.WebServiceCallBack;
-import com.tdr.citycontrolpolice.util.ActivityManager;
 import com.tdr.citycontrolpolice.util.AppUtil;
 import com.tdr.citycontrolpolice.util.CheckUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.util.UserService;
-import com.tdr.citycontrolpolice.view.dialog.DialogProgress;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.Unbinder;
+
 /**
- * 项目名称：物联网城市防控(警用版)
- * 类描述：TODO
- * 创建人：KingJA
- * 创建时间：2016/4/13 9:58
- * 修改备注：
+ * Description:TODO
+ * Create Time:2018/3/31 9:11
+ * Author:KingJA
+ * Email:kingjavip@gmail.com
  */
-public class CzfQueryActivity extends BaseActivity implements TextWatcher, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
-    private static final String TAG = "CzfQueryActivity";
-    private ImageView ivSearch;
-    private ImageView ivClear;
-    private EditText etQuery;
-    private SwipeRefreshLayout srl;
-    private ListView lv;
-    private ListView lv_history;
-    private Button btnQuery;
-    private String queryAddress;
+public class StandardAddressQueryFragment extends KjBaseFragment implements SwipeRefreshLayout.OnRefreshListener,
+        TextWatcher, View.OnClickListener, AdapterView.OnItemClickListener {
+    @BindView(R.id.et_query)
+    EditText etQuery;
+    @BindView(R.id.iv_clear)
+    ImageView ivClear;
+    @BindView(R.id.tv_clearHistory)
+    TextView tvClearHistory;
+    @BindView(R.id.tv_search)
+    TextView tvSearch;
+    @BindView(R.id.lv_history)
+    ListView lvHistory;
+    @BindView(R.id.ll_history)
+    LinearLayout llHistory;
+    @BindView(R.id.lv)
+    ListView lv;
+    @BindView(R.id.srl)
+    SwipeRefreshLayout srl;
+    @BindView(R.id.btn_query)
+    Button btnQuery;
+    Unbinder unbinder;
     private List<Basic_StandardAddressCodeByKey_Kj.ContentBean> addressList = new ArrayList<>();
     private SandardCzfQueryAdapter sandardCzfQueryAdapter;
-    private DialogProgress dialogProgress;
-    private InputMethodManager inputManager;
-    private String geocode;
-    private LinearLayout ll_history;
-    private TextView tv_clearHistory;
     private List<SQL_Query> history;
     private StandardCzfHistoryAdapter standardCzfHistoryAdapter;
+    private String queryAddress;
+    private String geocode;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_czf_query);
-        super.onCreate(savedInstanceState);
+    public View onFragmentCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_standard_address_query, container, false);
+        return rootView;
+    }
+
+    @Override
+    protected void initFragmentVariables() {
 
     }
 
     @Override
-    public void initVariables() {
-
-
-    }
-
-    @Override
-    protected void initView() {
-        tv_clearHistory = (TextView) findViewById(R.id.tv_clearHistory);
-        ivSearch = (ImageView) findViewById(R.id.iv_search);
-        ll_history = (LinearLayout) findViewById(R.id.ll_history);
-        ivClear = (ImageView) findViewById(R.id.iv_clear);
-        etQuery = (EditText) findViewById(R.id.et_query);
-        srl = (SwipeRefreshLayout) findViewById(R.id.srl);
-        lv = (ListView) findViewById(R.id.lv);
-        lv_history = (ListView) findViewById(R.id.lv_history);
-        btnQuery = (Button) findViewById(R.id.btn_query);
-        dialogProgress = new DialogProgress(this);
-        sandardCzfQueryAdapter = new SandardCzfQueryAdapter(this, addressList);
+    protected void initFragmentView() {
+        sandardCzfQueryAdapter = new SandardCzfQueryAdapter(getActivity(), addressList);
         srl.setColorSchemeResources(R.color.bg_blue_solid);
-        srl.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
+        srl.setProgressViewOffset(false, 0, AppUtil.dp2px(48));
     }
 
     @Override
-    public void initNet() {
+    protected void initFragmentNet() {
 
     }
 
     @Override
-    public void initData() {
-        dialogProgress = new DialogProgress(this);
+    protected void initFragmentData() {
         srl.setOnRefreshListener(this);
         etQuery.addTextChangedListener(this);
-        ivSearch.setOnClickListener(this);
+        tvSearch.setOnClickListener(this);
         ivClear.setOnClickListener(this);
-        tv_clearHistory.setOnClickListener(this);
+        tvClearHistory.setOnClickListener(this);
         btnQuery.setOnClickListener(this);
         lv.setAdapter(sandardCzfQueryAdapter);
         lv.setOnItemClickListener(this);
@@ -126,24 +125,23 @@ public class CzfQueryActivity extends BaseActivity implements TextWatcher, View.
     }
 
     @Override
-    public void setData() {
+    protected void setFragmentData() {
         initHistory();
-
     }
 
     /**
      * 初始化历史搜索记录
      */
     private void initHistory() {
-        history = DbDaoXutils3.getInstance().selectAllAndOrder(SQL_Query.class,"date");
-        ll_history.setVisibility(View.VISIBLE);
-        tv_clearHistory.setVisibility(history.size()>0?View.VISIBLE:View.GONE);
-        standardCzfHistoryAdapter = new StandardCzfHistoryAdapter(this, history);
-        lv_history.setAdapter(standardCzfHistoryAdapter);
-        lv_history.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        history = DbDaoXutils3.getInstance().selectAllAndOrder(SQL_Query.class, "date");
+        llHistory.setVisibility(View.VISIBLE);
+        tvClearHistory.setVisibility(history.size() > 0 ? View.VISIBLE : View.GONE);
+        standardCzfHistoryAdapter = new StandardCzfHistoryAdapter(getActivity(), history);
+        lvHistory.setAdapter(standardCzfHistoryAdapter);
+        lvHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ll_history.setVisibility(View.GONE);
+                lvHistory.setVisibility(View.GONE);
                 SQL_Query keyWord = (SQL_Query) parent.getItemAtPosition(position);
                 etQuery.setText(keyWord.getKeyWord());
                 Selection.setSelection(etQuery.getText(), etQuery.getText().length());
@@ -152,52 +150,13 @@ public class CzfQueryActivity extends BaseActivity implements TextWatcher, View.
         });
     }
 
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+    private void hideInput() {
+        InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context
+                .INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager
+                .HIDE_NOT_ALWAYS);
     }
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-        ivClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.INVISIBLE);
-    }
-
-    @Override
-    public void onClick(View v) {
-        queryAddress = etQuery.getText().toString().trim();
-        switch (v.getId()) {
-            case R.id.iv_clear:
-                etQuery.setText("");
-                break;
-            case R.id.iv_search:
-                if (CheckUtil.checkEmpty(queryAddress, "请输入搜索地址")) {
-                    serach(queryAddress);
-                }
-                break;
-            case R.id.btn_query:
-                if (CheckUtil.checkEmpty(geocode, "请先搜索并选择地址")) {
-                    submit(geocode);
-                }
-                break;
-            case R.id.tv_clearHistory:
-                DbDaoXutils3.getInstance().deleteAll(SQL_Query.class);
-                initHistory();
-                break;
-        }
-    }
-
-    /**
-     * 根据字符串检索
-     *
-     * @param queryAddress
-     */
-    @SuppressWarnings("unchecked ")
     private void serach(final String queryAddress) {
         hideInput();
         srl.setRefreshing(true);
@@ -208,13 +167,14 @@ public class CzfQueryActivity extends BaseActivity implements TextWatcher, View.
         param.put("KEY", queryAddress);
 
         ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
-        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "Basic_StandardAddressCodeByKey", param)
-                .setActivity(CzfQueryActivity.this)
+        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(getActivity()).getToken(), 0,
+                "Basic_StandardAddressCodeByKey", param)
+                .setActivity(getActivity())
                 .setBeanType(Basic_StandardAddressCodeByKey_Kj.class)
                 .setCallBack(new WebServiceCallBack<Basic_StandardAddressCodeByKey_Kj>() {
                     @Override
                     public void onSuccess(Basic_StandardAddressCodeByKey_Kj bean) {
-                        ll_history.setVisibility(View.GONE);
+                        llHistory.setVisibility(View.GONE);
                         srl.setRefreshing(false);
                         addressList = bean.getContent();
                         Log.i(TAG, "addressList: " + addressList.size());
@@ -237,64 +197,83 @@ public class CzfQueryActivity extends BaseActivity implements TextWatcher, View.
 
     }
 
-    /**
-     * 根据三实有标准地址获取houseId
-     *
-     * @param geocode
-     */
+    @Override
+    public void onRefresh() {
+
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        queryAddress = etQuery.getText().toString().trim();
+        switch (v.getId()) {
+            case R.id.iv_clear:
+                etQuery.setText("");
+                break;
+            case R.id.tv_search:
+                if (CheckUtil.checkEmpty(queryAddress, "请输入搜索地址")) {
+                    serach(queryAddress);
+                }
+                break;
+            case R.id.btn_query:
+                if (CheckUtil.checkEmpty(geocode, "请先搜索并选择地址")) {
+                    submit(geocode);
+                }
+                break;
+            case R.id.tv_clearHistory:
+                DbDaoXutils3.getInstance().deleteAll(SQL_Query.class);
+                initHistory();
+                break;
+            default:
+                break;
+        }
+    }
     private void submit(String geocode) {
-        dialogProgress.show();
+       setProgressDialog(true);
         Map<String, Object> param = new HashMap<>();
         param.put("TaskID", "1");
         param.put("STANDARDADDRCODE", geocode);
 
         ThreadPoolTask.Builder builder = new ThreadPoolTask.Builder();
-        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(this).getToken(), 0, "ChuZuWu_SearchInfoByStandardAddr", param)
-                .setActivity(CzfQueryActivity.this)
+        ThreadPoolTask task = builder.setGeneralParam(UserService.getInstance(getActivity()).getToken(), 0, "ChuZuWu_SearchInfoByStandardAddr", param)
+                .setActivity(getActivity())
                 .setBeanType(ChuZuWu_SearchInfoByStandardAddr.class)
                 .setCallBack(getHouseIdCallBack).build();
         PoolManager.getInstance().execute(task);
     }
 
-
     private WebServiceCallBack<ChuZuWu_SearchInfoByStandardAddr> getHouseIdCallBack = new WebServiceCallBack<ChuZuWu_SearchInfoByStandardAddr>() {
         @Override
         public void onSuccess(ChuZuWu_SearchInfoByStandardAddr bean) {
-            dialogProgress.dismiss();
-            finish();
-            CzfInfoActivity.goActivity(CzfQueryActivity.this, bean.getContent().getHOUSEID());
+            setProgressDialog(false);
+            getActivity().finish();
+            CzfInfoActivity.goActivity(getActivity(), bean.getContent().getHOUSEID());
         }
 
         @Override
         public void onErrorResult(ErrorResult errorResult) {
-            dialogProgress.dismiss();
+            setProgressDialog(false);
 
         }
     };
-
-    /**
-     * 隐藏软键盘
-     */
-    private void hideInput() {
-        inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-    }
-
-    @Override
-    public void onRefresh() {
-        srl.setRefreshing(false);
-    }
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Basic_StandardAddressCodeByKey_Kj.ContentBean bean = (Basic_StandardAddressCodeByKey_Kj.ContentBean) parent.getItemAtPosition(position);
         geocode = bean.getGeocode();
         submit(geocode);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityManager.getAppManager().finishActivity(this);
     }
 }

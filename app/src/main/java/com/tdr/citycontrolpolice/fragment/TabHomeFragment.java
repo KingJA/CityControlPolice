@@ -19,6 +19,7 @@ import com.tdr.citycontrolpolice.activity.CzfQueryActivity;
 import com.tdr.citycontrolpolice.activity.KjLoginActivity;
 import com.tdr.citycontrolpolice.NfcActivity;
 import com.tdr.citycontrolpolice.activity.PersonCheckActivity;
+import com.tdr.citycontrolpolice.activity.QueryActivity;
 import com.tdr.citycontrolpolice.adapter.HomeAdapter;
 import com.tdr.citycontrolpolice.base.BaseFragment;
 import com.tdr.citycontrolpolice.czfinit.CzfInitActivity;
@@ -219,7 +220,8 @@ public class TabHomeFragment extends BaseFragment implements DialogNFC.OnClickLi
                     startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
                     break;
                 case 2:
-                    GoUtil.goActivity(mActivity, CzfQueryActivity.class);
+//                    GoUtil.goActivity(mActivity, CzfQueryActivity.class);
+                    GoUtil.goActivity(mActivity, QueryActivity.class);
                     break;
                 case 3:
                     dialogNFC.show();

@@ -1,13 +1,12 @@
-package com.tdr.citycontrolpolice.adapter;
+package com.kingja.ui.popupwindow;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.tdr.citycontrolpolice.R;
-import com.tdr.citycontrolpolice.entity.HistoryCzfAddress;
-import com.tdr.citycontrolpolice.entity.SQL_Query;
+
+import com.kingja.ui.R;
 
 import java.util.List;
 
@@ -15,37 +14,35 @@ import java.util.List;
  * 项目名称：物联网城市防控(警用版)
  * 类描述：TODO
  * 创建人：KingJA
- * 创建时间：2016/3/24 16:07
+ * 创建时间：2016/4/11 17:14
  * 修改备注：
  */
-public class CzfHistoryAdapter extends BaseSimpleAdapter<HistoryCzfAddress> {
-
-    public CzfHistoryAdapter(Context context, List<HistoryCzfAddress> list) {
+public class SingleTextAdapter extends BaseSimpleAdapter<String> {
+    public SingleTextAdapter(Context context, List<String> list) {
         super(context, list);
     }
 
     @Override
-    public View simpleGetView(final int position, View convertView, ViewGroup parent) {
+    public View simpleGetView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = View
-                    .inflate(context, R.layout.item_history, null);
+                    .inflate(context, R.layout.item_single_text, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tvhistory.setText(list.get(position).getKeyWord());
+        viewHolder.tvsingle.setText(list.get(position));
         return convertView;
     }
 
-
     public class ViewHolder {
-        public final TextView tvhistory;
+        public final TextView tvsingle;
         public final View root;
 
         public ViewHolder(View root) {
-            tvhistory = (TextView) root.findViewById(R.id.tv_history);
+            tvsingle = (TextView) root.findViewById(R.id.tv_single);
             this.root = root;
         }
     }
