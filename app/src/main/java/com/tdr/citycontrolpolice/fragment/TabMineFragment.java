@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.tdr.citycontrolpolice.R;
 import com.tdr.citycontrolpolice.activity.CommonQuestionActivity;
 import com.tdr.citycontrolpolice.activity.MineAboutActivity;
+import com.tdr.citycontrolpolice.activity.ModifyPwdActivity;
 import com.tdr.citycontrolpolice.util.GoUtil;
 import com.tdr.citycontrolpolice.util.ToastUtil;
 import com.tdr.citycontrolpolice.view.dialog.DialogDouble;
@@ -51,7 +52,7 @@ public class TabMineFragment extends Fragment implements View.OnClickListener, D
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_personal_modify:
-                ToastUtil.showMyToast("亲爱的用户，该功能正在开发中...");
+                GoUtil.goActivity(getActivity(), ModifyPwdActivity.class);
                 break;
             case R.id.ll_personal_question:
                 GoUtil.goActivity(getActivity(), CommonQuestionActivity.class);

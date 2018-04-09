@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
@@ -101,10 +102,12 @@ public class CzfQueryFragment extends KjBaseFragment implements View.OnClickList
     private List<ChuZuWu_HaveDeviceInquire.ContentBean> addresses=new ArrayList<>();
     private CzfQueryAdapter czfQueryAdapter;
     private CzfHistoryAdapter czfHistoryAdapter;
+    private Unbinder bind;
 
     @Override
     public View onFragmentCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_czf_query, container, false);
+        bind = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -139,6 +142,12 @@ public class CzfQueryFragment extends KjBaseFragment implements View.OnClickList
         tvClearHistory.setOnClickListener(this);
         lv.setOnItemClickListener(this);
         lv.setAdapter(czfQueryAdapter);
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                srl.setRefreshing(false);
+            }
+        });
         initAreaPop();
         initPoliceStationPop();
     }
@@ -241,7 +250,7 @@ public class CzfQueryFragment extends KjBaseFragment implements View.OnClickList
                 }
                 break;
             case R.id.tv_clearHistory:
-                DbDaoXutils3.getInstance().deleteAll(SQL_Query.class);
+                DbDaoXutils3.getInstance().deleteAll(HistoryCzfAddress.class);
                 initHistory();
             default:
                 break;

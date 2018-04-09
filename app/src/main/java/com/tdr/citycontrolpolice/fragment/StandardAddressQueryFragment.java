@@ -52,8 +52,7 @@ import butterknife.Unbinder;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class StandardAddressQueryFragment extends KjBaseFragment implements SwipeRefreshLayout.OnRefreshListener,
-        TextWatcher, View.OnClickListener, AdapterView.OnItemClickListener {
+public class StandardAddressQueryFragment extends KjBaseFragment implements TextWatcher, View.OnClickListener, AdapterView.OnItemClickListener {
     @BindView(R.id.et_query)
     EditText etQuery;
     @BindView(R.id.iv_clear)
@@ -96,6 +95,12 @@ public class StandardAddressQueryFragment extends KjBaseFragment implements Swip
         sandardCzfQueryAdapter = new SandardCzfQueryAdapter(getActivity(), addressList);
         srl.setColorSchemeResources(R.color.bg_blue_solid);
         srl.setProgressViewOffset(false, 0, AppUtil.dp2px(48));
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                srl.setRefreshing(false);
+            }
+        });
     }
 
     @Override
@@ -105,7 +110,6 @@ public class StandardAddressQueryFragment extends KjBaseFragment implements Swip
 
     @Override
     protected void initFragmentData() {
-        srl.setOnRefreshListener(this);
         etQuery.addTextChangedListener(this);
         tvSearch.setOnClickListener(this);
         ivClear.setOnClickListener(this);
@@ -197,10 +201,6 @@ public class StandardAddressQueryFragment extends KjBaseFragment implements Swip
 
     }
 
-    @Override
-    public void onRefresh() {
-
-    }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {

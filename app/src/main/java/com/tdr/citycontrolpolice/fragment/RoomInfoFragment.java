@@ -167,6 +167,7 @@ public class RoomInfoFragment extends KjBaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
         bind.unbind();
     }
 
