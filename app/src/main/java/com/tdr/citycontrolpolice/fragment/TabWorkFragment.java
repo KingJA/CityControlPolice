@@ -62,6 +62,7 @@ public class TabWorkFragment extends KjBaseFragment implements View.OnClickListe
         mWb = (WebView) rootView.findViewById(R.id.wb);
         mPb = (ProgressBar) rootView.findViewById(R.id.pb);
         String url = Constants.getWebViewUrl() + Constants.JOB_LARAM + "?token=" + UserService.getInstance(App.getContext()).getToken();
+        Log.e(TAG, "initFragmentView url: "+url );
         mWb.loadUrl(url);
     }
 

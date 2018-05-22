@@ -54,7 +54,8 @@ public class Constants {
 //                hostUrl = "http://zafkapp.test.iotone.cn:12026/rentalestate.asmx";
 //                hostUrl = "http://183.129.130.116:51003/RentalEstate.asmx ";//演示
 //                hostUrl = "http://122.228.188.212:13100/rentalestate.asmx";
-                hostUrl = "http://10.1.6.6:13100/RentalEstate.asmx";//临时测试状态值
+//                hostUrl = "http://10.1.6.6:13100/RentalEstate.asmx";//临时测试状态值
+                hostUrl = "http://10.1.5.155:1003/RentalEstate.asmx";//临时测试聪聪提供
 
                 break;
             case PSTORE:
@@ -77,7 +78,7 @@ public class Constants {
         String webViewUrl = "";
         switch (RELEASE_SERVICE) {
             case TEST:
-                webViewUrl = "http://zafkapp.test.iotone.cn:12026/";
+                webViewUrl = "http://10.1.5.155:1003/";
                 break;
             case PSTORE:
             case LIUGUANTONG:
