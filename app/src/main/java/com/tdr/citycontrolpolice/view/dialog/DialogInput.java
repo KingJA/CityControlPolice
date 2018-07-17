@@ -54,7 +54,6 @@ public class DialogInput extends Dialog {
         mBtnStationInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (onInputListener != null) {
                     stationNo = mEtStationInput.getText().toString().trim();
                     if (CheckUtil.checkEmpty(stationNo,"请输入基站编号")){
